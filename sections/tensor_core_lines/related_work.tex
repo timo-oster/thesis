@@ -1,0 +1,224 @@
+
+%
+\section{Related Work} % (fold)
+\label{sec:tcl_related_work}
+%
+The basis of this work is the extractor for centers of swirling flow in vector
+fields first described by Sujudi and Haimes~\cite{Sujudi1995}.
+%
+In their original paper, they examine the Jacobian $\nabla \vv$ of a vector
+field $\vv$.
+%
+They search for vortex core lines only in areas where $\nabla \vv$ has two
+complex eigenvalues, \ie, where the flow shows locally swirling behavior.
+%
+The location of a vortex core line is then defined as the set of points where
+the velocity is parallel to the single real eigenvector.
+%
+These are the locations where the swirling in the orthogonal plane vanishes
+and only a motion along the eigenvector direction remains.
+%
+Note that vortex core lines defined in this manner are generally not stream
+lines of the vector field.
+%
+When applying this method to a piecewise linear vector field, the result is a
+set of straight line segments.
+%
+Since the derivative $\nabla \vv$ is constant within each cell, these segments
+do not generally form closed lines.
+%
+Single line segments may appear due to noise, but if multiple line segments form
+a visually coherent line, it is a strong indicator for vortical behavior in the
+flow.
+%
+The advantage of this vortex core line extractor is its inherent locality, which
+makes it well-suited for parallelization and avoids expensive line integration.
+%
+%
+\subsection*{Parallel Vectors} % (fold)
+\label{sub:tcl_parallel_vectors}
+%
+Peikert and Roth~\cite{Peikert1999} showed that the vortex core lines described
+by Sujudi and Haimes are locations where the acceleration $\nabla \vv \cdot \vv$
+is parallel to the vector field, and identified this as one application of a
+concept they called the \emph{parallel vectors operator}.
+%
+This concept had been applied in a lot of other contexts before, such as ridge
+detection in scalar fields~\cite{Haralick1983} and extraction of
+attachment/separation lines in flows~\cite{Kenwright1999}.
+%
+
+%
+An overview of a number of algorithms for computing parallel vectors can be
+found in Martin Roth's PhD thesis~\cite{Roth2000}.
+%
+A common approach is to first determine intersection points of the \ac{PV} lines
+with the cell faces of a data set.
+%
+The resulting points are then connected to lines.
+%
+If there are exactly two intersections with the faces of a cell, they can be
+trivially connected with a line.
+%
+In case of a higher number of intersections, different heuristics have been
+employed, the simplest one being to subdivide the cell until there are again
+only two intersections.
+%
+
+%
+Another class of algorithms employs some form of line tracing to follow a
+parallel vector line starting from a seed point that has been found by one of
+the aforementioned face intersection methods.
+%
+Banks and Singer~\cite{Banks1995} and Miura and Kida~\cite{Miura1997} employed a
+predictor-corrector scheme, following the lines in small steps and minimizing
+the angle between the vector fields in an orthogonal plane after each step.
+%
+Sukharev et al.~\cite{Sukharev2006} presented a mix between both approaches by
+first finding intersection points on a (potentially coarser) grid, and then
+following the analytical tangent of the \ac{PV} line to connect them.
+%
+A similar approach is taken by Theisel et al.~\cite{Theisel2003a}, where the
+\ac{PV} line is reformulated as a stream line in a {\em feature flow field} that is
+derived from the original vector fields.
+%
+Given a starting point on the \ac{PV} line, it can be traced like a stream line with
+any standard ODE solver.
+%
+The \emph{PVsolve} framework introduced by van Gelder and Pang~\cite{Gelder2009}
+is a generalized approach for finding \ac{PV} lines in vector fields of different
+dimensionality.
+%
+Their approach views the tracing of \ac{PV} lines as a root-finding problem and
+presents an algorithm that does not suffer from accumulating errors.
+%
+Weinkauf et al.~\cite{Weinkauf2010a} presented stable feature flow fields as an
+extension to feature flow fields that similarly eliminates accumulating errors.
+%
+
+%
+Most \ac{PV} algorithms assume they operate on piecewise linear or piecewise
+bi-/trilinear data in two- or three-dimensional space.
+%
+However, there have been a number of publications dealing with higher-order data
+or using higher-order methods in some form.
+%
+Roth and Peikert~\cite{Roth1998} introduced a method for finding strongly curved
+vortex core lines by using higher-order derivatives of the flow field.
+%
+Bauer and Peikert~\cite{Bauer2002} used a scale-space technique to filter out
+small-scale structures and irrelevant large-scale ones when computing vortex
+cores.
+%
+Pagot et al.~\cite{Pagot2011} presented an algorithm for extracting \ac{PV} lines
+from data represented by higher-order basis functions.
+%
+Due to its generality, the already mentioned \emph{PVsolve}
+framework~\cite{Gelder2009} allows for extracting parallel vector surfaces in
+time-dependent vector fields.
+%
+Similarly, Theisel at al.~\cite{Theisel2005} extracted \ac{PV} surfaces in unsteady
+flows and applied it to vortex core line tracking.
+%
+All these methods work on vector fields, while our approach deals with
+second-order tensor fields.
+%
+% subsection parallel_eigenvectors (end)
+
+\subsection*{Tensor Field Visualization} % (fold)
+\label{sub:tcl_tensor_field_visualization}
+%
+Tensor fields (of second order) occur in a variety of different scientific
+contexts.
+%
+Some examples are stress and strain tensors in mechanical engineering
+applications, and diffusion tensors occuring in \ac{DTI}, a special \ac{MRI}
+modality used to visualize fiber tracts, \eg, in the human brain.
+%
+Tensor field visualization methods can be roughly classified into three
+different categories:
+%
+glyph-based, line-/surface-based and topology-based.
+%
+
+%
+Glyph-based methods for tensor field visualization place small geometric objects
+in space to represent certain characteristics of the local tensor.
+%
+Diffusion tensors, which are symmetric and positive definite, have been
+visualized by Kindlmann~\cite{Kindlmann2004} using superquadric glyphs
+aligned with the eigenvector directions.
+%
+By explicitly encoding eigenvalue signs in geometry, Schultz and
+Kindlmann~\cite{Schultz2010a} extended this to indefinite tensors.
+%
+Gerrits \etal~\cite{Gerrits2017} additionally incorporated complex eigenvalue
+information into the glyph design to visualize general second-order tensors
+in \ac{2D} and \ac{3D}.
+%
+A specialized glyph for stress and strain tensors was introduced by Hashash
+\etal~\cite{Hashash2003}.
+%
+Kindlmann and Westin~\cite{Kindlmann2006} addressed the problem of clutter by
+optimizing glyph placement to increase information density while minimizing
+occlusion.
+%
+Glyphs for comparative visualization of two different diffusion tensors were
+used on medical data by Zhang \etal~\cite{Zhang2016}.
+%
+
+%
+A simple extension of streamlines for visualizing symmetric tensor fields in \ac{3D}
+are hyperstreamlines, first introduced by Delmarcelle and
+Hesselink~\cite{Delmarcelle1993}.
+%
+These hyperstreamlines follow one of the eigenvectors of the tensor field, while
+their cross-section is a cross shape or ellipse aligned with the other two
+eigenvectors and scaled by the corresponding eigenvalues.
+%
+The problem of undefined integration direction in near-isotropic areas was
+adressed by Weinstein \etal with a new concept called
+tensorlines~\cite{Weinstein1999}.
+%
+These lines behave like hyperstreamlines, but try to preserve direction in areas
+of equal eigenvalues by incorporating local context information.
+%
+As an extension to this concept, Jeremi{\'c} \etal introduced
+hyperstreamsurfaces~\cite{Jeremic2002}, which are formed analogous to
+hyperstreamlines by using a line instead of a point as the seed structure.
+%
+
+%
+The topology of symmetric \ac{2D} and \ac{3D} tensor fields was studied by
+Delmarcelle~\cite{Delmarcelle1994} and Hesselink~\cite{Hesselink1997}.
+%
+They characterized the topology of a tensor field by degenerate structures
+where two or more eigenvalues are equal.
+%
+Zheng and Pang~\cite{Zheng2004} build on top of this work and provide
+numerical algorithms for extracting the topological skeleton in practice.
+%
+Similar to the approach we take for extracting tensor core lines, their initial
+algorithm is based on finding the roots of a number of discriminant functions on
+the cell faces of a dataset using a bisection algorithm, and then connecting
+them to lines.
+%
+Zheng \etal later introduced alternative approaches that are based on solving
+a system of equations on each face, and on tracing the degenerate lines using
+their analytical tangent~\cite{Zheng2005}.
+%
+As Schulz \etal~\cite{Schultz2007} showed, these features are very sensitive to
+noise.
+%
+A more stable approach suitable to noisy data such as obtained from DTI scans
+was therefore proposed by Tricoche \etal~\cite{Tricoche2008}.
+%
+The notion of tensor topology was recently extended to surfaces of neutral and
+traceless tensors by Palacios \etal~\cite{Palacios2016}, who also propose an
+improved algorithm for extracting degenerate lines.
+%
+Assymetric tensors were studied in 2D by Zheng and Pang~\cite{Zheng2005a} and
+in the context of flow visualization by Zhang \etal~\cite{Zhang2009}.
+%
+% - Gordon on derivatives of eigenvectors
+% section related_work (end)

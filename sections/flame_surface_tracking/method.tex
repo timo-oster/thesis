@@ -1,0 +1,629 @@
+
+%
+\section{Mathematical Basis} % (fold)
+\label{sec:fst_mathematical_basis}
+%
+In the following two sections, we give a brief introduction into the
+mathematical basis of the problems we want to solve.
+%
+First, we derive the equation for the movement of the flame surface over time.
+%
+Then, we introduce the tangential deformation gradient, which describes the
+distortion an infinitesimally small section of the surface experiences in a
+certain time interval.
+%
+\subsection{Tracking the Flame Surface} % (fold)
+\label{sub:tracking_the_flame_surface}
+%
+We view the flame surface as an implicit surface $s(\vx, t) = \Gamma$.
+%
+This scalar function is transported by the fluid velocity $\vv(\vx, t)$ and
+influenced by diffusion and chemical reaction processes.
+%
+A point $\vx$ with velocity $\vu$ tracking the surface has a zero Lagrangian
+derivative, \ie, the value of $s$ at the point does not change over time.
+Therefore
+%
+\[
+    \frac{\mathrm{D}s}{\mathrm{D}t} =
+    \frac{\partial s}{\partial t} + \nabla s \cdot \vu = 0 \, \text{.}
+\]
+%
+This constrains the component of $\vu$ that is normal to the surface.
+%
+In tangential direction, we want $\vu$ to adhere to the fluid velocity, \ie,
+%
+\[
+    \Norm{\vu - \vv}^2 \rightarrow \text{min}\,\text{.}
+\]
+%
+Combining both constraints using Lagrange multipliers, the solution for
+the velocity of a point on the implicit surface is given by
+%
+\[
+    \vu = \vv - \frac{\frac{\partial s}{\partial t} + \nabla s \cdot \vv}
+                     {\Norm{\nabla s}^2}
+                \nabla s \,\text{.}
+\]
+%
+This equation is expressed as $\vu = \vv + s_d \,\vn$ in combustion literature
+\cite{Poinsot2012}.
+%
+Here, $s_d$ is the speed of flame propagation normal to the surface and relative
+to the fluid velocity and $\vn = - \nabla s / \Norm{\nabla s}$ is the unit
+surface normal.
+%
+\subsection{Tangential Deformation of an Implicit Surface in a Flow} % (fold)
+\label{ssb:tangential_surface_deformation}
+%
+In the previous section, we showed how a point on the surface moves over time.
+%
+We now derive the tangential deformation gradient, which encodes the relative
+movement of surface points in an infinitesimal neighborhood.
+%
+
+%
+We consider the starting position of a point on the surface at some time $t_0$.
+%
+\Wlog we assume that this point is at the origin $\vNull$.
+%
+Let $\chi(\vx,t)$ be the mapping function that maps a point $\vx$ to its
+position at time $t > t_0$ after moving with the surface.
+%
+\Wlog we assume that $\chi(\vNull,t) = \vNull$.
+%
+The spatial deformation gradient $\mF = \nabla \chi$, which encodes the behavior
+of a point $\vx$ in an infinitesimally small neighborhood around $\vNull$, can
+then be expressed as
+%
+\[
+    \mF \cdot \vx = \chi(\vx, t)\quad
+        \text{for } \vx \rightarrow \vNull \, \text{.}
+\]
+%
+We are only interested in the tangential part of this deformation, \ie, the
+behavior in a tangential coordinate system that moves and rotates with the
+surface.
+%
+In order to isolate the tangential component, we first need to eliminate this
+rotation.
+%
+A (right) polar decomposition $\mF = \mU \, \mP$ separates the rotational
+part $\mU$ from the rest of the deformation.
+%
+The tangential component is now obtained by projecting $\mP = \T\mU \, \mF$ into
+the local tangent space at time $t_0$.
+%
+Let $\mB$ be a matrix with orthonormal basis vectors of this tangent space as
+its columns.
+%
+Then the tangential deformation gradient $\hat\mF$ is
+%
+\begin{equation}
+    \label{eqn:tangent_deformation_tensor}
+    \hat\mF = \T\mB \, \T\mU \, \mF \, \mB\,\text{.}
+\end{equation}
+%
+Note that $\mB \in \RRSet^{3\times2}$; and thus $\hat\mF \in \RRSet^{2\times2}$.
+%
+See \autoref{fig:tangential_deformation} for an intuitive interpretation of this
+transformation.
+%
+Thus, $\hat\mF$ encodes the behavior of a point $\hat\vx$ in an
+infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
+%
+\[
+    \hat\mF \cdot \hat\vx = \T\mB \, \chi(\mB \, \hat\vx, t)\quad
+    \text{for } \vx \rightarrow \vNull \, \text{.}
+\]
+%
+\begin{figure}[tb]
+    \centering
+    \setlength{\figurewidth}{0.8\textwidth}
+    \input{figures/tangential_deformation_tikz.tex}
+    \caption{Extracting the tangential component of the deformation
+    gradient. A local neighborhood is transformed by the deformation gradient
+    $\mF$. In the process, the local coordinate system is rotated by
+    $\mU$, which must be reverted before isolating the tangential component
+    of $\mF$ by multiplying with the tangential basis $\mB$ from both sides.}
+    \label{fig:tangential_deformation}
+\end{figure}
+%
+% section mathematical_basis (end)
+%
+\section{Discretization} % (fold)
+\label{sec:fst_discretization}
+%
+Our objective is an algorithm for tracking the flame surface on-the-fly during
+a simulation run.
+%
+It must produce the paths of single points on the surface over time, as well as
+the tangential deformation of the surface for arbitrary time intervals.
+%
+Additionally, the algorithm needs to be highly parallelizeable in order to work
+well in the environment of a massively parallel simulation.
+%
+A naive approach might be performing an isosurface extraction in each time step
+of the simulation.
+%
+However, subsequent isosurfaces do not contain information about surface point
+correspondence between time steps.
+%
+This correspondence is necessary if we want to provide point paths and compute
+the surface deformation.
+%
+Alternatively, one could advect the vertices of an explicit surface mesh,
+adaptively remeshing it as the surface deforms over time.
+%
+Due to the global nature of such remeshing operations, this is infeasible in a
+massively parallel environment, where irregular communication between
+neighboring processors is known to be a major source of bottlenecks.
+%
+
+%
+We therefore choose to represent the surface as a cloud of micro-patches
+consisting of a central point and four \textit{ghost particles} (see
+\autoref{fig:point_group}, left).
+%
+The ghost particles sample the shape and deformation of the micro-patch in the
+local neighborhood around the central point.
+%
+Each group of points is tracked completely independently.
+%
+We monitor the deviation of the ghost particles from the tangent plane at the
+central point and the deviation of their relative movement from linear behavior.
+%
+Once this deviation exceeds a user-defined threshold, we split the patch into
+three independent new patches to ensure sufficient sampling.
+%
+To avoid oversampling, we merge patches when they become too small, \eg, because
+the surface flattens over time or tangential movement bunches up
+many patches in a small area.
+%
+The tangential surface deformation is then reconstructed from the relative
+behavior of the points in a group between split/merge events.
+%
+
+%
+\subsection{Micro-Patches for Surface Tracking} % (fold)
+\label{sub:surface_patch_representation}
+%
+\tikzset{external/export=false}
+\begin{figure}[tb]
+    \centering
+    \setlength{\figurewidth}{\linewidth}
+    \input{figures/point_group_tikz.tex}
+    \caption{Ghost particles
+            (\protect\tikz
+                \protect\draw[thick, fill=white] circle [radius=0.08cm];)
+            are initialized in an orthogonal configuration around the central
+            point
+            (\protect\tikz\protect\draw[fill=black] circle [radius=0.08cm];)
+            in the tangent plane. While integrating the points over time, they
+            deviate from a planar, linear behavior. The difference between the
+            real positions and the nearest linear configuration
+            (\protect\tikz\protect\draw[thick, gray] circle [radius=0.08cm];)
+            in the tangent plane is measured by the normal error $e_\perp$
+            (\protect\tikz[baseline=-0.5ex]
+                \protect\draw[very thick, mycolor2] (0, 0) -- (2ex, 0);)
+            and the tangential error $e_\shortparallel$
+            (\protect\tikz[baseline=-0.5ex]
+                \protect\draw[very thick, mycolor1] (0, 0) -- (2ex, 0);).
+            }
+    \label{fig:point_group}
+\end{figure}
+\tikzset{external/export=true}
+%
+A micro-patch is represented by a group of five points: A center and four
+\textit{ghost particles}.
+%
+On initialization, the points are arranged in an orthogonal cross shape in the
+tangent plane defined by the surface normal $\vn$ at the central point $\vx$
+(see \autoref{fig:point_group}).
+%
+In this way, they sample the shape and deformation in all directions as they
+follow the surface over time.
+%
+We describe the configuration (\eg, the state excluding the absolute position)
+of a micro-patch at time $t$ as a matrix $\mC(t) \in \RRSet^{3\times5}$ consisting
+of the surface normal $\vn(t)$ at the central point as well as the relative
+positions of the ghost particles $\vx_i(t),~i \in \{1, ..., 4\}$.
+%
+\[
+    \mC(t) = \begin{pmatrix}
+                \vn(t) &
+                \vx_1(t) - \vx(t) &
+                \cdots &
+                \vx_4(t) - \vx(t)
+             \end{pmatrix}\, \text{.}
+\]
+%
+In the following, we omit the dependence of $\mC$, $\vn$, and $\vx_i$ on the
+time $t$ and we assume that $\vx = \vNull$ wherever the meaning is clear from
+context.
+%
+For the initial configuration at some time $t_0$, $\mC$ can be exactly
+represented by a unit base configuration $\mC_0$ being transformed by a linear
+transformation $\mT$, \ie,
+%
+\[
+    \mC(t_0) = \mT \, \mC_0, \quad \text{with} \quad
+    \mC_0 = \begin{pmatrix}
+        \ve_3 & \ve_1 & -\ve_1 & \ve_2 & -\ve_2
+    \end{pmatrix} \, \text{,}
+\]
+%
+where $\ve_i$ are the unit vectors in the $i$-th coordinate direction.
+%
+As the points track the surface over time, their relative position will change.
+%
+Their relation to $\mC_0$ might no longer be linear.
+%
+Now, $\mT$ is the linear transformation that best approximates the mapping
+between $\mC_0$ and $\mC$, \ie, the solution to the least squares problem
+%
+\[
+    e^2 = \Frob{\T\mC_0 \, \T\mT - \T\mC}^2 \rightarrow \text{min} \, \text{.}
+\]
+%
+Here, $\Frob{\cdot}$ denotes the Frobenius norm.
+%
+The residual error $e$ measures the deviation of the real mapping between
+$\mC_0$ and $\mC$ from linear behavior.
+%
+However, its scale is dependent on the size of the micro-patch, \ie, the
+magnitude of the last four columns of $\mC$, and it weights those columns
+differently from the normal in the first column.
+%
+To get a more meaningful error, we normalize these columns by their average
+magnitude and obtain a modified transformation $\mT_n$ and error $e_n$ by
+%
+\begin{gather}
+    \label{eqn:normalized_system}
+    e_n^2 = \Frob{\T\mC_0 \, \T\mT_n
+            - \T\mC_n}^2 \rightarrow \text{min} \, \text{,}\\
+    \text{with}\
+    \mC_n = \begin{pmatrix}
+        \vn & \vx_1/c & \cdots & \vx_4/c
+    \end{pmatrix}
+    \  \text{and}
+    \ c = \frac{1}{4} \sum_i^4{\Norm{\vx_i}} \text{.}
+\end{gather}
+%
+We separate this error into normal and tangential components
+%
+\begin{align}
+    e_\perp =& \Frob{\vn \, \T\vn (\mT_n \, \mC_0 - \mC_n)} \\
+    e_\shortparallel = & \Frob{(\mI - \vn \, \T\vn )
+                                  (\mT_n \, \mC_0 - \mC_n)} \, \text{.}
+\end{align}
+%
+$e_\perp$ is a measure for the deviation of the ghost particles $\vx_i$ from the
+tangent plane.
+%
+As such, it measures the local surface curvature in relation to the patch size.
+%
+$e_\shortparallel$ measures how much the tangential deformation of the ghost
+particles deviates from linear behavior.
+%
+As the micro-patch changes over time, we use these errors to decide when to
+split or merge patches to ensure sufficient sampling of the surface geometry
+and tangential deformation.
+%
+% subsection surface_patch_representation (end)
+%
+\subsection{Splitting and Merging Surface Patches} % (fold)
+\label{sub:splitting_surface_patches}
+%
+We split a micro-patch into three new patches when one of the following
+occurs:
+%
+\begin{itemize}
+    \item The error $e_\perp$ exceeds a threshold $r_\perp$
+    \item The error $e_\shortparallel$ exceeds a threshold $r_\shortparallel$
+    \item The major axis exceeds a threshold $r_\text{size}$
+\end{itemize}
+%
+The first two are to ensure a sufficient sampling, the third is to ensure a
+maximum patch size even on flat parts of the surface.
+%
+In a parallel distributed simulation, the size of a patch is limited by the
+size of the block of the simulation domain it is contained in.
+%
+
+%
+When splitting a micro-patch, we need to decide the positions of the points
+forming the new patches.
+%
+In this context, it helps to think of the micro-patch as an ellipse being
+defined by the positions of the ghost particles around the central point.
+%
+On initialization, the ghost particles are always placed along the principal
+axes of the ellipse.
+%
+When the patch is transformed over time, the principal axes will generally not
+stay aligned with the ghost particles.
+%
+The major and minor axes of the current configuration can be reconstructed from
+the tangential component $\hat\mT$ of $\mT$, which is obtained similar to
+\eqref{eqn:tangent_deformation_tensor}:
+%
+\[
+    \hat\mT = \T{\left( \ve_1 \quad \ve_2 \right)} \,
+                \T\mU \, \mT \,
+                \left( \ve_1 \quad \ve_2 \right) \, \text{,}
+\]
+%
+where $\T\mU$ is the rotation obtained from the polar decomposition $\mT =
+\mU\mP$.
+%
+The directions and extents of the principal axes of the micro-patch are
+encoded in the singular value decomposition
+%
+\[
+    \hat\mT = \hat\mV \, \hat\mSigma \, \T{\hat\mW} \, \text{.}
+\]
+%
+The singular values $\sigma_{1,2}$ on the diagonal of $\hat\mSigma$ are the
+extents of the ellipse, while the rows of $\hat\mV$ are the directions of the
+major and minor axis in tangent space.
+%
+The directions in \ac{3D} space are the columns of $\mU\left( \ve_1 \quad \ve_2
+\right)\T{\hat\mV}$.
+%
+
+%
+When splitting the micro-patch, we want the new patches to cover the whole
+area captured by the old patch without overlapping, to prevent over- or
+undersampling as patches are split multiple times.
+%
+We also want to leave the central point in place, so we can track its path for
+as long as possible.
+%
+Consequently, we split the patch along its major axis into three identical new
+ones (see \autoref{fig:splitting_patch}).
+%
+The points of the new patches are again arranged in an orthogonal cross shape
+with the axes parallel to the axes of the old patch.
+%
+The length of the new first axis is exactly $\sfrac{1}{3}$ of the length of the
+old major axis.
+%
+The new second axis is as long as the old minor axis.
+%
+The new points are then projected onto the surface along the normal at the
+central point.
+%
+From this point on, they are treated idependently again.
+%
+\tikzset{external/export=false}
+\begin{figure}[tb]
+\centering
+\setlength{\figurewidth}{0.9\linewidth}
+\input{figures/splitting_tikz}
+         \caption{Splitting and merging micro-patches.
+         Left: An old micro-patch
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [thick, dashed, gray, fill=gray!20]
+          circle [x radius=2ex, y radius=1ex];)
+         is split up along its major axis
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [very thick, mycolor2] (0, 0) -- (2ex, 0);)
+         into three new identical patches
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [thick, dashed]
+          circle [x radius=2ex, y radius=1ex];).
+         Right: An old micro-patch
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [thick, dashed, gray, fill=gray!20]
+          circle [x radius=2ex, y radius=1ex];)
+         is extended to three times its size along its minor axis
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [very thick, mycolor1] (0, 0) -- (2ex, 0);).
+         Neighboring patches
+         (\protect\tikz[baseline=-0.5ex]
+          \protect\draw [thick, dashed, gray!50, fill=gray!10]
+         circle [x radius=2ex, y radius=1ex];) that were split off from the
+         central one at some earlier time are deleted instead.
+         }
+\label{fig:splitting_patch}
+\end{figure}
+\tikzset{external/export=true}
+%
+
+%
+The new central patch continues tracking the behavior of the neighborhood
+around the same point as the old patch.
+%
+We therefore consider it to be the same entity, but with its ghost particles
+reset to a more numerically stable configuration.
+%
+In contrast, we consider the new outer patches to be entirely new entities.
+%
+Consequently, if we say that a patch has been split or merged multiple times, we
+mean that it has been the central patch in a number of these operations.
+%
+
+%
+We consider a micro-patch for merging when
+%
+\begin{itemize}
+    \item both errors $e_\perp$ and $e_\shortparallel$ decrease below
+          lower thresholds $l_\perp$ and $l_\shortparallel$, respectively,
+    \item or the minor axis decreases below a threshold $l_\text{size}$
+\end{itemize}
+%
+Because the micro-patches are completely independent, we cannot explicitly
+merge multiple patches.
+%
+We therefore give every patch a counter, which is set to $0$ when it is first
+initialized and incremented each time it is split.
+%
+When the conditions for a merge are met, the behavior of a patch depends on its
+counter.
+%
+If the counter is $0$, the patch is simply deleted.
+%
+Otherwise, the counter is decremented and the patch is extended by a factor of
+$3$ along its minor axis.
+%
+Assuming the behavior of neighboring patches is similar, this effectively means
+that the new extended patch now covers the area of the neighboring patches,
+which were deleted.
+%
+This assumption does not generally hold for all parts of the surface.
+%
+We therefore typically choose $l_\perp$, $l_\shortparallel$, and $l_\text{size}$
+to be very small.
+%
+In this case, points will only be deleted in areas of extreme tangential
+compression, where removing very small patches will only result in small errors,
+and in areas of very simple deformation, where the assumption is unlikely to
+be violated.
+%
+
+%
+The central point of the extended patch stays in place, while the ghost
+particles are again placed along the principal axes of the old patch, but with
+the minor axis extended.
+%
+In this way, we ensure that the surface is not over-sampled where it is not
+necessary and that no infeasibly small patches are tracked, \eg, in areas of
+attracting tangential behavior.
+%
+Patches that were originally initialized at the start of the simulation are
+never deleted, in order to prevent holes from forming.
+%
+Since the surface at the start of a simulation is generally very simple and can
+be represented by a relatively small number of patches, this is not an issue
+in practice.
+%
+% subsection splitting_surface_patches (end)
+
+\subsection{Reconstructing Tangential Surface Deformation} % (fold)
+\label{sub:reconstructing_tangential_surface_deformation}
+%
+Let $\hat\mF_{\,t_s}^{\,t_e}$ be the tangential deformation gradient for a time
+interval $[t_s,\,t_e]$ at the central point $\vx(t_e)$.
+%
+To reconstruct it we need the corresponding deformation gradient
+$\mF_{\,t_s}^{\,t_e}$, which describes the relative change in position of points in
+a small neighborhood between times $t_s$ and $t_e$.
+%
+The behavior of the ghost particles of a micro-patch over time contains exactly
+this information.
+%
+However, because all ghost particles are located on the surface, they do not
+contain information about the behavior of $\mF$ in normal direction.
+%
+Fortunately, we only need the change in orientation of the surface normal to
+reconstruct $\hat\mF$, as any other information is discarded when projecting
+into the tangent plane.
+%
+It is therefore sufficient to determine a proxy transformation
+$\mE_{\,t_s}^{\,t_e}$, which maps the micro-patch configuration $\mC(t_s)$ to
+$\mC(t_e)$, and reconstruct $\hat\mF$ via
+%
+\[
+    \hat\mF_{\,t_s}^{\,t_e} = \T\mB \, \T\mU \, \mE_{\,t_s}^{\,t_e} \, \mB \, \text{,}
+\]
+%
+with $\mB$ the basis vectors of the tangent plane at $t_s$ and $\mU$ the
+rotation matrix from the polar decomposition of $\mE$.
+%
+
+%
+Let us first assume the micro-patch was not split or merged in the time
+interval, \ie, its ghost particles were not reset.
+%
+Because the real mapping between $\mC(t_s)$ and $\mC(t_e)$ will generally not be
+linear, $\mE_{\,t_s}^{\,t_e}$ is the solution to a least squares problem very
+similar to \eqref{eqn:normalized_system}.
+%
+To make the solution independent of the scale of the micro-patch, we scale the
+last four columns of both $\mC(t_s)$ and $\mC(t_e)$ by the average norm of these
+columns in $\mC(t_e)$.
+%
+The system for reconstructing $\mE_{\,t_s}^{\,t_e}$ is then
+%
+\begin{equation}
+    \label{eqn:deformation_reconstruction}
+    \Frob{\T\mC_n(t_s) \, \T{\mE_{\,t_s}^{\,t_e}} - \T\mC_n(t_e)}^2
+        \rightarrow \text{min} \, \text{,}
+\end{equation}
+%
+with $\mC_n(t_s)$ and $\mC_n(t_e)$ being the configurations with their last
+columns scaled.
+%
+
+%
+If the ghost particles were reset one or more times during the time interval,
+$\mE_{\,t_s}^{\,t_e}$ is the concatenation of multiple transformations:
+%
+\[
+    \mE_{\,t_s}^{\,t_e} = \mE_{\,t_n}^{\,t_e} \cdot \mE_{\,t_{n-1}}^{\,t_n}
+                      \cdot \; \cdots \; \cdot
+                      \mE_{\,t_1}^{\,t_2} \cdot \mE_{\,t_s}^{\,t_1} \, \text{,}
+\]
+%
+\begin{figure}[tb]
+\centering
+\setlength\figurewidth\linewidth
+\input{figures/transformation_concatenation_tikz}
+\caption{Reconstructing the deformation for an arbitrary time interval by
+         concatenating the deformations between split and merge events of the
+         patch.}
+\label{fig:transformation_concatenation}
+\end{figure}
+%
+where $t_i$ are the discrete times between $t_s$ and $t_e$ when the ghost
+particles were reset in the course of a split or merge operation.
+%
+Each sub-interval transformation is reconstructed from the new configuration of
+the micro-patch just after a split/merge and the old configuration just before
+the next one (see \autoref{fig:transformation_concatenation}).
+%
+
+%
+If we want to compute the tangential deformation a micro-patch at time $t_e$
+has experienced since the start time $t_s$, it is possible that this patch has
+not existed for the complete time interval, \ie, it was created at some time
+$t_k > t_s$ during a split operation.
+%
+In this case, we estimate the transformation between $t_s$ and $t_k$ from its
+parent patch by weighting the contributions of each ghost particle differently
+depending on their distance from the center of the new patch.
+%
+The details of this algorithm are presented in
+Appendix~\ref{sec:transform_interpolation}.
+%
+With this, we can reconstruct the tangential deformation gradient of any
+micro-patch for an arbitrary time interval.
+%
+% subsection reconstructing_tangential_surface_deformation (end)
+%
+\subsection{Initialization} % (fold)
+\label{sub:initialization}
+%
+At the start of the simulation, the initial surface has to be seeded with
+patches.
+%
+Most simulations start with a very simple surface, such as a plane or
+sphere, for which this operation is trivial.
+%
+If the starting surface is more complex, any existing isosurface meshing
+algorithm that produces near-equilateral triangles can be used, with patches
+initialized to cover the area of the 1-ring of each vertex.
+%
+When initializing the micro-patches, care has to be taken not to leave any
+holes, which might grow larger over time if the surface expands.
+%
+We ensure this by overlapping the initial patches, which will increase the
+number of necessary patches by a constant factor, but is easy to implement.
+%
+More elaborate approaches which avoid covering the surface with more than one
+layer of patches are conceivable.
+%
+% subsection initialization (end)
+%
+% section discretization (end)

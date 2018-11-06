@@ -1,0 +1,48 @@
+
+%
+\subsection{Evaluation of Diffusion Quality}
+\label{sec:eval_vis}
+%\todo{better title?}
+%
+By computing the shift values $t_f$ only for some of the vertices of $M$, and
+obtaining them at the other vertices by diffusion, an error is introduced. We
+quantify this error as the normalized root mean square difference between a
+ground truth and the values at each vertex after the diffusion process. The
+ground truth is obtained by computing the model parameters $t_f$ for each vertex
+of $M$ as described in Section \ref{sub:fitting}. The diffusion error
+$E^{V,f}_{\text{diff}}$ for variable $V$ and feature $f$ is defined as
+%
+\begin{equation*}
+	E^{V, f}_{\text{diff}} = 
+		\sum_{\vm_i \in M}
+			\left|
+				\frac{t^V_{f,i} - t'^{V}_{f,i}}{\max(t^V_f)-\min(t^V_f)}
+			\right|
+			\text{ ,}
+\end{equation*}
+%
+where $t^V_{f, i}$ is the true shift value for variable $V$ and feature $f$ at
+vertex $\vm_i$, $t'^{V}_{f,i}$ is the corresponding value obtained by
+diffusion, and $\max(t^V_f)-\min(t^V_f)$ is the range of true shift values over
+all vertices. We computed this error metric for all variables and time steps of
+data set \textsc{Hydrogen}, using different seeding densities $\seedDensQuot$.
+The results can be seen in Figure~\ref{fig:diffusion_quality}.
+% An appropriate seeding density $\seedDensQuot$ for a desired diffusion quality
+% and therefore accuracy of visualization can be automatically determined by
+% successively lowering $\seedDensQuot$ and computing $E^{V, f}_{\text{diff}}$
+% until a satisfactory error level is reached.
+% \todo{captain obvious?}
+
+\begin{figure}[t!]
+\setlength\figureheight{4.5cm} 
+	\setlength\figurewidth{0.75\linewidth}
+	\input{figures/diffusion_quality_small.tikz}
+	\caption{
+	Diffusion error (median, max and min) for selected variables of data set
+	\textsc{Hydrogen}. Images show qualitative results of visualization for
+	different seeding densities $\seedDensQuot$. The plots corresponding to each
+	variable are shifted by a constant increment.}
+	\label{fig:diffusion_quality}
+	\ruggedtodo[inline]{Make figure less ugly, move example images out of
+		plots, remove gradient, solve stacking plots more elegantly}
+\end{figure}

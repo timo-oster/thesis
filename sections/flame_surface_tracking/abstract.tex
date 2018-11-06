@@ -1,0 +1,44 @@
+
+%
+The visual analysis of combustion processes is one of the challenges of modern
+flow visualization.
+%
+In turbulent combustion research, the behavior of the flame surface contains
+important information about the interactions between turbulence and chemistry.
+%
+The extraction and tracking of this surface is crucial for understanding
+combustion processes.
+% However, not much work has been done towards a complete analysis of such
+% surfaces over the whole lifetime of a combustion simulation.
+%
+This is impossible to realize as a post-process because of the size of the
+involved datasets, which are too large to be stored on disk.
+%
+% The major issue is that saving output data in a sufficient temporal resolution
+% to enable an accurate tracking of a surface as a post process is prohibitively
+% expensive in terms of storage space.
+%
+We present an on-the-fly method for tracking the flame surface directly during
+simulation and computing the local tangential surface deformation for arbitrary
+time intervals.
+%
+In a massively parallel simulation, the data is distributed over many processes
+and only a single time step is in memory at any time.
+%
+To satisfy the demands on parallelism and accuracy posed by this situation, we
+track the surface with independent micro-patches and adapt their distribution as
+needed to maintain numerical stability.
+%
+% clarify that this is in contrast to going back in time and re-integrating with
+% a higher resolution?
+%
+% The tangential deformation gradient is then combined from the displacements of
+% the points between reseeding events.
+%
+With our method, we enable combustion researchers to observe the detailed
+movement and deformation of the flame surface over extended periods of time and
+thus gain novel insights into the mechanisms of turbulence-chemistry
+interactions.
+%
+We validate our method on analytic ground truth data and show its applicability
+on two real-world simulation.

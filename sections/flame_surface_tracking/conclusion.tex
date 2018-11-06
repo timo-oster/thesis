@@ -1,0 +1,35 @@
+
+%
+\section{Summary and Conclusion} % (fold)
+\label{sec:fst_summary_and_conclusion}
+%
+We have introduced a novel method for tracking the flame surface on-the-fly
+during a massively parallel distributed combustion simulation.
+%
+Because of this parallelism, our method uses independent micro-patches to
+represent the flame surface.
+%
+Patches are split and merged adaptively depending on their deformation in order
+to ensure an adequate sampling.
+%
+Based on the relative movement of surface points, we compute the tangential
+deformation experienced by a micro-patch over an arbitrary time interval.
+%
+
+%
+We validate the accuracy of our method on an analytic ground truth function
+and demonstrate its applicability on a real-world turbulent combustion
+simulation.
+%
+
+%
+Our method is the first to track the complete flame surface over the course of a
+simulation, making an important step towards the investigation of
+turbulence-chemistry interactions on a new scale.
+%
+With the tangential deformation gradient, we introduce a new time-integrated
+quantity describing the effect of turbulent flow on the flame that is a direct
+consequence of the advantages of an on-the-fly analysis compared to the
+traditional snapshot-based postprocessing.
+%
+% section summary_and_conclusion (end)

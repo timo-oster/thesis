@@ -1,0 +1,47 @@
+
+%
+\section{Limitations and Future Research} % (fold)
+\label{sec:tcl_limitations}
+% 
+Limitations can be discussed from two points of view:
+%
+the operator itself and the presented numerical extraction algorithm.
+%
+A limitation of the PEV operator is that it can only be applied to problems
+where the norm of the tensors does not matter.
+%
+This limits the applicability but on the other hand focuses on features of the
+tensor fields that are less covered by other methods.
+%
+
+%
+The presented extractor works for piecewise linear tensor fields only.
+%
+An extension to hexahedral grids as well as higher order interpolations is
+subject of future research.
+%
+The performance of the algorithm can be improved by parallelization.
+%
+In principle, the algorithm is parallelizable (each cell can be treated
+independently).
+%
+However, even if this is carefully carried out, interactive frame rates (for
+instance for comparing time-dependent tensor fields) are hardly achievable
+because we still have to do a search in a 6D space.
+%
+Due to the possibility of many candidate solutions for each intersection of a
+PEV line with a face, we can not give an upper limit on the error of the
+PEV line position.
+%
+This might limit its applicability in cases where a highly accurate PEV line is
+required.
+%
+
+%
+Applications of the PEV operator are not limited to the examples shown in this
+paper.
+%
+Further possible scenarios that are left to future research are the comparative
+visualization of DT-MRI data or a comparative visualization of Jacobian fields
+for flow visualization.
+%

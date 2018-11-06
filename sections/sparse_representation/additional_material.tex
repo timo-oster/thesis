@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+
+\usepackage[cm]{fullpage}
+\usepackage{fancyhdr}
+
+\usepackage{mathptmx}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{times}
+
+\usepackage{mathtools}
+
+\usepackage{import}
+\usepackage{pgfplots}
+%\pgfplotsset{compat = 1.5}
+\usepackage{pgfplotstable}
+
+\usepackage[lofdepth, lotdepth]{subfig}
+
+\usepackage[version=3]{mhchem}
+\usepackage{caption}
+
+\pagestyle{fancy}
+\fancyhead[C]{EuroVis Online Submission 104: Additional Material}
+
+\newlength\figureheight
+\newlength\figurewidth
+
+\title{EuroVis Online Submission 104: Additional Material}
+\date{}
+\author{}
+
+\begin{document}
+% \maketitle
+
+% \section*{Details for Visualization Approach}
+
+% Put here:
+% \begin{itemize}
+% 	\item More detailed explanation of diffusion process?
+% 	\item Details on constructing the feature surface from $M$ and the shift values?
+% 	\item Details on obtaining the difference values
+% 	\item computation of the color mapping from difference values
+% 	\item Computation of morphing with $u_2$
+% \end{itemize}
+
+\begin{figure}[tb]
+\centering
+	\setlength\figureheight{4cm} 
+	\setlength\figurewidth{0.5\textwidth}
+	\input{figures/isovalue_variation.tikz}
+\caption{Hausdorff distance of isosurface resulting from different isovalues
+of the combustion progress variable to the 0.5-isosurface. Plot shows the mean
+and standard deviation of data set \textsc{Hydrogen} over eight time steps of
+the more complex stage of the simulation. The distance values were divided by
+the length of the longest side of the simulation domain. It can be seen that the
+Hausdorff distance is less than 1.5\% of the simulation domain size when varying
+the isovalue by $\pm 0.1$, which is 20\% of the range of possible isovalues.
+This shows that the choice of the isovalue for extracting the flame surface is
+very robust.}
+	\label{fig:figure6}
+\end{figure}
+
+\begin{figure}[tb]
+	\begin{center}
+		\def\svgwidth{0.85\linewidth}
+		\import{figures/}{Hydrogen_dataset_variables.pdf_tex}
+	\end{center}
+	\caption{Overview over all variables of dataset \textsc{Hydrogen} for the last
+	and most complex time step.}
+	\label{fig:hydrogen_variables}
+\end{figure}
+
+\begin{figure}[tb]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{figures/Additional_Material_I.pdf}
+	\end{center}
+	\caption*{Comparison of reconstruction quality for selected Variables in \textsc{Syngas I}}
+	\label{fig:figure1}
+\end{figure}
+
+\begin{figure}[tb]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{figures/Additional_Material_II.pdf}
+	\end{center}
+	\caption*{Comparison of reconstruction quality for selected Variables in \textsc{Syngas II}}
+	\label{fig:figure2}
+\end{figure}
+
+\begin{figure}[tb]
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{figures/Additional_Material_III.pdf}
+	\end{center}
+	\caption*{Comparison of reconstruction quality for all Variables in \textsc{Syngas III}}
+	\label{fig:figure3}
+\end{figure}
+
+\begin{figure}[tb]
+	\setlength\figureheight{19cm} 
+	\setlength\figurewidth{0.33\textwidth}
+\begin{tabular}{cc}
+	\input{figures/msevcr_stack.tikz} &
+	\input{figures/msevcr_stack_data3.tikz}
+\end{tabular}
+\caption{Error vs. reduction ratio for all variables.
+	Left: \textsc{Syngas I}, right: \textsc{Syngas II}.
+	The plots corresponding to each variable are shifted by a constant
+	increment. The horizontal lines signify the zero-levels of the respective 
+	plots.}
+	\label{fig:figure4}
+\end{figure}
+
+% \begin{figure}[tb]
+% 	\begin{tabular}{cc}
+% 		\includegraphics[width=0.45\textwidth]{figures/0-10} & 
+% 		\includegraphics[width=0.45\textwidth]{figures/2-4}\\
+% 		\includegraphics[width=0.45\textwidth]{figures/5-12} &
+% 		\includegraphics[width=0.45\textwidth]{figures/10-12}
+% 	\end{tabular}
+% 	\caption*{Differences between different feature surfaces mapped
+% 	on the flame surface. Top left: T (temperature) vs. \ce{O},
+% 	top right: \ce{CO} vs. \ce{H},
+% 	bottom left: \ce{H2} vs. \ce{OH},
+% 	bottom right: \ce{O} vs. \ce{OH}}
+% 	\label{fig:figure5}
+% \end{figure}
+
+\end{document}

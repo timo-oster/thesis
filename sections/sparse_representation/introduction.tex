@@ -1,0 +1,69 @@
+
+\section{Introduction}
+\label{sec:intro}
+
+\ac{DNS} is an extremely precise method for simulating turbulent combustion
+processes. It resolves the underlying equations on a high-resolution grid
+without any modelling assumptions. A single \ac{DNS} run produces terabytes of
+multiple time-dependent \ac{3D} scalar fields that have to be stored, analyzed,
+and visualized. Due to the sheer size of the data, storing it in raw form is
+prohibitively expensive. This in turn prevents effective analysis and
+visualization. Existing approaches only focus on a subset of these problems, and
+fail to use the synergies an integrated approach has to offer. We introduce a
+sparse data representation tailored to \ac{DNS} data of premixed combustion that
+can directly be used for further analysis and visualization, and that retains
+the possibility of reconstructing the full scalar fields.
+
+% A single
+% \ac{DNS} run produces terabytes of multiple time-dependent 3D scalar fields for which
+% -- due to the sheer size of the data -- efficient compression methods are
+% necessary. Unfortunately, standard general-purpose compression techniques fail
+% to give sufficient compression results here.
+%
+% We introduce a compression technique which is tailored to \ac{DNS} data of combustion
+% simulations, giving significantly better compression results than standard
+% techniques. 
+
+Our approach is based on the observation that most of the relevant information
+is located in narrow-band regions where the chemical reactions take place, the
+so-called flame fronts. The different scalar fields behave similarly in these
+regions. In the presence of turbulent flow, the flame front develops complex,
+wrinkled shapes. The differences between scalar fields affected by turbulence,
+and their development over time give meaningful insights into the chemical
+process and its interaction with turbulent flow. An integrated approach for the
+visual analysis of such \ac{DNS} data must solve three problems:
+\begin{enumerate}
+	\item \label{i:size} Handling the \emph{enormous size} of the simulation data
+	\item \label{i:analyze} \emph{Analyzing} the behavior of the scalar fields
+	\item \label{i:visualize} \emph{Visualizing} the differences between the scalar fields
+\end{enumerate}
+%
+%----------------
+% RW commend is addressed here
+%Within such narrow-band regions a flame front is located:
+%A flame front equates to a layer on which different
+%chemicals mutual interact, which gives the flame front a clear physical interpretation.
+%In 2D the flame front is given by a 1D curve, in 3D by a 2D surface.
+%----------------
+%Although there is no generally agreed-upon definition of the flame front's
+%boundaries, there is a consensus about two main goals of a visual analysis of
+%such \ac{DNS} data:
+% \begin{itemize}
+% 	\item Intra-field analysis: the development of the scalar fields inside the 
+% 		flame front over time should be explored.
+% 	\item Inter-field analysis: the properties of the different scalar fields
+% 		inside the flame front should be compared.
+% \end{itemize}
+%
+The sparse data representation presented here considers all these problems. We
+fit domain-aware models to the data, exploiting its characteristics and
+transforming it into a lower-dimensional parameter space that retains all
+relevant information. In this space, the analysis and visualization can be
+carried out without accessing the original data. If necessary, the original
+scalar fields can still be reconstructed.
+
+The paper is organized as follows: In Section~\ref{sec:related}, we provide
+background information and present related work. The sparse data representation
+is introduced in Section~\ref{sec:compression}. Section \ref{sec:visualization}
+presents our visual analysis approach, and Section \ref{sec:conclusion}
+discusses our results and presents feedback from domain experts.

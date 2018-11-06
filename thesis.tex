@@ -1,0 +1,352 @@
+\documentclass[BCOR=15mm, DIV=8]{scrbook}
+\usepackage{typearea}
+
+\KOMAoptions{
+    captions=tableheading,
+    headings=twolinechapter,
+    chapterprefix=true,
+    numbers=noenddot
+}
+
+\usepackage[utf8]{inputenc} % allow using UTF-8 characters in input
+
+\usepackage[german, english]{babel}
+
+\usepackage{cool}
+
+% \usepackage[lining, semibold, p]{libertine}
+\usepackage[oldstylenums, nosf]{kpfonts}
+% \usepackage[
+%     lining,
+%     semibold,
+%     p]{libertine}           % libertine font with lining proportional figures (numbers) as default
+
+\usepackage[T1]{fontenc}    % font encoding most suitable for european languages
+% \usepackage{textcomp}       % needed for special characters
+% \usepackage[
+%     scale=0.95]{inconsolata}% typewriter font
+% \usepackage[zerostyle=d, scale=0.95]{newtxtt}
+% \usepackage[p,osf]{newtxtext}
+% \usepackage[
+%     heuristica,
+%     vvarbb]{newtxmath}      % math font
+
+% math
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage[binary-units=true]{siunitx}
+\usepackage[version=3]{mhchem}
+
+% typesetting
+\usepackage{microtype}      % small adjustments for better-looking text
+\usepackage{booktabs}
+\usepackage{tabularx,tabulary}
+\usepackage[super]{nth}     % write 1st, 2nd, 3rd, i-th correctly
+\usepackage{enumitem}       % customizing list formatting
+\setlist{                   % a little more compace lists
+    topsep=1ex,
+    parsep=0pt,
+    listparindent=\parindent}
+
+\usepackage[nolist,
+            smaller
+            ]{acronym}      % typeset and list acronyms
+
+\usepackage{type1cm}
+\usepackage{lettrine}
+% \renewcommand{\LettrineFontHook}{\fontfamily{fvs}\fontseries{bx}}
+
+% bibliography
+\usepackage{natbib}         % bibliography and reference styles
+\usepackage{bibentry}
+\nobibliography*
+
+% graphics
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,
+                shapes.misc,
+                shadings,
+                arrows,
+                calc,
+                3d,
+                positioning,
+                matrix}
+\tikzset{>=latex}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat = newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=tikz/]
+
+% miscellaneous
+\usepackage{todonotes}      % todo annotations
+
+% disable tikz externalization for todonotes
+\newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
+
+\usepackage{etoolbox}
+\usepackage[lofdepth, lotdepth]{subfig}
+
+% \usepackage[sf,sl,outermarks]{titlesec}
+\usepackage{tocstyle}
+
+\usepackage[
+    pagebackref]{hyperref}  % hyperlinking in PDF output
+\hypersetup{                % set up hyperref and pdf options
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black},
+    pdftitle={PhD Thesis},
+    pdfauthor={Timo Oster}
+}
+
+% turn off old-style figures where they don't belong
+% \makeatletter
+% \newcommand\switchtoTLF{\def\libertine@figurealign{T}\libertineLF}
+% \newcommand\switchtoPLF{\def\libertine@figurealign{}\libertineLF}
+% \newcommand\switchtoTOsF{\def\libertine@figurealign{T}\libertineOsF}
+% \newcommand\switchtoPOsF{\def\libertine@figurealign{}\libertineOsF}
+% \newcommand\switchtoSLF{\biolinumLF}
+% \newcommand\switchtoSOsF{\biolinumOsF}
+% \makeatother
+\newcommand\switchtoTLF{\fontfamily{jkp}\selectfont}
+\newcommand\switchtoPLF{\fontfamily{jkp}\selectfont}
+\newcommand\switchtoTOsF{\fontfamily{jkposn}\selectfont}
+\newcommand\switchtoPOsF{\fontfamily{jkposn}\selectfont}
+\newcommand\switchtoSLF{\fontfamily{jkpss}\selectfont}
+\newcommand\switchtoSOsF{\fontfamily{jkpssosn}\selectfont}
+
+\renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                        % switch reference item
+\renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}                      % switch citation item
+\renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
+
+% the following requires a KOMA documentclass (scr*)
+\addtokomafont{disposition}{\switchtoPLF{}\bfseries}                    % section headings (includes heading font)
+\addtokomafont{captionlabel}{\switchtoPLF{}}                            % figure/table numbers
+\setlist[enumerate]{font=\switchtoPLF{}}                                % enumeration items
+
+\usetocstyle{KOMAlike}
+\settocfeature{entryhook}{\switchtoPLF{}}                               % No old style figures in TOC
+
+% requires mathtools
+\newtagform{lining}[\switchtoPLF{}]{(}{)}                               % equation numbers
+\usetagform{lining}
+
+% tabular lining figures in tables
+\AtBeginEnvironment{tabular}{\switchtoTLF{}}
+\AtBeginEnvironment{tabularx}{\switchtoTLF{}}
+\AtBeginEnvironment{tabulary}{\switchtoTLF{}}
+
+% \useosf                     % switch on old style figures as default
+
+% \renewcommand{\thechapter}{\Roman{chapter}}
+% \titleformat{\chapter}[display]
+% {\switchtoPLF{}\bfseries\otherscshape\LARGE}
+% {\switchtoPLF{}\textcolor{gray}{%
+% \fontsize{0.75cm}{0.75cm}\selectfont\scshape\MakeLowercase{\chaptertitlename}}%
+% \fontsize{5cm}{5cm}\selectfont\filleft\textcolor{gray}{\thechapter}}
+% {0ex}
+% {\filright}
+
+\renewcommand*{\partpagestyle}{empty}
+\addtokomafont{part}{\normalfont\otherscshape}
+\renewcommand*{\partformat}{\scshape\fontsize{5cm}{5cm}\selectfont\thepart\autodot}
+
+% \let\raggedchapter\relax
+\addtokomafont{chapter}{\otherscshape\LARGE}
+
+\renewcommand*{\chapterformat}{%
+\vspace*{2cm}%
+\switchtoPLF{}\textcolor{gray}{%
+\hspace*{\fill}%
+\fontsize{0.8cm}{0.8cm}\selectfont\scshape%
+\MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
+\fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{gray}{\thechapter}}%
+}
+
+% Section numbers in margin
+% \renewcommand*{\sectionlinesformat}[4]{%
+%   \makebox[0pt][r]{#3}#4%
+% }
+
+\acused{1D}
+\acused{2D}
+\acused{3D}
+\acused{4D}
+\acused{5D}
+
+\definecolor{mycolor1}{HTML}{377EB8}%
+\definecolor{mycolor2}{HTML}{FF7F00}%
+\definecolor{mycolor3}{HTML}{4DAF4a}%
+\definecolor{mycolor4}{HTML}{E41A1C}%
+\definecolor{mycolor5}{HTML}{984EA3}%
+
+\usepackage{import}         % used by exported graphics from inkscape
+
+% commands and definitions
+\newlength{\figurewidth}    % used in tikz figures to enable scaling
+\newlength{\figureheight}
+
+% \usepackage{layout}
+
+\input{macros}              % math macros
+
+% symbols
+\newcommand{\seedDens}{\rho} % seed density function
+\newcommand{\seedDensQuot}{q} % parameter to regulate seed density
+
+\title{ Dissertation }
+
+\author{ Timo Oster }
+
+\begin{document}
+
+% \layout
+
+\frontmatter
+
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\input{sections/introduction}
+
+\input{sections/sci_vis}
+
+\part[On-the-fly Analysis and Visualization of Turbulent Combustion Simulations]
+        {On-the-fly Analysis and Visualization of the Flame Surface
+         in Direct Numerical Simulations of Turbulent Combustion} % (fold)
+\label{part:on_the_fly}
+
+\chapter{Introduction to Turbulent Combustion Visualization} % (fold)
+\label{cha:turbulent_combustion}
+
+% chapter turbulent_combustion (end)
+
+\chapter{Sparse Representation and Visualization for Premixed Flames} % (fold)
+\label{cha:sparse_representation}
+%
+\tikzset{external/export=false}
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
+        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
+        \textcolor{gray}{
+            This chapter is based on\\
+            \bibentry{Oster2014}
+        }
+    };
+\end{tikzpicture}
+\tikzset{external/export=true}
+%
+\input{sections/sparse_representation/introduction}
+\input{sections/sparse_representation/related}
+\input{sections/sparse_representation/approach_compression}
+\input{sections/sparse_representation/evaluation_compression}
+\input{sections/sparse_representation/approach_visualization}
+\input{sections/sparse_representation/evaluation_visualization}
+\input{sections/sparse_representation/conclusion}
+%
+% chapter sparse_representation (end)
+
+\chapter{On-the-fly Tracking of the Flame Surface} % (fold)
+\label{cha:flame_surface_tracking}
+%
+\tikzset{external/export=false}
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
+        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
+        \textcolor{gray}{
+            This chapter is based on\\
+            \bibentry{Oster2018a}
+        }
+    };
+\end{tikzpicture}
+\tikzset{external/export=true}
+%
+\input{sections/flame_surface_tracking/introduction}
+\input{sections/flame_surface_tracking/related_work}
+\input{sections/flame_surface_tracking/method}
+\input{sections/flame_surface_tracking/implementation}
+\input{sections/flame_surface_tracking/results}
+\input{sections/flame_surface_tracking/discussion}
+%
+% chapter flame_surface_tracking (end)
+
+% part on_the_fly (end)
+
+\part{Topological Methods for Tensor Field Visualization} % (fold)
+\label{part:tensor_vis}
+
+\chapter{Introduction to Tensor Field Visualization} % (fold)
+\label{cha:introduction_to_tensor_field_visualization}
+
+% chapter introduction_to_tensor_field_visualization (end)
+
+\chapter{The Parallel Eigenvectors Operator} % (fold)
+\label{cha:parallel_eigenvectors}
+%
+\tikzset{external/export=false}
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
+        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
+        \textcolor{gray}{
+            This chapter is based on\\
+            \bibentry{Oster2018b}
+        }
+    };
+\end{tikzpicture}
+\tikzset{external/export=true}
+%
+\input{sections/parallel_eigenvectors/introduction}
+\input{sections/parallel_eigenvectors/related_work}
+\input{sections/parallel_eigenvectors/theory}
+\input{sections/parallel_eigenvectors/method}
+\input{sections/parallel_eigenvectors/results}
+\input{sections/parallel_eigenvectors/discussion}
+\input{sections/parallel_eigenvectors/limitations}
+%
+% chapter parallel_eigenvectors (end)
+
+\chapter{Core Lines in 3D Second-Order Tensor Fields} % (fold)
+\label{cha:tensor_core_lines}
+%
+\tikzset{external/export=false}
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
+        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
+        \textcolor{gray}{
+            This chapter is based on\\
+            \bibentry{Oster2018}
+        }
+    };
+\end{tikzpicture}
+\tikzset{external/export=true}
+%
+\input{sections/tensor_core_lines/introduction_holger}
+\input{sections/tensor_core_lines/related_work}
+\input{sections/tensor_core_lines/notation}
+\input{sections/tensor_core_lines/theory}
+\input{sections/tensor_core_lines/method_christian}
+\input{sections/tensor_core_lines/results}
+\input{sections/tensor_core_lines/discussion}
+%
+% chapter tensor_core_lines (end)
+
+% chapter tensor_vis (end)
+
+\appendix
+\input{sections/flame_surface_tracking/transform_interpolation}
+
+\backmatter
+
+\input{acronyms}
+
+\bibliographystyle{alpha}
+\bibliography{bib_master}
+
+\end{document}

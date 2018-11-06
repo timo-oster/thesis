@@ -1,0 +1,216 @@
+\documentclass{egpubl}
+\usepackage{EGVMV18}
+\usepackage[utf8]{inputenc}
+\WsPaper
+\electronicVersion % can be used both for the printed and electronic version
+
+% !! *please* don't change anything above
+% !! unless you REALLY know what you are doing
+% ------------------------------------------------------------------------
+
+% for including postscript figures
+% mind: package option 'draft' will replace PS figure by a filname within a frame
+\ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
+\else \usepackage[dvips]{graphicx} \fi
+
+\PrintedOrElectronic
+
+% prepare for electronic version of your document
+\usepackage{t1enc,dfadobe}
+
+\usepackage{egweblnk}
+\usepackage{cite}
+
+\usepackage{cool}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+\usepackage{bm}
+
+\input{macros}
+
+
+\title{The Parallel Eigenvectors Operator -- Additional Material}
+\author[T. Oster, C. R{\"o}ssl \& H. Theisel]
+       {T. Oster, C. R{\"o}ssl and H. Theisel \\
+        University of Magdeburg, Germany}
+
+\begin{document}
+
+% \section*{Additional Material} % (fold)
+% \label{sec:additional_material}
+
+\section*{Notation} % (fold)
+\label{sec:pev_notation}
+%
+\noindent
+\begin{tabular}{ll}
+$\mM$ & Matrix in $\RRSet^{3 \times 3}$\\
+$\vv$ & Column vector in $\RRSet^3$ \\
+$v_i$ & Components of a vector $\vv$\\
+$\begin{pmatrix} \va & \vb & \vc \end{pmatrix}$ & Block matrix of multiple matrices/vectors \\
+$\overline{\mM}$, $\overline{\vr}$ & Matrix in $\RRSet^{6 \times 6}$/vector in $\RRSet^6$ \\
+$\vj_i$ & Unit vector along i-th coordinate \\
+$\mM_x, \vv_y,...$ & Partial derivatives of a Matrix/vector in $x, y, \dots$ \\
+$\nabla$ & Nabla operator $\T{(\frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}, \dots)}$
+\end{tabular}
+
+\section*{Proof of Theorem 1} % (fold)
+\label{sub:proof_of_theorem_1}
+
+\begin{theorem}
+    \label{thm:1}
+    The PEV operator delivers structurally stable curves that are either closed
+    or end at the boundaries of the domain.
+\end{theorem}
+%
+The main idea to prove \autoref{thm:1} is to search for PEV lines not in 3D
+$(x,y,z)$ space but in a 6D $(x,y,z,u,v,w)$ space:
+%
+at every point $\vx=\T{(x,y,z)}$, all vector directions $\vr=\T{(u,v,w)}$ are
+checked for being an eigenvector of $\mS$ and $\mT$.
+%
+This means that we search for all 6D points $\T{(\vx,\vr)}$ fulfilling
+$\mS(\vx)\, \vr \times \vr = \vNull$ and $\mT(\vx)\, \vr \times \vr = \vNull$.
+%
+We formulate this to search for all 6D points $\T{(\vx,\vr)}$ where a 6D vector
+field $\overline{\vh}$ vanishes:
+%
+\begin{equation}
+    \label{eq:theory_1}
+    \overline{\vh}(\vx,\vr) =
+        \begin{pmatrix}
+            \mS(\vx) \, \vr \times \vr \\
+            \mT(\vx) \, \vr \times \vr
+        \end{pmatrix}
+    = \overline{\vNull}.
+\end{equation}
+%
+Suppose a point $\T{(\vx_0,\vr_0)}$ is on a PEV structure, \ie, fulfills
+\eqref{eq:theory_1}.
+%
+In order to study the PEV structures in a linear neighborhood of
+$\T{(\vx_0,\vr_0)}$, we search for all directions $\T{(d \vx,d \vr)}$ in which
+$\overline{\vh}$ remains zero: $\nabla \overline{\vh} \cdot \T{(d \vx,d \vr)} =
+\overline{\vNull}$.
+%
+In other words: we have to explore the null space of $\nabla \overline{\vh}$.
+%
+Applying elementary differentiation rules gives
+%
+\begin{equation}
+    \label{eq:theory_2}
+    \nabla \overline{\vh} =
+        \begin{pmatrix}
+            \mG_1 &   \mG_3 \\
+            \mG_2 &   \mG_4
+        \end{pmatrix}
+\end{equation}
+%
+with
+%
+\begin{align}
+    \label{eq:theory_3}
+    \mG_1 & =
+        \begin{pmatrix}
+            \mS_x \, \vr \times \vr &
+            \mS_y \, \vr \times \vr &
+            \mS_z \, \vr \times \vr
+        \end{pmatrix}
+    \\
+    \mG_2 & =
+        \begin{pmatrix}
+            \mT_x \, \vr \times \vr  &
+            \mT_y \, \vr \times \vr  &
+            \mT_z \, \vr \times \vr
+        \end{pmatrix}
+    \\
+    \mG_3 & =
+        \begin{pmatrix}
+        \mS \, \vj_1 \times \vr +  \mS \, \vr \times \vj_1 &
+        \mS \, \vj_2 \times \vr +  \mS \, \vr \times \vj_2 &
+        \mS \, \vj_3 \times \vr +  \mS \, \vr \times \vj_3
+        \end{pmatrix}
+    \\
+    \mG_4 & =
+        \begin{pmatrix}
+        \mT \, \vj_1 \times \vr +  \mT \, \vr \times \vj_1 &
+        \mT \, \vj_2 \times \vr +  \mT \, \vr \times \vj_2 &
+        \mT \, \vj_3 \times \vr +  \mT \, \vr \times \vj_3
+        \end{pmatrix}
+    \, \text{.}
+\end{align}
+%
+Then
+%
+\begin{equation}
+   \label{eq:theory_4}
+   \T{\mG_1} \, \vr \; =\;  \T{\mG_2} \, \vr\; =\; 0
+\end{equation}
+%
+and from \eqref{eq:theory_1} follows
+%
+\begin{equation}
+   \label{eq:theory_5}
+   \T{\mG_3} \, \vr \;=\; \T{\mG_4} \, \vr \;=\;  0 \, \text{.}
+\end{equation}
+and
+\begin{equation}
+   \label{eq:theory_5a}
+   \mG_3 \, \vr \;=\; \mG_4 \, \vr \;=\; 0 \, \text{.}
+\end{equation}
+%
+Equations \eqref{eq:theory_4} and \eqref{eq:theory_5} give that
+%
+\begin{equation}
+   \label{eq:theory_6}
+   \Rank{\nabla \overline{\vh}} = 4
+\end{equation}
+%
+in the structurally stable case.
+%
+This means that for $\Rank{\nabla \overline{\vh}} < 4$, adding noise to $\mS,
+\mT$ brings $\Rank{\nabla \overline{\vh}}$ to $4$.
+%
+Equation \eqref{eq:theory_6} means that the PEV structure around
+$\T{(\vx_0,\vr_0)}$ is a 2-manifold in 6D.
+%
+To see Equation \eqref{eq:theory_6}, we consider a rotation of the underlying
+coordinate system such that $\vr=(0,0,r_z)$.
+%
+Then Equations \eqref{eq:theory_4} and \eqref{eq:theory_5} give
+that the rotated tensors $\mG_1,\mG_2,\mG_3,\mG_4$ have vanishing third columns.
+%
+This and Equation \eqref{eq:theory_1} gives that $\nabla \overline{\vh}$ has
+two colums, which proves Equation \eqref{eq:theory_6}.
+%
+
+%
+One vector in the null space of $\nabla \overline{\vh}$ is trivial and denotes a
+simple scaling of $\vr$:
+%
+Equations \eqref{eq:theory_4} -- \eqref{eq:theory_5a}
+give $\nabla \overline{\vh}
+\cdot \T{(\vNull, \vr)} = \overline{\vNull}$.
+%
+This means that the projection of the null space of $\nabla \overline{\vh}$ into
+the spatial subspace $\vx$ gives a one-manifold in 3D.
+%
+This shows that PEV gives line structures in 3D.
+%
+To show that they are closed, we consider the 6 components of $\nabla
+\overline{\vh}$ as scalar fields and interpret the PEV structure as intersection
+of their \ac{5D} iso-hypersurfaces.
+%
+Iso-hypersurfaces are always closed, which means their intersections are also
+closed.
+%
+
+%
+Note that the proof did not make any assumptions on
+the behavior of $\mS, \mT$ around $\T{(\vx_0,\vr_0)}$.
+%
+This means that it holds also in case of a transition from real to imaginary
+eigenvectors of $\mS$ or $\mT$ as well as in regions of isotropic tensors.
+%
+\end{document}

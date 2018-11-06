@@ -1,0 +1,464 @@
+
+%
+\section{Results} % (fold)
+\label{sec:fst_results}
+%
+We tested our algorithm on an analytic test function that is designed to
+resemble the behavior of a vortex, and on two real-world simulations.
+%
+The simulations were carried out on Phase 1 of the SuperMUC Petascale System of
+the Leibnitz Supercomputing Centre in Garching, Germany.
+%
+Each node of the system has two 8-core Intel Xeon E5 processors with a clock
+frequency of \SI{2.7}{\giga\hertz} and \SI{32}{\giga\byte} of shared memory.
+%
+The nodes are connected via Infiniband FDR10.
+%
+
+%
+In the following sections, we evaluate the accuracy of our method on the
+analytic test function, and show our results for the two simulation cases.
+%
+
+%
+\subsection{Analytical Test Function} % (fold)
+\label{sub:analytic_test_function}
+%
+\begin{figure*}
+    \centering
+    \setlength{\figurewidth}{\textwidth}
+    \input{figures/results_ground_truth_tikz}
+    \caption{The number of patches $N$ and the stretch coefficient $c$ of the
+         tangential deformation gradient $\hat\mF_{\,0}^{\,2}$ for the analytic
+         test function, using $r_\perp = 0.5$ and varying values for
+         $r_\shortparallel$. Each micro-patch is represented by an ellipse
+         scaled and aligned according to its principal axes and orthgonal to its
+         surface normal.}
+    \label{fig:ground_truth_comparison}
+\end{figure*}
+%
+\begin{figure}
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/ground_truth_errors_log_tikz}
+    \caption{Box plot of error distributions for the analytical test function.
+             We show the minimum, lower quartile, median, upper quartile and
+             maximum errors for different values of $r_\shortparallel$.}
+    \label{fig:ground_truth_errors}
+\end{figure}
+%
+To evaluate the accuracy of the tangential deformation gradient obtained by our
+method, we designed an analytic test function.
+%
+It imitates the behavior of a vortex in the shear layer between two gas streams.
+%
+The test function $s$ is defined as
+%
+\begin{align}
+	s(x, y, z, t) &=
+	\begin{cases}
+		z \cos A - (x - \frac{1}{2}) \sin A,
+			& \text{for } \sqrt{{(x - \frac{1}{2})}^2 + z^2} < \dfrac{1}{2} \\
+		z, &\text{else}
+	\end{cases}\, \text{,}\\
+	A(x, y, z, t) &=
+		2\pi t \sin{
+			\left({
+				\frac{\pi}{2}
+				\left({1 + \sqrt{4x^2 - 4x + 4z^2 + 1}}\right)
+			}\right)
+		}^2
+		\sin(\pi y)^2\, \text{.}
+\end{align}
+%
+The isosurface $s = 0$ coincides with the $xy$ plane at $t=0$.
+%
+As $t$ increases, the surface is curled up around the center at $(x,~y,~z) =
+(\sfrac{1}{2},~\sfrac{1}{2},~0)$.
+%
+The underlying velocity field of a vortex can not be easily expressed as an
+analytic function.
+%
+We therefore assume a fluid velocity of $\vv = \vNull$ for our tests.
+%
+
+%
+We observe the function in the domain ${x\in[0,~1]}$, ${y\in[0, 1]}$,
+${z\in[-\sfrac{1}{2},~\sfrac{1}{2}]}$, ${t\in[0,~2]}$ resolved in a $72 \times
+72 \times 72$ regular grid and a time step of $\Delta t = \num{5e-3}$.
+%
+This means that in the investigated time span the vortex makes exactly two full
+turns, resolved in \num{4000} time steps.
+%
+This closely resembles the lifetime of a vortex and temporal resolution observed
+in a real simulation setting.
+%
+
+%
+The velocity $\vu$ of the surface $s = 0$ can be expressed as an analytic
+function.
+%
+This enables us to obtain highly accurate ground truth data for the tangential
+deformation gradient $\hat\mF$.
+%
+The largest singular value of $\hat\mF$ signifies the largest stretching
+experienced by the local neighborhood of a point on the surface,
+which we call the stretching coefficient $c$ with
+%
+\[
+    c = \sigma_{\max}(\hat\mF)
+      = \sqrt{\lambda_{\max}(\T{\hat\mF} \, \hat\mF)}\,\text{.}
+\]
+%
+This is similar to the measure used when computing the \ac{FTLE} for measuring
+separation in flow fields\cite{Haller2002}.
+%
+In all tests, we use a normal error threshold of $r_\perp = 0.5$, which is
+rather coarse.
+%
+By doing this, we limit its influence on the accuracy of the results for
+the tangential deformation.
+%
+We show the distribution of differences to the ground truth solution for
+different tangential error thresholds $r_\shortparallel$ in
+\autoref{fig:ground_truth_errors}.
+%
+For the sake of brevity, we only show the results for the complete interval
+$t=[0,\,2]$, which will naturally show the largest errors.
+%
+\begin{figure*}
+    \centering
+    \setlength{\figurewidth}{\textwidth}
+    \centering
+    \input{figures/results_simulations_spherical_tikz}
+    \centering
+    \input{figures/results_simulations_hawkes_tikz}
+    \caption{Results of our algorithm for the real-world simulation cases.
+             We show the stretch coefficient $c$ on a logarithmic scale. For the
+             premixed flame case (top), $c$ was computed for an interval of
+             $\Delta t = \SI{1.7e-4}{\second}$ and
+             $\varepsilon_\shortparallel=0.02$. For the temporal diffusion jet
+             case (bottom), we show the stretch coefficient since the start of
+             the simulation, computed with $\varepsilon_\shortparallel=0.04$. We
+             also show the number of micro-patches per surface area as a factor
+             of the initial density at the start of the simulation. This density
+             factor $d$ is also shown on a logarithmic scale.}
+    \label{fig:simulation_results}
+\end{figure*}
+%
+As shown in Figures~\ref{fig:ground_truth_comparison} and
+\ref{fig:ground_truth_errors}, the accuracy of our method is strongly
+dependent on $r_\shortparallel$.
+%
+For large values of $r_\shortparallel$, the resulting deformation does not only
+contain unreasonably large errors, but the surface also exhibits some holes.
+%
+Splitting too late means that there is potentially a lot of non-uniform
+stretching across the patch that is not accounted for by the resulting child
+patches.
+%
+This shows that observing only the normal error $e_\perp$ is not sufficient to
+guarantee a good sampling of the surface, even if one is not interested in an
+accurate result for the tangential deformation gradient.
+%
+As the error threshold decreases, the holes close and the stretching value
+approaches the ground truth solution.
+%
+For the lowest error threshold value $r_\shortparallel = 0.01$, the number of
+patches at the end is still one order of magnitude smaller than the number of
+grid cells the function is resolved in.
+%
+% subsection analytic_test_function (end)
+%
+%
+\subsection{Premixed Flame in a Box} % (fold)
+\label{sub:premixed_flame_in_a_box}
+%
+We applied our algorithm to the combustion of a premixed hydrogen-air mixture in
+a periodic box resolved in a $512 \times 512 \times 512$ regular grid.
+%
+A high-temperature hot spot is placed in the middle of the domain, which is
+initialized with a flow field exhibiting isotropic turbulence.
+%
+After the gas mixture is ignited, a flame front travels through the domain,
+consuming the fresh gas mixture and leaving burned products behind.
+%
+As the flame expands, it is deformed by the turbulent flow, which is in turn
+influenced by the temperature and pressure changes induced by the chemical
+reaction.
+%
+The flame surface of a premixed flame is often defined as an isosurface of the
+temperature between the unburnt and burnt gases, which is what we track here.
+%
+Simulations of this type are relevant in safety research, where the influence of
+the turbulence intensity on the ignition probability of the flame is studied.
+%
+
+%
+The simulation ran for about \SI{90}{\hour} using \num{1024} parallel processors
+and performing about \num{21000} iterations.
+%
+We chose $r_\perp = 0.1$ and $r_\shortparallel = 0.02$ as well as
+$l_\perp = l_\shortparallel = \num{1e-4}$.
+%
+The thresholds $r_{\text{size}}$ and $t_{\text{size}}$ were chosen such that a
+surface patch is always smaller than the smallest extent of a block of the
+simulation domain, and larger than $\sfrac{1}{16}$ of the size of a grid cell.
+%
+\autoref{fig:simulation_results} (top) shows the results of our algorithm for
+four snapshots of the simulation.
+%
+The simulation starts with a spherical configuration represented by about
+\num{9000} micro-patches.
+%
+In the first shown time step, the surface has started to expand and wrinkle from
+its initial configuration.
+%
+At this point, the surface is represented by about \num{50000} micro-patches.
+%
+Up until the last time step at $t=\SI{3.0e-4}{\second}$, the number of patches
+increases to about \num{870000}.
+%
+Despite the change in surface area and complexity, we are able to accurately
+track the surface without any neighbor information between micro-patches.
+%
+We obtain smooth results that show which regions of the surface have expanded or
+contracted significantly.
+%
+%
+\autoref{fig:simulation_results} shows the change in number of patches per
+surface area compared to the initial seeding density.
+%
+A high concentration of patches occurs in areas with high surface curvature, as
+well as in areas where the surface deformation has a large nonlinear component.
+%
+
+%
+The ratio of the total surface area of all micro-patches to the true area of the
+flame surface remains stably around \num{3.3} for the whole simulation.
+%
+This shows that our strategy for splitting and merging micro-patches is
+successful in maintaining a consistent and stable coverage of the surface.
+%
+The number of splits performed per iteration fluctuates around
+\SI{0.015}{\percent} of the total number of micro-patches at all times.
+%
+The number of merge events per iteration is almost zero up until the time
+between the second and third snapshot shown in
+\autoref{fig:simulation_results}, at iteration \num{15000}, where
+it starts to increase, stabilizing at around half the number of splits.
+%
+
+%
+% subsection premixed_flame_in_a_box (end)
+%
+\subsection{Temporal Diffusion Jet Flame} % (fold)
+\label{sub:temporal_diffusion_jet_flame}
+%
+The second simulation is a temporal diffusion syngas jet flame resolved in a
+$1024 \times 1025 \times 512$ regular grid.
+%
+In a diffusion flame, the fuel and oxidizer are not premixed before ignition,
+such that combustion only takes place where the two gases mix.
+%
+The domain is initialized with a turbulent fuel layer in the center, surrounded
+by a quiescent air co-flow.
+%
+The fuel layer and co-flow move in opposite directions, resulting in strong
+shear forces that form vortices where the two gases meet.
+%
+The flame surface we track here is the isosurface of the stoichiometric mixture
+fraction, which is the ratio between fuel and oxidizer that theoretically
+results in perfect consumption of the fuel with no excess of the oxidizer.
+%
+
+%
+The simulation ran for about \SI{23}{\hour} using \num{4096} parallel
+processors.
+%
+In this time, the simulation performed about \num{3600} iterations.
+%
+For this case, we chose $r_\perp = 0.2$ and $r_\shortparallel = 0.04$ as well as
+$l_\perp = l_\shortparallel = \num{1e-4}$.
+%
+The thresholds are chosen higher than in the premixed case, because here, we are
+interested in the deformation of the surface over a smaller time interval of
+$\SI{4e-5}{\second}$.
+%
+The thresholds $r_{\text{size}}$ and $t_{\text{size}}$ were chosen with the same
+method employed for the premixed case.
+%
+We show our results for three different snapshots in
+\autoref{fig:simulation_results} (bottom).
+%
+The case starts with a planar surface on both sides of the fuel jet, which is
+moving from left to right in the images.
+%
+It is initially seeded with about \num{150000} micro-patches.
+%
+This number stays almost constant for the first \num{2000} iterations, as the
+surface wrinkles only a very small amount.
+%
+After this, the surface starts deforming rapidly.
+%
+As a result, the number of micro-patches increases rapidly up to about 3 million
+at the end of the simulation.
+%
+The surface deformation is characterized by lots of small fuel pockets intruding
+into the opposing air flow.
+%
+These pockets are round and smooth towards the outside, while they form a lot of
+sharp angles towards the inside.
+%
+Both the significant expansion of surface area at the tip of these pockets as
+well as the sharp angles towards the fuel side are handled well by our
+algorithm.
+%
+The ratio of the total area of all micro-patches to the true surface area
+remains constant here as well, but on a slightly lower level of \num{3.15}.
+%
+The number of splits is almost zero until the surface starts to deform
+significantly around iteration \num{2000}.
+%
+At this point, it starts to increase from \SI{0.002}{\percent} to about
+\SI{0.003}{\percent} of the total number of micro-patches until the end of the
+simulation.
+%
+This number is much smaller than for the premixed case, because here, the
+surface area does not change so dramatically over time.
+%
+The number of merges is initially much smaller than the number of splits, but
+increases steadily throughout the simulation until it is at about
+\SI{75}{\percent} towards the end.
+%
+This is due to the contracting behavior near the sharp angles in between fuel
+pockets, which causes lots of small patches to accumulate in a small area.
+%
+% subsection temporal_diffusion_jet_flame (end)
+%
+\subsection{Performance} % (fold)
+\label{sub:fst_performance}
+%
+\autoref{fig:performance_spherical} shows the performance over the course of the
+simulation, as well as the number of micro-patches existing at each time step.
+%
+We conducted multiple experiments with different choices for the subdivision
+treshold $\varepsilon_\shortparallel$.
+%
+For the sake of brevity, we only discuss the results for the lowest choice of
+$\varepsilon_\shortparallel$, which causes the highest overhead in computing
+time and shows the most accurate results.
+%
+
+%
+At the start of the premixed flame case, our implementation causes an overhead
+in computing time of about \SI{300}{\milli\second} per iteration, or about
+\SI{3}{\percent} of the base computing time.
+%
+As the flame surface expands, the overhead gradually increases, until it is at
+about \SI{12.5}{\second} or \SI{130}{\percent} at the end of the simulation.
+%
+For the temporal diffusion jet, the overhead starts out at about
+\SI{1200}{\milli\second} per iteration, or about \SI{10}{\percent} of the base
+computing time.
+%
+It remains fairly constant for the first \num{1500} iterations, as the surface
+does not change much during that time.
+%
+The surface then starts to wrinkle significantly, resulting in a sharp rise of
+computing time, reaching up to \SI{42}{\second}, or about \SI{350}{\percent} of
+the base time.
+%
+The overhead in computing time is proportional to the number of surface patches.
+%
+This means that it is also strongly dependent on the shape, area and deformation
+of the flame surface, which will be different for each simulation case.
+%
+For the premixed flame case, our implementation generates an overhead of about
+\SI{30}{\hour} or \SI{50}{\percent} for the whole simulation.
+%
+The memory consumption behaves very similarly, as it is also directly dependent
+on the number of micro-patches.
+%
+At the start of the simulation, we consume about \SI{90}{\giga\byte} of
+additional memory, which is an overhead of about \SI{30}{\percent} for this
+simulation case.
+%
+This rises to about \SI{400}{\giga\byte} at the end of the simulation, which
+represents an overhead of about \SI{130}{\percent}.
+%
+The total overhead in computing time caused by the temporal jet case is
+\SI{8.4}{\hour} or about \SI{67}{\percent}.
+%
+The additional memory consumption here reaches from \SI{800}{\giga\byte} to
+\SI{1800}{\giga\byte}, or \SI{44}{\percent} to \SI{150}{\percent}.
+%
+
+%
+\begin{figure}
+    \centering
+    \setlength\figurewidth\linewidth
+    \definecolor{tlowcolor}{HTML}{BD0026}
+    \definecolor{tmidcolor}{HTML}{F03B20}
+    \definecolor{thighcolor}{HTML}{FD8D3C}
+    \definecolor{nlowcolor}{HTML}{253494}
+    \definecolor{nmidcolor}{HTML}{2C7FB8}
+    \definecolor{nhighcolor}{HTML}{41B6C4}
+    \input{figures/performance_tikz}
+    \caption[Computing times per iteration for different subdivision thresholds
+             $\varepsilon_\shortparallel$.]
+            {\tikzset{external/export=false}
+            Computing times per iteration for different subdivision thresholds
+             $\varepsilon_\shortparallel$. We show the base computing time of
+             the simulation without surface tracking (
+             \tikz[baseline=-0.5ex]{\draw[thick, dashed, tlowcolor] (0, 0) -- (0.4cm, 0);})
+             as well as the total times with our method enabled (
+             \begin{tikzpicture}
+                \draw[thick, tlowcolor] (0, 0.5ex) -- (0.4cm, 0.5ex);
+                \draw[thick, tmidcolor] (0, 0) -- (0.4cm, 0);
+                \draw[thick, thighcolor] (0, -0.5ex) -- (0.4cm, -0.5ex);
+             \end{tikzpicture}
+             ). The number $N$ of micro-patches over time is shown as context
+             information (
+             \begin{tikzpicture}
+                \draw[thick, nlowcolor] (0, 0.5ex) -- (0.4cm, 0.5ex);
+                \draw[thick, nmidcolor] (0, 0) -- (0.4cm, 0);
+                \draw[thick, nhighcolor] (0, -0.5ex) -- (0.4cm, -0.5ex);
+             \end{tikzpicture}
+             ). The vertical lines mark the snapshots
+             shown in \autoref{fig:simulation_results}.
+             \tikzset{external/export=true}
+    }
+    \label{fig:performance_spherical}
+\end{figure}
+%
+
+%
+If we were to implement our approach as a post-processing step, we would need to
+store the raw simulation data to disk, possibly transfer it over a network, and
+read it again for each time step.
+%
+If we only store the simulation variables that are directly needed for tracking
+the flame surface (flow velocity and one scalar variable), we would already need
+\SI{100}{\tera\byte} of storage space for the whole premixed flame case, and
+\SI{60}{\tera\byte} for the temporal jet case.
+%
+This is more than is typically available for a user or project on a current high
+performance computing cluster.
+%
+Additionally, writing this data to disk for every simulation time step alone
+would incur about \SI{21}{\hour} of run time on our computing cluster for the
+premixed case and about \SI{13}{\hour} for the temporal jet case.
+%
+If we write all simulation variables, this increases to
+\SI{420}{\tera\byte} (\SI{90}{\hour}) and \SI{320}{\tera\byte} (\SI{70}{\hour}),
+respectively.
+%
+Considering that this is just part of the overhead inherent to a post-processing
+approach makes it clear that an on-the-fly solution is the only way of obtaining
+results with reasonable effort.
+%
+
+% subsection performance (end)
+%
+% section results (end)

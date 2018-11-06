@@ -1,0 +1,126 @@
+
+%
+\section{Discussion} % (fold)
+\label{sec:pev_discussion}
+%
+The \ac{PEV} operator was introduced as a generic operator, its interpretation is
+dependent on the application scenario.
+%
+
+%
+For stress tensors in mechanical engineering, the \ac{PEV} operator gives insight
+into the alignment of the tensors under different acting forces.
+%
+Areas with \ac{PEV} lines can be wanted or unwanted.
+%
+In areas with present \ac{PEV} lines, the stress tensor is similarly oriented for
+different external forces.
+%
+This could be used \eg, for deciding the placement of structural reinforcements
+or to guide the selection of materials.
+%
+In regions without \ac{PEV} lines, there is no stress in a preferred direction when
+applying different outer forces and material with a more isotropic behavior
+could be used.
+%
+
+%
+Besides this particular interpretation, there are general interpretations that
+are common to all applications of the \ac{PEV} operator.
+%
+The \ac{PEV} operator is agnostic to isotropic scaling of the tensors.
+%
+It gives information about the orientation of the tensors only.
+%
+In this way, the \ac{PEV} operator can be seen as an addition to many standard
+measures for comparing tensors like norm, trace, or eigenvalues.
+%
+
+%
+The presented algorithm for piecewise linear tensor fields does not use any
+derivatives of the data.
+%
+It depends on a number of thresholds to guide subdivision levels and filtering.
+%
+The spatial subdivision threshold $\epsilon_d$ influences the accuracy of the
+resulting \ac{PEV} lines.
+%
+A small threshold means more subdivisions and is one of the main factors
+influencing performance.
+%
+Since subdivision converges to single points, the computing time increases
+logarithmically when decreasing $\epsilon_d$.
+%
+
+%
+The directional subdivision threshold $\epsilon_r$ guides the accuracy of the
+obtained eigenvector direction.
+%
+Typically, the smaller the current spatial triangle $\vx_\triangle$ becomes,
+the smaller the region of valid eigenvector directions.
+%
+For increasing subdivision level in space, the valid eigenvector directions
+will converge on a point.
+%
+This means that for small $\epsilon_d$, the recursion in the space of directions
+will generally proceed to the highest subdivision level.
+%
+The influence of $\epsilon_r$ on computation time is about the same as for
+$\epsilon_d$.
+%
+However, an accurate determination of eigenvector direction is essential to
+decrease the number of candidate \ac{PEV} solutions that have to be clustered.
+%
+This means that $\epsilon_r$ should be chosen very small.
+%
+We find $\epsilon_r = 1 \times 10^{-9}$ to be a choice that provides
+consistently good results.
+%
+
+%
+Because our algorithm can produce multiple candidate points for an intersection
+of a \ac{PEV} line with a tetrahedral face, we need to cluster the results.
+%
+Theoretically, all candidate points should be in adjacent triangles, as
+(unoriented) eigenvector directions in linear tensor fields do not oscillate
+on small scales.
+%
+However, due to numerical noise and rounding errors on a computer, some
+candidate triangles might not be exactly adjacent to each other.
+%
+To bridge this gap, the clustering threshold $\epsilon_c$ defines the radius in
+which two candidate solutions are considered to belong to the same cluster.
+%
+Because the numerical noise influencing the size of gaps between candidate
+solutions is random, we do not expect candidates to be more than two or three
+lengths of $\epsilon_d$ from each other.
+%
+We recommend to set $\epsilon_c$ to some fixed multiple of $\epsilon_d$.
+%
+In our experiments, $\epsilon_c = 5 \epsilon_d$ proved sufficient for all
+datasets.
+%
+
+%
+The parallelity threshold $\epsilon_p$ is used to weed out false positive
+candidates that are a byproduct of our algorithm.
+%
+It must be chosen carefully to separate false positive solutions from numerical
+errors.
+%
+Because of this threshold, the spatial subdivision threshold $\epsilon_d$ can
+not be chosen arbitrarily large.
+%
+The larger $\epsilon_d$, the larger the possible difference in eigenvector
+direction between the real \ac{PEV} point and the tensor at the center of the
+triangle, which is chosen as a representative.
+%
+In general, the choice of $\epsilon_p$ is dependent on $\epsilon_d$.
+%
+More spatial subdivision levels enable a smaller choice of the parallelity
+threshold.
+%
+In our experiments, a choice of $\epsilon_p = 1 \times 10^{-2}$ for
+$\epsilon_d = 1 \times 10^{-3}$, and $\epsilon_p = 1 \times 10^{-3}$ for
+$\epsilon_d = 1 \times 10^{-6}$ worked very well.
+%

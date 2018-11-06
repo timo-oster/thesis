@@ -1,0 +1,81 @@
+
+%
+\section{Theoretical Considerations} % (fold)
+\label{sec:pev_theory}
+% 
+In this section we study which structurally stable structures the \ac{PEV} operator
+yields.
+%
+Structurally stable here means stable in the presence of noise.
+%
+From the knowledge of the \ac{PV} operator for vector fields, one would expect curves
+as \ac{PEV} solutions.
+%
+The case, however, is slightly more complicated because eigenvectors can
+transition from real to imaginary, and they are not uniquely defined in
+isotropic regions.
+%
+Even under consideration of these cases, we can formulate the main theorem
+%
+\begin{theorem}
+    \label{thm:1}
+    The \ac{PEV} operator delivers structurally stable curves that are either closed
+    or end at the boundaries of the domain.
+\end{theorem}
+%
+%\textcolor{red}{
+%
+We provide the proof for this theorem in the additional material accompanying
+this paper.
+%
+%}
+%
+
+\paragraph*{Bifurcation points}
+%
+We define bifurcation points as locations where two or more \ac{PEV} lines intersect,
+\ie, locations with more than one pair of parallel eigenvectors.
+%
+If $\mS, \mT$ are general second order tensors, bifurcation points are
+structurally unstable, i.e., they disappear under small perturbations of $\mS,
+\mT$.
+%
+To show this, we consider a \ac{PEV} line $l$ and observe the other eigenvectors (the
+ones that do not define $l$) along its path.
+%
+Since they are not constrained by each other, more than one condition must be
+fulfilled along $l$ for the other eigenvectors to become parallel.
+%
+This can be interpreted as having at least two independent scalar values that
+must vanish at the same point along $l$.
+%
+If this happens, adding noise will split up the points on $l$ of common zero
+crossings.
+%
+
+%
+This situation is different if $\mS, \mT$ are symmetric.
+%
+In this case, there are structurally stable bifurcations points where all three
+\ac{PEV} lines intersect, i.e., where $\mS, \mT$ have three pairs of parallel
+eigenvectors.
+%
+This can be shown as follows: If $\mS, \mT$ have two pairs of parallel
+eigenvectors, the third pair must be parallel as well, due to the orthogonality
+of the eigenvectors.
+%
+Further, we consider again a \ac{PEV} line $l$ that is defined by the
+vector $\ve$ along $l$ that is eigenvector of both $\mS$ and $\mT$.
+%
+Then every other eigenvector of $\mS$ and $\mT$ is perpendicular to $\ve$ and
+can therefore be expressed by one number: the rotation angle around $\ve$.
+%
+This way, the conditions of further pairs of common eigenvectors can be
+described as the roots of one scalar function.
+%
+This is structurally stable: adding noise will slightly change the location of
+$l$ and slightly change the location of zero crossings on $l$, but does not make
+them disappear.
+%
+Some \ac{PEV} lines with bifurcation points can be seen in~\autoref{fig:rand_lines}.
+%

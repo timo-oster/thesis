@@ -1,0 +1,113 @@
+
+%
+\section{Discussion and Limitations} % (fold)
+\label{sec:tcl_discussion}
+%
+We introduced tensor core lines as a new feature of second-order tensor fields.
+%
+It enables the quick detection of swirling behavior in eigenvector trajectories.
+%
+Such behavior might not have a distinct physical meaning in all applications.
+%
+However, finding core lines helps to understand the structure of the tensor
+field by breaking down a complex feature into a simple line structure that can
+be easily visualized.
+%
+In this regard, our method fits in well with other topological visualization
+methods.
+%
+
+%
+Our method is a direct extension of the Sujudi/Haimes method for the extraction
+of vortex core lines in vector fields.
+%
+As such, it shares many of its advantages and drawbacks.
+%
+The criterion is completely local and does not require integration.
+%
+As such, it is well parallelizeable and not vulnerable to accumulating numerical
+errors.
+%
+Still, we are hardly able to reach interactive run times, as we need to perform
+an exhaustive search in a \ac{5D} space.
+%
+Like Sujudi/Haimes, we perform a search on piecewise linear data, which results
+in straight lines within cells and discontinuities of the tensor core lines at
+cell boundaries.
+%
+Using higher-order interpolation of the tensor field would help finding
+continuous lines.
+%
+
+%
+We have chosen to focus on piecewise linear tensor fields where each tensor
+component is interpolated independently.
+%
+While alternative interpolation schemes have been proposed~\cite{Kindlmann2007},
+component-wise interpolation is still widely used as a standard approach for
+both tensor- and vector fields.
+%
+
+%
+Unlike Sujudi/Haimes, we have no way of explicitly ensuring our solutions show
+only swirling behavior by restricting them to regions where the derivative has
+complex eigenvalues.
+%
+The derivative of the tensor field $\nabla \mT$ is a third-order tensor, for
+which the definition of eigenvalues and eigenvectors is non-trivial
+\cite{Zheng2007}.
+%
+This means that we also find structures similar to hyperbolic trajectories in
+vector fields \cite{Machado2013,Machado2016}.
+%
+Further research is necessary in order to be able to distinguish these different
+features.
+%
+
+%
+We introduced a measure for the numeric stability of tensor core lines.
+%
+Unfortunately, filtering out numerically unstable solutions must be done as an
+interactive post-processing step, as the threshold is different for each
+dataset.
+%
+It is worth investigating if this process can be automated.
+%
+Nevertheless, the measure enables us to distinguish significant and
+insignificant solutions, which is a very useful tool for asessing the result of
+our algorithm.
+%
+
+%
+Our algorithm is numerically very stable.
+%
+We have three free parameters, two of which can be chosen in a wide range
+without significant influence on the results.
+%
+The parameter $M$, which influences run time the most, can be chosen the same
+for most datasets and as such does not require fine-tuning either.
+%
+
+%
+Our algorithm is only designed for extracting structurally stable line
+features, but surfaces or regions where the zero curvature criterion is
+almost fulfilled seem to be common in real-world stress tensor data.
+%
+This might be due to the common occurrence of symmetries and regular shapes in
+human-made objects, which are most frequently the focus of structural analysis.
+%
+It would therefore be interesting to investigate if these structures can
+explicitly be extracted.
+%
+
+%
+Finally, it is worth noting that neither the formal definition of tensor core
+lines nor the extraction algorithm poses any restrictions on the tensor field,
+except that it be differentiable.
+%
+As such, it might also be used on indefinite tensor data, such as the Jacobian
+of a vector field.
+%
+Finding applications outside of stress tensor analysis is a subject for further
+research.
+%

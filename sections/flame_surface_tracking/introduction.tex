@@ -1,0 +1,108 @@
+
+%
+\section{Introduction} % (fold)
+\label{sec:fst_introduction}
+%
+A central topic of today's combustion research are the interactions between
+turbulent flow and chemical reactions in flames.
+%
+In this context, the flame surface, \ie, the thin region where reaction happens,
+is of central importance.
+%
+Temperature, concentrations of chemical species and other variables on the flame
+surface show the state of the reaction.
+%
+The transport and deformation of the flame surface over time show the joint
+influence of chemistry and turbulence on the combustion process.
+%
+
+%
+To study the detailed mechanisms of turbulent combustion, \acp{DNS} are used.
+%
+These simulations directly compute the fundamental physical and chemical
+equations on a high-resolution grid without any high-level modeling assumptions.
+%
+As a consequence, all physical and chemical quantities can be analyzed in detail.
+%
+However, the computational costs are very high and the data sets produced can
+easily reach into the tera- or petabyte range.
+%
+This makes them practically impossible to store completely or transfer over a
+network connection.
+%
+For this reason, only single snapshots of the simulation are commonly stored
+on disk and analyzed in post-processing.
+%
+This approach only allows investigating the state of the flame surface at single
+points in time.
+%
+The temporal distance between subsequent snapshots is generally too large to
+interpolate between them in any meaningful way or make any statement about
+the correspondence of surface points.
+%
+
+%
+In this work, we introduce an algorithm for tracking the flame surface
+on-the-fly during the simulation, while the necessary data is still in memory.
+%
+Our goal is to capture the shape of the surface, the history of individual
+surface points, and the local tangential deformation of the surface over
+extended periods of time.
+%
+This allows us to expand studies of the history of single points on the surface
+over extended time periods, such as described by Sripakagorn
+\etal~\cite{Sripakagorn2004}, to the complete flame surface.
+%
+Additionally, we extend the notion of instantaneous surface stretch (such as
+described by Poinsot and Veynante in \cite{Poinsot2012}) to the tangential
+deformation of the surface over arbitrary time intervals.
+%
+
+%
+Our algorithm must overcome the following challenges:
+%
+\begin{enumerate}
+    \item \label{it:parallel}
+        The massively parallel simulation, distributes its domain across a large
+        number of processes. The surface tracking must be similarly
+        parallelizeable.
+    \item \label{it:on-the-fly}
+        Performing analysis on-the-fly during a simulation means that at any
+        point in time, only data for the current time step is available in
+        memory and there is no way of going back in time to retrieve previous
+        information.
+    \item \label{it:refinement}
+        The surface is expected to undergo significant deformation over time,
+        making an adaptive refinement and coarsening necessary.
+    \item \label{it:deformation}
+        The tangential deformation must be reconstructed for areas of the
+        surface that have been refined and/or coarsened multiple times over an
+        arbitrary time interval.
+\end{enumerate}
+%
+Point~\ref{it:parallel} precludes the use of a mesh or space partition data
+structure with neighborhood information, as the global nature of operations in
+such a structure is not well suited for a massively parallel algorithm.
+%
+Instead, we represent the surface as a number of independent micro-patches
+consisting of a central point and four ghost particles measuring the local
+surface deformation.
+%
+This is described in Section~\ref{sub:surface_patch_representation}.
+%
+Points~\ref{it:on-the-fly} and~\ref{it:refinement} mean that we need to refine
+the micro-patches adaptively before they are significantly distorted.
+%
+We therefore introduce a way of monitoring the distortion of a patch and split
+it before the distortion becomes too large in
+Section~\ref{sub:splitting_surface_patches}.
+%
+This method of tracking and refining a surface without explicit neighbor
+information is a major contribution of this work.
+%
+Based on the behavior of the micro-patches over time, we introduce the
+computation of the tangential deformation gradient (point~\ref{it:deformation})
+for arbitrary time intervals in
+Section~\ref{sub:reconstructing_tangential_surface_deformation}.
+%
+% section introduction (end)

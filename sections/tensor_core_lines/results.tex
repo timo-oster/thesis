@@ -1,0 +1,369 @@
+
+%
+\section{Results} % (fold)
+\label{sec:tcl_results}
+%
+We applied our algorithm to stress tensor fields obtained from structural
+mechanics simulations of varying complexity.
+%
+The Cauchy stress tensor (often referred to as $\mathbf{\sigma}$ in mechanics
+literature) is a symmetric tensor that desribes the local stress state of an
+object experiencing small elastic deformations.
+%
+Its eigenvectors point in the directions of the principal stresses.
+%
+The sign of the eigenvalues indicate if the stress is compressive or tensile.
+%
+Swirling structures in stress tensor fields can result from torque induced in
+part of a structure.
+%
+As we will show, it is not always intuitive where this will happen in a complex
+structure subject to a load or deformation.
+%
+Computing tensor core lines allows an easy identification of these phenomena.
+%
+In this section, we present the results of our algorithm on several datasets, we
+analyze its performance and parameter sensitivity, and we compare our results to
+the toplogical skeleton formed by degenerate lines.
+%
+\paragraph*{Cylinder} % (fold)
+\label{sub:torque_applied_to_a_cylinder}
+%
+In \autoref{fig:tube_lines} we show the eigenvector trajectories resulting from
+applying a torque around the long axis of a cylinder.
+%
+The yellow line visible in the center is the result of our algorithm applied to
+this case after filtering out numerically unstable solutions.
+%
+These solutions occur because the third eigenvector, which is orthogonal to the
+other two, points outwards from the center line everywhere in the domain.
+%
+This means that the trajectories of this eigenvector are straight lines
+everywhere inside the cylinder.
+%
+Situations like this are common in stress tensor fields, and are handled in our
+algorithm by the threshold $M$.
+%
+Nevertheless, single line segments with low numeric stability $s$ may occur due
+to noise (see \autoref{fig:unfiltered_lines}).
+%
+After filtering them out, the clear central line visible in
+\autoref{fig:tube_lines} remains.
+%
+% subsection torque_applied_to_a_cylinder (end)
+%
+\paragraph*{Handle} % (fold)
+\label{sub:hook}
+%
+\begin{figure*}
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/hook_results_tikz}
+    \caption{Tensor core lines for two different deformations induced in a
+             handle-like object by applying a displacement to an end surface. On
+             the left side, we show the resulting deformations. The von Mises
+             stress $\sigma_{\text{vM}}$ is color-coded on the surface. We
+             represent the tensor core line as tubes in the undeformed
+             coordinate system. Their color indicates the numerical stability
+             $s$. The tensor field is shown for context using elliptical
+             glyphs.}
+    \label{fig:hooks}
+\end{figure*}
+%
+This case shows a handle-like structure with a right angle being deformed in
+two different ways.
+%
+One end is fixed, while the other end experiences different displacements.
+%
+The first is a rotation around the shaft, which applies a torque to it.
+%
+The second includes an additional downward shift.
+%
+\autoref{fig:hooks} shows a tensor core line in the center of the shaft for both
+cases.
+%
+Interestingly, a line is also visible in the ``handle''-part of the structure,
+even though no direct torque was applied here.
+%
+The line in the handle shifts away from the plane of symmetry in the second
+deformation case.
+%
+A look at the tensor field around the core lines confirms that they are indeed
+the center of a swirling behavior of the tensor field.
+%
+% subsection hook (end)
+%
+\paragraph*{Truck Bumper} % (fold)
+\label{sub:truck_bumper}
+%
+This case shows a load applied to the extreme end of the bumper of a cargo
+truck.
+%
+Applying our algorithm to the dataset results in a large number of lines being
+found all over the domain.
+%
+This may in part be explained by the low resolution of the simulation.
+%
+After applying a filter on the numeric stability $s$, two lines with high
+stability stand out.
+%
+Somewhat counterintuitively, these are found on the side opposite to the end
+experiencing the load.
+%
+In \autoref{fig:truck_bumper}, we can clearly see the radial behavior of the
+tensor field around both lines.
+%
+Finding these locations by manually inspecting the tensor field in detail would
+be a tedious task.
+%
+Using the tensor core line extractor, they can be identified at a glance.
+%
+\begin{figure*}
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/truck_bumper_results_tikz}
+    \caption{Tensor core lines in a truck bumper with a load applied to one end.
+             The deformation shown on the left is scaled 500 times for
+             illustrative purposes. The right shows detail views of two
+             interesting lines.}
+    \label{fig:truck_bumper}
+\end{figure*}
+%
+% subsection truck_bumper (end)
+%
+\paragraph*{Crane} % (fold)
+\label{sub:crane}
+%
+In this dataset, the arm of a crane is exposed to a downward pull applied to
+the lower side of a cube at the end (see \autoref{fig:crane}).
+%
+Similar to the truck bumper, it is not intuitively clear in which parts of the
+structure a swirling behavior of the tensors will occur, just from looking at
+the setup of the case.
+%
+Almost all stable solutions we find are located in the diagonal rods on the
+lower side.
+%
+Again, looking closely at the tensors around the core lines, we can see the
+radial behavior.
+%
+\begin{figure*}
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/crane_results_tikz}
+    \caption{Tensor core lines in a crane arm with a load applied to the end.
+             The resulting deformation on the left is scaled 1500 times.
+             Significant tensor core lines are only found in the lower diagonal
+             rods. The detail image on the right shows the tensors are indeed
+             aligned around a common core.}
+    \label{fig:crane}
+\end{figure*}
+%
+% subsection crane (end)
+%
+\paragraph*{Spring} % (fold)
+\label{sub:spring}
+%
+A simulation of a coil spring being compressed and slightly bent between two
+plates is shown in~\autoref{fig:spring}.
+%
+Apart from numerical noise in the poorly resolved plates, we find significant
+tensor core lines at the center of the coil's cross-section.
+%
+A look at the tensor field visualized by glyphs reveals that in this case, we
+do not have a simple swirling behavior of the tensors.
+%
+Instead, the tensor field shows something similar to a hyperbolic behavior in
+vector fields.
+%
+In the rightmost picture in~\autoref{fig:spring}, we can see that eigenvector
+trajectories start at the wall on both sides and curve into the same direction.
+%
+This direction is reversed on the top and bottom side of the spring.
+%
+In the middle, there is a surface where these curves become straight lines along
+the diameter of the cross-section.
+%
+This is exactly where we find a tensor core line.
+%
+\begin{figure*}
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/spring_results_tikz}
+    \caption{A coil spring being compressed and slightly bent between two
+             plates. We visualize the tensors near the core line with box glyphs
+             in this case. They make it easier to see the hyperbolic behavior of
+             the eigenvectors that occurs in the coil's cross-section. }
+    \label{fig:spring}
+\end{figure*}
+%
+% subsection spring (end)
+%
+\subsection{Performance and Parameter Study} % (fold)
+\label{sub:performance}
+%
+The performance of our algorithm is dependent on the dataset.
+%
+If we find a large number of tensor core lines in the dataset, computation
+will be slower as fewer cells can be discarded early.
+%
+We tested our algorithm using a consumer PC with a 4-core Intel Core i7 CPU at
+\SI{3.4}{\giga\hertz}.
+%
+Our implementation is parallelized over the faces of the dataset using
+OpenMP~\cite{OMP2013}.
+%
+Performance numbers for the different datasets shown in this paper are presented
+in \autoref{tab:performance}.
+%
+To examine the dependence of the performance and results of our algorithm on the
+parameters $M$, $\varepsilon_{\mathrm{t}}$ and $\varepsilon_{\mathrm{c}}$, we
+conducted a parameter study.
+%
+We selected baseline parameters $M = 10^3$, $\varepsilon_{\mathrm{t}} =
+\num{1e-6}$ and $\varepsilon_{\mathrm{c}} = \num{1e-3}$.
+%
+We then varied each parameter separately and applied our algorithm to the
+cylinder dataset.
+%
+The results can be seen in \autoref{fig:parameter_study}.
+%
+We can see that the performance is controlled by the threshold $M$, which
+controls at which point we assume we are not converging onto an isolated
+solution.
+%
+Increasing $M$ also increases the number of solutions we find.
+%
+However, if we look at the number of solutions that remain after filtering based
+on numeric stability, it becomes clear that these solutions are only caused by
+noise.
+%
+Increasing $M$ did not result in any additional numerically stable lines.
+%
+The parameters $\varepsilon_{\mathrm{t}}$ and $\varepsilon_{\mathrm{c}}$ have
+almost no noticeable impact on runtime or solutions, unless we choose
+unreasonable numbers.
+%
+In case of $\varepsilon_{\mathrm{t}}$, choosing a value that is larger than
+\num{1e-3} causes an explosion of the number of found solutions, as the
+tolerance is not tight enough.
+%
+Choosing $\varepsilon_{\mathrm{c}}$ smaller than $\varepsilon_{\mathrm{t}}$
+means that candidate solutions belonging to the same cluster often can not be
+clustered, because the search radius is smaller than the distance between the
+triangle centers.
+%
+Otherwise, $\varepsilon_{\mathrm{c}}$ is very stable.
+%
+This is because for solutions which are isolated points and belong to different
+eigenvectors, the separation between clusters in direction space is rather
+large.
+%%
+This means the choice of $\varepsilon_{\mathrm{c}}$ is not critical as
+long as it is not chosen extremely small, or so large that solutions
+which belong to different eigenvectors are clustered together.
+%%
+
+%
+Stability tests on our other datasets all produced very similar results.
+%
+We recommend choosing $M = 10^2$, $\varepsilon_{\mathrm{t}} = \num{1e-3}$ and
+$\varepsilon_{\mathrm{c}} =
+\num{1e-2}$ if performance is important.
+%
+If accuracy is important, we found that choosing stricter tolerances than $M =
+10^3$, $\varepsilon_{\mathrm{t}} = \num{1e-6}$ and $\varepsilon_{\mathrm{c}} =
+\num{1e-3}$ does not produce noticeably better results.
+%
+\begin{table}
+    \centering
+    \begin{tabular}{lrrr}
+        \toprule
+        Dataset & \# of cells & time [s] & avg. time/face [ms] \\% & avg. time/face (single core) [ms] \\
+        \midrule
+        Cylinder & 65 k & 8.4 & 0.034 \\% & 0.14 \\
+        Handle & 235 k & 36 & 0.038 \\% & 0.16 \\
+        Bumper & 97 k & 32 & 0.081 \\% & 0.36 \\
+        Crane & 108 k & 63 & 0.146 \\% & 0.59 \\
+        Spring & 181 k & 82 & 0.114 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Performance of the algorithm for the datasets presented in this paper.}
+    \label{tab:performance}
+\end{table}
+%
+\begin{figure}[tb]
+    \centering
+    \tikzset{external/export=false}
+    \input{figures/parameters_cylinder_tikz}
+    \caption{Run times and number of found lines in the cylinder dataset for
+             various different parameters. We show the total number of lines
+             found (\ref{plt:total_lines}) and the number of lines remaining
+             after filtering out numerically unstable lines
+             (\ref{plt:filtered_lines}). }
+    \label{fig:parameter_study}
+    \tikzset{external/export=true}
+\end{figure}
+%
+\begin{figure}
+    \centering
+    \setlength\figurewidth\columnwidth
+    \input{figures/unfiltered_lines_tikz}
+    \caption{Results of our algorithm on the Cylinder dataset for different
+             choices of $M$. Increasing $M$ results in more numerically unstable
+             lines being found. If we filter them out, the result is virtually
+             identical.}
+    \label{fig:unfiltered_lines}
+\end{figure}
+%
+% subsection performance (end)
+%
+\subsection{Comparison with Degenerate Lines} % (fold)
+\label{sub:comparison_with_degenerate_lines}
+%
+Tensor core lines are mathematically distinct from degenerate lines where two or
+more eigenvalues are equal.
+%
+The criterion for finding tensor core lines is completely independent of the
+eigenvalues of the tensor field.
+%
+However, when looking at our results in stress tensor fields, one might wonder
+if tensor core lines coincide with degenerate lines in practice.
+%
+To investigate this, we extracted degenerate lines from our datasets using the
+method presented by Zheng and Pang \cite{Zheng2004}.
+%
+In stress tensor fields, degenerate lines mark locations where no unique
+principal directions of stress can be established.
+%
+We found that tensor core lines and degenerate lines sometimes coincide, but
+neither is a subset of the other.
+%
+In the Crane dataset, degenerate lines are found near the center of the lower
+diagonal rods, where we also find tensor core lines.
+%
+However, a lot of degenerate lines are also found in regions where no tensor
+core lines are located.
+%
+In the Truck Bumper dataset, a degenerate line coincides with one of the two
+most significant tensor core lines we find, but not the other one.
+%
+Closeups of both datasets are shown in~\autoref{fig:topo_comparison}.
+%
+In several datasets, such as the Cylinder and Handle, Zheng and Pang's method
+fails to locate any degenerate lines at all.
+%
+\begin{figure}[t]
+    \centering
+    \setlength{\figurewidth}{0.8\textwidth}
+    \input{figures/topo_comparison_tikz}
+    \caption{Comparison of unfiltered tensor core lines (red/yellow) and
+    degenerate tensor lines (blue) for the Truck Bumper (top) and Crane dataset
+    (bottom). The red box marks the coincidence of a numerically stable tensor
+    core line with a degenerate tensor line.}
+    \label{fig:topo_comparison}
+\end{figure}
+%
+% subsection comparison_with_degenerate_lines (end)
+%
+% section results (end)

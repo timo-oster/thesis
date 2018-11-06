@@ -1,0 +1,175 @@
+
+
+\section{Results}
+\label{sec:sr_results}
+
+Limitation: Only works for chemical species and tightly coupled variables such
+as temperature. Weakly coupled variables such as flow, pressure, density also
+have significant gradients away from the flame surface and are not highly
+aligned to the flame surface, making them unsuitable for this method. However,
+especially for simulations involving practical fuels, the number of species
+becomes so high that they are dominating.
+
+Used error metric for comparing original and reconstructed data:
+\todo[inline]{PSNR is used more often here. Is directly derivable from MSE and also accounts for range of data values}
+\begin{align}
+    E_a(R, O) &= \frac{1}{|H|}\int_{x \in H} \sqrt{\left(\frac{R(x) - O(x)}{max(O)-min(O)}\right)^2}\\
+    E_s(R, O) &= \frac{1}{|H|}\int_{x \in H} \left(\frac{R(x) - O(x)}{max(O)-min(O)}\right)^2
+\end{align}
+Where $O$ is the original function, $R$ is the reconstructed function, $H$ is 
+the convex hull of all sample lines (can not extrapolate data outside), 
+and $|H|$ is the volume of H. $max(O)-min(O)$ is the range of the original data 
+$O$, used to normalize the errors.
+
+\begin{figure}
+	\centering
+	\setlength\figureheight{12cm} 
+	\setlength\figurewidth{6cm}
+	\input{figures/msevcr_stack.tikz}
+	\caption{MSE vs. Compression rate (Dataset 1)}
+	The error plots corresponding to each variable are shifted by a constant
+	increment. The horizontal lines signify the zero-levels of the respective 
+	plots.
+	\label{fig:CRvMSE}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\setlength\figureheight{6cm} 
+	\setlength\figurewidth{6cm}
+	\input{figures/msevcr_stack_data2.tikz}
+	\caption{MSE vs. Compression rate (Dataset 2)}
+	The error plots corresponding to each variable are shifted by a constant
+	increment. The horizontal lines signify the zero-levels of the respective 
+	plots.
+	\label{fig:CRvMSE2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\setlength\figureheight{12cm} 
+	\setlength\figurewidth{6cm}
+	\input{figures/msevcr_stack_data3.tikz}
+	\caption{MSE vs. Compression rate (Dataset 3)}
+	The error plots corresponding to each variable are shifted by a constant
+	increment. The horizontal lines signify the zero-levels of the respective 
+	plots.
+	\label{fig:CRvMSE3}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\setlength\figureheight{4.5cm} 
+	\setlength\figurewidth{6cm}
+	\input{figures/mean_mse_fit.tikz}
+	\caption{MSE of fitting (before reconstruction) for all variables}
+	The error is normalized by the range of values in each variable.
+	\label{fig:fitting_MSE}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\setlength\figureheight{4.5cm} 
+	\setlength\figurewidth{6cm}
+	\input{figures/mean_abs_fit.tikz}
+	\caption{Mean absolute error of fitting (before reconstruction) for all variables}
+	The error is normalized by the range of values in each variable. 
+	The average absolute error made by fitting the gauss and sigmoid models
+	to the data is between 0.1\% and 5.1\%.
+	\label{fig:fitting_abs_error}
+\end{figure}
+
+
+\begin{figure}[tb]
+\centering
+	\begin{tabular}{ccc}
+		&\subfloat[Original]{
+			\includegraphics[width=0.27\linewidth]{images/H_orig}}&\\
+		\subfloat[Linear Interpolation]{
+			\includegraphics[width=0.27\linewidth]{images/H_lin_36}}&
+		\subfloat[kNN Interpolation]{
+			\includegraphics[width=0.27\linewidth]{images/H_knn_36}}&
+		\subfloat[na\"{i}ve downsampling]{
+			\includegraphics[width=0.27\linewidth]{images/H_down_36}}\\
+		\subfloat[square error (linear)]{
+			\includegraphics[width=0.27\linewidth]{images/H_diff_lin_36}}&
+		\subfloat[square error (kNN)]{
+			\includegraphics[width=0.27\linewidth]{images/H_diff_knn_36}}&
+		\subfloat[square error (downsampling)]{
+			\includegraphics[width=0.27\linewidth]{images/H_diff_down_36}}
+	\end{tabular}
+	\caption{Comparison of reconstruction results for \ce{H} with l=36 (ca. 5000 samples)}
+	\label{fig:comp_H}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+	\begin{tabular}{ccc}
+		\subfloat[Original]{
+			\includegraphics[width=0.27\linewidth]{images/O2_orig}}&
+		\subfloat[l=1]{
+			\includegraphics[width=0.27\linewidth]{images/O2_lin_1}}&
+		\subfloat[l=12]{
+			\includegraphics[width=0.27\linewidth]{images/O2_lin_12}}\\
+		\subfloat[l=23]{
+			\includegraphics[width=0.27\linewidth]{images/O2_lin_23}}&
+		\subfloat[l=58]{
+			\includegraphics[width=0.27\linewidth]{images/O2_lin_58}}&
+		\subfloat[l=240]{
+			\includegraphics[width=0.27\linewidth]{images/O2_lin_240}}\\
+	\end{tabular}
+	\caption{Reconstruction results of linear interpolation for different 
+             sample densities for \ce{O2}}
+	\label{fig:reconstruct_O2}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+	\begin{tabular}{ccc}
+		\subfloat[Original]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_orig}}&
+		\subfloat[l=1]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_knn_1}}&
+		\subfloat[l=12]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_knn_12}}\\
+		\subfloat[l=23]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_knn_23}}&
+		\subfloat[l=58]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_knn_58}}&
+		\subfloat[l=240]{
+			\includegraphics[width=0.27\linewidth]{images/H2O2_knn_240}}\\
+	\end{tabular}
+	\caption{Reconstruction results of kNN interpolation for different 
+             sample densities for \ce{H2O2}}
+	\label{fig:reconstruct_H2O2}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+	\begin{tabular}{cc}
+		\multicolumn{2}{c}{
+			\subfloat[Original]{
+				\includegraphics[width=0.4\linewidth]{images/data3/H2O_orig}
+				}
+		}\\
+		\subfloat[lin (l=1)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_lin_1}}&
+		\subfloat[knn (l=1)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_knn_1}}\\
+		\subfloat[lin (l=23)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_lin_23}}&
+		\subfloat[knn (l=23)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_knn_23}}\\
+		\subfloat[lin (l=58)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_lin_58}}&
+		\subfloat[knn (l=58)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_knn_58}}\\
+		\subfloat[lin (l=240)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_lin_240}}&
+		\subfloat[knn (l=240)]{
+			\includegraphics[width=0.4\linewidth]{images/data3/H2O_knn_240}}\\
+	\end{tabular}
+	\caption{Comparison of reconstruction quality by linear (left) and
+			 knn (right) interpolation for \ce{H2O}}
+	\label{fig:compare_lin_knn_H2O}
+\end{figure}

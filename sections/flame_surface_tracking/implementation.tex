@@ -1,0 +1,111 @@
+
+%
+\section{Implementation} % (fold)
+\label{sec:fst_implementation}
+%
+Our algorithm is implemented as an extension to the {DINO} direct numerical
+simulation code \cite{Abdelsamie2016}.
+%
+The simulation domain is a rectangular box which is distributed to multiple
+processors by a block decomposition along two of its three axes.
+%
+This unusual decomposition is required because of the pressure solver, which
+operates in Fourier space and needs the complete domain in memory in one
+dimension.
+%
+The communication between the processors uses MPI \cite{MPIForum2015}.
+%
+
+%
+Each tracked points gets a unique ID at its creation.
+%
+In each process, all points located in its domain block, as well as all points
+in a halo region around the block are kept in memory.
+%
+This halo region is large enough to contain all ghost particles of any patch
+whose central point is inside the processor's block.
+%
+
+%
+After each simulation step, the fluid velocity $\vv$ and derivatives of the
+scalar variable $s$ defining the flame surface are interpolated from the
+simulation grid at all surface points to compute their velocity $\vu$.
+%
+Because each simulation block only holds data for the grid cells inside its
+boundaries, the values for the points in the halo region have to be obtained by
+communicating with all neighbor processes.
+%
+The points are then advanced by one simulation time step.
+%
+For additional stability, we then perform a few steps of a Newton scheme to move
+them back onto the isosurface we are tracking.
+%
+As the surface points move during the simulation, they will often migrate across
+processor boundaries.
+%
+This is automatically handled by our implementation as part of the information
+exchange with neighboring processors when updating the points in the halo
+region.
+%
+
+%
+Since our algorithm is running in lockstep with the simulation, only data for
+the current time step is available in memory at any time and the time step
+is controlled by the simulation.
+%
+This means that without generating additional memory overhead, only first order
+schemes can be used to integrate the surface velocity $\vu$.
+%
+In our implementation, we therefore use an Euler scheme to advance the positions
+of the points between simulation steps.
+%
+The simulation time step in \ac{DNS} is generally dominated by the chemistry time
+scale, which is much smaller than the fluid velocity time scale.
+%
+Since the surface velocity typically follows the fluid velocity closely, and an
+Euler scheme is adequate to track the flame surface almost everywhere, as
+points move only a fraction of the size of a grid cell in each time step.
+%
+Exceptions to this rule only occur at very sharp creases in the surface, which
+can occur when two parts of the surface fold into each other, possibly leading
+to changes in topology.
+%
+The high surface velocities occuring here can lead to points migrating far
+away from the surface in a single time step.
+%
+Since the surface at these locations is contracting rapidly anyway, we simply
+delete any micro-patches that end up further away from the surface than one half
+of their previous advection step, provided the distance is at least
+$\sfrac{1}{5}$ the size of a grid cell.
+%
+In our tests, this strategy did not impact the accuracy of the surface tracking
+in any significant way.
+%
+
+%
+Depending on the values of the errors $e_\perp$ and $e_\shortparallel$, the
+micro-patches are now split or merged and any patches that partially crossed
+a non-periodic outflow boundary of the simulation domain are removed.
+%
+At this point, control is given back to the simulation, which performs the next
+iteration.
+%
+
+%
+The deformation gradients can either be computed on-the-fly or as a
+post-processing step.
+%
+In the first case, the time intervals for the deformation need to be specified
+before the simulation starts.
+%
+Each patch then remembers its configuration $\mC$ at the time it was last reset
+and the transformations $\mE$ from the start of each time interval up until this
+last reset time.
+%
+In the second case, the point positions and normals of all micro-patches are
+stored to disk for each time step.
+%
+The deformation gradients can then be reconstructed for arbitrary time
+intervals, but at the cost of increased hard disk storage demand.
+%
+% section implementation (end)

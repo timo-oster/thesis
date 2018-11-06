@@ -1,0 +1,404 @@
+
+%
+\section{Extracting Tensor Core Lines from Piecewise Linear Data} % (fold)
+\label{sec:extracting_tensor_lines}
+%
+A piecewise linear tensor field is given by a tetrahedral mesh with a discrete
+tensor attached to each mesh node.
+%
+The derivative $\nabla \mT$ is constant and can be determined on a per-cell
+basis from the tensors at the four vertices.
+%
+\todo[inline]{discuss suitability of linear interpolation and motivate that
+it is still commonly used in practice}
+%
+As we have shown, tensor core structures are generally lines.
+%
+It follows that the intersections of these lines with the triangular faces of
+the mesh are generally isolated points.
+%
+We first find these isolated points on all faces and then connect them to line
+segments in a second step.
+%
+This is consistent with established methods for finding line structures in
+vector or tensor fields such as the vortex core line extractor by Sujudi and
+Haimes \cite{Sujudi1995} and the extractor for degenerate lines in tensor fields
+by Zheng and Pang \cite{Zheng2004}.
+%
+
+\subsection{General Algorithm} % (fold)
+\label{sub:general_algorithm}
+%
+A tensor core line is defined by all locations $\vx$ where
+$\lambda \mT(\vx) \, \vr = \mu \nabla_{\vr} \mT(\vx)\, \vr = \vr$
+for a vector $\vr \neq \vNull$.
+%
+In a piecewise linear tensor field, we have a constant $\nabla_{\vr} \mT$
+in each cell.
+%
+The solution to \eqref{eq:tensor_line} is then equivalent to the system
+%
+\begin{equation}\label{eq:targetfunctions}
+\begin{aligned}
+  (\mT(\vx)\,\vr) \times \vr &= \vNull\\
+  (\nabla_{\vr} \mT\, \vr) \times \vr &= \vNull
+\end{aligned}
+\end{equation}
+%
+This system consists of six scalar functions $h_1(\vx, \vr), \dots, h_6(\vx,
+\vr)$ that need to become zero at the same time.
+%
+Note that formally, the three scalar functions corresponding to $(\nabla_{\vr}
+\mT\, \vr) \times \vr = \vNull$ are not dependent on $\vx$.
+%
+For the sake of uniformity in notation, we will pretend this dependency
+exists in the following.
+%
+
+%
+The functions $h_i$ are polynomials of degree 3.
+% 
+Finding a closed form solution for the intersections of the roots of these
+functions is impossible. \todo{is it?}
+% 
+Instead, we employ a recursive search in the space of possible positions $\vx$
+and eigenvector directions $\vr$.
+% 
+The search space for $\vx$ is the triangular cell face.
+%
+We subdivide the search space for $\vr$ into a set of triangles covering a
+hemisphere.
+% 
+We then consider the functions $h_i(\vx, \vr)$ on each pair of triangles in
+$\vx$ and $\vr$ as polynomials in Bernstein-B\'ezier form.
+%
+In this form, the functions are bounded by their set of coefficients.
+%
+If any $h_i$ on a triangle pair has coefficients that are all positive or all
+negative, the triangle pair can not contain a solution and can be discarded.
+%
+Otherwise, we subdivide the triangles and recursively examine the coefficients
+of each part again, using a breadth-first search strategy.
+%
+If the number of triangle pairs that were not yet discarded exceeds a threshold
+$M$, we assume that we are not converging on isolated points and terminate the
+search for this initial triangle in $\vr$.
+% 
+If we reach a subdivision level where all $h_i$ are smaller than a tolerance
+everywhere on the triangle pair, we accept it as a solution.
+%
+We connect solutions we found on faces of the same tetrahedral cell into line
+segments by matching points with similar eigenvector directions.
+%
+Finally, lines with low numeric stability that may occur due to noise are
+filtered out with a user-controlled threshold.
+%
+We discuss the details of the algorithm in the following.
+%
+% subsection general_algorithm (end)
+
+\subsection{Expressing the Target Functions in Bernstein B\'ezier Form} % (fold)
+\label{sub:expressing_the_target_functions}
+\todo{better title}
+%
+We express the position on a triangular face $\vx_\triangle = \{\vx_1, \vx_2,
+\vx_3\}$ in barycentric coordinates $\vw = \T{(w_1, w_2, w_3)}$:
+%
+\begin{equation}
+  \vx(\vw) = \sum_i w_i \vx_i
+\end{equation}
+%
+with $w_1+w_2+w_3=1$ and $w_i > 0$.
+%
+The value of the tensor field $\mT$ on the triangle is similarly obtained
+by linear interpolation between its three corner tensors $\mT_\triangle =
+\{\mT_1, \mT_2, \mT_3\}$:
+%
+\begin{equation}
+  \mT(\vx(\vw)) = \mT(\vw) = \sum_i w_i \mT_i
+\end{equation}
+%
+
+%
+We are not interested in the magnitude and orientation of $\vr$, only its
+direction.
+%
+We can therefore safely restrict the search space for $\vr$ to a hemisphere
+discretized by a number of triangles (see~\autoref{fig:subdivision_scheme}).
+%
+In each triangle $\vr_\triangle = \{\vr_1, \vr_2, \vr_3\}$, $\vr$ is then also
+expressed in barycentric coordinates $\vu = \T{(u_1, u_2, u_3)}$:
+%
+\begin{equation}
+  \vr(\vu) = \sum_i u_i \vr_i
+\end{equation}
+%
+If we substitute $\mT(\vx) = \mT(\vw)$ and $\vr = \vr(\vu)$ in
+\eqref{eq:targetfunctions}, we get six polynomials $h_i(\vw, \vu)$
+that are defined on the cartesian product of a pair of triangles
+$(\vx_\triangle, \vr_\triangle)$.
+%
+The scale of these functions is dependent on the scale of $\mT$, which might
+vary strongly within the same dataset.
+%
+This makes it hard to choose a universal tolerance for our root finding
+algorithm.
+%
+We therefore normalize $h_i$ with the maximum operator norm (the largest
+singular value) of the three corner tensors $\{\mT_1, \mT_2, \mT_3\}$.
+%
+This gives us our final functions
+%
+\begin{equation}
+  \hat{h}_i(\vw, \vu) = \frac{h_i(\vw, \vu)}
+      {\max(\{\|\mT_i\|_{\mathrm{op}} : \mT_i \in \mT_\triangle\})}
+\end{equation}
+%
+Finding $\vw$ and $\vu$ that solve $\hat{h}_i(\vw, \vu) = 0$ gives us the
+intersection of a tensor core line with the triangle at $\vx(\vw)$ and the
+accompanying eigenvector direction $\vr(\vu)$.
+%
+
+%
+Since we have now transfomed our functions into barycentric coordinates, we can
+write them as the product of two Bernstein-B\'ezier triangles:
+%
+\begin{align}
+\hat{h}(\vw, \vu) &= \sum_{\substack{i+j+k\\=\,n}} \mathrm{B}_{ijk}^n(\vw)\, c_{ijk}
+                \sum_{\substack{o+p+q\\=\,m}} \mathrm{B}_{opq}^m(\vu)\, c_{opq} \\
+            &= \sum_{\substack{i+j+k\\=\,n}} \; \sum_{\substack{o+p+q\\=\,m}}
+              \mathrm{B}_{ijkopq}^{n, m}(\vw, \vu)\, c_{ijkopq} \\
+% &\text{with}&& \\
+\mathrm{B}_{ijk}^n(\vw) &= \frac{n!}{i!j!k!} w_1^i w_2^j w_3^k \\
+\mathrm{B}_{ijkopq}^{n, m}(\vw, \vu) &= \mathrm{B}_{ijk}^n(\vw) \, \mathrm{B}_{opq}^m(\vu)
+\end{align}
+%
+Here, $c_{ijkopq}$ are the coefficients of the combined polynomials.
+%
+In this form, the range of possible values for $\hat{h}(\vw, \vu)$ inside the
+triangles is bounded by the smallest and largest coefficients $c_{ijkopq}$.
+%
+This means that if the function has any zero-crossings inside the triangles,
+the coefficients can not be all positive or all negative.
+%
+We use this fact in our recursive subdivision scheme, which we detail in the
+next section.
+% 
+% subsection expressing_the_target_functions (end)
+
+\subsection{Recursive Subdivision Scheme} % (fold)
+\label{sub:recursive_subdivision_scheme}
+%
+When we start our recursive search on a triangular face $\vx_\triangle$ of the
+dataset, we first map it to a standard triangle
+$\hat\vx_\triangle = \{\T{(1, 0, 0)}, \T{(0,1,0)}, \T{(0, 0, 1)}\}$.
+%
+In this way, we avoid accumulating numerical errors during subdivision for long
+and thin triangles and we have a comparable scale of the starting configuration
+that is independent of the mesh of the dataset.
+% 
+The real position of the tensor core points we find is later reconstructed via
+the inverse transformation.
+%
+
+%
+Our algorithm starts on a set of multiple triangle pairs in position and
+direction space.
+%
+Each of these initial pairs consists of the standard triangle
+$\hat\vx_\triangle$ and a triangle covering a portion of the hemisphere of
+possible eigenvector directions.
+% 
+The choice of triangulation of the hemisphere is rather arbitrary.
+% 
+It is only important that it is complete and disjoint, and that each triangle
+covers less than an angle of 90 degrees in any direction.
+% 
+
+% 
+For a given pair $(\vx_\triangle, \vr_\triangle)$, we inspect the coefficients
+of all six polynomials $\hat{h}_i(\vw, \vu)$.
+%
+If any one of them has coefficients that are all positive or all negative, the
+triangle pair can not contain a solution and can be discarded.
+%
+Otherwise, a solution might be present.
+%
+In this case they are subdivided into four new pairs of triangles.
+%
+We alternate between subdividing $\vx_\triangle$ and $\vr_\triangle$ to limit
+the number of new candidate pairs that have to be checked in each step.
+%
+Subdividing a triangle pair means computing the coefficients of $\hat{h}_i$ on
+four new pairs, where one of the triangles remains the same, while the other is
+split into four equally-sized parts.
+\todo{Do we need a figure for this?}
+%
+This can be done by a fixed linear operator applied to the vector of
+coefficients.
+%
+\autoref{fig:subdivision_scheme} shows a triangle pair after several subdivision
+steps have been performed.
+%
+
+
+
+%
+Subdivision terminates when the maximum magnitude of all $\hat{h}_i$ on the
+current triangle pair is smaller than a threshold $\epsilon_{\mathrm{t}}$.
+%
+When a triangle pair is found that satisfies this condition, it is stored in a
+list of solution candidates for further processing.
+%
+
+%
+As we mentioned earlier, \todo{actually mention it earlier} for symmetric
+tensors, there is a high probability of secondary eigenvectors forming a
+surface where their curvature is also zero orthogonal to the tensor core line.
+%
+In this case, a recursive subdivision algorithm does not work, because it does
+not converge on isolated points.
+%
+To detect this problem, we implement our subdivision scheme as a breadth-first
+search and terminate the algorithm if the list of triangle pairs that have
+not yet been discarded grows larger than a threshold $M$.
+%
+Since the eigenvectors of symmetric tensors are always orthogonal, this only
+happens for some of the starting triangles covering the hemisphere of possible
+eigenvector directions.
+%
+If the search is terminated in this way for one starting triangle in direction
+space, we still continue searching in the other directions, as an isolated
+solution might still be found for one of them.
+%
+\todo[inline]{Our method finds all intersection points if they exist
+in constrast to the root finder for degenerate lines by Zheng, which is based
+on an iterative Newton-Rhapson method that might get stuck in local minima.}
+%
+% subsection recursive_subdivision_scheme (end)
+
+\subsection{Clustering and Filtering} % (fold)
+\label{sub:clustering_and_filtering}
+% 
+The result of \autoref{sub:recursive_subdivision_scheme} is a list of triangle
+pairs $(\vx_{\triangle i}, \vr_{\triangle i})$ where $\hat{h}_i(\vw, \vu) <
+\epsilon_{\mathrm{t}}$.
+%
+Since $\epsilon_{\mathrm{t}}$ is a small but finite number, it is possible that
+multiple such solution candidates are found in close vicinity to a real solution.
+%
+Because of this, we employ a simple clustering to group similar triangle pairs
+and select a representative as the solution.
+%
+We define the distance $d$ between two triangle pairs $\vp_1 = (\vx_{\triangle 1},
+\vr_{\triangle 1})$ and $\vp_2 = (\vx_{\triangle 2}, \vr_{\triangle 2})$ as the
+maximum Euclidean distance between the center points of the triangles in
+position and direction space, \ie,
+%
+\begin{equation}
+  d(\vp_1, \vp_2)
+    = \max\left(\frac{1}{3}\sum \vx_{i1} - \vx_{i2},
+      \; \frac{1}{3}\sum \vr_{i1} - \vr_{i2}\right) \text{.}
+\end{equation}
+%
+We employ a simple single-linkage hierachical clustering algorithm:
+%
+We start with each triangle pair as a single cluster.
+%
+Two clusters are merged if the distance $d$ between any two elements from both
+clusters is smaller than a clustering threshold $\epsilon_{\mathrm{c}}$.
+%
+We repeat this process until the number of clusters no longer changes.
+%
+
+%
+This algorithm has a complexity of $\mathrm{O}(n^3)$ in the number of solution
+candidates.
+%
+However, the number of solution candidates we find for each tensor core line
+point is typically very small.
+%
+In the vast majority of cases, we find less than 200 candidates.
+%
+At this scale, the performance impact of the clustering algorithm is negligible.
+%
+For symmetric tensor fields, eigenvectors are always orthogonal.
+%
+For solutions which are isolated points and belong to different eigenvectors,
+the separation between clusters in direction space is therefore rather large.
+%
+This means the choice of $\epsilon_{\mathrm{c}}$ is not critical as long as
+it is not chosen extremely small, or so large that solutions belonging to
+different eigenvectors are clustered together.
+%
+A choice of $\epsilon_{\mathrm{c}} = \num{1e-4}$ worked well in all our
+examples.
+%
+For each cluster, we select the triangle pair as a representative where the
+largest magnitude of all coefficients of $h_i$ is smallest.
+%
+We select the center points of both triangles in this pair as the solution
+represented by this cluster.
+%
+
+%
+For each cell in the dataset, we now connect the points found on its four faces
+to line segments.
+%
+Since in piecewise linear tensor fields, tensor lines are always straight within
+a cell, we simply greedily connect the two points with the smallest difference
+in eigenvector direction until no more pairs are left.
+%
+Similar to the vortex core lines by Sujudi and Haimes \cite{Sujudi1995}, this
+gives us a set of discontinuous line segments.
+%
+
+%
+If the dataset contains not only lines, but also surfaces where hyperstreamlines
+are locally straight, our algorithm might still find isolated solutions on those
+surfaces.
+%
+These occur if the structurally unstable surface structures are disturbed by
+noise.
+%
+To filter out these spurious points, we measure the numeric stability of
+a solution $(\vx, \vr)$ with
+%
+\begin{equation}
+  s(\vx, \vr) = \left|\det
+      \begin{pmatrix}
+          \frac{\nabla_{\vr_2}\mT(\vx)\,\vr}{\|\mT\|_{\mathrm{op}}} &
+          \frac{\nabla_{\vr_1}\mT(\vx)\,\vr}{\|\mT\|_{\mathrm{op}}} &
+          \vr
+      \end{pmatrix}\right| \text{,}
+\end{equation}
+%
+where $\vr, \vr_1, \vr_2$ are orthonormal.
+%
+The stability $s(\vx, \vr)$ measures the change in direction the eigenvector
+$\vr$ of the tensor $\mT(\vx)$ experiences when moving orthogonal to the tensor
+core line.
+%
+If this change is small, the magnitude of the determinant in $s$ will be small.
+%
+This is an indicator that the line is numerically unstable.
+%
+The normalization by $\|\mT\|_{\mathrm{op}}$ ensures the independence of the
+scale of the tensor field.
+%
+
+%
+We filter out all solutions where the line stability $s$ is small.
+%
+This is best done as a post-process where the user can interactively choose
+a threshold $\epsilon_{\mathrm{s}}$.
+%
+In practice, the distribution of $s$ over all found solutions shows an
+exponential behavior.
+%
+To make choosing a threshold easier for the user, we therefore apply it to the
+logarithm of $s$.
+%
+% subsection clustering_and_filtering (end)
+%
+% section extracting_tensor_lines (end)

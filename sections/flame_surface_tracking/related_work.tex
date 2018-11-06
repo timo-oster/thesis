@@ -1,0 +1,100 @@
+
+%
+\section{Background and Related Work} % (fold)
+\label{sec:fst_background_and_related_work}
+%
+The flame surface is the location of a flame where chemical reactions take
+place.
+%
+In premixed flames, where fuel and oxidizer are mixed before ignition, it is the
+interface between burnt and unburnt gases.
+%
+In non-premixed combustion, it is the burning part of the interface between
+fuel and oxidizer.
+%
+The flame surface is defined as an isosurface of a scalar variable such as the
+temperature or the mixture fraction of fuel and oxidizer.
+%
+Over the course of the simulation, the flame surface is influenced by multiple
+factors.
+%
+Chemical reactions move the interface between gases by transforming them,
+turbulent flow transports the gases, moving and deforming the flame surface,
+and molecular and thermal diffusion have a smoothing effect on the surface
+shape.
+%
+An example of the effects of tangential stretching on the burning behavior of
+the flame is given by Renard \etal in \cite{Renard1999}.
+%
+For a more detailed introduction to turbulent combustion, see ``Theoretical and
+Numerical Combustion'' by Poinsot and Veynante \cite{Poinsot2012}.
+%
+A modern direct numerical simulation code is presented by Abdelsamie \etal in
+\cite{Abdelsamie2016}.
+%
+
+%
+The evolution of simulation variables on the path of single points on the flame
+surface has been used in multiple works in combustion literature
+\cite{Sripakagorn2004,Scholtissek2017}.
+%
+In these works only a small number of points on the surface are tracked and they
+do not consider the relative tangential movement of points.
+%
+Our approach allows these kinds of studies on a much larger scale, providing
+data for the whole surface, which enables statistical evaluation and visual
+analysis.
+%
+Stretching of a flow restricted to a surface has been investigated similarly to
+our approach by Garth \etal~\cite{Garth2008}.
+%
+
+%
+Tracking different kinds of features has been the subject of numerous works in
+the field of flow visualization.
+%
+A lot of research deals with tracking volumetric features over time
+\cite{Silver1997,Sauer2014,Clyne2013,Mascarenhas2009,Duque2012,Muelder2009},
+while some methods focus on point-\cite{Garth2004,Theisel2003a} or line-type
+features \cite{Bremer2010}.
+%
+Most of these methods are designed for datasets that fit into the main memory of
+a consumer-grade computer, although some are explicitly designed to work in
+distributed-memory settings \cite{Wang2013}.
+%
+
+%
+Surface extraction and tracking is another large field of research.
+%
+In the context of this work, particle-based isosurface extraction methods, like
+the one proposed by Crossno \etal \cite{Crossno1997}, as well as methods for
+tracking evolving surfaces over time \cite{Krishnan2009,Buerger2009,Berres2015}
+are relevant.
+%
+Of particular interest in the context of this work is the work by Camp \etal
+\cite{Camp2012}, wich deals with stream surface integration in a
+distributed-memory environment.
+%
+
+%
+Visualization methods designed for an on-the-fly setting in large scale parallel
+simulations include the rendering of volume, surface and point data
+\cite{Akiba2007,Yu2010}.
+%
+These provide an overview of the state of a simulation while it is running and
+allow a visual analysis of the data for all time steps without saving them to
+disk.
+%
+Agranovsky \etal~\cite{Agranovsky2014} proposed storing flow fields computed
+during a simulation as a collection of path lines.
+%
+This Lagrangian form allows a compressed storage of the flow without relying on
+snapshots with large temporal gaps.
+%
+
+%
+To the best of our knowledge, there is no existing approach that solves the
+problem of tracking a time surface in a large distributed-memory simulation
+while maintaining temporal correspondence between surface points.
+%
+% section background_and_related_work (end)

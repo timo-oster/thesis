@@ -1,0 +1,174 @@
+
+
+\section{Related Work} % (fold)
+\label{sec:pev_related_work}
+%
+The \ac{PEV} operator is a generalization of tensor core lines.
+%
+It is related to the \ac{PV} operator, by which it was motivated, as well as tensor
+field visualization in general.
+%
+In this section, we give a more detailed explanation of tensor core lines, as
+well as an overview of relevant previous work.
+%
+%\textcolor{red}{
+\subsection*{Tensor Core Lines} % (fold)
+\label{sub:tensor_core_lines}
+%
+Tensor core lines were introduced by Oster \etal\cite{Oster2018} as an
+equivalent to vortex core lines for tensor fields.
+%
+Similar to the Sujudi/Haimes criterion for vortex core lines~\cite{Sujudi1995},
+they define tensor core lines as the locations where eigenvector trajectories
+have locally vanishing curvature.
+%
+For a tensor field $\mT$ and a vector $\vr$, a tensor core line passes
+through location $\vx$ if
+%
+\begin{equation*}
+    \vr \parallel \mT(\vx)\,\vr \parallel \nabla_{\vr}\mT(\vx)\,\vr\,\text{.}
+\end{equation*}
+%
+To understand this criterion, it is important to note that $\vr \parallel
+\mT\,\vr$ implies that $\vr$ is an eigenvector of $\mT$.
+%
+This is equivalent to the more commonly used formulation $\mT\vr = \lambda\vr$.
+%
+The tensor core line criterion consequentially states that $\vr$ is an
+eigenvector of $\mT(\vx)$, and that $\vr$ is also an eigenvector of
+$\nabla_{\vr}\mT(\vx)$, the directional derivative of $\mT$ along $\vr$.
+%
+In other words, $\mT(\vx)$ and $\nabla_{\vr}\mT(\vx)$ have a parallel
+eigenvector $\vr$.
+%
+In this work, we relax this criterion and find locations where any two tensor
+fields have parallel eigenvectors.
+%
+% subsection tensor_core_lines (end)
+%}
+%
+\subsection*{Parallel Vectors} % (fold)
+\label{sub:pev_parallel_vectors}
+%
+The parallel vectors operator was introduced by Peikert and Roth in 1999
+\cite{Peikert1999} as a generalization of a concept that had been used with
+slight variations in a lot of different contexts.
+%
+Among these are ridge detection in scalar fields~\cite{Haralick1983},
+extraction of attachment/separation lines in flows~\cite{Kenwright1999},
+and the identification of vortex core lines~\cite{Sujudi1995,Banks1995}.
+%
+% Haralick (1983) ridge detection,
+% Sujudi-Haimes (1995),
+% (Banks 1995) "A Predictor-Corrector Technique for Visualizing Unstready Flow"
+% Kenwright (1999) attachment/separation lines
+%
+
+%
+In his PhD thesis, Martin Roth~\cite{Roth2000} gives an overview of several
+numerical algorithms for the parallel vectors operator.
+%
+Most of them are based on first finding intersections of \ac{PV} lines with the
+cell faces of a dataset.
+%
+The resulting intersection points are then connected to lines using different
+kinds of heuristics.
+%
+
+%
+An alternative approach is to trace parallel vector lines starting from
+a seed point.
+%
+Algorithms using this general approach have been proposed by Banks and
+Singer~\cite{Banks1995}, Miura and Kida~\cite{Miura1997}, Sukharev et
+al.~\cite{Sukharev2006} and Theisel et al.~\cite{Theisel2003a}.
+%
+Methods for avoiding the accumulation of errors when tracing \ac{PV} lines were
+introduced by van Gelder and Pang~\cite{Gelder2009}, as well as Weinkauf et
+al.~\cite{Weinkauf2010a}.
+%
+
+%
+While most \ac{PV} algorithms operate on piecewise linear data that is not
+time-dependent, there are some publications that deal with higher-order data
+or use higher-order methods.
+%
+This includes approaches for finding curved vortex core lines~\cite{Roth1998},
+scale-space techniques~\cite{Bauer2002}, and computing the \ac{PV} operator on
+time-dependent~\cite{Theisel2005,Fuchs2007} or piecewise analytic vector
+fields~\cite{Pagot2011}.
+%
+% subsection parallel_eigenvectors (end)
+
+\subsection*{Tensor Field Visualization} % (fold)
+\label{sub:pev_tensor_field_visualization}
+%
+Tensor fields are generally visualized by Glyph-based, Integration-based or
+Topology-based methods.
+%
+
+%
+Tensor glyphs show the properties of a single tensor as a geometric object.
+%
+These glyphs vary in complexity depending on the properties of the tensor
+that is visualized.
+%
+Glyphs have been designed for symmetric positive definite
+tensors~\cite{Kindlmann2004}, indefinite symmetric
+tensors~\cite{Schultz2010a}, and general tensors in \ac{2D} and
+\ac{3D}~\cite{Gerrits2017}.
+%
+Specialized glyphs for structural mechanics applications~\cite{Hashash2003}
+as well as comparative visualization of medical diffusion tensor
+fields~\cite{Zhang2016} have also been proposed.
+%
+To visualize a tensor field using glyphs, they are usually placed on the grid
+nodes of the dataset or on a regular grid superimposed on the data.
+%
+Kindlmann and Westin~\cite{Kindlmann2006} proposed a more sophisticated glyph
+placement strategy that avoids occlusion.
+%
+
+%
+Integration-based methods create geometric structures by following the field of
+eigenvector directions starting from a seed structure.
+%
+The simplest example of this class is the hyperstreamline~\cite{Delmarcelle1993}.
+%
+It is commonly implemented as a tube following an eigenvector corresponding
+to some ordered eigenvalue.
+%
+The cross-section of the tube is scaled and rotated according to the other
+eigenvalues.
+%
+Weinstein \etal~\cite{Weinstein1999} introduced a similar concept that is more
+stable in the vicinity of isotropic points.
+%
+An extension of hyperstreamlines are hyperstreamsurfaces~\cite{Jeremic2002},
+which use a line instead of a point as the seed structure.
+%
+
+%
+Topology-based methods focus on extracting a topological skeleton capturing
+critical structures in tensor fields.
+%
+Degenerate structures where two or more eigenvectors are equal, were first
+described for symmetric tensor fields by Delmarcelle~\cite{Delmarcelle1994} and
+Hesselink~\cite{Hesselink1997}.
+%
+Zheng and Pang~\cite{Zheng2004,Zheng2005} introduced numerical algorithms for
+extracting such structures.
+%
+A more stable approach for noisy data was proposed by Tricoche
+\etal~\cite{Tricoche2008}
+%
+The topology of asymmetric tensor fields has also been
+studied~\cite{Zheng2005a,Zhang2009}.
+%
+Recently, surfaces of neutral and traceless tensors were added to the
+topological features of symmetric tensor fields~\cite{Palacios2016}.
+%
+
+% subsection tensor_field_visualization (end)
+%
+% section related_work (end)

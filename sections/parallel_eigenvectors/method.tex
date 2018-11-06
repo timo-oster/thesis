@@ -1,0 +1,524 @@
+
+%
+\section{Extracting \acs{PEV} Lines from Piecewise Linear Data} % (fold)
+\label{sec:extracting_pev_lines}
+%
+We will now detail our algorithm for finding \ac{PEV} lines in piecewise linear
+tensor fields.
+%
+We assume that both tensor fields are defined on the vertices of the same
+tetrahedral mesh.
+%
+The general approach is to first find all intersections of \ac{PEV} lines with the
+faces of the mesh, and then to connect those points to lines.
+%
+
+%
+We showed that \ac{PEV} structures are lines in the structurally stable case.
+%
+It follows that their intersections with the triangular faces of a tetrahedral
+mesh are isolated points.
+%
+Finding an analytic solution to the parallel eigenvector problem is impossible,
+as it involves the intersection of cubic polynomials.
+%
+Instead, we opt for a numerical approach that is based on recursive subdivision
+both on the triangle and in the space of possible eigenvector directions.
+%
+
+%
+Our algorithm can be summarized as follows:
+%
+We first find a direction $\vr$ which becomes an eigenvector of both $\mS$ and
+$\mT$ at some (possibly different) points inside the triangle.
+%
+If such a direction is found, we subdivide the triangle and check the parts for
+possible eigenvector directions again.
+%
+We do this until we converge on a single point where both $\mS$ and $\mT$
+have parallel eigenvectors.
+%
+% \begin{algorithm}
+%     \caption{Find intersections of \ac{PEV} lines with a triangle}
+%     \label{alg:find_pev_points}
+%     \begin{algorithmic}[0]
+%         \Function{FindPEV}{$\mS_\triangle$, $\mT_\triangle$, $\vx_\triangle$}
+%             \State $\vr \gets $ \Call{FindEigenDir}{$\mS_\triangle$,
+%                                                     $\mT_\triangle$}
+%             \If{$\vr$ is \Null}
+%                 \State \Return{\{\}}
+%             \EndIf
+
+%             \If{size of $\vx_\triangle < \epsilon_s$}
+%                 \State \Return{$\{(\sfrac{1}{3}\sum{\vx_i}, \ \vr)\}$}
+%                 \Comment{Location and eigenvector direction}
+%             \EndIf
+
+%             \State $l \gets \{\}$
+
+%             \ForAll{$(\mS'_\triangle, \mT'_\triangle, \vx'_\triangle) \in$
+%                    (\Call{Split}{$\mS_\triangle$},
+%                     \Call{Split}{$\mT_\triangle$},
+%                     \Call{Split}{$\vx_\triangle$})}
+%                 \State $l \gets l \ \cup$
+%                     \Call{FindPEV}{$\mS'_\triangle$,
+%                                    $\mT'_\triangle$,
+%                                    $\vx'_\triangle$}
+%                 \Comment{Recursive subdivision}
+%             \EndFor
+%             \State \Return{$l$}
+%         \EndFunction
+%     \end{algorithmic}
+% \end{algorithm}
+%
+
+%
+In order to find a valid direction $\vr$, we perform another recursive search
+in the space of possible eigenvector directions.
+%
+We represent this space as some triangulation of a hemisphere centered at the
+origin.
+%
+For each triangle of directions, we have to decide whether it contains a valid
+eigenvector direction, \ie, a direction that can become an eigenvector of both
+$\mS$ and $\mT$ within the current sub-triangle in space.
+%
+If we are sure that there are no valid directions in the triangle, we can
+discard it.
+%
+If we are sure that all directions within a triangle are valid directions, we
+can terminate the recursion.
+%
+If we can not be sure whether the triangle contains valid directions, we
+subdivide it and check the parts again.
+%
+
+%
+Our algorithm is similar to the one described by Oster
+\etal~\cite{Oster2018}.
+%
+Both are numerical algorithms that find singularities of polynomials of higher
+degree.
+%
+However, the problem we solve in this work is different, as it does not involve
+the derivatives of a tensor field, leading to a different algorithm.
+%
+In the following, we describe the details of this algorithm.
+%
+
+\subsection{Mathematical Basis} % (fold)
+\label{sub:mathematical_basis}
+%
+A linear tensor field on a triangle is completely defined by the tensors at its
+three corners.
+%
+We denote the set of corner points as $\vx_\triangle = \{\vx_1, \vx_2, \vx_3\}$,
+and the set of corner tensors as $\mS_\triangle = \{\mS_1, \mS_2, \mS_3\}$
+and $\mT_\triangle = \{\mT_1, \mT_2, \mT_3\}$.
+%
+We express the tensor fields in barycentric coordinates $\vw = \T{(w_1, w_2,
+w_3)}$:
+%
+\[
+    \mS(\vw) = \sum_i{w_i\mS_i}\,\text{,} \quad
+    \mT(\vw) = \sum_i{w_i\mT_i}\,\text{,} \quad
+    \text{with}\quad \sum_i{w_i} = 1 \, \text{.}
+\]
+%
+The position (in barycentric coordinates) at which an arbitrary direction $\vr$
+becomes an eigenvector in $\mS$ is given by the solution to
+%
+\[
+    \mS(\vw)\vr = \sum_i{w_i \mS_i \vr} = \lambda \vr \, \text{.}
+\]
+%
+Rather than needing the exact position, we want to know if the position is
+inside the triangle or not, \ie, if $\vr$ is a valid eigenvector direction for
+$\mS$.
+%
+In barycentric coordinates, a point is inside the triangle if all $w_i > 0$.
+%
+Since the scaling factor $\lambda$ is arbitrary, we eliminate it:
+%
+\begin{gather}
+    \sum_i{\tilde{w}_i \mS_i \vr} =
+    \mA(\vr)\tilde\vw =
+    \vr \, \text{,} \\
+    \text{with} \quad
+    \mA(\vr) = \begin{pmatrix} \mS_1 \vr & \mS_2 \vr & \mS_3 \vr \end{pmatrix}
+    \, \text{,} \quad \tilde\vw = \vw / \lambda \,\text{,}
+\end{gather}
+%
+and only require that all $\tilde{w}_i$ have the same sign.
+%
+Using Cramer's rule, we can give an analytic solution for the components of
+$\tilde\vw$:
+% 
+\begin{equation}
+    \tilde{w}_i = \frac{\det \mA_i(\vr)}{\det \mA(\vr)}
+\end{equation}
+% 
+Here, $\mA_i$ denotes the matrix $\mA$ with its $i$-th column replaced by $\vr$.
+% 
+Note that all $\tilde{w}_i$ are divided by the same factor $\det \mA(\vr)$.
+%
+Since this influences all signs of $\tilde{w}_i$ equally it can be ignored,
+leading to
+%
+\begin{equation}
+    \label{eq:coordinate_functions}
+    \hat{w}_i(\vr) = \det \mA_i(\vr) \, \text{.}
+\end{equation}
+%
+The equations for $\mT$ are analogous.
+% 
+In the following, we show all equations for $\mS$ only.
+% 
+The equivalent equations for $\mT$ can be obtained trivially by substituting
+$\mT$ for $\mS$.
+% 
+We denote the solutions for $\mS$ and $\mT$ by $\hat\vw_S$ and $\hat\vw_T$
+respectively, whenever it is necessary to discriminate them.
+%
+% subsection mathematical_basis (end)
+
+\subsection{Subdivision in Direction Space} % (fold)
+\label{sub:subdivision_in_direction_space}
+%
+The core of the algorithm is to find a direction $\vr$ for which all components
+of $\hat\vw_S(\vr)$ have the same sign, and all components of $\hat\vw_T(\vr)$
+also have the same (but possibly different) sign.
+%
+This means that the direction $\vr$ becomes an eigenvector somewhere inside the
+triangle for both $\mS$ and $\mT$.
+%
+Note that $\hat{w}_i(\vr)$ is cubic in $\vr$.
+%
+Finding an analytic solution for $\vr$ means analytically finding the
+intersections of the roots of $\hat{w}_i(\vr)$, which is impossible.
+%
+%
+Instead, we solve the problem numerically by applying another recursive search
+in the space of all possible eigenvector directions.
+%
+The magnitude and orientation of $\vr$ is not significant.
+%
+We can therefore represent this space by some triangulation of a hemisphere
+centered at the origin (\autoref{fig:algorithm}, right).
+%
+We again express a direction in a triangle $\vr_\triangle = \{\vr_1, \vr_2,
+\vr_3\}$ on this hemisphere in barycentric coordinates $u_j$ of its corner
+vectors:
+%
+\[
+    \vr(\vu) = \sum_j{u_j\vr_j} \, \text{.}
+\]
+%
+Substituting this in \eqref{eq:coordinate_functions}, the barycentric coordinate
+functions now become
+% 
+\[
+    \hat{w}_i(\vu) = \det \left( \sum_j{u_j\mA_i(\vr_j)} \right)\, \text{.}
+\]
+% 
+% We express the relevant behavior of $\hat{w}_i(\vu)$ inside the triangle by
+% the indicator function $s(\hat{w}_i(\vu))$:
+% %
+% \[
+%     s(\hat{w}_i(\vu)) =
+%     \begin{cases}
+%         \hfill 1 \text{,} &
+%         \text{if} \quad  \hat{w}_i(\vu) > 0 \quad
+%             \forall \{\vu\; |\; u_j \geqslant 0\} \\
+%         \hfill -1 \text{,} &
+%         \text{if} \quad  \hat{w}_i(\vu) < 0 \quad
+%             \forall \{\vu\; |\; u_j \geqslant 0\} \\
+%         \hfill 0 \text{,} & \text{else.}
+%     \end{cases}
+% \]
+% %
+% This indicator tells us if the sign of $\hat{w}_i$ is consistent everywhere
+% inside $\vr_\triangle$, and if it is positive or negative.
+% %
+% Computing $s_i$ means deciding if there are roots of $\hat{w}_i$ anywhere inside
+% the triangle.
+%
+We can now express $\hat{w}_i$ in Bernstein-Bézier basis:
+%
+\[
+    \hat{w}_i(\vu) = \sum_{\substack{j,\, k,\, l \geqslant 0 \, \text{,} \\ j+k+l=3}}{
+        \frac{3!}{j! \, k! \, l!} \, u_1^j \, u_2^k \, u_3^l \cdot \alpha_{jkl}}
+        \, \text{.}
+\]
+%
+Here, $\alpha_{jkl}$ are the 10 coefficients needed to express a trivariate
+polynomial of degree 3.
+%
+We use the property that a polynomial in Bernstein-Bézier form is bounded in its
+domain by the convex hull of its coefficients \cite{Farin1997}.
+%
+This means that $\hat{w}_i$ is positive over the whole triangle if all
+$\alpha_{jkl} > 0$, and negative over the whole triangle if all $\alpha_{jkl} <
+0$.
+%
+If the $\alpha_{jkl}$ have different signs, $\hat{w}_i$ might become 0 somewhere
+inside the triangle.
+%
+
+%
+We use this when recursively subdividing the triangle $\vr_\triangle$.
+%
+If any $\hat{w}_i$ might have roots within the triangle according to the
+Bernstein-Bézier coefficients, then we can not make a decision.
+%
+We need to subdivide the triangle and check the different parts again.
+%
+If no $\hat{w}_i$ can have roots within the triangle as indicated by the
+coefficients, then there are two possibilities:
+%
+\begin{enumerate}
+  \item \label{i:accept} All $\hat{w}_i$ have the same sign everywhere on the
+  triangle
+  \item \label{i:reject} The $\hat{w}_i$ have different signs everywhere on the
+  triangle
+\end{enumerate}
+%
+In case~\ref{i:accept}, all directions within the triangle become
+eigenvector directions somewhere in $\vx_\triangle$ for both $\mS$ and $\mT$.
+%
+If this happens, we can accept any direction within the current triangle as a
+possible solution.
+%
+In case~\ref{i:reject}, no direction within the triangle can become an
+eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
+%
+% %
+% This results in an indicator functions $s_i$, which tells us if the sign of
+% $\hat{w}_i$ is consistent everywhere inside $\vr_\triangle$, and if it is
+% positive or negative.:
+% %
+% \[
+%     s_i =
+%     \begin{cases}
+%         \hfill 1 \text{,} &
+%         \text{if} \quad  \alpha_{jkl}(\hat{w}_i) > 0 \quad  \forall \ j+k+l=3 \\
+%         \hfill -1 \text{,} &
+%         \text{if} \quad  \alpha_{jkl}(\hat{w}_i) < 0 \quad  \forall \ j+k+l=3 \\
+%         \hfill 0 \text{,} & \text{else.}
+%     \end{cases}
+% \]
+% %
+% %
+% If there are $i, j$ such that $s_i \neq 0$ and $s_j \neq 0$ with $s_i \neq s_j$,
+% then the coordinate functions $\hat{w}_i(\vr)$ do not all have the same sign for
+% any direction in $\vr_\triangle$.
+% %
+% This means that no direction in $\vr_\triangle$ will become an eigenvector in
+% $\vx_\triangle$, and therefore $\vr_\triangle$ can be discarded.
+% %
+% If there are $i, j, k$ such that $s_i \neq 0$ and $s_i = s_j = s_k$ for both
+% $\mS$ and $\mT$, then all directions in $\vr_\triangle$ will become eigenvectors
+% somewhere in $\vx_\triangle$ for $\mS$ and $\mT$.
+% %
+% In this case, we have found valid eigenvector directions and can terminate the
+% recursion.
+% %
+% If none of the above is the case, we have to subdivide $\vr_\triangle$ and
+% investigate the parts again.
+%
+When the triangle becomes smaller than some subdivision threshold $\epsilon_r$,
+and we still can not say for sure that there are no possible eigenvector
+directions inside, we accept the central direction as a candidate.
+%
+% \begin{algorithm}
+%     \caption{Find a direction that is an eigenvector in $\mS_\triangle$
+%              and $\mT_\triangle$}
+%     \label{alg:find_eigen_dir}
+%     \begin{algorithmic}[0]
+%         \Function{FindEigenDir}{$\mS_\triangle$, $\mT_\triangle$}
+%             \State $R \gets $ set of triangles covering a hemisphere
+%             \ForAll{$\vr_\triangle \in R$}
+%                 \State $\vr \gets$ \Call{FindEigenDirRecursive}{$\mS_\triangle$,
+%                                                                 $\mT_\triangle$,
+%                                                                 $\vr_\triangle$}
+%                 \If{$\vr$ is \KwNot \Null}
+%                     \State \Return $\vr$
+%                 \EndIf
+%             \EndFor
+%             \State \Return \Null
+%         \EndFunction
+
+%         \Function{FindEigenDirRecursive}{$\mS_\triangle$,
+%                                          $\mT_\triangle$,
+%                                          $\vr_\triangle$}
+%             \State Compute $s_{S, i}$ and $s_{T, i}$
+%             \If{$\max s_{S, i} \cdot \min s_{S, i} < 0$
+%                     \KwOr $\max_i s_{T, i} \cdot \min s_{T, i} < 0$}
+%                 \State \Return \Null
+%             \ElsIf{($|\sum{s_{S, i}}| = 3$ \KwAnd $|\sum{s_{T, i}}| = 3$)
+%                     \KwOr size of $\vr_\triangle < \epsilon_r$}
+%                 \State \Return $\sfrac{1}{3}\sum{\vr_i}$
+%             \Else
+%                 \ForAll{$\vr'_\triangle \in$ \Call{Split}{$\vr_\triangle$}}
+%                     \State $\vr \gets$ \Call{FindEigenDirRecursive}{$\mS_\triangle$,
+%                                                                     $\mT_\triangle$,
+%                                                                     $\vr'_\triangle$}
+%                     \If{$\vr$ is \KwNot \Null}
+%                         \State \Return $\vr$
+%                     \EndIf
+%                 \EndFor
+%             \EndIf
+%             \State \Return \Null
+%         \EndFunction
+%     \end{algorithmic}
+% \end{algorithm}
+%
+\begin{figure}[tb]
+    \centering
+    \setlength\figurewidth\linewidth
+    \input{figures/algorithm_pev_tikz}
+    \caption{Two-level recursion scheme for finding intersections of \ac{PEV} lines
+             with the faces of piecewise linear tensor fields. For each
+             sub-triangle $\vx_\triangle$, a recursive search in the space of
+             possible eigenvector directions is performed to find a direction
+             $\vr$ that becomes an eigenvector of both $\mS$ and $\mT$ within
+             $\vx_\triangle$. (Image similar to \cite{Oster2018}.)}
+    \label{fig:algorithm}
+\end{figure}
+%
+% subsection subdivision_in_direction_space (end)
+
+\subsection{Final Numerical Algorithm} % (fold)
+\label{sub:final_numerical_algorithm}
+%
+The complete algorithm for finding intersections of \ac{PEV} lines with a triangle
+of the dataset now works as follows:
+%
+Start with the complete triangle as $\vx_\triangle$.
+%
+Then, search for a direction that becomes an eigenvector of both $\mS$ and $\mT$
+somewhere inside the triangle by using the algorithm described in
+\autoref{sub:subdivision_in_direction_space}.
+%
+If such a direction is found, subdivide the triangle and process the parts
+recursively.
+%
+If no direction is found, discard the triangle.
+%
+When a spatial sub-triangle becomes smaller than a subdivision threshold
+$\epsilon_s$, we accept the center of the triangle as a solution candidate.
+%
+
+%
+The result of the algorithm is a list of points on $\vx_\triangle$ with
+corresponding eigenvector directions.
+%
+This list of points has to be post-processed for two reasons:
+%
+\begin{enumerate}
+    \item \label{i:clustering}
+          %
+          For each intersection of the \ac{PEV} line with the triangle, multiple
+          adjacent candidate points may be found.
+          %
+          This happens if eigenvectors of $\mS$ and $\mT$ are closer than
+          $\epsilon_r$ in a region larger than $\epsilon_s$, \eg, because the
+          gradient of the tensor fields is very small, or because the \ac{PEV} line
+          intersects the face at a very steep angle.
+          %
+          Choosing $\epsilon_r$ very small helps with this, but it can not be
+          avoided in the presence of limited numerical precision on a computer.
+          %
+    \item \label{i:false_positives}
+          %
+          A candidate point might not be a \ac{PEV} point at all.
+          %
+          These false positives occur if there are directions $\vr$ that become
+          eigenvectors of one of the tensor fields inside $\vx_\triangle$, while
+          $\mA(\vr)$ has rank 1 for the other tensor field.
+          %
+          For this case, $\hat{\vw} = \vNull$, which means that a consistent
+          sign of all components can never be determined, and subdivision can
+          not be terminated early, even if the tensor field does not have any
+          valid eigenvector directions inside $\vx_\triangle$.
+          %
+\end{enumerate}
+% 
+We deal with \autoref{i:clustering} by clustering candidate points that are
+closer than a certain distance threshold $\epsilon_c$.
+%
+We employ a simple single-linkage hierachical clustering
+algorithm~\cite{Everitt2011}.
+%
+Each candidate point starts as a separate cluster.
+%
+Clusters are merged if the smallest distance between them is smaller than
+$\epsilon_c$.
+%
+This is repeated until the number of clusters converges.
+%
+The clustering algorithm is the same as the one used by Oster
+\etal~\cite{Oster2018} for a similar purpose.
+%
+We then select the point in each cluster where the corresponding eigenvectors
+are most parallel as the representative and discard the others.
+%
+Since we already have eigenvector directions for each point, we do not need to
+explicitly compute them again.
+%
+Instead, we use the parallelity error
+%
+\[
+e_p = {\left\| \frac{\mS(\vw) \vr}{\| \mS(\vw) \vr \|}
+            \times \frac{\vr}{\| \vr \|} \right\|}
+      + {\left\| \frac{\mT(\vw) \vr}{\| \mT(\vw) \vr \|}
+            \times \frac{\vr}{\| \vr \|} \right\|} \, \text{,}
+\]
+%
+which measures the deviation of $\vr$ from the true eigenvectors of both
+$\mS(\vw)$ and $\mT(\vw)$.
+%
+
+%
+In order to address \autoref{i:false_positives}, we discard all candidate points
+for which $e_p$ is greater than some parallelity threshold $\epsilon_p$.
+%
+This threshold can be chosen quite coarse (\eg~0.01), as $e_p$ is typically
+quite large for false positive candidate points.
+%
+
+
+%
+In certain cases, the \ac{PEV} line might not intersect the triangle at a single
+point.
+%
+This happens in the structurally unstable cases where eigenvectors are parallel
+on a structure with a dimension larger than 1, or where the \ac{PEV} line is
+completely in the plane of the triangle.
+%
+In these cases, a recursive subdivision will not converge on isolated points and
+slow down the algorithm considerably.
+%
+To mitigate this, we terminate the recursion if the number of triangle
+subdivision operations exceeds a reasonable threshold.
+%
+
+%
+Once we have clustered the candidate solutions and removed false positives, we
+have a number of final \ac{PEV} points for each face of the mesh.
+%
+These \ac{PEV} points are now connected to lines on a cell-by-cell basis.
+%
+This problem is also faced when computing the \ac{PV} operator, where it has been
+solved in a variety of ways using different heuristics, which can be employed
+here as well.
+%
+In our implementation, we simply connect two points if they are the only
+two intersections of a \ac{PEV} line with a grid cell.
+%
+In case of more than one intersection, we greedily connect pairs of points
+that have the most similar parallel eigenvector directions, assuming that
+\ac{PEV} lines are generally smooth relative to the grid resolution.
+%
+% subsection final_numerical_algorithm (end)
+% section extracting_pev_lines (end)

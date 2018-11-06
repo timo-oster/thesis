@@ -1,0 +1,456 @@
+
+% 
+\section{A Sparse Representation for DNS Data}
+\label{sec:compression}
+
+To address problem~\ref{i:size}, and enable addressing problems~\ref{i:analyze}
+and \ref{i:visualize}, we introduce a sparse representation for DNS data. The
+transformation into the sparse form consists of three steps: First, points are
+seeded on the flame surface. Second, the values of the simulation variables are
+sampled along lines orthogonal to the flame surface, emanating from these
+points. Third, the resulting profiles are approximated by models, reducing each
+profile to a set of model parameters.
+
+As mentioned before, simulation variables vary most along the shortest path
+across the flame front. This direction is approximately orthogonal to the flame
+surface. We exploit this by representing the 3D scalar fields of the
+variables as a set of profiles on 1D lines. These profile lines are anchored at
+points $\vp_i$ on the flame surface and oriented along its normal
+$\vr_i$. By giving the lines a limited length, we discard information from
+outside of the flame front, where the variables are almost constant. The
+placement of the profile lines is dependent on the flame surface curvature,
+seeding more lines in highly curved areas and less in planar regions (see Figure
+\ref{fig:flamecrossing}).
+
+Variables are grouped into three classes: \emph{Reactants} have high
+concentrations outside of the burnt region and low concentrations inside,
+\emph{products} are the opposite, and \emph{intermediates} occur near the flame
+surface between unburnt and burnt regions but have low values on either side.
+This behavior can be modeled with few degrees of freedom, reducing the amount of
+data even further. The information that has to be stored in the sparse
+representation consists of the locations and directions of the profile
+lines, $\vp_i$ and $\vr_i$, the model parameters for each variable
+and profile line, and the full flame surface mesh for subsequent visualization.
+%
+% The compression $C$ then becomes a transformation from a set
+% of simulation variables $(V_1, \dotsc, V_v)$ to a tuple consisting of the
+% locations and directions of the profile lines, $(\vp_i, \vr_i)$, and
+% the model parameters for each variable and line, $\Phi$:
+% \begin{equation*}
+% 	\begin{aligned}
+% 		C(V_1, \dotsc, V_v) &= ((\vp_i, ~\vr_i), ~\Phi^{V_1}, \dotsc, \Phi^{V_v}), ~ i = 1, \dotsc, n\\
+% 		\text{with } \Phi^V &= \phi^V_{ij}, ~ j = 1, \dotsc, m \text{ .}\\
+% 	\end{aligned}
+% \end{equation*}
+% Here, the set of model parameters for all lines of variable $V$ is denoted as
+% $\Phi^V \in \R^{n \times m}$, which is a matrix with entries $\phi^V_{ij}$,
+% denoting the $j$-th model parameter of the $i$-th profile line.
+%
+We now describe how the lines are seeded, how the profiles are extracted from
+those lines, and how these profiles are then approximated by simple models.
+% 
+\subsection{Strategy for Seeding Profile Lines} % (fold)
+\label{sub:seeding}
+%
+\begin{figure}[t!]
+	\begin{center}
+		\includegraphics[width=\linewidth]{figures/flamecrossing.pdf}
+	\end{center}
+	\caption{
+	Cross section scheme of flame surface with seeded points $\vp$:
+	profiles sampled from profile lines $\vp(t)$ at different locations
+	on the flame surface. The minimum, inflection, and maximum of the sigmoidal
+	shape are indicated by the blue, green and red dots. If the sampled line
+	enters or leaves the burning region multiple times, multiple sigmoidal
+	shapes can occur (bottom right box). Seeding density is dependent on the
+	surface curvature (see green vs. red circle). }
+	\label{fig:flamecrossing}
+	\ruggedtodo[inline]{Recreate in tikz, don't use colored boxes}
+\end{figure}
+%
+Commonly, the flame surface in premixed combustion is defined as the
+0.5-isosurface of a \emph{combustion progress variable}~\cite{Poinsot2012}. This
+variable is defined as $({T-T_u})/({T_b-T_u})$, where $T_u$ and $T_b$ are the
+temperature of the burnt and unburnt gases, and varies between 0 and 1. The
+choice of the isovalue is very robust. Our experiments show that variations of
+$\pm 0.1$ lead to isosurfaces with Hausdorff distances less than 2\% of the
+longest side of the simulated domain. Anchor points $\vp_i$ for profile
+extraction are distributed on this surface, which we extract using
+CGAL~\cite{Boissonnat2005}. This yields a mesh with approximately uniformly-spaced
+vertices and edges of approximately the same length as the voxel size in
+the original data.
+%
+%We first place a point into every surface voxel. 
+%
+% Sub-voxel sampling would not yield more information due to the smoothness of DNS
+% data. 
+%
+Since this results in a large number of vertices, we select only some of
+them as seed points, using a rejection sampling based on local surface
+curvature.
+%
+%This results in a large number of seed points. We therefore reduce the number
+%of points by a random process based on the local surface curvature. 
+%
+%We use a method described by Kindlmann et al.~\cite{Kindlmann2003} to 
+%
+We estimate the principal curvatures $\kappa_1$ and $\kappa_2$ at each vertex
+(see, e.g., \cite{Kindlmann2003}). The curvatures are then transfomed into a
+seeding density by a logarithmic function:
+%
+\begin{equation*}
+	\seedDens(\kappa_1, \kappa_2) = 
+		\frac{\ln(1 + \sqrt{\kappa_1^2+\kappa_2^2})}{\seedDensQuot}\text{ .}
+\end{equation*}
+Here, $\seedDensQuot > 1$ steers the seeding density. For each initial vertex, a
+uniformly distributed random number $r \in (0, 1)$ is now generated, and the
+point is selected if $\seedDens < r$. This results in few seed points in areas
+without curvature, and all vertices being selected in areas where $\seedDens >
+1$. Areas of higher curvature get more seeds than less curved ones. Hence, the
+storage size of the sparse representation depends on the surface shape rather
+than on the resolution of the data. Adjusting $\seedDensQuot$ changes the total
+number of seed points and balances size vs. quality.
+%
+% The logarithmic shape of
+% $\seedDens$ ensures that medium curvatures, which are most frequent, are not
+% discarded as often, and sampling density is more even across areas of higher
+% curvature. By allowing the density of the maximum curvature to drop below 1, it
+% becomes possible to avoid overly dense seeding in high-curvature areas.
+%
+%\begin{figure}[tb]
+%	\begin{center}
+%		\includegraphics[width=\linewidth]{figures/lineseeding.pdf}
+%	\end{center}
+%	\caption{
+%	2D example of flame surface with seeded points. More points are seeded at
+%	locations of high curvature.
+%	}
+%	\label{fig:seeded_points}
+%\end{figure}
+%
+%
+% subsection seeding (end)
+%
+\subsection{Extracting Profile Lines} % (fold)
+\label{sub:profile_extraction}
+%
+Once the points $\vp_i$ are seeded, profiles of all variables are sampled
+at regular intervals $t_j$ along lines $\vp_i(t_j)=\vp_i + t_j \cdot
+\vr_i$, with $||\vr_i|| = 1$ (Figure~\ref{fig:flamecrossing}).
+%
+% According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
+% size.
+% 
+Due to the high resolution and accuracy of DNS data, trilinear
+interpolation is sufficient. The length of the line is chosen sufficiently large
+to cover the whole reaction zone. The resulting profiles are approximated by
+simple models to further reduce the required storage space.
+%
+% The resulting profiles are discretely sampled functions
+%
+% \begin{equation*}
+% 	P_{ij}^V = V(\vp_i(t_j)), ~ i=1, \dotsc, n, ~ j = 1, \dotsc, m,~
+% 	t_j = -\frac{\tau}{2} + \frac{j-1}{m-1} \cdot \tau \text{ ,}
+% \end{equation*}
+%
+% where $V$ is the variable from which the profiles are extracted, $n$ is the
+% number of lines, $m$ is the number of sample points along the line, and $\tau$
+% is the length of the line. We are assuming a uniform grid with voxels of $1$
+% unit edge length for simplicity.
+%
+% subsection profile_extraction (end)
+\subsection{Model-Based Data Approximation} % (fold)
+\label{sub:fitting}
+%
+% address a review comment
+%----
+% Even though DNS data are simulated without any model assumptions,
+% it is reasonable to describe the data outcome of them via models for
+% two reasons: i) the model-based description of the data does not negatively effect
+% the simulation benefits of DNS data being that DNS data have a low
+% simulation error because the simulation still runs with the raw data per time step;
+% and ii) the models facilitates the treatment and extraction of such
+% characteristic features which the domain experts want to investigate for
+% data analysis purposes. In the following, the compression scheme steps are described in detail.
+%----
+Although the main advantage of DNS is its high precision due to the lack of any
+modeling assumptions, we use models to describe its outcome in a lower-
+dimensional form. These models are sufficient to facilitate the analysis of the
+scalar fields we intend. Additionally, they reduce the space needed to store the
+sparse representation.
+
+Reactants, intermediates, and products each have very similar profiles that can
+be locally approximated by simple models. Reactants and products tend to exhibit
+profiles with a sigmoidal shape, transitioning from a constant high/low value in
+the unburnt region to a constant low/high value in the burnt region, passing an
+inflection point in between. This behavior can be expressed by a model based on
+a sigmoidal function. Intermediate species have a maximum near the flame
+surface, decreasing on both sides. They are approximated by a model based on a
+Gaussian bell curve. Small fluctuations that deviate from these models may occur
+but are not relevant for the general shape. Greater deviations appear if a
+sample line crosses the flame surface multiple times, which happens if multiple
+parts of the flame front come close to each other. In such cases, the
+characteristic behavior occurs multiple times across the profile. To handle
+this, the instance closest to the anchor point is identified and isolated from
+the others.
+%
+\subsubsection{Model for Reactants and Products} % (fold)
+\label{ssub:model_for_reactants_products}
+%
+Sigmoidal shapes are commonly expressed with the logistic
+function $1/(1+e^{-x})$, which we extend with parameters $\gamma$, adjusting
+the slope at the inflection and $a$, determining the limits of the function at
+positive/negative infinity:
+%
+\begin{equation*}
+	\mathfrak{s}(x,a,\gamma)
+		= \frac{2a}{ 1 + e^{ (-2\frac{\gamma x}{a}) } } - a \text{ .}
+\end{equation*}
+%
+While this function can roughly approximate the profiles of reactants and
+products, it has too few degrees of freedom to reproduce the different
+curvatures of the profiles at both sides of the inflection point. For this
+reason, we use two pieces of this function, joining smoothly at the inflection
+point (Figure~\ref{fig:models}, top).
+%
+\begin{equation*}
+%	\begin{aligned}
+		\mathfrak{S}(x, a_l, a_r, \gamma, x_m, y_m) =  
+		\begin{cases}
+			\mathfrak{s}(x, a_l, \gamma) + y_m, &\text{if }  x \leq x_m\\
+			\mathfrak{s}(y, a_r, \gamma) + y_m, & \text{if }  x > x_m\\
+		\end{cases}\\
+%		&\text{with } \sgn(\gamma) = \sgn(a_r) = \sgn(a_l) \text{ ,}
+%	\end{aligned}
+\end{equation*}
+%
+where $(x_m, y_m)$ is the location of the inflection point, $\gamma$ is the
+slope at the inflection and $y_m-a_l$ and $y_m+a_r$ are the limits of the
+function approaching negative and positive infinity.
+%
+% subsubsection model_for_reactants_products (end)
+%
+\subsubsection{Model for Intermediate Species} % (fold)
+\label{ssub:model_for_intermediate_species}
+%
+The profiles of intermediates resemble Gaussian bell curves. Since minimum and
+maximum of the profiles of intermediate species can vary, it is necessary to
+extend the standard bell curve with additional parameters $y_m$, the value at
+the maximum, and $y$, the limit at infinity.
+%
+\begin{equation*}
+	\mathfrak{g}(x, x_m, y_m, \sigma, y) 
+		= e^{-\frac{1}{2}(\frac{x-x_m}{\sigma})^2}\cdot(y_m-y)+y \text{ .}
+\end{equation*}
+%
+Since the profiles tend to have a steeper slope on the unburnt side and some of
+them do not reach zero on the burnt side, a two-sided model is once again needed
+to accurately capture this behavior. We join the two bell curves smoothly at
+their maximum point, resulting in a model with six parameters:
+%
+\begin{equation*}
+	\mathfrak{G}(x, x_m, y_m, \sigma_l, y_l, \sigma_r, y_r) =  
+	\begin{cases}
+		\mathfrak{g}(x, x_m, y_m, \sigma_l, y_l), & \text{if }  x \leq x_m\\
+		\mathfrak{g}(x, x_m, y_m, \sigma_r, y_r), & \text{if }  x > x_m\\
+	\end{cases}
+\end{equation*}
+%
+where $(x_m, y_m)$ is the location of the maximum, $\sigma_l$ and $\sigma_r$
+determine the slope of the left and right part of the function and $y_l$ and
+$y_r$ are the limits of the function approaching negative and positive infinity
+(Figure \ref{fig:models}, bottom).
+%
+% \begin{figure}[ht]
+% 	\centering
+% 	\setlength\figureheight{3cm} 
+% 	\setlength\figurewidth{7cm}
+% 	\input{figures/gaussmodel.tikz}
+% 	\caption{Gaussian model}
+% 	\label{fig:gaussmodel}
+% \end{figure}
+%
+% subsubsection model_for_intermediate_species (end)
+%
+\subsubsection{Fitting the Models to the Profiles} % (fold)
+\label{ssub:fitting_the_models}
+%
+We now approximate the profiles by fitting the models. For the sigmoidal model,
+we need the position, value and first derivative at the inflection point as well
+as the minimum and maximum values of the profile on both sides of the flame
+front. For the Gaussian model, the location and value of the maximum near the
+flame front have to be known, as well as the minimum values $y_l$ and $y_r$. To
+robustly determine these feature points, we have to account for the two types of
+deviations that may occur in the profiles as described above: small
+fluctuations, and the profile entering and leaving the reaction zone multiple
+times.
+
+To eliminate small fluctuations, we filter the profiles with a Gaussian kernel
+\cite{Jaehne2005}. The kernel size depends on the size of the fluctuations
+but can be chosen quite small. For the test data (see Section
+\ref{ssec:evaluation_compression}) we used a size of $6$ voxels, which translates
+to $\sigma = 1$.
+%
+Extrema are found at zero-crossings of the first derivative of the filtered
+profile. Possible shifts of the extrema due to the filtering are corrected by
+mapping each maximum to the largest maximum, and each minimum to the smallest
+minimum in the radius of the filter size, taking care that extrema do not switch
+sides. For finding inflection points, we use the same approach but on the second
+derivative.
+
+Due to the possibility of crossing the flame surface multiple times (see
+Figures~\ref{fig:flamecrossing} and \ref{fig:models}), we can find more feature
+points on the profile than we need for our models. We have to identify the ones
+closest to the anchor point.
+%
+For the sigmoidal model, this is the inflection nearest to the center of the
+profile. The position and value of this point determine $x_m$ and $y_m$ of the
+sigmoidal model, while $\gamma$ is determined by the first derivative at the
+inflection. The values of the first minimum and maximum left and right of the
+inflection (depending on the sign of $\gamma$) determine $a_l$ and $a_r$. The
+positions of these extrema, $x_l$ and $x_r$, are the boundaries of the portion
+of the profile that the model is fitted to. The rest of the profile, possibly
+containing other crossings of the flame surface, is not considered, as those
+other crossings are already captured by other profile lines seeded there.
+%
+\begin{figure}[t!]
+	\centering
+	\setlength\figurewidth{0.88\linewidth}
+	\setlength\figureheight{2.2cm}
+	\input{figures/models.tikz}
+	\caption{
+	Sigmoidal model (top) and Gaussian model (bottom) with examples of models
+	fitted to a profile.}
+	\label{fig:models}
+\end{figure}
+%
+% \begin{figure}[t]
+% 	\begin{center}
+% 		\setlength\figureheight{2cm}
+% 		\setlength\figurewidth{0.85\linewidth}	
+% 		\input{figures/fit_sigmoid_5.tikz}\\
+% 		\input{figures/fit_gauss_3.tikz}
+% 	\end{center}
+% 	\caption{
+% 	Top: Fitting the sigmoidal model to a profile of temperature.
+% 	Bottom: Fitting the Gaussian model to a profile of \ce{H2O2}.
+% 	The non-constant data values outside the fitted range show that the profile
+% 	crosses the reaction zone multiple times.
+% 	}
+% 	\label{fig:fitting_models}
+% \end{figure}
+%
+For the Gaussian model, the maximum nearest to the center determines $x_m$
+and $y_m$, while the values of the closest minima to both sides determine $x_l$
+and $x_r$, as well as $y_l$ and $y_r$. Further extrema are ignored. For both
+models, if there are no extrema on either side of $x_m$, the values at the ends
+of the profiles are chosen instead.
+
+% \begin{figure}[ht]
+% 	\begin{center}
+% 		\setlength\figureheight{2cm}
+% 		\setlength\figurewidth{0.85\linewidth}
+% 		\input{figures/fit_gauss_3.tikz}
+% 	\end{center}
+% 	\caption{
+% 	Fitting the Gaussian model to a profile of \ce{H2O2}. The values outside of
+% 	the fitted range show that the profile crosses the reaction zone three times.
+% 	}
+% 	\label{fig:fitting_gaussian}
+% \end{figure}
+
+While the feature points on the profile already determine all parameters for the
+sigmoidal model, the values for $\sigma_l$ and $\sigma_r$ of the Gaussian model
+still have to be found. We obtain an initial guess for $\sigma_{l/r}$ by
+transforming the intervals of the profile between $x_l$ and $x_m$ and between
+$x_m$ and $x_r$ into the interval $[0, 1]$ and regarding them as halves of two
+symmetric probability density functions (pdf). The variance of a discrete random
+variable $X$ with the pdf $p(x)$ and expected value $\mu$ is given by: $\var(X)
+= \int p(x) \cdot (x-\mu)^2 ~dx$. Since for a normal distribution, the variance
+is $\sigma^2$, we can directly use this equation on our transformed profiles. We
+then refine this estimate with a simple optimization scheme such as Newton's
+method to find the optimal fit.
+
+% As an initial guess, we use the fact that for a normal
+% distribution, $\sigma^2$ is equal to the variance. Since our model, like the
+% normal distribution, is based on the Gaussian function, we can employ a method
+% similar to estimating the variance of a probability density function (pdf) for
+% determining an initial guess for $\sigma_l$ or $\sigma_r$. 
+% By transforming each side of our Gaussian model into the value range $[0, 1]$
+% and regarding it as one half of a symmetric pdf, we can directly employ the
+% above equation to obtain an estimate for both parameters. We then refine this
+% estimate with a simple optimization scheme such as Newton's method to find the
+% optimal fit.
+
+% Our profiles are not probability mass functions but by transforming them into
+% something similar, we can use the same method to estimate a pseudo-variance and
+% hence a good guess for $\sigma_{l/r}$. The values between $x_m$, which is our
+% pseudo-$\mu$, and the nearest minimum to one side give us the basis for one half
+% of a pseudo-pmf. By subtracting the minimum value and dividing the resulting
+% values by twice their sum, we get something resembling one half of a pmf, which
+% we can insert into equation \eqref{eqn:variance}, assuming it is symmetric
+% in $x_m$. The resulting equation for estimating $\sigma_l$ is:
+% \begin{equation}
+% 	\begin{aligned}
+% 	\sigma_li^2 =  &2 \cdot \sum_{j | x_li \leq x_ji \leq x_mi} \tilde{P}_ij^V \cdot (x_ji-x_mi)^2\\
+% 	\tilde{P}_ij^V = &\frac{P_ij^V-y_li}{2 \cdot \sum_{j | x_li \leq x_ji \leq x_mi} P_ij^V-y_li}
+% 	\end{aligned}
+% \end{equation}
+% Where $\tilde{P}_ij^V$ is the profile $P^V_ij$ between $x_li$ and $x_mi$,
+% transformed into a half pmf like described. An estimate of $\sigma_ri$ can be
+% determined in the same way.
+
+% If the profile were perfectly similar to a normal distribution, this estimate of
+% $\sigma$ would mean a perfect fit of the model to the data. If this is not the
+% case, even small deviations can lead to an estimate that is not optimal. Finding
+% the optimum in least squares sense is a nonlinear problem. Due to the good
+% estimate we have, we can employ a simple optimization scheme such as Newton's
+% method to find the solution with very few steps.
+
+% For each profile
+% line, we first determine the inflection point nearest to the center of the
+% profile. We then find the nearest maximum or minimum at both sides of the
+% inflection. The position, value and slope of the inflection as well as the
+% positions and values of the extrema at both sides provide all necessary
+% parameters of the model. 
+
+% The parameter matrix $\Phi^V_{\text{rp}}$ of the sigmoidal model for reactants
+% and products is
+% \begin{equation*}
+% \Phi^V_{\text{rp}} = 
+% 	(a_{li}, a_{ri}, m_i, x_{mi}, y_{mi}, x_{li}, x_{ri}),~
+% 	i=1,\dotsc,n \text{ .}
+% \end{equation*}
+%For intermediate species, the Gaussian model $G$ is fitted to the data. 
+% Here,
+% the maximum of the profile that is nearest to the anchor point at the center is
+% first located. The minima at both sides of this maximum then give the boundaries
+% of the relevant crossing of the flame surface, and the values for the limits
+% $y_l$ and $y_r$ at both sides. To determine $\sigma_l$ and $\sigma_r$, we
+% estimate an initial guess by regarding the profile between the left minimum and
+% the central maximum, and the profile between the maximum and right minimum as
+% halves of a transformed probability mass function. The optimal values are then
+% found by minimizing the mean square error between data and model via Newton's
+% method, starting at the initial guess estimated in the previous step. 
+% The parameter matrix $\Phi^V_{\text{int}}$ of the Gaussian model for 
+% intermediate species is 
+% \begin{equation*}
+% \Phi^V_{\text{int}} =
+% 	(x_{mi}, y_{mi}, \sigma_{li}, y_{li}, \sigma_{ri}, y_{ri}, x_{li}, x_{ri}),~
+% 	i=1,\dotsc,n \text{ .}
+% \end{equation*}
+
+With this, the original data is now described by the flame surface mesh, the
+$\vp_i$ and $\vr_i$ of the profile lines, and the
+model parameters for each profile line and variable. For the sigmoidal model,
+this is $(a_{li}, a_{ri}, \gamma_i, x_{mi}, y_{mi}, x_{li}, x_{ri})$ for each
+profile line. For the Gaussian model, the parameters are $(x_{mi}, y_{mi},
+\sigma_{li}, y_{li}, \sigma_{ri}, y_{ri}, x_{li}, x_{ri})$. In the following, we
+describe the reconstruction of the dense scalar fields from this sparse
+representation.
+%
+% subsubsection fitting_the_models (end)
+%
+% subsection fitting (end)
+%
+% section compression (end)

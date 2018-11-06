@@ -1,0 +1,64 @@
+
+%
+\section{Limitations and Future Research} % (fold)
+\label{sec:pev_limitations}
+% 
+Limitations can be discussed from two points of view:
+%
+the operator itself and the presented numerical extraction algorithm.
+%
+A limitation of the \ac{PEV} operator is that it can only be applied to problems
+where the norm of the tensors does not matter.
+%
+This limits the applicability but on the other hand focuses on features of the
+tensor fields that are less covered by other methods.
+%
+
+%
+The presented extractor works for piecewise linear tensor fields only.
+%
+An extension to hexahedral grids as well as higher order interpolations is
+subject of future research.
+%
+The performance of the algorithm can be improved by parallelization.
+%
+In principle, the algorithm is parallelizable (each cell can be treated
+independently).
+%
+However, even if this is carefully carried out, interactive frame rates (for
+instance for comparing time-dependent tensor fields) are hardly achievable
+because we still have to do a search in a \ac{5D} space.
+%
+Due to the possibility of many candidate solutions for each intersection of a
+\ac{PEV} line with a face, we can not give an upper limit on the error of the
+\ac{PEV} line position.
+%
+This might limit its applicability in cases where a highly accurate \ac{PEV} line is
+required.
+%
+
+%
+%\textcolor{red}{
+%
+We stated in~\autoref{thm:1} that \ac{PEV} lines are generally closed.
+%
+However, the results obtained from our algorithm sometimes exhibit gaps.
+%
+Because the extractor is a numerical algorithm, and not a combinatorial one, we
+will sometimes not find solutions on faces where the presence of an intersection
+point is numerically unstable.
+%
+This happens for example if the \ac{PEV} line is parallel and very close to a face,
+or when the tensor field is almost zero.
+%
+%}
+%
+
+%
+In this paper, we only show examples of the \ac{PEV} operator for (symmetric) stress
+tensor fields.
+%
+Further possible scenarios that are left to future research are the comparative
+visualization of DT-MRI data or a comparative visualization of Jacobian fields
+for flow visualization, which are not necessarily symmetric.
+%

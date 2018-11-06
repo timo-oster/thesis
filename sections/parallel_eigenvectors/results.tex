@@ -1,0 +1,350 @@
+
+
+\section{Results} % (fold)
+\label{sec:pev_results}
+%
+We applied our method to different stress tensor fields from structural
+mechanics simulations.
+%
+Stress tensors are symmetric tensors that describe the local stress at a point
+in a material under acting force.
+%
+Its eigenvectors are real and orthogonal and are aligned with the principal
+stress directions acting on the point.
+%
+When comparing two different stress tensor fields, \ac{PEV} lines occur where two
+principal stress directions align.
+%
+We show \ac{PEV} lines for three different stress tensor datasets:
+%
+Two different point loads applied to a uniform material, two different traction
+forces applied to the end of a clamped beam, and two different load scenarios
+applied to a flange.
+%
+
+%
+We used the same parameters for all datasets:
+%
+$\epsilon_s = \num{1.d-3}$, $\epsilon_c = 5 \times \epsilon_s$, $\epsilon_d =
+\num{1.d-9}$, $\epsilon_p = \num{1.d-3}$.
+%
+Our results were computed on a 4-core Intel Core i7 CPU at
+\SI{3.4}{\giga\hertz}.
+%
+\subsection*{Point Loads} % (fold)
+\label{ssub:point_loads}
+%
+%
+% 1.1 million cells
+%
+% 4.8 million faces
+%
+% Computing time: \SI{4.2}{\hour}
+%
+% Time per face: \SI{3.18}{\milli\second}
+%
+In this example, we compare two different point loads applied to a uniform
+material with infinite extent.
+%
+The first load (red arrow in \autoref{fig:point_load}) is a compressive force,
+the second load (blue arrow) is a tensile force of equal magnitude.
+%
+We compute the \ac{PEV} operator for the two resulting stress tensor fields.
+%
+The Point Load case has a closed analytic solution~\cite{Saada2013}, which we
+sampled on a regular grid with $100 \times 50 \times 50$ points using the
+\texttt{vtkPointLoad} source from the Visualization Toolkit~\cite{Schroeder2006}.
+%
+We then tetrahedralized the data, resulting in 1.1 million cells and 4.8 million
+faces.
+%
+The computing time for this dataset was \SI{4.2}{\hour}, which means that \ac{PEV}
+intersections on each face were found in \SI{3.2}{\milli\second} on average.
+%
+
+%
+Since the point loads were applied in the same plane, this synthetic dataset
+shows the rare case where eigenvectors are parallel on a plane instead of a
+line.
+%
+This degenerate case also accounts for the long computing time, as for each face
+intersected by the \ac{PEV} plane, the recursive subdivision can not be terminated
+early.
+%
+Even though this structurally unstable case produces visual artifacts when
+using our method, interesting \ac{PEV} line structures are still visible.
+%
+There is a bifurcation point exactly at both load points, extending into a
+curved ring slightly below the surface.
+%
+At the second intersection of this ring with the central plane, another closed
+\ac{PEV} structure embedded into the plane becomes visible.
+%
+Within a \ac{PEV} plane, structures where all three eigenvectors are parallel become
+lines, instead of points.
+%
+A similar structure can be observed starting at the load points and leading
+outwards.
+%
+In the center of the dataset, there is another \ac{PEV} line, orthogonal to the
+plane and slightly curved downwards, separating the two load points.
+%
+For this dataset, we colored the \ac{PEV} lines by the absolute eigenvalue ratio of
+the parallel eigenvectors.
+%
+Since both tensor fields result from forces of equal magnitude, this ratio makes
+visible the directions in which forces propagate outwards from the load points.
+%
+% subsubsection point_loads (end)
+%
+\subsection*{Clamped Beam} % (fold)
+\label{ssub:clamped_beam}
+%
+% 150k cells
+%
+% 600k faces
+%
+% Computing time: \SI{26}{\minute}
+%
+% Time per face: \SI{2.6}{\milli\second}
+%
+Next, we extracted \ac{PEV} lines for a beam that is fixed on one side.
+%
+We applied two different traction forces on the free end of the beam, whose
+directions are shown in~\autoref{fig:beam_full}.
+%
+The Clamped Beam dataset consists of 150k cells and 600k faces.
+%
+The computing time was \SI{26}{\minute}, which means \SI{2.6}{\milli\second}
+per face on average.
+%
+
+%
+% The resulting \ac{PEV} lines are surprisingly complex for such a simple case.
+% %
+% However, the eigenvalues corresponding to the parallel eigenvectors are near
+% zero in a lot of cases, which might mean they exist due to numerical noise.
+% %
+% Nevertheless, we did not filter them out for rendering, as they showcase nicely
+% the high frequency of bifurcation points in symmetric tensor fields.
+%
+
+%
+There are two regions of particular interest in the Clamped Beam.
+%
+The first is near the middle of the beam, where a curved structure has high
+eigenvalues in both tensor fields (visible in red and blue
+in~\autoref{fig:beam_full}).
+%
+This is where the beam experiences a lot of stress, and therefore the
+tensor fields have a high magnitude.
+%
+The second is near the fixed end.
+%
+Here, the stress is high particularly for the more diagonal force indicated by
+the red arrow in~\autoref{fig:beam_full}.
+%
+We find a high number of bifurcation points in this region.
+%
+Additionally, near the middle of the beam all three eigenvector directions are
+parallel along a line structure near the center with considerable
+length.
+%
+This area seems to be the most similar between the two scenarios in terms of
+stress directions.
+%
+% subsubsection clamped_beam (end)
+%
+\subsection*{Flange} % (fold)
+\label{ssub:flange}
+%
+\begin{figure*}
+    \centering
+    \begin{tabular}{lcr}
+        \includegraphics[width=0.3\textwidth]{figures/PointLoad_total_sq} &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.3\textwidth]{figures/PointLoad_detail1_sq}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                % \draw[red, thick, rotate around={-45:(0.85, 0.27)}]
+                %     (0.85, 0.27) ellipse (0.2 and 0.05);
+                % \draw[red, thick, rotate around={15:(0.62, 0.47)}]
+                %     (0.62, 0.47) ellipse (0.23 and 0.1);
+                % \draw[red, thick, rotate around={7:(0.36, 0.64)}]
+                %     (0.36, 0.64) ellipse (0.19 and 0.08);
+                % \draw[red, thick, rotate around={20:(0.44, 0.51)}]
+                %     (0.44, 0.51) ellipse (0.32 and 0.04);
+                % \draw[red, thick] (0.45, 0.6) circle[radius=5pt];
+                % \draw[red, thick] (0.5, 0.54) circle[radius=5pt];
+                % \draw[red, thick] (0.55, 0.53) circle[radius=5pt];
+            \end{scope}
+        } &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.3\textwidth]{figures/PointLoad_detail2_sq}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick, rotate around={5:(0.1, 0.56)}]
+                    (0.1, 0.56) ellipse (0.12 and 0.03);
+                \draw[red, thick] (0.71, 0.57) circle[radius=5pt];
+                \draw[red, thick] (0.91, 0.56) circle[radius=5pt];
+            \end{scope}
+        }
+    \end{tabular}
+    \caption{\ac{PEV} lines for the Point Load dataset. Lines are colored by
+             absolute eigenvalue ratio. A compressive force (red arrow) is
+             applied to obtain one stress tensor field, while an equivalent
+             tensile force (blue arrow) is applied for the second stress tensor.
+             Due to the parallel application of forces orthogonal to the
+             surface, a plane of parallel eigenvectors forms between the load
+             points.}
+    \label{fig:point_load}
+\end{figure*}
+\begin{figure*}
+    \begin{tabular}{lr}
+        \includegraphics[width=0.45\textwidth]{figures/beam_full_total} &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.45\textwidth]{figures/beam_full_detail1}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick, rotate around={-25:(0.55, 0.5)}]
+                    (0.55, 0.5) ellipse (0.35 and 0.25);
+            \end{scope}
+        } \\
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.45\textwidth]{figures/beam_full_detail3}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick] (0.33, 0.5) circle[radius=5pt];
+                \draw[red, thick] (0.27, 0.5) circle[radius=5pt];
+                \draw[red, thick] (0.485, 0.575) circle[radius=5pt];
+                \draw[red, thick] (0.67, 0.64) circle[radius=5pt];
+                \draw[red, thick] (0.67, 0.53) circle[radius=5pt];
+                \draw[red, thick] (0.72, 0.66) circle[radius=5pt];
+                \draw[red, thick] (0.31, 0.4) circle[radius=5pt];
+                \draw[red, thick] (0.31, 0.64) circle[radius=5pt];
+                \draw[red, thick] (0.585, 0.58) circle[radius=5pt];
+            \end{scope}
+        } &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.45\textwidth]{figures/beam_full_detail2}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick] (0.75, 0.58) ellipse (0.2 and 0.05);
+            \end{scope}
+        }
+    \end{tabular}
+    \caption{\ac{PEV} lines for the Clamped Beam dataset. Two different traction
+             forces are applied to the free end of the beam (red and blue
+             arrows), while the other end is fixed on the wall. Lines are
+             colored by the eigenvalue of the stress tensor corresponding to the
+             red arrow (red is positive, blue is negative). Interesting
+             structures mentioned in the text are highlighted.}
+    \label{fig:beam_full}
+\end{figure*}
+\begin{figure*}
+    \begin{tabular}{lcr}
+        \includegraphics[width=0.3\textwidth]{figures/flange_full_total_sq} &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.3\textwidth]{figures/flange_detail1_sq}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick] (0.58, 0.68) circle[radius=5pt];
+                \draw[red, thick] (0.47, 0.5) circle[radius=5pt];
+            \end{scope}
+        } &
+        \tikz{
+            \node[anchor=south west, inner sep=0pt] (img) at (0,0) {
+                \includegraphics[width=0.3\textwidth]{figures/flange_detail2_sq}
+            };
+            \begin{scope}[x={(img.south east)},y={(img.north west)}]
+                % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+                % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+                % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+                % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+                \draw[red, thick] (0.75, 0.6) circle[radius=10pt];
+                \draw[red, thick] (0.75, 0.4) circle[radius=10pt];
+            \end{scope}
+        }
+    \end{tabular}
+    \caption{\ac{PEV} lines for the Flange dataset. Two different load scenarios
+             (indicated by blue and red arrows) are simulated. Lines are colored
+             by the eigenvalue corresponding to the red arrows. To avoid visual
+             clutter, we filtered the lines in the middle and right image by
+             eigenvalue, removing lines where both eigenvalues are very small.
+             Interesting structures mentioned in the text are highlighted.}
+    \label{fig:flange_filtered}
+\end{figure*}
+%
+% 1.2 million cells
+%
+% 5 million faces
+%
+% Computing time: \SI{36}{\minute}
+%
+% Time per face: \SI{0.45}{\milli\second}
+%
+Our final stress tensor dataset is a flange geometry from an
+OpenFoam~\cite{OpenFoamWWW} tutorial.
+%
+We subjected the flange to two different loads, applied on the back wall and the
+outlet tube (see red and blue arrows in \autoref{fig:flange_filtered}).
+%
+The original mesh uses polygonal cells, which is why we resampled the data,
+resulting in 1.2 million cells and 5 million faces.
+%
+The computing time was \SI{36}{\minute}, \ie, \SI{0.5}{\milli\second} per face.
+%
+
+%
+The dataset exhibits a lot of \ac{PEV} lines, which can be seen
+in~\autoref{fig:flange_filtered} on the left.
+%
+Most of the \ac{PEV} lines correspond to eigenvectors with small eigenvalues in both
+tensor fields.
+%
+We therefore filtered out all \ac{PEV} lines where both eigenvalues are very small
+in the center and right images in~\autoref{fig:flange_filtered}.
+%
+Especially prominent are two bifurcation points with high eigenvalues between
+the two outer screw holes and the central tube.
+%
+There are also \ac{PEV} lines leading outwards both above and below the screw holes.
+%
+In general, the most similar directions of significant stress are near the
+screw holes and in the area where the large outlet tube meets the central block.
+%
+% subsubsection flange (end)
+%
+% subsection stress_tensor_data (end)
+%
+% section results (end)
