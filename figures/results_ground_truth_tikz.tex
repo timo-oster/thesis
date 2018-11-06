@@ -1,0 +1,70 @@
+%
+%
+
+\begin{tikzpicture}[scale=\figurewidth]
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+    \input{colormap_warm}
+
+    \node[image] (image1)
+    {
+        \includegraphics[width=0.188\figurewidth]{figures/ground_truth_log_highres}%
+    };
+    \node[anchor=north] at (image1.south) {\small ground truth};
+
+    \node[image, right=of image1] (image2)
+    {
+        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_01_log}%
+    };
+    \node[anchor=north, align=left] at (image2.south)
+    {
+        \small $r_\shortparallel = 0.01$ \\ \small $N = \num{143.5}\si{\kilo}$
+    };
+
+    \node[image, right=of image2] (image3)
+    {
+        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_02_log}%
+    };
+    \node[anchor=north, align=left] at (image3.south)
+    {
+        \small $r_\shortparallel = 0.02$ \\ \small $N = \num{58.1}\si{\kilo}$
+    };
+
+    \node[image, right=of image3] (image4)
+    {
+        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_05_log}%
+    };
+    \node[anchor=north, align=left] at (image4.south)
+    {
+        \small $r_\shortparallel = 0.05$ \\ \small $N = \num{15.4}\si{\kilo}$
+    };
+
+    \node[image, right=of image4] (image5)
+    {
+        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_1_log}%
+    };
+    \node[anchor=north, align=left] at (image5.south)
+    {
+        \small $r_\shortparallel = 0.1$ \\ \small $N = \num{5}\si{\kilo}$
+    };
+
+    \node[anchor=west, xshift=-0.5cm] at (image5.east){
+        \begin{axis}[
+        scale only axis,
+        height=2cm,
+        hide axis,
+        domain=1e0:1e5,
+        ymode=log,
+        colorbar,
+        colorbar/width=0.3cm,
+        colormap name={warm},
+        point meta min=1e0, point meta max=1e5,
+        colorbar style={
+            title=$c$,
+            scaled ticks=false,
+            ytick={1e0, 1e5},
+            yticklabels = {$10^{\,0}$, $10^{\,5}$}
+        }]
+      \end{axis}
+    };
+
+\end{tikzpicture}

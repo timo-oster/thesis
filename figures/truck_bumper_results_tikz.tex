@@ -1,0 +1,84 @@
+%
+%
+\input{figures/colormap_cubicyf}
+\input{figures/colormap_rdoryl}
+%
+\begin{tikzpicture}
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+
+    % place image in node
+    \node[image] (image1)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_deformation}%
+    };
+
+    % place next image to the right with a little space in between
+    \node[image, right=of image1, xshift=0.25cm] (image2)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_lines}%
+    };
+    % create new coordinate system on image2:
+    \begin{scope}[
+        shift=(image2.south west), % origin is lower left corner
+        x={($(image2.south east)-(image2.south west)$)}, % x axis is lower side
+        y={($(image2.north west)-(image2.south west)$)}] % y axis is left side
+        % uncomment the following three lines to show a helper grid that helps
+        % with finding coordinates
+        % \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        % \foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {\scriptsize 0.\x}; }
+        % \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\scriptsize 0.\y}; }
+        % draw stuff on image
+        % (0, 0) is lower left corner, (1, 1) is upper right
+        \draw [thin, -] (0.55, 0.535) -- (0.55, 0.6) node [anchor=south] {\large \textbf{1}};
+        \draw [thin, -] (0.72, 0.435) -- (0.8, 0.4) node [anchor=west] {\large \textbf{2}};
+    \end{scope}
+
+    \node[image, right=of image2, xshift=0.25cm] (image3)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail2}%
+    };
+    % place a text on the lower left corner of image3
+    \node [anchor=south west] at (image3.south west) {\LARGE \textbf{1}};
+
+    \node[image, right=of image3, xshift=0.25cm] (image4)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail1}%
+    };
+    \node [anchor=south west] at (image4.south west) {\LARGE \textbf{2}};
+
+    \node[anchor=north west, xshift=-0.7cm, yshift=0.15cm] at (image4.north east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=9e6,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 9e6}
+            }]
+        \end{axis}
+    };
+    \node[anchor=south west, xshift=-0.8cm, yshift=-0.15cm] at (image4.south east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={rdoryl},
+            point meta min=1.5, point meta max=15,
+            colorbar style={
+                title=$\log(s)$,
+                scaled ticks=false,
+                ytick={1.5, 15}
+            }]
+        \end{axis}
+    };
+
+\end{tikzpicture}

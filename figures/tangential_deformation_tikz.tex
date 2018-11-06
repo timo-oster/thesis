@@ -1,0 +1,147 @@
+%
+%
+\begin{tikzpicture}[scale=\figurewidth/1cm*0.14,
+                    line join=round]
+\tikzstyle{facefill} = [fill=mycolor1,fill opacity=0.0]
+\tikzstyle{planefill} = [fill=mycolor2,fill opacity=1.0]
+
+\coordinate (lll) at (-0.5, -0.5, -0.5);
+\coordinate (ull) at ( 0.5, -0.5, -0.5);
+\coordinate (lul) at (-0.5,  0.5, -0.5);
+\coordinate (uul) at ( 0.5,  0.5, -0.5);
+\coordinate (llu) at (-0.5, -0.5,  0.5);
+\coordinate (ulu) at ( 0.5, -0.5,  0.5);
+\coordinate (luu) at (-0.5,  0.5,  0.5);
+\coordinate (uuu) at ( 0.5,  0.5,  0.5);
+
+\coordinate (ll) at (-0.5, 0.0, -0.5);
+\coordinate (lu) at (-0.5, 0.0, 0.5);
+\coordinate (ul) at (0.5, 0.0, -0.5);
+\coordinate (uu) at (0.5, 0.0, 0.5);
+
+
+\draw [thick, facefill] (lul) -- (uul) -- (ull) -- (lll) -- cycle;
+
+\draw [thick, facefill] (luu) -- (lul) -- (lll) -- (llu) -- cycle;
+
+\draw [thick, facefill] (llu) -- (ulu) -- (ull) -- (lll) -- cycle;
+
+\draw [thick, planefill] (ll) -- (lu) -- (uu) -- (ul) -- cycle;
+
+% axes inside
+\draw [thick] (0, 0, 0) -- (0, 0.5, 0);
+\draw [thick] (0, 0, 0) -- (0.5, 0, 0);
+\draw [thick] (0, 0, 0) -- (0, 0, 0.5);
+
+\draw [thick, facefill] (luu) -- (uuu) -- (ulu) -- (llu) -- cycle;
+
+\draw [thick, facefill] (luu) -- (uuu) -- (uul) -- (lul) -- cycle;
+
+\draw [thick, facefill] (uuu) -- (uul) -- (ull) -- (ulu) -- cycle;
+
+% axes outside
+\draw [thick, arrows=-latex] (0, 0.5, 0) -- (0, 1, 0) node [right] {$\vn$};
+\draw [thick, arrows=-latex] (0.5, 0, 0) -- (1, 0, 0); % node  [below right] {$\ve_1$};
+\draw [thick, arrows=-latex] (0, 0, 0.5) -- (0, 0, 1); % node [below right] {$\ve_2$};
+
+% transformation
+\draw [very thick, arrows=-latex] (1.5, 0) -- (2.5, 0) node [above, midway] {$\mF$};
+
+\begin{scope}[shift={(4, 0)}]
+    \coordinate (lll) at (-0.31287012,  -0.84534744,  -0.5);
+    \coordinate (ull) at ( 1.30516387,   0.33022307, -0.5);
+    \coordinate (lul) at (-1.30516387,  -0.33022307, -0.5);
+    \coordinate (uul) at ( 0.31287012,   0.84534744,  -0.5);
+    \coordinate (llu) at (-0.31287012,  -0.84534744,   0.5);
+    \coordinate (ulu) at ( 1.30516387,   0.33022307,  0.5);
+    \coordinate (luu) at (-1.30516387,  -0.33022307,  0.5);
+    \coordinate (uuu) at ( 0.31287012,   0.84534744,   0.5);
+
+    \coordinate (ll) at (-0.80901699, -0.58778525, -0.5);
+    \coordinate (lu) at (-0.80901699, -0.58778525, 0.5);
+    \coordinate (ul) at (0.80901699, 0.58778525, -0.5);
+    \coordinate (uu) at (0.80901699, 0.58778525, 0.5);
+
+
+    \draw [thick, facefill] (lul) -- (uul) -- (ull) -- (lll) -- cycle;
+
+    \draw [thick, facefill] (luu) -- (lul) -- (lll) -- (llu) -- cycle;
+
+    \draw [thick, facefill] (llu) -- (ulu) -- (ull) -- (lll) -- cycle;
+
+    \draw [thick, planefill] (ll) -- (lu) -- (uu) -- (ul) -- cycle;
+
+    \draw [thick] (0, 0, 0) -- (-0.29389263, 0.4045085, 0);
+    \draw [thick, arrows=-latex] (0, 0, 0) -- (0.80901699, 0.58778525, 0) node (e1) {};;
+    \draw [thick] (0, 0, 0) -- (0, 0, 0.5);
+
+    \draw [thick, facefill] (luu) -- (uuu) -- (ulu) -- (llu) -- cycle;
+
+    \draw [thick, facefill] (luu) -- (uuu) -- (uul) -- (lul) -- cycle;
+
+    \draw [thick, facefill] (uuu) -- (uul) -- (ull) -- (ulu) -- cycle;
+
+    \draw [thick, arrows=-latex] (-0.29389263, 0.4045085, 0) -- (-0.58778525, 0.80901699, 0) node [above right] {$\mU \cdot \vn$};
+    % \draw [thick, arrows=-latex] (0.80901699, 0.58778525, 0) -- (0.80901699, 0.58778525, 0) node [right] {$\ve_1$};
+    %\node [below right] at (e1) {$\ve_1$};
+    \draw [thick, arrows=-latex] (0, 0, 0.5) -- (0, 0, 1); % node [below right] {$\ve_2$};
+
+    % transformation
+    \draw [very thick, arrows=-latex] (-1.5, -0.8) -- (-2.5, -1.4) node [above, midway] {$\T\mU$};
+\end{scope}
+
+\begin{scope}[shift={(0, -2)}]
+    \coordinate (lll) at (-0.75,  -0.5,  -0.5);
+    \coordinate (ull) at ( 1.25,  -0.5, -0.5);
+    \coordinate (lul) at (-1.25,   0.5, -0.5);
+    \coordinate (uul) at ( 0.75,   0.5,  -0.5);
+    \coordinate (llu) at (-0.75,  -0.5,   0.5);
+    \coordinate (ulu) at ( 1.25,  -0.5,  0.5);
+    \coordinate (luu) at (-1.25,   0.5,  0.5);
+    \coordinate (uuu) at ( 0.75,   0.5,   0.5);
+
+    \coordinate (ll) at (-1, 0.0, -0.5);
+    \coordinate (lu) at (-1, 0.0, 0.5);
+    \coordinate (ul) at (1, 0.0, -0.5);
+    \coordinate (uu) at (1, 0.0, 0.5);
+
+    \draw [thick, facefill] (lul) -- (uul) -- (ull) -- (lll) -- cycle;
+
+    \draw [thick, facefill] (luu) -- (lul) -- (lll) -- (llu) -- cycle;
+
+    \draw [thick, facefill] (llu) -- (ulu) -- (ull) -- (lll) -- cycle;
+
+    \draw [thick, planefill] (ll) -- (lu) -- (uu) -- (ul) -- cycle;
+
+    \draw [thick] (0, 0, 0) -- (0, 0.5, 0);
+    \draw [thick, arrows=-latex] (0, 0, 0) -- (1, 0, 0) node (e1) {};;
+    \draw [thick] (0, 0, 0) -- (0, 0, 0.5);
+
+    \draw [thick, facefill] (luu) -- (uuu) -- (ulu) -- (llu) -- cycle;
+
+    \draw [thick, facefill] (luu) -- (uuu) -- (uul) -- (lul) -- cycle;
+
+    \draw [thick, facefill] (uuu) -- (uul) -- (ull) -- (ulu) -- cycle;
+
+    \draw [thick, arrows=-latex] (0, 0.5, 0) -- (0, 1, 0) node [below right] {$\vn$};
+    %\node [below right] at (e1) {$\ve_1$};
+    \draw [thick, arrows=-latex] (0, 0, 0.5) -- (0, 0, 1); % node [below right] {$\ve_2$};
+
+    % transformation
+    \draw [very thick, arrows=-latex] (1.5, 0) -- (2.5, 0) node [above, midway] {$\T\mB \bigcirc \mB$};
+\end{scope}
+
+\begin{scope}[shift={(4, -2)}]
+    \coordinate (ll) at (-1.0, 0, -0.5);
+    \coordinate (ul) at ( 1.0, 0, -0.5);
+    \coordinate (lu) at (-1.0, 0,  0.5);
+    \coordinate (uu) at ( 1.0, 0,  0.5);
+
+    \draw [thick, planefill] (ll) -- (ul) -- (uu) -- (lu) -- cycle;
+
+    % \draw [thick, arrows=-latex] (0, 0, 0) -- (0, 1, 0) node [right] {$\vn$};
+    \draw [thick, arrows=-latex] (0, 0, 0) -- (1, 0, 0); % node [below right] {$\ve_2$};
+    \draw [thick, arrows=-latex] (0, 0, 0) -- (0, 0, 1); % node [below right] {$\ve_2$};
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,135 @@
+%
+%
+%
+%
+\begin{tikzpicture}[scale=\figurewidth/1cm*0.08,
+                    thick, line join=round]
+\tikzset{xzplane/.style={canvas is xz plane at y=#1,very thin}}
+\tikzstyle{ghostparticle} = [fill=white]
+\tikzstyle{central} = [fill=black]
+\tikzstyle{patch} = [dashed]
+\tikzstyle{lin} = [gray]
+\tikzstyle{real} = [thick]
+\tikzstyle{surface} = [real]
+\tikzstyle{tanplane} = [lin]
+\tikzstyle{normalerror} = [mycolor2, very thick]
+\tikzstyle{tanerror} = [mycolor1, very thick]
+
+\begin{scope}
+    % normal
+    \draw [central, arrows=-latex]
+        (0, 0, 0) -- (0, 1.5, 0) node [right] {$\vn$};
+    \draw [central] (0, 0, 0) circle [radius=0.12] node [below right] {$\vx$};
+
+    \begin{scope}[canvas is xz plane at y=0]
+        \draw [surface] (1.8, 2) -- (-1.8, 2)
+                -- (-1.8, -2) -- (1.8, -2) -- cycle;
+        \draw [patch] (0, 0) circle [radius=1.5];
+        % ghost particles
+        \draw (0, 0) -- (1.5, 0);
+        \draw (0, 0) -- (-1.5, 0);
+        \draw (0, 0) -- (0, -1.5);
+        \draw (0, 0) -- (0, 1.5);
+    \end{scope}
+
+    \draw [ghostparticle, real] (1.5, 0, 0) circle [radius=0.12]
+            node [below right] {$\vx_1$};
+    \draw [ghostparticle, real] (-1.5, 0, 0) circle [radius=0.12]
+            node [above left] {$\vx_2$};
+    \draw [ghostparticle, real] (0, 0, -1.5) circle [radius=0.12]
+            node [above, yshift=0.1cm] {$\vx_3$};
+    \draw [ghostparticle, real] (0, 0, 1.5) circle [radius=0.12]
+            node [below, yshift=-0.1cm] {$\vx_4$};
+
+\end{scope}
+
+\draw [very thick, arrows=-latex]
+        (1.5, 1) to[out=35, in=150]
+            node [above, midway] {time}
+        (4, 1);
+
+\begin{scope}[shift={(6, 0)}]
+
+    \coordinate (x1n) at (1.7, 0, 0.3);
+    \coordinate (x2n) at (-1.7, 0, -0.3);
+    \coordinate (x3n) at (0.6, 0, -1.5);
+    \coordinate (x4n) at (-0.6, 0, 1.5);
+
+    \coordinate (x1en) at (0, -0.4, 0);
+    \coordinate (x2en) at (0, -0.4, 0);
+    \coordinate (x3en) at (0, -0.4, 0);
+    \coordinate (x4en) at (0, -0.4, 0);
+
+    \coordinate (x12te) at (-0.3, -0.2, 0);
+    \coordinate (x34te) at (0.5, 0, 0);
+
+    % surface
+    \draw [surface] (-2.5, -0.75, 2.5)
+            to[out=25, in=180] (0, -0.2, 2.5)
+            to[out=0, in=155] (2.5, -0.75, 2.5)
+            to[out=70, in=225] (2.5, -0.2, 0)
+            to[out=45, in=185] (2.5, -0.75, -2.5)
+            to[out=155, in=0] (0, -0.2, -2.5)
+            to[out=180, in=45] (-2.5, -0.2, 0)
+            to[out=225, in=70] (-2.5, -0.75, 2.5);
+
+
+    % errors
+    \draw [normalerror] ($(x1n) + (x12te)$) -- ($(x1n) + (x12te) + (x1en)$);
+    \draw [normalerror] ($(x2n) + (x12te)$) -- ($(x2n) + (x12te) + (x2en)$);
+    \draw [normalerror] ($(x3n) + (x34te)$) -- ($(x3n) + (x34te) + (x3en)$);
+    \draw [normalerror] ($(x4n) + (x34te)$) -- ($(x4n) + (x34te) + (x4en)$);
+
+    \draw [real] (0, 0, 0) to[out=-10, in=135] ($(x1n) + (x12te) + (x1en)$);
+    \draw [real] (0, 0, 0) to[out=180, in=25] ($(x2n) + (x12te) + (x2en)$);
+    \draw [real] (0, 0, 0) to[out=15, in=175] ($(x3n) + (x34te) + (x3en)$);
+    \draw [real] (0, 0, 0) to[out=215, in=80] ($(x4n) + (x34te) + (x4en)$);
+
+    \draw [ghostparticle, real] ($(x1n) + (x1en) + (x12te)$)
+            circle [radius=0.12]
+            node [below, yshift=-0.1cm] {$\vx_1$};
+    \draw [ghostparticle, real] ($(x2n) + (x2en) + (x12te)$)
+            circle [radius=0.12]
+            node [left] {$\vx_2$};
+    \draw [ghostparticle, real] ($(x3n) + (x3en) + (x34te)$)
+            circle [radius=0.12]
+            node [right] {$\vx_3$};
+    \draw [ghostparticle, real] ($(x4n) + (x4en) + (x34te)$)
+            circle [radius=0.12]
+            node [below, yshift=-0.1cm] {$\vx_4$};
+
+
+    \begin{scope}[canvas is xz plane at y=0]
+        \draw [tanplane] (2.5, 2.5) -- (-2.5, 2.5)
+                -- (-2.5, -2.5) -- (2.5, -2.5) -- cycle;
+        \draw [patch] (0, 0)
+                circle [x radius=1.791, y radius=1.51, rotate=-150.5];
+        \foreach \num in {1, 2, 3, 4}
+            \draw [lin] (0, 0) -- (x\num n);
+        % \draw [linparticles] (0, 0) -- (x2n);
+        % \draw [linparticles] (0, 0) -- (x3n);
+        % \draw [linparticles] (0, 0) -- (x4n);
+    \end{scope}
+
+    \draw [tanerror] (x1n) -- ($(x1n) + (x12te)$);
+    \draw [tanerror] (x2n) -- ($(x2n) + (x12te)$);
+    \draw [tanerror] (x3n) -- ($(x3n) + (x34te)$);
+    \draw [tanerror] (x4n) -- ($(x4n) + (x34te)$);
+
+    % ghost particles
+    \foreach \num in {1, 2, 3, 4}
+        \draw [lin, ghostparticle] (x\num n) circle [radius=0.12];
+    % normal
+    \draw [central, arrows=-latex]
+        (0, 0, 0) -- (0, 1.5, 0) node [right] {$\vn$};
+    \draw [central] (0, 0, 0) circle [radius=0.12]
+    		node [below right, yshift=-0.05cm] {$\vx$};
+
+    % surface
+    % \draw [surface] (-1.5, -0.8) to[out=15, in=150] (1.2, -1.2)
+    %                            to[out=95, in=-130] (1.5, 0.1)
+    %                            to[out=150, in=25] (-1, 0.4)
+    %                            to[out=205, in=90] (-1.5, -0.8);
+\end{scope}
+
+\end{tikzpicture}

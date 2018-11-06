@@ -1,0 +1,93 @@
+%
+%
+\begin{tikzpicture}
+    \tikzstyle{image} = [anchor=center, inner sep=0, outer sep=0, node distance = 0 and 0]
+    \input{colormap_cooltowarm_extended}
+    \input{colormap_green_purple}
+    \node[image] (image1)
+    {
+        \begin{tikzpicture}
+            \node[image] (base) at (0,0) {\includegraphics[width=0.25\figurewidth]{figures/hawkes_time_3e-5}};%
+            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5) -- cycle;
+            \node[image] at (0,0) {\includegraphics[width=0.25\figurewidth]{figures/hawkes_time_3e-5_density_factor}};%
+        \end{tikzpicture}
+    };
+    \node[anchor=north, align=left] at (image1.south) {$t = \SI{3e-5}{\second} \quad N=\num{160}\si{\kilo}$};
+    \node[image, anchor=north west] (image3) at (image1.north east)
+    {
+        \begin{tikzpicture}
+            \node[image] (base) at (0,0) {\includegraphics[width=0.6\figurewidth]{figures/hawkes_time_5e-5}};%
+            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (6.0, 3.5) -- (6.0, -3.5) -- cycle;
+            \node[image] at (0,0) {\includegraphics[width=0.6\figurewidth]{figures/hawkes_time_5e-5_density_factor}};%
+        \end{tikzpicture}
+    };
+    \node[anchor=north, align=left] at (image3.south) {$t = \SI{5e-5}{\second} \quad N=\num{3000}\si{\kilo}$};
+    \node[image, anchor=south east] (image2) at (image3.south west)
+    {
+        \begin{tikzpicture}
+            \node[image] (base) at (0,0) {\includegraphics[width=0.25\figurewidth]{figures/hawkes_time_4e-5}};%
+            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5) -- cycle;
+            \node[image] at (0,0) {\includegraphics[width=0.25\figurewidth]{figures/hawkes_time_4e-5_density_factor}};%
+        \end{tikzpicture}
+    };
+    \node[anchor=north, align=left] at (image2.south) {$t = \SI{4e-5}{\second} \quad N=\num{670}\si{\kilo}$};
+
+    \node (bbnw) at ($(image1.north west) + (-1.25, 0.5)$) {};
+    \node (bbse) at ($(image3.south east) + (1.3, -0.5)$) {};
+
+    \clip (bbnw) rectangle (bbse);
+
+    \node[anchor=east, xshift=-0.1cm] at ($(image1.south west)!0.5!(image2.north west)$){
+        \begin{axis}[
+        hide axis,
+        scale only axis,
+        height=0pt,
+        width=0pt,
+        domain=-2.5:2.5,
+        colorbar,
+        colorbar/width=0.3cm,
+        colormap name={cooltowarm_extended},
+        point meta min=-2.5, point meta max=2.5,
+        colorbar style={
+            height=4.5cm,
+            title=$c$,
+            scaled ticks=false,
+            yticklabel pos=left,
+            ytick={-2, -1, 0, 1, 2},
+            yticklabels={$10^{-2}$, $10^{-1}$, $10^{\,0}$, $10^{\,1}$, $10^{\,2}$},
+            % extra y ticks ={0.301, 0.4771212, 0.60206, 0.69897, 0.778151, 0.845098, 0.90309, 0.954242, 1.3, 1.4771212, 1.60206, 1.69897, 1.778151, 1.845098, 1.90309, 1.954242,
+            %                 -0.301, -0.4771212, -0.60206, -0.69897, -0.778151, -0.845098, -0.90309, -0.954242, -1.3, -1.4771212, -1.60206, -1.69897, -1.778151, -1.845098, -1.90309, -1.954242},
+            % extra y tick labels=\empty
+        }]
+        \addplot [draw=none] coordinates {(0,0)};
+      \end{axis}
+    };
+
+    \node[anchor=west, xshift=-0.7cm] at (image3.east){
+        \begin{axis}[
+        scale only axis,
+        height=0pt,
+        width=0pt,
+        hide axis,
+        colorbar,
+        colorbar/width=0.3cm,
+        colormap name={green_purple},
+        point meta min=-3, point meta max=3,
+        colorbar style={
+            height=4.5cm,
+            title=$d$,
+            scaled ticks=false,
+            yticklabel pos=right,
+            ytick={-3, -2, -1, 0, 1, 2, 3},
+            yticklabels={$10^{-3}$, $10^{-2}$, $10^{-1}$, $10^{\,0}$, $10^{\,1}$, $10^{\,2}$, $10^{\,3}$},
+            % extra y ticks ={0.301, 0.4771212, 0.60206, 0.69897, 0.778151, 0.845098, 0.90309, 0.954242, 1, 1.3, 1.4771212, 1.60206, 1.69897, 1.778151, 1.845098, 1.90309, 1.954242, 2, 2.301, 2.4771212, 2.60206, 2.69897, 2.778151, 2.845098, 2.90309, 2.954242,
+            %                 -0.301, -0.4771212, -0.60206, -0.69897, -0.778151, -0.845098, -0.90309, -0.954242, -1, -1.3, -1.4771212, -1.60206, -1.69897, -1.778151, -1.845098, -1.90309, -1.954242, -2, -2.301, -2.4771212, -2.60206, -2.69897, -2.778151, -2.845098, -2.90309, -2.954242},
+            % extra y tick labels=\empty
+        }]
+        \addplot [draw=none] coordinates {(0,0)};
+      \end{axis}
+    };
+\end{tikzpicture}%

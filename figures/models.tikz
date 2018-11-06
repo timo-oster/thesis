@@ -1,0 +1,478 @@
+%
+\pgfplotstableread{
+x y
+-14.936708 9.439669e-06
+-14.430379 9.790832e-06
+-13.924050 1.036994e-05
+-13.417721 1.103326e-05
+-12.911392 1.176119e-05
+-12.405063 1.083076e-05
+-11.898734 9.568702e-06
+-11.392405 7.851489e-06
+-10.886075 5.901285e-06
+-10.379746 4.116033e-06
+-9.873417 3.019796e-06
+-9.367088 2.312050e-06
+-8.860759 1.873673e-06
+-8.354430 1.571615e-06
+-7.848101 1.350457e-06
+-7.341772 9.620873e-07
+-6.835443 7.691790e-07
+-6.329113 7.234248e-07
+-5.822784 4.464375e-07
+-5.316455 6.137330e-07
+-4.810126 1.168601e-06
+-4.303797 2.883451e-06
+-3.797468 8.607734e-06
+-3.291139 1.538896e-05
+-2.784810 4.085074e-05
+-2.278481 7.368171e-05
+-1.772151 9.791394e-05
+-1.265822 0.000101
+-0.759493 9.343289e-05
+-0.253164 7.598200e-05
+0.253164 6.136476e-05
+0.759493 5.470099e-05
+1.265822 5.128095e-05
+1.772151 4.699871e-05
+2.278481 4.260473e-05
+2.784810 3.796287e-05
+3.291139 3.453119e-05
+3.797468 3.203549e-05
+4.303797 3.045799e-05
+4.810126 2.974594e-05
+5.316455 2.935907e-05
+%
+7 		 3.195907e-05
+10 		 3.55907e-05
+12 		 3.735907e-05
+15 		 3.145907e-05
+%
+% 5.822784 3.032043e-05
+% 6.329113 3.190556e-05
+% 6.835443 3.435575e-05
+% 7.341772 3.740233e-05
+% 7.848101 4.081712e-05
+% 8.354430 4.489389e-05
+% 8.860759 4.866396e-05
+% 9.367088 5.131122e-05
+% 9.873417 5.356448e-05
+% 10.379746 5.864447e-05
+% 10.886075 6.847978e-05
+% 11.392405 8.069201e-05
+% 11.898734 9.524663e-05
+% 12.405063 0.000108
+% 12.911392 9.813603e-05
+% 13.417721 7.779592e-05
+% 13.924050 5.396330e-05
+% 14.430379 3.109881e-05
+% 14.936708 1.150626e-05
+}\dataradical
+
+\pgfplotstableread{
+x y
+-5.822784 4.761071e-07
+-5.316455 6.099730e-07
+-4.810126 1.183832e-06
+-4.303797 3.166483e-06
+-3.797468 8.654500e-06
+-3.291139 2.070895e-05
+-2.784810 4.136632e-05
+-2.278481 6.804909e-05
+-1.772151 9.181174e-05
+-1.265822 0.000101
+-0.759493 9.791479e-05
+-0.253164 8.828693e-05
+0.253164 7.515031e-05
+0.759493 6.152742e-05
+1.265822 4.978867e-05
+1.772151 4.108846e-05
+2.278481 3.544709e-05
+2.784810 3.221574e-05
+3.291139 3.057087e-05
+3.797468 2.982378e-05
+4.303797 2.952018e-05
+4.810126 2.940956e-05
+5.316455 2.937337e-05
+}\modelradical
+
+\begin{tikzpicture}
+% \begin{axis}[
+% name=sigmoid model,
+% small,
+% width=\figurewidth,
+% height=\figureheight,
+% scale only axis,
+% axis x line = middle,
+% axis y line = left,
+% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+% every axis y label/.style={at={(current axis.north west)},anchor=south east},
+% every tick/.style={color=black, thin},
+% extra x ticks={0},
+% extra x tick style={grid=major,
+% 					%tick label style={font=\small},
+% 					color=black, thin
+% 					},
+% xtick = {-2, 2, 4, 6},
+% xmin = -2.5,
+% xmax = 6.5,
+% xlabel = {$x$},
+% ymin = 0,
+% ymax = 3,
+% ytick = {0, 1, 2},
+% ylabel = {$\mathfrak{S}(x)$},
+% ]
+% %xm = 3, ym = 2, al = 1.5, ar = 0.5, m = 1
+% \addplot[
+% 	domain=-2.5:3, 
+% 	samples=100, 
+% 	color=blue, 
+% 	line width=1.0pt]{
+% 		2*1.5/(1+exp(-2*1*(x-3)/1.5))-1.5+2
+% 	};
+% \addplot[
+% 	domain=3:6.5, 
+% 	samples=50, 
+% 	color=blue, 
+% 	line width=1.0pt]{
+% 		2*0.5/(1+exp(-2*1*(x-3)/0.5))-0.5+2
+% 	};
+% \draw[dashed] (axis cs: -2, 2) -- (axis cs: -1, 2);
+% \draw[dashed] (axis cs: 5, 2) -- (axis cs: 6, 2);
+% \draw[latex-latex] (axis cs: 3, 2) -- (axis cs: 3, 0) node[right, midway]{$y_m$};
+% \draw[latex-latex] (axis cs: 3, 2) -- (axis cs: 0, 2) node[above, midway]{$x_m$};
+% \draw[latex-latex] (axis cs: 5.5, 2.5) -- (axis cs: 5.5, 2) node[right, midway]{$a_r$};
+% \draw[latex-latex] (axis cs: -1.5, 2) -- (axis cs: -1.5, 0.5) node[right, midway]{$a_l$};
+% \draw[color=orange, line width=1.0pt] (axis cs: 1.5, 0.5) -- (axis cs: 4, 3) node[right, pos=0.9]{$\gamma=\mathfrak{S}'(x=x_m)$};
+% %\addplot{x^2}
+% \end{axis}
+
+\begin{axis}[%
+small,
+name = sigmoid fit,
+%at = {(sigmoid model.below south west)}, yshift=-0.5cm,
+anchor = north west,
+clip = false,
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+scaled y ticks = base 10:-3,
+xmin=-15,
+xmax=15,
+ymin=0,
+ymax=2300,
+axis y line = left,
+axis x line = bottom,
+xlabel=$t$,
+every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+every tick/.style={color=black, thin},
+xtick = {-10, 0, 10},
+legend style={legend pos = north west}
+]
+
+\addplot [
+color=mycolor4,
+solid,
+line width=2.0pt
+]
+table[row sep=crcr]{
+-4.303 316.491\\
+-3.797 333.492\\
+-3.291 352.480\\
+-2.784 390.742\\
+-2.278 462.220\\
+-1.772 578.651\\
+-1.265 731.693\\
+-0.759 890.906\\
+-0.253 1042.127\\
+0.253 1178.895\\
+0.759 1297.219\\
+1.265 1395.718\\
+1.772 1475.118\\
+2.278 1537.480\\
+2.784 1585.466\\
+3.291 1621.811\\
+3.797 1649.012\\
+4.303 1669.186\\
+4.810 1684.050\\
+5.316 1694.947\\
+5.822 1702.908\\
+6.329 1708.707\\
+6.835 1712.925\\
+7.341 1724.045\\
+};
+\addlegendentry{Model $\mathfrak{S}(x)$}
+
+\addplot [
+color=mycolor1,
+solid,
+line width=1.0pt
+]
+table[row sep=crcr]{
+-14.936 488.950\\
+-14.430 487.997\\
+-13.924 482.351\\
+-13.417 474.442\\
+-12.911 463.814\\
+-12.405 450.874\\
+-11.898 434.432\\
+-11.392 419.604\\
+-10.886 405.748\\
+-10.379 390.223\\
+-9.873 378.419\\
+-9.367 367.060\\
+-8.860 356.617\\
+-8.354 347.594\\
+-7.848 339.085\\
+-7.341 332.486\\
+-6.835 327.322\\
+-6.329 322.787\\
+-5.822 320.653\\
+-5.316 318.845\\
+-4.810 317.220\\
+-4.303 316.491\\
+-3.797 317.992\\
+-3.291 329.504\\
+-2.784 358.625\\
+-2.278 429.448\\
+-1.772 572.368\\
+-1.265 731.693\\
+-0.759 893.568\\
+-0.253 1039.957\\
+0.253 1175.875\\
+0.759 1289.781\\
+1.265 1379.821\\
+1.772 1460.163\\
+2.278 1519.044\\
+2.784 1565.980\\
+3.291 1607.133\\
+3.797 1637.439\\
+4.303 1662.985\\
+4.810 1683.066\\
+5.316 1698.107\\
+5.822 1709.734\\
+6.329 1715.562\\
+6.835 1720.318\\
+7.341 1724.045\\
+7.848 1722.378\\
+8.354 1721.440\\
+8.860 1718.134\\
+9.367 1710.456\\
+9.873 1703.957\\
+10.379 1693.400\\
+10.886 1682.280\\
+11.392 1672.077\\
+11.898 1656.291\\
+12.405 1642.015\\
+12.911 1624.925\\
+13.417 1604.251\\
+13.924 1585.385\\
+14.430 1561.301\\
+14.936 1536.410\\
+};
+\addlegendentry{Data $V(x)$}
+
+\draw[color=mycolor2, line width=1.0pt]
+% -1.265, 731.693
+	(axis cs: -3.53, 31.693) -- (axis cs: 3.265, 2131.693) 
+	node[right, pos=0.95]{$\gamma=\mathfrak{S}'(x=x_m)$};
+
+\draw[dashed]
+	(axis cs: -6.303, 731.693) -- (axis cs: -2.303, 731.693);
+
+\draw[dashed]
+	(axis cs: 5.341, 731.693) -- (axis cs: 9.341, 731.693);
+
+\addplot [
+color=green,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+-1.265 731.693\\
+};
+\label{pgf:inflection_sig}
+\draw[latex-latex] 
+	(axis cs: -1.265, 731.693) -- (axis cs: -1.265, 0) 
+	node[below, pos=1.0, anchor=north]{$x_m$}
+	node[right, midway]{$y_m$};
+
+\draw[dashed] (axis cs: -4.303, 316.491) -- (axis cs: -4.303, 0) node[below, pos=1.0, anchor=north]{$x_l$};
+\addplot [
+color=cyan,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+-4.303 316.491\\
+};
+\label{pgf:min_sig}
+
+\draw[dashed] (axis cs: 7.341, 731.693) -- (axis cs: 7.341, 0) node[below, pos=1.0, anchor=north]{$x_r$};
+\addplot [
+color=red,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+7.341 1724.045\\
+};
+\label{pgf:max_sig}
+
+\draw[latex-latex] 
+	(axis cs: 7.341, 1724.045) -- (axis cs: 7.341, 731.693) 
+	node[right, midway]{$a_r$};
+
+\draw[latex-latex] 
+	(axis cs: -4.303, 316.491) -- (axis cs: -4.303, 731.693) 
+	node[left, midway]{$a_l$};
+
+
+\end{axis}
+
+% \begin{axis}[
+% name = gauss model,
+% small,
+% %at = {(sigmoid fit.below south west)}, yshift=-0.5cm,
+% anchor = north west,
+% width=\figurewidth,
+% height=\figureheight,
+% scale only axis,
+% axis x line = middle,
+% axis y line = left,
+% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+% every axis y label/.style={at={(current axis.north west)},anchor=south east},
+% every tick/.style={color=black, thin},
+% extra x ticks={0},
+% extra x tick style={grid=major,
+% 					%tick label style={font=\small},
+% 					color=black, thin
+% 					},
+% xtick = {-2, 0, 2, 4},
+% xmin = -2.5,
+% xmax = 5.5,
+% xlabel = {$x$},
+% ymin = 0,
+% ymax = 3,
+% ytick = {0, 1, 2},
+% ylabel = {$\mathfrak{G}(x)$},
+% ]
+% %xm = 3, ym = 2.5, sl = 1, sr = 0.5, yl = 0.5, yr = 1 
+% \addplot[domain=-2.5:3, samples=100, color=blue, line width=1.0pt]{exp(-1/2*((x-3)/1.5)^2)*(2.5-0.5)+0.5};
+% \addplot[domain=3:5.5, samples=50, color=blue, line width=1.0pt]{exp(-1/2*((x-3)/0.5)^2)*(2.5-1)+1};
+% %\draw (axis cs: -5, 2) -- (axis cs: 5, 2);
+% %\draw (axis cs: 1, 3) -- (axis cs: 1, 0);
+% \draw[latex-latex] (axis cs: 3, 0) -- (axis cs: 3, 2.5) node[right, pos=0.4]{$y_m$};
+% \draw[latex-latex] (axis cs: 3, 2.5) -- (axis cs: 0, 2.5) node[above, midway]{$x_m$};
+% \draw[latex-latex] (axis cs: 3, 1.713) -- (axis cs: 1.5, 1.713) node[below, midway]{$\sigma_l$};
+% \draw[latex-latex] (axis cs: 3, 1.91) -- (axis cs: 3.5, 1.91) node[below, midway]{$\sigma_r$};
+% \draw[latex-latex] (axis cs: -2, 0) -- (axis cs: -2, 0.5) node[right, midway]{$y_l$};
+% \draw[latex-latex] (axis cs: 5, 0) -- (axis cs: 5, 1) node[right, midway]{$y_r$};
+% %\addplot{x^2}
+% \end{axis}
+
+\begin{axis}[%
+small,
+name = gauss fit,
+at = {(sigmoid fit.below south west)}, yshift=-0.5cm,
+anchor = north west,
+clip=false,
+width=\figurewidth,
+height=\figureheight,
+scale only axis,
+scaled y ticks = base 10:4,
+xmin=-15,
+xmax=15,
+ymin=0,
+ymax=0.00012,
+axis y line = left,
+axis x line = bottom,
+xlabel=$t$,
+every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+every tick/.style={color=black, thin},
+xtick = {-10, 0, 10},
+legend style={legend pos = north west}
+]
+
+\addplot [
+color=mycolor4,
+solid,
+line width=2pt
+]
+table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\modelradical};
+\addlegendentry{Model $\mathfrak{G}(x)$}
+
+\addplot [
+color=mycolor1,
+solid,
+line width=1.0pt
+]
+table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\dataradical};
+\addlegendentry{Data $V(x)$}
+
+\addplot [
+color=red,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+-1.265822 8.06e-5\\
+};
+\label{pgf:max_gauss}
+\draw[latex-latex] 
+	(axis cs: -1.265822, 8.06e-5) -- (axis cs: -1.265822, 0)
+	node[right, pos=0.7]{$y_m$} 
+	node[below, pos=1.0, anchor=north]{$x_m$};
+
+\addplot [
+color=cyan,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+-5.822784 2.0286e-5\\
+};
+\label{pgf:min_gauss}
+\draw[latex-latex] 
+	(axis cs: -5.822784, 2.0286e-5) -- (axis cs: -5.822784, 0) 
+	node[left, midway]{$y_l$}
+	node[below, pos=1.0, anchor=north]{$x_l$};
+
+\addplot [
+color=cyan,
+only marks,
+mark=*,
+mark options={draw=black},
+forget plot
+]
+table[row sep=crcr]{
+5.316455 3.7624e-5\\
+};
+\draw[latex-latex] 
+	(axis cs: 5.316455, 3.7624e-5) -- (axis cs: 5.316455, 0) 
+	node[right, midway]{$y_r$}
+	node[below, pos=1.0, anchor=north]{$x_r$};
+
+\draw[latex-latex]
+	(axis cs: -1.265822, 4.482e-5) -- (axis cs: -2.784810, 4.482e-5)
+	node[pos=0.6, below]{$\sigma_l$};
+
+\draw[latex-latex]
+	(axis cs: -1.265822, 6.509e-5) -- (axis cs: 0.253164, 6.509e-5)
+	node[pos=0.5, below]{$\sigma_r$};;
+
+%-2.784810 4.136632e-05
+%0.253164 7.515031e-05
+
+\end{axis}
+\end{tikzpicture}

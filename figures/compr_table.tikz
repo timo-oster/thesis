@@ -1,0 +1,112 @@
+%
+\pgfplotstableread[col sep=comma]{figures/compr_table.csv}\tabledata
+\pgfplotstableread{figures/compr_table_900.csv}\tabledataII
+
+% \definecolor{mycolor2}{rgb}{0, 0, 1}
+% \definecolor{mycolor2}{rgb}{0.5, 0.5, 1}
+% \definecolor{mycolor1}{rgb}{1, 0, 0}
+% \definecolor{mycolor1}{rgb}{1, 0.5, 0.5}
+
+\begin{tikzpicture}
+
+\pgfplotsset{
+	width=\figurewidth,
+	height=\figureheight,
+	scale only axis,
+}
+
+\begin{axis}[%
+		name = times
+		axis y line* = left,
+		axis x line* = box,
+		tick pos = left,
+		xmin=1,
+		xmax=240,
+		xmode=log,
+		xminorticks=true,
+		xlabel={$\seedDensQuot$},
+		every tick/.style={color=black, thin},
+		ymin=1,
+		ymax=500,
+		ymode=log,
+		ylabel={\textcolor{mycolor2}{$t[\text{min}]$}},
+		every axis y label/.style={ at={(rel axis cs:-0.07, 0.95)} },
+		scaled y ticks = false,
+		%legend style={legend pos = north west}
+	]
+
+	\addplot[
+		color=mycolor2,
+		dashed,
+		line width = 1.0pt
+	]
+	table[x = q, y expr = \thisrow{t_mean} + \thisrow{t_std}]{\tabledata};
+
+	\addplot[
+		color=mycolor2,
+		dashed,
+		line width = 1.0pt
+	]
+	table[x = q, y expr = \thisrow{t_mean} - \thisrow{t_std}]{\tabledata};
+
+	\addplot[
+		color=mycolor2,
+		solid,
+		line width = 1.0pt
+	]
+	table[x = q, y = t_mean]{\tabledata};
+
+	\addplot[
+		color=mycolor2,
+		dashdotted,
+		line width = 1.0pt
+	]
+	table[x = q, y = t]{\tabledataII};
+
+\end{axis}
+
+\begin{axis}[% --- CF
+        xmin=1,
+        xmax=240,
+        xmode=log,
+        ymin = 10,
+        ymax = 900,
+        ymode=log,
+        ticklabel pos=right,        
+		axis y line* = right,
+		axis x line = none,
+		ylabel = {\textcolor{mycolor1}{$c$}},
+		every axis y label/.style={ at={(rel axis cs:1.05, 0.95)} },
+		scaled y ticks = false,
+    ]
+
+    \addplot[
+		color=mycolor1,
+		dashed,
+		line width = 1.0pt
+	]
+	table[x = q, y expr = \thisrow{c_mean} + \thisrow{c_std}]{\tabledata};
+
+	\addplot[
+		color=mycolor1,
+		dashed,
+		line width = 1.0pt
+	]
+	table[x = q, y expr = \thisrow{c_mean} - \thisrow{c_std}]{\tabledata};
+
+	\addplot[
+		color=mycolor1,
+		solid,
+		line width = 1.0pt
+	]
+	table[x = q, y = c_mean]{\tabledata}; 
+
+	\addplot[
+		color=mycolor1,
+		dashdotted,
+		line width = 1.0pt
+	]
+	table[x = q, y = c]{\tabledataII}; 
+\end{axis}
+
+\end{tikzpicture}

@@ -1,0 +1,159 @@
+%
+%
+\begin{tikzpicture}[scale=\figurewidth/1cm*0.12,
+					line join=round]
+\tikzstyle{ghostparticle} = [fill=white]
+\tikzstyle{patch} = [dashed]
+\tikzstyle{central} = [fill]
+\tikzstyle{vold} = [thick, gray!50]
+\tikzstyle{old} = [thick, gray]
+\tikzstyle{new} = [thick, black]
+\tikzstyle{trarrow} = [very thick, black, arrows=-latex]
+
+\definecolor{intv1color}{named}{mycolor1}
+\definecolor{intv2color}{named}{mycolor2}
+
+\coordinate (arrowoffset) at (0, 0.8);
+\coordinate (arrowshorten) at (0.2, 0);
+
+\begin{scope}
+	\coordinate (center1) at (0, 0);
+	\coordinate (x1) at (0.5, 0);
+	\coordinate (x2) at (-0.4, 0);
+	\coordinate (x3) at (0.08, 0.6);
+	\coordinate (x4) at (-0.07, -0.5);
+
+	\draw [new, patch] (center1) circle [x radius=0.43, y radius=0.56, rotate=-16];
+
+	\draw (center1) -- (x1);
+	\draw [ghostparticle] (x1) circle [radius=0.08cm];
+	\draw (center1) -- (x2);
+	\draw [ghostparticle] (x2) circle [radius=0.08cm];
+	\draw (center1) -- (x3);
+	\draw [ghostparticle] (x3) circle [radius=0.08cm];
+	\draw (center1) -- (x4);
+	\draw [ghostparticle] (x4) circle [radius=0.08cm];
+	\draw [central] (center1) circle [radius=0.08cm];
+\end{scope}
+
+
+\begin{scope}[shift={(2, 0)}]
+	\coordinate (center2) at (0, 0);
+	\coordinate (ox1) at (0.8, -0.1);
+	\coordinate (ox2) at (-0.7, 0.1);
+	\coordinate (ox3) at (0.5, 0.6);
+	\coordinate (ox4) at (-0.5, -0.6);
+
+	\coordinate (x1) at (0.306, 0.121);
+	\coordinate (x2) at (-0.306, -0.121);
+	\coordinate (x3) at (-0.184, 0.465);
+	\coordinate (x4) at (0.184, -0.465);
+
+	\draw [old, patch, fill=gray!20] (center2) circle [x radius=1, y radius=0.5, rotate=21];
+
+	\draw [old] (center2) -- (ox1);
+	\draw [old, ghostparticle] (ox1) circle [radius=0.08cm];
+	\draw [old] (center2) -- (ox2);
+	\draw [old, ghostparticle] (ox2) circle [radius=0.08cm];
+	\draw [old] (center2) -- (ox3);
+	\draw [old, ghostparticle] (ox3) circle [radius=0.08cm];
+	\draw [old] (center2) -- (ox4);
+	\draw [old, ghostparticle] (ox4) circle [radius=0.08cm];
+
+	\draw [new, patch] (center2) circle [x radius=0.333, y radius=0.5, rotate=21];
+
+	\draw [new] (center2) -- (x1);
+	\draw [new, ghostparticle] (x1) circle [radius=0.08cm];
+	\draw [new] (center2) -- (x2);
+	\draw [new, ghostparticle] (x2) circle [radius=0.08cm];
+	\draw [new] (center2) -- (x3);
+	\draw [new, ghostparticle] (x3) circle [radius=0.08cm];
+	\draw [new] (center2) -- (x4);
+	\draw [new, ghostparticle] (x4) circle [radius=0.08cm];
+	\draw [central] (center2) circle [radius=0.08cm];
+\end{scope}
+
+\begin{scope}[shift={(3.6, 0)}]
+	\draw [fill=black] (0, 0) circle [radius=0.04cm];
+	\draw [fill=black] (0.3, 0) circle [radius=0.04cm];
+	\draw [fill=black] (-0.3, 0) circle [radius=0.04cm];
+\end{scope}
+
+\begin{scope}[shift={(5, 0)}, rotate=-30]
+	\coordinate (center3) at (0, 0);
+	\coordinate (ox1) at (1, 0);
+	\coordinate (ox2) at (-0.6, 0);
+	\coordinate (ox3) at (0.15, 0.6);
+	\coordinate (ox4) at (0.15, -0.6);
+
+	\coordinate (x1) at (0.27, 0);
+	\coordinate (x2) at (-0.27, 0);
+	\coordinate (x3) at (0, 0.6);
+	\coordinate (x4) at (0, -0.6);
+
+	\draw [old, patch, fill=gray!20] (center3) circle [x radius=0.8, y radius=0.6, rotate=0];
+
+	\draw [old] (center3) -- (ox1);
+	\draw [old, ghostparticle] (ox1) circle [radius=0.08cm];
+	\draw [old] (center3) -- (ox2);
+	\draw [old, ghostparticle] (ox2) circle [radius=0.08cm];
+	\draw [old] (center3) -- (ox3);
+	\draw [old, ghostparticle] (ox3) circle [radius=0.08cm];
+	\draw [old] (center3) -- (ox4);
+	\draw [old, ghostparticle] (ox4) circle [radius=0.08cm];
+
+	\draw [new, patch] (center3) circle [x radius=0.27, y radius=0.6, rotate=0];
+
+	\draw [new] (center3) -- (x1);
+	\draw [new, ghostparticle] (x1) circle [radius=0.08cm];
+	\draw [new] (center3) -- (x2);
+	\draw [new, ghostparticle] (x2) circle [radius=0.08cm];
+	\draw [new] (center3) -- (x3);
+	\draw [new, ghostparticle] (x3) circle [radius=0.08cm];
+	\draw [new] (center3) -- (x4);
+	\draw [new, ghostparticle] (x4) circle [radius=0.08cm];
+	\draw [central] (center3) circle [radius=0.08cm];
+\end{scope}
+
+\begin{scope}[shift={(7, 0)}, rotate=-40]
+	\coordinate (center4) at (0, 0);
+	\coordinate (x1) at (0.35, 0);
+	\coordinate (x2) at (-0.3, 0);
+	\coordinate (x3) at (0.05, 0.6);
+	\coordinate (x4) at (0.05, -0.6);
+
+	\draw [new, patch] (center4) circle [x radius=0.325, y radius=0.6, rotate=0];
+
+	\draw (center4) -- (x1);
+	\draw [ghostparticle] (x1) circle [radius=0.08cm];
+	\draw (center4) -- (x2);
+	\draw [ghostparticle] (x2) circle [radius=0.08cm];
+	\draw (center4) -- (x3);
+	\draw [ghostparticle] (x3) circle [radius=0.08cm];
+	\draw (center4) -- (x4);
+	\draw [ghostparticle] (x4) circle [radius=0.08cm];
+	\draw [central] (center4) circle [radius=0.08cm];
+\end{scope}
+
+
+\draw [trarrow, intv1color]
+		($(center1) + (arrowoffset) + (arrowshorten)$) to[out=30, in=150]
+			node [above, midway] {$\color{intv1color}\mE_{\,t_s}^{\,t_1}$}
+		($(center2) + (arrowoffset) - (arrowshorten)$);
+
+\draw [trarrow, intv2color]
+		($(center3) + (arrowoffset) + (arrowshorten)$) to[out=30, in=150]
+			node [above, midway] {\color{intv2color}$\mE_{\,t_n}^{\,t_e}$}
+		($(center4) + (arrowoffset) - (arrowshorten)$);
+
+\draw [trarrow]
+		($(center1) - (arrowoffset) + (arrowshorten)$) to[out=-10, in=-170]
+			node [above, midway] {
+			$\mE_{\,t_s}^{\,t_e} =
+				\textcolor{intv1color}{\mE_{\,t_n}^{\,t_e}} \cdot \;
+				\cdots \;
+				\cdot \textcolor{intv2color}{\mE_{\,t_s}^{\,t_1}}$
+			}
+		($(center4) - (arrowoffset) - (arrowshorten)$);
+
+\end{tikzpicture}

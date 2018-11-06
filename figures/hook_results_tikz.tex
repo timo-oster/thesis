@@ -1,0 +1,86 @@
+%
+%
+\input{figures/colormap_cubicyf}
+\input{figures/colormap_rdoryl}
+%
+\begin{tikzpicture}
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+
+    % place image in node
+    \node[image] (image1)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook2_deformation}%
+    };
+
+    \node[image, right=of image1, xshift=0.25cm] (image2)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook2_lines}%
+    };
+
+    \node[image, right=of image2, xshift=0.25cm] (image3)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook2_detail1}%
+    };
+
+    \node[image, right=of image3, xshift=0.25cm] (image4)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook2_detail2}%
+    };
+
+    \node[image, below=of image1, yshift=-0.25cm] (image5)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook3_deformation}%
+    };
+
+    \node[image, right=of image5, xshift=0.25cm] (image6)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook3_lines}%
+    };
+
+    \node[image, right=of image6, xshift=0.25cm] (image7)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook3_detail1}%
+    };
+
+    \node[image, right=of image7, xshift=0.25cm] (image8)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/hook3_detail2}%
+    };
+
+    % This is how you can add a color scale
+    \node[anchor=west, xshift=-0.75cm, yshift=-0.1cm] at (image4.east){
+        \begin{axis}[
+            scale only axis,
+            height=3.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=8e9,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 8e9}
+            }]
+        \end{axis}
+    };
+    \node[anchor=west, xshift=-0.85cm, yshift=-0.1cm] at (image8.east){
+        \begin{axis}[
+            scale only axis,
+            height=3.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={rdoryl},
+            point meta min=-5, point meta max=11,
+            colorbar style={
+                title=$\log(s)$,
+                scaled ticks=false,
+                ytick={-5, 11}
+            }]
+        \end{axis}
+    };
+
+\end{tikzpicture}

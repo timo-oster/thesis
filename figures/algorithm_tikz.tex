@@ -1,0 +1,73 @@
+%
+\begin{tikzpicture}[scale=\figurewidth/1cm*0.18, line join=round]
+\tikzstyle{currentface} = [fill=mycolor3]
+\tikzstyle{axes} = [arrows=-latex]
+\tikzstyle{trilines} = [thick, fill=white]
+\tikzstyle{back} = [gray]
+
+\coordinate (x1) at (90:1);
+\coordinate (x2) at (-30:1);
+\coordinate (x3) at (210:1);
+
+\coordinate (x21) at ($0.5*(x1) + 0.5*(x2)$);
+\coordinate (x22) at ($0.5*(x2) + 0.5*(x3)$);
+\coordinate (x23) at ($0.5*(x3) + 0.5*(x1)$);
+
+\coordinate (x31) at ($0.5*(x21) + 0.5*(x2)$);
+\coordinate (x32) at ($0.5*(x2) + 0.5*(x22)$);
+\coordinate (x33) at ($0.5*(x22) + 0.5*(x21)$);
+
+\draw [trilines] (x1) -- (x2) -- (x3) -- cycle;
+\draw [trilines] (x21) -- (x22) -- (x23) -- cycle;
+\draw [trilines, currentface] (x31) -- (x32) -- (x33) -- cycle;
+
+% \draw [thin] (1.8, 1.5) -- (5.1, 1.5) -- (5.1, -1) -- (1.8, -1) -- cycle;
+% \draw [thin] (x33) -- (1.8, 1.5);
+% \draw [thin] (x32) -- (1.8, -1);
+
+% \node [above] at (x1) {$\vx_1, \mS_1, \mT_1$};
+% \node [below] at (x2) {$\vx_2, \mS_2, \mT_2$};
+% \node [below] at (x3) {$\vx_3, \mS_3, \mT_3$};
+\node [below] at (x32) {$\Delta_{\vx}$};
+
+\begin{scope}[shift={(2.8, -0.2)}]
+
+    \coordinate (null) at (0, 0, 0);
+    \coordinate (px) at (1, 0, 0);
+    \coordinate (mx) at (-1, 0, 0);
+    \coordinate (pz) at (0, 0, 1);
+    \coordinate (mz) at (0, 0, -1);
+    \coordinate (py) at (0, 1, 0);
+
+    \coordinate (pxpz) at ($0.5*(px) + 0.5*(pz)$);
+    \coordinate (pzmx) at ($0.5*(pz) + 0.5*(mx)$);
+    \coordinate (mxmz) at ($0.5*(mx) + 0.5*(mz)$);
+    \coordinate (mzpx) at ($0.5*(mz) + 0.5*(px)$);
+    \coordinate (pxpy) at ($0.5*(px) + 0.5*(py)$);
+    \coordinate (pzpy) at ($0.5*(pz) + 0.5*(py)$);
+    \coordinate (mxpy) at ($0.5*(mx) + 0.5*(py)$);
+    \coordinate (mzpy) at ($0.5*(mz) + 0.5*(py)$);
+
+    \coordinate (x1) at ($0.5*(px) + 0.5*(pxpz)$);
+    \coordinate (x2) at ($0.5*(pxpz) + 0.5*(pxpy)$);
+    \coordinate (x3) at ($0.5*(px) + 0.5*(pxpy)$);
+
+    \draw [axes] ($1.5*(mx)$) -- ($1.5*(px)$);
+    \draw [axes] ($1.5*(mz)$) -- ($1.5*(pz)$);
+    \draw [axes] (null) -- ($1.5*(py)$);
+
+    \draw [trilines, back] (mx) -- (mz) -- (py) -- cycle;
+    \draw [trilines, back] (mz) -- (px) -- (py) -- cycle;
+    \draw [trilines] (px) -- (pz) -- (py) -- cycle;
+    \draw [trilines] (pz) -- (mx) -- (py) -- cycle;
+
+    \draw [trilines] (pxpz) -- (pzpy) -- (pxpy) -- cycle;
+    \draw [trilines] (pzmx) -- (mxpy) -- (pzpy) -- cycle;
+
+    \draw [trilines, currentface] (x1) -- (x2) -- (x3) -- cycle;
+
+    \node [below] at (x1) {$\Delta_{\vr}$};
+
+\end{scope}
+
+\end{tikzpicture}

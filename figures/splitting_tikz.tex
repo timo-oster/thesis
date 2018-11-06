@@ -1,0 +1,120 @@
+%
+%
+\begin{tikzpicture}[scale=\figurewidth/1cm*0.09]
+\tikzstyle{ghostparticle} = [fill=white]
+\tikzstyle{patch} = [dashed]
+\tikzstyle{central} = [fill]
+\tikzstyle{vold} = [thick, gray!50]
+\tikzstyle{old} = [thick, gray]
+\tikzstyle{new} = [thick, black]
+\tikzstyle{ax1} = [very thick, mycolor2]
+\tikzstyle{ax2} = [very thick, mycolor1]
+
+\begin{scope}[rotate=0]
+% old patch
+\draw[old, patch, fill=gray!20] (0, 0) circle [x radius =3, y radius=1.5];
+
+% old ghost particles
+\coordinate (oldgp1) at (2.4, 0.89);
+\coordinate (oldgp2) at (-2.4, -0.89);
+\coordinate (oldgp3) at (2.4, -0.89);
+\coordinate (oldgp4) at (-2.4, 0.89);
+\draw[old] (oldgp1) -- (oldgp2);
+\draw[old] (oldgp3) -- (oldgp4);
+\draw[old, ghostparticle] (oldgp1) circle [radius=0.1];
+\draw[old, ghostparticle] (oldgp2) circle [radius=0.1];
+\draw[old, ghostparticle] (oldgp3) circle [radius=0.1];
+\draw[old, ghostparticle] (oldgp4) circle [radius=0.1];
+
+% new patch
+
+\draw[new, patch] (-2, 0) circle [x radius=1, y radius=1.5];
+\draw[new, patch] (0, 0) circle [x radius=1, y radius=1.5];
+\draw[new, patch] (2, 0) circle [x radius=1, y radius=1.5];
+
+% main axis
+\draw[new] (-3, 0) -- (3, 0);
+
+% ghost particle lines
+\draw[new] (0, -1.5) -- (0, 1.5);
+\draw[new] (-2, -1.5) -- (-2, 1.5);
+\draw[new] (2, -1.5) -- (2, 1.5);
+
+% ellipse axes
+\draw[ax1] (0, 0) -- (3, 0);
+\draw[ax2] (0, 0) -- (0, 1.5);
+
+% new ghost particles
+\draw[new, ghostparticle] (-2, 1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (0, 1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (2, 1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (-2, -1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (0, -1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (2, -1.5) circle [radius=0.1];
+\draw[new, ghostparticle] (-3, 0) circle [radius=0.1];
+\draw[new, ghostparticle] (-1, 0) circle [radius=0.1];
+\draw[new, ghostparticle] (1, 0) circle [radius=0.1];
+\draw[new, ghostparticle] (3, 0) circle [radius=0.1];
+
+% new central points
+\draw[new, central] (-2, 0) circle [radius=0.1];
+\draw[new, central] (0, 0) circle [radius=0.1];
+\draw[new, central] (2, 0) circle [radius=0.1];
+
+\node at (0, -2.2) {\large split};
+
+\end{scope}
+
+\begin{scope}[shift={(6, 0)}]
+  \coordinate (v1) at (0.4, 0);
+  \coordinate (v2) at (0.4, 1.5);
+  \coordinate (center2) at (0, 0);
+  \coordinate (ax2dir) at (-20:0.37);
+  \coordinate (ax1dir) at (70:1.66);
+
+
+  \draw[old, patch, fill=gray!20] (center2) circle [x radius=0.37, y radius =1.66, rotate=-20];
+  \draw[vold, patch, fill=gray!10] ($(center2) - 2*(v1)$) circle [x radius=0.37, y radius =1.66, rotate=-20];
+  \draw[vold, patch, fill=gray!10] ($(center2) + 2*(v1)$) circle [x radius=0.37, y radius =1.66, rotate=-20];
+
+  \draw[old] ($(center2) - (v1)$) -- ($(center2) + (v1)$);
+  \draw[old] ($(center2) - (v2)$) -- ($(center2) + (v2)$);
+
+  \draw[vold] ($(center2) - 3*(v1)$) -- ($(center2) - (v1)$);
+  \draw[vold] ($(center2) - 2*(v1) - (v2)$) -- ($(center2) - 2*(v1) + (v2)$);
+
+  \draw[vold] ($(center2) + (v1)$) -- ($(center2) + 3*(v1)$);
+  \draw[vold] ($(center2) + 2*(v1) - (v2)$) -- ($(center2) + 2*(v1) + (v2)$);
+
+  \draw[new] ($(center2) + 3*(ax2dir)$) -- ($(center2) - 3*(ax2dir)$);
+  \draw[ax2] (center2) -- (ax2dir);
+  \draw[new] ($(center2) + (ax1dir)$) -- ($(center2) - (ax1dir)$);
+  \draw[ax1] (center2) -- (ax1dir);
+
+  \draw[new, patch] (center2) circle [x radius =1.11, y radius = 1.66, rotate=-20];
+
+  \draw[old, ghostparticle] ($(center2) + (v2)$) circle [radius=0.1];
+  \draw[old, ghostparticle] ($(center2) - (v2)$) circle [radius=0.1];
+  \draw[old, ghostparticle] ($(center2) + (v1)$) circle [radius=0.1];
+  \draw[old, ghostparticle] ($(center2) - (v1)$) circle [radius=0.1];
+
+  \draw[vold, ghostparticle] ($(center2) + 2*(v1) + (v2)$) circle [radius=0.1];
+  \draw[vold, ghostparticle] ($(center2) + 2*(v1) - (v2)$) circle [radius=0.1];
+  \draw[vold, ghostparticle] ($(center2) - 2*(v1) + (v2)$) circle [radius=0.1];
+  \draw[vold, ghostparticle] ($(center2) - 2*(v1) - (v2)$) circle [radius=0.1];
+  \draw[vold, ghostparticle] ($(center2) + 3*(v1)$) circle [radius=0.1];
+  \draw[vold, ghostparticle] ($(center2) - 3*(v1)$) circle [radius=0.1];
+
+  \draw[vold, central] ($(center2) + 2*(v1)$) circle [radius=0.1];
+  \draw[vold, central] ($(center2) - 2*(v1)$) circle [radius=0.1];
+
+  \draw[new, central] (center2) circle [radius=0.1];
+  \draw[new, ghostparticle] ($(center2) + 3*(ax2dir)$) circle [radius=0.1];
+  \draw[new, ghostparticle] ($(center2) - 3*(ax2dir)$) circle [radius=0.1];
+  \draw[new, ghostparticle] ($(center2) + (ax1dir)$) circle [radius=0.1];
+  \draw[new, ghostparticle] ($(center2) - (ax1dir)$) circle [radius=0.1];
+
+  \node at (0, -2.2) {\large merge};
+\end{scope}
+
+\end{tikzpicture}

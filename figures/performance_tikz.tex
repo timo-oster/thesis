@@ -1,0 +1,377 @@
+%
+%
+\begin{tikzpicture}[
+    t_low/.style={thick, tlowcolor},
+    t_mid/.style={thick, tmidcolor},
+    t_high/.style={thick, thighcolor},
+    t_base/.style={thick, tlowcolor, dashed},
+    n_low/.style={thick, nlowcolor},
+    n_mid/.style={thick, nmidcolor},
+    n_high/.style={thick, nhighcolor}
+]
+    \pgfplotsset{
+        small,
+        title style={
+            font=\bfseries\small,
+            at={(0.5, 1)},
+            anchor=north,
+            inner sep=0pt,
+            yshift=-10pt,
+        },
+        width=0.98\figurewidth,
+        height=0.6\figurewidth,
+        tick align=inside,
+        tick pos=both,
+        tick scale binop=\times,
+        every y tick scale label/.style={
+            at={(yticklabel* cs:1)},
+            anchor=north west,
+            inner sep=0pt,
+            xshift=2.5pt
+        },
+        no markers,
+        enlargelimits=true,
+        ymin=0
+    }
+
+    \begin{axis}[
+        name=spherical_np,
+        title={\colorbox{white}{Premixed Flame}},
+        % each nth point=100,
+        ylabel={\color{nlowcolor}{$N$}},
+        xlabel={Iterations},
+        extra x ticks={7178, 12285, 17102, 21616},
+        extra x tick style={
+            grid=major,
+            xticklabels={,,}
+        },
+        every x tick scale label/.style={
+            at={(xticklabel* cs:1)},
+            anchor=south east,
+            inner sep=0pt,
+            yshift=2pt
+        },
+        scaled y ticks=base 10:-5,
+        scaled x ticks=base 10:-3,
+        axis y line*=right,
+        xticklabel pos=top,
+        domain=0:21616,
+        xmin=0,
+        xmax=21616
+    ]
+
+        \addplot [n_high]
+            coordinates{
+                (200, 8621)
+                (2106, 8621)
+                (3000, 8629)
+                (4581, 12747)
+                (5000, 15213)
+                (7000, 27691)
+                (7178, 28638)
+                (9000, 47493)
+                (9762, 54925)
+                (10000, 57434)
+                (11000, 67515)
+                (12285, 78572)
+                (13000, 88204)
+                (14732, 116516)
+                (15000, 120911)
+                (16000, 141969)
+                (17102, 183076)
+                (18000, 254563)
+                (19397, 264183)
+                (20000, 291308)
+                (21000, 331552)
+                (21616, 361552)
+            };
+        \label{plt:n_patches_0_1}
+
+        \addplot [n_mid]
+            coordinates{
+                (200, 8621)
+                (1000, 8621)
+                (2000, 8621)
+                (2106, 8621)
+                (3000, 8657)
+                (4000, 10292)
+                (4581, 13229)
+                (5000, 15914)
+                (6000, 23281)
+                (7000, 28752)
+                (7178, 29694)
+                (8000, 37741)
+                (9000, 48633)
+                (9762, 57080)
+                (10000, 59875)
+                (11000, 71951)
+                (12000, 82838)
+                (12285, 85716)
+                (13000, 95742)
+                (14000, 115402)
+                (15000, 141836)
+                (16000, 175734)
+                (17000, 222679)
+                (18000, 304182)
+                (19000, 382856)
+                (20000, 387671)
+                (21000, 453553)
+                (21616, 513311)
+            };
+        \label{plt:n_patches_0_05}
+
+        \addplot [n_low]
+            coordinates{
+                (200, 8723)
+                (1000, 9832)
+                (2000, 12870)
+                (2106, 13476)
+                (3000, 18364)
+                (4000, 24274)
+                (4581, 28627)
+                (5000, 32021)
+                (6000, 40842)
+                (7000, 49281)
+                (7178, 50793)
+                (8000, 57987)
+                (9000, 68608)
+                (9762, 79956)
+                (10000, 84292)
+                (11000, 104775)
+                (12000, 130147)
+                (13000, 164002)
+                (14000, 205631)
+                (14732, 242982)
+                (15000, 258711)
+                (16000, 321577)
+                (17000, 388891)
+                (18000, 464377)
+                (19000, 553260)
+                (20000, 657414)
+                (21000, 780175)
+                (21616, 867624)
+            };
+        \label{plt:n_patches_0_02}
+    \end{axis}
+
+    \begin{axis}[
+        name=spherical_perf,
+        at=(spherical_np.south west),
+        anchor=south west,
+        % each nth point=100,
+        restrict y to domain=0.05:25,
+        restrict x to domain=0:21616,
+        unbounded coords=discard,
+        xmin=0,
+        xmax=21616,
+        ylabel={\color{tlowcolor}{computing time/iteration [s]}},
+        hide x axis,
+        axis y line*=left,
+    ]
+
+        \addplot [t_base]
+            table [
+                skip first n=3,
+                x index=0,
+                y expr=\thisrowno{2}/1000,
+            ] {figures/spherical_timings.txt};
+
+        \addplot [t_high]
+            table [
+                skip first n=3,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/spherical_timings_0_1.txt};
+
+        \addplot [t_mid]
+            table [
+                skip first n=3,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/spherical_timings_0_05.txt};
+
+        \addplot [t_low]
+            table [
+                skip first n=3,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/spherical_timings.txt};
+    \end{axis}
+
+    \matrix[
+        anchor=north west,
+        draw,
+        fill=white,
+        inner sep=0.2em,
+        row sep=0.1em,
+        column sep=0.1em
+      ]
+      at ($(spherical_np.north west) + (0.1, -0.1)$){
+        \draw[t_low] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_low] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.02$}; \\
+        \draw[t_mid] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_mid] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.05$}; \\
+        \draw[t_high] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_high] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.1$}; \\
+        \draw[t_base] (0,0) -- (0.4cm, 0cm); & \node[anchor=west, font=\small] {Base}; \\
+        };
+
+
+    \begin{axis}[
+        name=hawkes_np,
+        title={\colorbox{white}{Temporal Diffusion Jet}},
+        at=(spherical_np.south west),
+        anchor=north west,
+        yshift=-0.1cm,
+        % each nth point=100,
+        ylabel={\color{nlowcolor}{$N$}},
+        xlabel={Iterations},
+        xtick={0, 1000, 2000, 3000},
+        extra x ticks={1836, 2664, 3616},
+        extra x tick style={
+            grid=major,
+            xticklabels={,,}
+        },
+        every x tick scale label/.style={
+            at={(xticklabel* cs:1)},
+            anchor=north east,
+            inner sep=0pt,
+            yshift=-1.5pt
+        },
+        scaled y ticks=base 10:-6,
+        scaled x ticks=base 10:-3,
+        axis y line*=right,
+        xmax=3627,
+        xmin=0,
+        ymax=3200000
+    ]
+        \addplot [n_high]
+            coordinates{
+                (0, 151232)
+                (1000, 151232)
+                (2000, 154039)
+                (2100, 157247)
+                (2200, 162461)
+                (2300, 171107)
+                (2400, 184918)
+                (2500, 207278)
+                (2600, 235252)
+                (2700, 269471)
+                (2800, 315077)
+                (2900, 369107)
+                (3000, 424125)
+                (3100, 478498)
+                (3200, 537523)
+                (3300, 605379)
+                (3400, 678422)
+                (3500, 757226)
+                (3600, 841327)
+                (3614, 852865)
+            };
+
+        \addplot [n_mid]
+            coordinates{
+                (0, 151232)
+                (1000, 151232)
+                (1500, 151250)
+                (2000, 158181)
+                (2100, 164851)
+                (2200, 175599)
+                (2300, 192543)
+                (2400, 219452)
+                (2500, 259674)
+                (2600, 308258)
+                (2700, 369591)
+                (2800, 450016)
+                (2900, 542517)
+                (3000, 637255)
+                (3100, 725948)
+                (3200, 826107)
+                (3300, 943111)
+                (3400, 1063943)
+                (3500, 1197164)
+                (3600, 1345897)
+                (3614, 1365405)
+                % (3700, 1494575)
+            };
+
+        \addplot [n_low]
+            coordinates{
+                (0, 151232)
+                (500, 151232)
+                (637, 151232)
+                (1000, 151232)
+                (1192, 151232)
+                (1500, 151536)
+                (1834, 161858)
+                (2000, 180865)
+                (2200, 234132)
+                (2500, 452623)
+                (2663, 652381)
+                (2700, 707504)
+                (3000, 1285537)
+                (3200, 1747570)
+                (3616, 2976020)
+            };
+    \end{axis}
+
+    \begin{axis}[
+        name=hawkes_perf,
+        at=(hawkes_np.south west),
+        anchor=south west,
+        % each nth point=25,
+        restrict y to domain=0:60,
+        restrict x to domain=0:3627,
+        unbounded coords=discard,
+        ylabel={\color{tlowcolor}{computing time/iteration [s]}},
+        ytick={0, 25, 50},
+        hide x axis,
+        xmin=0,
+        xmax=3627,
+        ymax=57,
+        axis y line*=left,
+        legend pos=north west,
+        legend cell align={left}
+    ]
+        \addplot [t_high]
+            table [
+                skip first n=0,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/hawkes_timings_0_08.txt};
+
+        \addplot [t_mid]
+            table [
+                skip first n=0,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/hawkes_timings_0_06.txt};
+
+        \addplot [t_low]
+            table [
+                skip first n=0,
+                x index=0,
+                y expr=(\thisrowno{2}+\thisrowno{3})/1000,
+            ] {figures/hawkes_timings.txt};
+
+        \addplot [t_base]
+            table [
+                skip first n=0,
+                x index=0,
+                y expr=\thisrowno{2}/1000,
+            ] {figures/hawkes_timings.txt};
+        \addlegendentry{Base};
+    \end{axis}
+
+    \matrix[
+        anchor=north west,
+        draw,
+        fill=white,
+        inner sep=0.2em,
+        row sep=0.1em,
+        column sep=0.1em
+      ]
+      at ($(hawkes_np.north west) + (0.1, -0.1)$){
+        \draw[t_low] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_low] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.04$}; \\
+        \draw[t_mid] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_mid] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.08$}; \\
+        \draw[t_high] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_high] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.12$}; \\
+        \draw[t_base] (0,0) -- (0.4cm, 0cm); & \node[anchor=west, font=\small] {Base}; \\
+        };
+\end{tikzpicture}

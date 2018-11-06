@@ -1,0 +1,138 @@
+%
+%
+\definecolor{yellowdraw}{rgb}{0.996078, 0.701038, 0.301269}
+% \definecolor{yellowdraw}{HTML}{E68600}
+\definecolor{yellowfill}{HTML}{FFDDAC}
+%
+\begin{tikzpicture}
+\pgfplotsset{myBar/.style={
+	small,
+	width=3.5cm,
+	ybar=1pt,
+	% x = 12pt,
+	bar width=9pt,
+	bar shift=0pt,
+	ytick align=outside,
+	xtick style={draw=none},
+	xtick = data,
+	x tick label style={rotate=45,anchor=north east, yshift=0.18cm, xshift=0.2cm},
+	axis x line*=bottom,
+	enlarge x limits=0.15,
+	after end axis/.code={ % Draw line indicating break
+            \draw [ultra thick, white, decoration={snake, amplitude=1pt}, decorate] (rel axis cs:-0.01,1.05) -- (rel axis cs:1.01,1.05);
+        },
+    clip=false
+}}
+\begin{axis}[
+	myBar,
+	name = m_time,
+	ymin=0,
+	ymax=15.4,
+	% xlabel=$M$,
+	ylabel={run time [\si{\second}]},
+	symbolic x coords = {$10$, $10^2$, $10^3$, $10^4$},
+	axis y line*=left
+]
+\addplot[mycolor1, fill=mycolor1]
+	coordinates {($10$,5) ($10^2$,6) ($10^3$,8.4) ($10^4$,15.4)};
+\label{plt:runtime}
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = eps_t_time,
+	at = {(m_time.east)},
+	xshift = 0.75cm,
+	anchor = west,
+	ymin=0,
+	ymax=15.4,
+	% xlabel=$\epsilon_t$,
+	symbolic x coords = {$10^{-2}$, $10^{-3}$, $10^{-6}$, $10^{-9}$},
+	hide y axis,
+]
+\addplot[mycolor1, fill=mycolor1]
+	coordinates {($10^{-2}$,8.0) ($10^{-3}$,8.2) ($10^{-6}$,8.4) ($10^{-9}$,8.6)};
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = eps_c_time,
+	at = {(eps_t_time.east)},
+	xshift = 0.75cm,
+	anchor = west,
+	ymin=0,
+	ymax=15.4,
+	% xlabel=$\epsilon_c$,
+	symbolic x coords = {$10^{-2}$, $10^{-3}$, $10^{-6}$, $10^{-9}$},
+	hide y axis,
+]
+\addplot[mycolor1, fill=mycolor1]
+	coordinates {($10^{-2}$,8.4) ($10^{-3}$,8.4) ($10^{-6}$,8.4) ($10^{-9}$,8.4)};
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = m_lines,
+	at = {(m_time.below south west)},
+	yshift = -1cm,
+	anchor = north west,
+	ymin=0,
+	ymax=1100,
+	ylabel = {\# lines},
+	restrict y to domain*={0:1300},
+	xlabel=$M$,
+	symbolic x coords = {$10$, $10^{2}$, $10^{3}$, $10^{4}$},
+	axis y line*=left
+]
+\addplot[yellowdraw,fill=yellowdraw]
+	coordinates {($10$,0) ($10^{2}$,186) ($10^{3}$,440) ($10^{4}$,693)};
+\label{plt:total_lines}
+\addplot[mycolor4, fill=mycolor4]
+	coordinates {($10$,0) ($10^{2}$,159) ($10^{3}$,153) ($10^{4}$,153)};
+\label{plt:filtered_lines}
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = eps_t_lines,
+	at = {(m_lines.east)},
+	xshift = 0.75cm,
+	anchor = west,
+	ymin=0,
+	ymax=1100,
+	restrict y to domain*={0:1300},
+	xlabel=$\epsilon_t$,
+	symbolic x coords = {$10^{-2}$, $10^{-3}$, $10^{-6}$, $10^{-9}$},
+	hide y axis,
+]
+\addplot[yellowdraw,fill=yellowdraw]
+	coordinates {($10^{-2}$,9000) ($10^{-3}$,455) ($10^{-6}$,440) ($10^{-9}$,435)};
+\addplot[mycolor4, fill=mycolor4]
+	coordinates {($10^{-2}$,156) ($10^{-3}$,153) ($10^{-6}$,153) ($10^{-9}$,153)};
+\node[above] at (axis cs:$10^{-2}$,1300) {\textcolor{yellowdraw}{\footnotesize 9000}};
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = eps_c_lines,
+	at = {(eps_t_lines.east)},
+	xshift = 0.75cm,
+	anchor = west,
+	ymin=0,
+	ymax=1100,
+	restrict y to domain*={0:1300},
+	xlabel=$\epsilon_c$,
+	symbolic x coords = {$10^{-2}$, $10^{-3}$, $10^{-6}$, $10^{-9}$},
+	hide y axis,
+]
+\addplot[yellowdraw,fill=yellowdraw]
+	coordinates {($10^{-2}$,440) ($10^{-3}$,440) ($10^{-6}$,440) ($10^{-9}$,17000)};
+\addplot[mycolor4, fill=mycolor4]
+	coordinates {($10^{-2}$,153) ($10^{-3}$,153) ($10^{-6}$,153) ($10^{-9}$,1000)};
+\node[above] at (axis cs:$10^{-9}$,1300) {\textcolor{yellowdraw}{\footnotesize 17000}};
+\end{axis}
+\end{tikzpicture}
+% \addplot
+% 	coordinates {($10^{-2}$,440) ($10^{-3}$,440) ($10^{-6}$,440) ($10^{-9}$,17000)};
+% \addplot
+% 	coordinates {($10^{-2}$,156) ($10^{-3}$,153) ($10^{-6}$,153) ($10^{-9}$,1100)};

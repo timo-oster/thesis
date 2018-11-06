@@ -1,0 +1,64 @@
+%
+%
+\input{figures/colormap_cubicyf}
+\input{figures/colormap_rdoryl}
+%
+\begin{tikzpicture}
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+
+    \node[image] (image1)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/spring_deformation}%
+    };
+
+    \node[image, right=of image1, xshift=0.25cm] (image2)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/spring_lines}%
+    };
+
+    \node[image, right=of image2, xshift=0.25cm] (image3)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/spring_detail1_box}%
+    };
+
+    \node[image, right=of image3, xshift=0.25cm] (image4)
+    {
+        \includegraphics[width=0.22\figurewidth]{figures/spring_detail2_box}%
+    };
+
+    \node[anchor=north west, xshift=-0.7cm, yshift=0.15cm] at (image4.north east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=1e9,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 1e9}
+            }]
+        \end{axis}
+    };
+    \node[anchor=south west, xshift=-0.8cm, yshift=-0.15cm] at (image4.south east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={rdoryl},
+            point meta min=3, point meta max=17,
+            colorbar style={
+                title=$\log(s)$,
+                scaled ticks=false,
+                ytick={3, 17}
+            }]
+        \end{axis}
+    };
+
+\end{tikzpicture}

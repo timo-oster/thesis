@@ -1,0 +1,61 @@
+%
+%
+\input{figures/colormap_cubicyf}
+\input{figures/colormap_rdoryl}
+%
+\begin{tikzpicture}
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+
+    % place image in node
+    \node[image] (image1)
+    {
+        \includegraphics[width=0.3\figurewidth]{figures/crane_deformation}%
+    };
+
+    % place next image to the right with a little space in between
+    \node[image, right=of image1, xshift=0.25cm] (image2)
+    {
+        \includegraphics[width=0.3\figurewidth]{figures/crane_lines}%
+    };
+
+    \node[image, right=of image2, xshift=0.25cm] (image3)
+    {
+        \includegraphics[width=0.3\figurewidth]{figures/crane_detail}%
+    };
+
+    \node[anchor=north west, xshift=-0.7cm, yshift=0.15cm] at (image3.north east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=1.5e6,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 1.5e6}
+            }]
+        \end{axis}
+    };
+    \node[anchor=south west, xshift=-0.8cm, yshift=-0.15cm] at (image3.south east){
+        \begin{axis}[
+            scale only axis,
+            height=1.1cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={rdoryl},
+            point meta min=-7.5, point meta max=11,
+            colorbar style={
+                title=$\log(s)$,
+                scaled ticks=false,
+                ytick={-7.5, 11}
+            }]
+        \end{axis}
+    };
+
+\end{tikzpicture}
