@@ -1,10 +1,10 @@
 
 % 
-\section{A Sparse Representation for DNS Data}
+\section{A Sparse Representation for \ac{DNS} Data}
 \label{sec:compression}
 
 To address problem~\ref{i:size}, and enable addressing problems~\ref{i:analyze}
-and \ref{i:visualize}, we introduce a sparse representation for DNS data. The
+and \ref{i:visualize}, we introduce a sparse representation for \ac{DNS} data. The
 transformation into the sparse form consists of three steps: First, points are
 seeded on the flame surface. Second, the values of the simulation variables are
 sampled along lines orthogonal to the flame surface, emanating from these
@@ -82,7 +82,7 @@ the original data.
 %
 %We first place a point into every surface voxel. 
 %
-% Sub-voxel sampling would not yield more information due to the smoothness of DNS
+% Sub-voxel sampling would not yield more information due to the smoothness of \ac{DNS}
 % data. 
 %
 Since this results in a large number of vertices, we select only some of
@@ -141,7 +141,7 @@ at regular intervals $t_j$ along lines $\vp_i(t_j)=\vp_i + t_j \cdot
 % According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
 % size.
 % 
-Due to the high resolution and accuracy of DNS data, trilinear
+Due to the high resolution and accuracy of \ac{DNS} data, trilinear
 interpolation is sufficient. The length of the line is chosen sufficiently large
 to cover the whole reaction zone. The resulting profiles are approximated by
 simple models to further reduce the required storage space.
@@ -164,16 +164,16 @@ simple models to further reduce the required storage space.
 %
 % address a review comment
 %----
-% Even though DNS data are simulated without any model assumptions,
+% Even though \ac{DNS} data are simulated without any model assumptions,
 % it is reasonable to describe the data outcome of them via models for
 % two reasons: i) the model-based description of the data does not negatively effect
-% the simulation benefits of DNS data being that DNS data have a low
+% the simulation benefits of \ac{DNS} data being that \ac{DNS} data have a low
 % simulation error because the simulation still runs with the raw data per time step;
 % and ii) the models facilitates the treatment and extraction of such
 % characteristic features which the domain experts want to investigate for
 % data analysis purposes. In the following, the compression scheme steps are described in detail.
 %----
-Although the main advantage of DNS is its high precision due to the lack of any
+Although the main advantage of \ac{DNS} is its high precision due to the lack of any
 modeling assumptions, we use models to describe its outcome in a lower-
 dimensional form. These models are sufficient to facilitate the analysis of the
 scalar fields we intend. Additionally, they reduce the space needed to store the

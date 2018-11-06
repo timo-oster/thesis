@@ -24,27 +24,27 @@ A point $\vx$ with velocity $\vu$ tracking the surface has a zero Lagrangian
 derivative, \ie, the value of $s$ at the point does not change over time.
 Therefore
 %
-\[
+\begin{equation}
     \frac{\mathrm{D}s}{\mathrm{D}t} =
     \frac{\partial s}{\partial t} + \nabla s \cdot \vu = 0 \, \text{.}
-\]
+\end{equation}
 %
 This constrains the component of $\vu$ that is normal to the surface.
 %
 In tangential direction, we want $\vu$ to adhere to the fluid velocity, \ie,
 %
-\[
+\begin{equation}
     \Norm{\vu - \vv}^2 \rightarrow \text{min}\,\text{.}
-\]
+\end{equation}
 %
 Combining both constraints using Lagrange multipliers, the solution for
 the velocity of a point on the implicit surface is given by
 %
-\[
+\begin{equation}
     \vu = \vv - \frac{\frac{\partial s}{\partial t} + \nabla s \cdot \vv}
                      {\Norm{\nabla s}^2}
                 \nabla s \,\text{.}
-\]
+\end{equation}
 %
 This equation is expressed as $\vu = \vv + s_d \,\vn$ in combustion literature
 \cite{Poinsot2012}.
@@ -67,19 +67,19 @@ We consider the starting position of a point on the surface at some time $t_0$.
 %
 \Wlog we assume that this point is at the origin $\vNull$.
 %
-Let $\chi(\vx,t)$ be the mapping function that maps a point $\vx$ to its
-position at time $t > t_0$ after moving with the surface.
+Let $\bchi(\vx,t)$ be the mapping function that maps a point $\vx$ at $t_0$ to
+its position at time $t > t_0$ after moving with the surface.
 %
-\Wlog we assume that $\chi(\vNull,t) = \vNull$.
+\Wlog we assume that $\bchi(\vNull,t) = \vNull$.
 %
-The spatial deformation gradient $\mF = \nabla \chi$, which encodes the behavior
+The spatial deformation gradient $\mF = \nabla \bchi$, which encodes the behavior
 of a point $\vx$ in an infinitesimally small neighborhood around $\vNull$, can
 then be expressed as
 %
-\[
-    \mF \cdot \vx = \chi(\vx, t)\quad
+\begin{equation}
+    \mF\, \vx = \bchi(\vx, t)\quad
         \text{for } \vx \rightarrow \vNull \, \text{.}
-\]
+\end{equation}
 %
 We are only interested in the tangential part of this deformation, \ie, the
 behavior in a tangential coordinate system that moves and rotates with the
@@ -112,10 +112,10 @@ transformation.
 Thus, $\hat\mF$ encodes the behavior of a point $\hat\vx$ in an
 infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
 %
-\[
-    \hat\mF \cdot \hat\vx = \T\mB \, \chi(\mB \, \hat\vx, t)\quad
+\begin{equation}
+    \hat\mF \cdot \hat\vx = \T\mB \, \bchi(\mB \, \hat\vx, t)\quad
     \text{for } \vx \rightarrow \vNull \, \text{.}
-\]
+\end{equation}
 %
 \begin{figure}[tb]
     \centering
@@ -229,14 +229,14 @@ of a micro-patch at time $t$ as a matrix $\mC(t) \in \RRSet^{3\times5}$ consisti
 of the surface normal $\vn(t)$ at the central point as well as the relative
 positions of the ghost particles $\vx_i(t),~i \in \{1, ..., 4\}$.
 %
-\[
+\begin{equation}
     \mC(t) = \begin{pmatrix}
                 \vn(t) &
                 \vx_1(t) - \vx(t) &
                 \cdots &
                 \vx_4(t) - \vx(t)
              \end{pmatrix}\, \text{.}
-\]
+\end{equation}
 %
 In the following, we omit the dependence of $\mC$, $\vn$, and $\vx_i$ on the
 time $t$ and we assume that $\vx = \vNull$ wherever the meaning is clear from
@@ -246,12 +246,12 @@ For the initial configuration at some time $t_0$, $\mC$ can be exactly
 represented by a unit base configuration $\mC_0$ being transformed by a linear
 transformation $\mT$, \ie,
 %
-\[
+\begin{equation}
     \mC(t_0) = \mT \, \mC_0, \quad \text{with} \quad
     \mC_0 = \begin{pmatrix}
         \ve_3 & \ve_1 & -\ve_1 & \ve_2 & -\ve_2
     \end{pmatrix} \, \text{,}
-\]
+\end{equation}
 %
 where $\ve_i$ are the unit vectors in the $i$-th coordinate direction.
 %
@@ -262,9 +262,9 @@ Their relation to $\mC_0$ might no longer be linear.
 Now, $\mT$ is the linear transformation that best approximates the mapping
 between $\mC_0$ and $\mC$, \ie, the solution to the least squares problem
 %
-\[
+\begin{equation}
     e^2 = \Frob{\T\mC_0 \, \T\mT - \T\mC}^2 \rightarrow \text{min} \, \text{.}
-\]
+\end{equation}
 %
 Here, $\Frob{\cdot}$ denotes the Frobenius norm.
 %
@@ -348,11 +348,11 @@ The major and minor axes of the current configuration can be reconstructed from
 the tangential component $\hat\mT$ of $\mT$, which is obtained similar to
 \eqref{eqn:tangent_deformation_tensor}:
 %
-\[
+\begin{equation}
     \hat\mT = \T{\left( \ve_1 \quad \ve_2 \right)} \,
                 \T\mU \, \mT \,
                 \left( \ve_1 \quad \ve_2 \right) \, \text{,}
-\]
+\end{equation}
 %
 where $\T\mU$ is the rotation obtained from the polar decomposition $\mT =
 \mU\mP$.
@@ -360,9 +360,9 @@ where $\T\mU$ is the rotation obtained from the polar decomposition $\mT =
 The directions and extents of the principal axes of the micro-patch are
 encoded in the singular value decomposition
 %
-\[
+\begin{equation}
     \hat\mT = \hat\mV \, \hat\mSigma \, \T{\hat\mW} \, \text{.}
-\]
+\end{equation}
 %
 The singular values $\sigma_{1,2}$ on the diagonal of $\hat\mSigma$ are the
 extents of the ellipse, while the rows of $\hat\mV$ are the directions of the
@@ -524,9 +524,9 @@ It is therefore sufficient to determine a proxy transformation
 $\mE_{\,t_s}^{\,t_e}$, which maps the micro-patch configuration $\mC(t_s)$ to
 $\mC(t_e)$, and reconstruct $\hat\mF$ via
 %
-\[
+\begin{equation}
     \hat\mF_{\,t_s}^{\,t_e} = \T\mB \, \T\mU \, \mE_{\,t_s}^{\,t_e} \, \mB \, \text{,}
-\]
+\end{equation}
 %
 with $\mB$ the basis vectors of the tangent plane at $t_s$ and $\mU$ the
 rotation matrix from the polar decomposition of $\mE$.
@@ -560,11 +560,11 @@ columns scaled.
 If the ghost particles were reset one or more times during the time interval,
 $\mE_{\,t_s}^{\,t_e}$ is the concatenation of multiple transformations:
 %
-\[
+\begin{equation}
     \mE_{\,t_s}^{\,t_e} = \mE_{\,t_n}^{\,t_e} \cdot \mE_{\,t_{n-1}}^{\,t_n}
                       \cdot \; \cdots \; \cdot
                       \mE_{\,t_1}^{\,t_2} \cdot \mE_{\,t_s}^{\,t_1} \, \text{,}
-\]
+\end{equation}
 %
 \begin{figure}[tb]
 \centering
