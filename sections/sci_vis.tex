@@ -22,11 +22,14 @@ engineering domains: turbulent combustion and solid mechanics.
 To set the scene for these contributions, we will therefore use this chapter to
 briefly recall the fundamental methods for visualizing scientific data.
 %
-Such data usually comes in the form of scalar-, vector-, or tensor fields.
+Such data usually comes in the form of scalar-, vector-, or (second-order)
+tensor fields.
 %
-After listing the notation used throughout the text, we will therefore take a
-look at the definition and basic visualization techniques for each of these
-types of fields in the following sections.
+
+%
+After listing the notation used throughout the text, we will take a look at the
+definition and basic visualization techniques for each of these types of fields
+in the following sections.
 %
 
 %
@@ -106,7 +109,145 @@ $\nabla$ & Nabla-Operator
 
 \section{Scalar Fields} % (fold)
 \label{sec:scalar_fields}
+%
+A scalar field is a map $s(\vx, t): D \times T \mapsto \RRSet$ that assigns a
+scalar value to each position $\vx$ in a spatial domain $D$ and time $t$ in a
+temporal domain $T$.
+%
+The spatial domain $D$ is a subset of the (two- or three-dimensional) Euclidean
+space $\EESet^n$.
+%
+The temporal domain $T$ is usually an interval of $\RRSet$.
+%
+Examples of scalar fields are the temperature in a solid object, the population
+density on a map, and the attenuation coefficient in a \ac{CT} scan.
+%
+If the scalar field does not change with time, or we are only interested in a
+single instant, we often just write $s(\vx)$ and omit the time parameter.
+%
 
+% \subsection{Visualization Methods for Scalar Fields} % (fold)
+% \label{sub:visualization_methods_for_scalar_fields}
+%
+% \begin{itemize}
+%     \item Space-filling
+%     \begin{itemize}
+%         \item Colormapping (2D)
+%         \item Height-mapping (2D)
+%         \item Direct Volume rendering (3D)
+%     \end{itemize}
+%     \item Geometry-based
+%     \begin{itemize}
+%         \item Isocontours/surfaces (cite marching cubes)
+%         \item maxima/minima/saddles
+%         \item Morse-Smale-complex
+%         \item Ridge lines/surfaces
+%     \end{itemize}
+% \end{itemize}
+%
+Methods for visualizing scalar fields can be roughly separated into two groups:
+image-based and geometry-based.
+%
+Image-based methods map the scalar at each position in space to a property and
+display it directly.
+%
+Among such methods are \emph{color-mapping} and \emph{height-mapping} for
+\ac{2D} scalar fields as well as \emph{direct volume rendering} for \ac{3D}
+scalar fields.
+%
+Geometry-based methods extract some geometrical structures from the data and
+display these structures.
+%
+\emph{Isocontours and -surfaces} belong in this category together with
+topological features such as \emph{extremal- and saddle points}, as well as
+\emph{ridge- and valley lines and -surfaces}.
+%
+We will briefly cover each of those methods in the following.
+%
+\Todo{add citations}
+%
+
+%
+\paragraph{Color-mapping} means assigning each scalar value a color from a
+predefined colormap and displaying the result as an image or texture.
+%
+Due to its simplicity, it is probably the most widespread method presented here.
+%
+This technique is only applicable to \ac{2D} scalar fields, but is commonly used
+on \ac{3D} data by selecting slices or surfaces in a volume, or by displaying
+the scalar value on the outside surface of the volume.
+%
+
+%
+\paragraph{Height-mapping} only works on \ac{2D} data.
+%
+It essentially means interpreting the scalar value at each point as a height
+value and displaying the resulting three-dimensional surface.
+%
+Because it transforms \ac{2D} information into \ac{3D} information, it is best
+suited for interactive settings, where the resulting surface can be rotated and
+viewed from all directions.
+%
+
+%
+\paragraph{Direct volume rendering} is the extension of color-mapping to \ac{3D}
+scalar fields.
+%
+It involves two steps: Applying a transfer function, and accumulating the
+resulting colors and opacities along viewing rays to produce an image.
+%
+The transfer function has to be chosen carefully to reveal the structures in the
+data that are interesting and make the uninteresting parts transparent.
+%
+Color and opacity values are then integrated along viewing rays to simulate the
+transport of light through a semitransparent medium.
+%
+
+%
+\paragraph{Isocontours and -surfaces} are subsets of the scalar field where the
+scalar is equal to a constant (iso-) value.
+%
+In the literature these are also often referred to as \emph{level sets}.
+%
+They form lines or surfaces that are always closed or end at the domain
+boundary, and that never intersect each other.
+%
+For \ac{2D} scalar fields, it is common to plot contours for several isovalues
+at once, which resemble the height lines we know from maps.
+%
+In \ac{3D}, it is rare to display more than two or three different isosurfaces
+at the same time due to occlusion problems.
+%
+
+%
+\paragraph{Minima, maxima, and saddle points} are points in a scalar field where
+the gradient becomes zero.
+%
+As such, they are features of the scalar field's topology.
+%
+
+%
+\paragraph{Ridge- and valley lines and -surfaces} also belong to the category
+of topological features.
+%
+There is no universal agreed-upon definition for these types of features.
+%
+The two most common, competing definitions are \emph{watersheds} and
+\emph{height ridges} \cite{Peikert2008,Eberly2012}.
+%
+Watersheds are global features that separate the scalar field into ``areas of
+influence'' of the different maxima (or minima).
+%
+Together with the critical points, they form the topological skeleton of the
+scalar field.
+%
+Height ridges are defined by a local differential analysis of the scalar field.
+%
+As such, their computation is less costly, but they do not provide a
+space-filling segmentation of the data.
+%
+% subsection visualization_methods_for_scalar_fields (end)
+%
 % section scalar_fields (end)
 
 \section{Vector Fields} % (fold)

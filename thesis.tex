@@ -83,10 +83,16 @@
 \tikzexternalize[prefix=tikz/]
 
 % miscellaneous
-\usepackage{todonotes}      % todo annotations
+\usepackage[
+    textsize=small
+    ]{todonotes}      % todo annotations
 
 % disable tikz externalization for todonotes
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
+\newcommand{\Todo}[2][]{\ruggedtodo[color=orange, bordercolor=orange, #1]{#2}}
+\newcommand{\Error}[2][]{\ruggedtodo[color=red, bordercolor=red, #1]{#2}}
+\newcommand{\Suggestion}[2][]{\ruggedtodo[color=green!50, bordercolor=green!50, #1]{#2}}
+\newcommand{\ToCite}[2][]{\ruggedtodo[color=purple!50, bordercolor=purple!50, #1]{#2}}
 
 \usepackage{etoolbox}
 \usepackage[lofdepth, lotdepth]{subfig}
