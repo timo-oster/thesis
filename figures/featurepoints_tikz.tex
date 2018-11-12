@@ -1,0 +1,61 @@
+\begin{tikzpicture}[
+    surface/.style={very thick, opacity=0.5},
+    feature/.style={red},
+    arrow/.style={-latex, thick},
+    point/.style={draw=black, thick, fill=yellow},
+    mesh/.style={fill=cyan}
+    ]
+
+    \begin{scope}[scale=1.5]
+        \coordinate (p0) at (-0.7, 2.0);
+        \coordinate (p1) at (-0.5, 1.5);
+        \coordinate (p2) at (0, 0);
+        \coordinate (p3) at (-0.3, -1.2);
+        \coordinate (p4) at (-0.8, -1.5);
+
+        \newcommand{\rzero}{30}
+        \newcommand{\rone}{30}
+        \newcommand{\rtwo}{0}
+        \newcommand{\rthree}{-45}
+        \newcommand{\rfour}{-80}
+
+        \coordinate (r0) at (\rzero:0.35cm);
+        \coordinate (r1) at (\rone:0.3cm);
+        \coordinate (r2) at (\rtwo:1cm);
+        \coordinate (r3) at (\rthree:0.5cm);
+        \coordinate (r4) at (\rfour:0.4cm);
+
+        \coordinate (p0f) at ($(p0) + (r0)$);
+        \coordinate (p1f) at ($(p1) + (r1)$);
+        \coordinate (p2f) at ($(p2) + (r2)$);
+        \coordinate (p3f) at ($(p3) + (r3)$);
+        \coordinate (p4f) at ($(p4) + (r4)$);
+
+        \draw[surface] plot[smooth] coordinates{(p0) (p1) (p2) (p3) (p4)};
+        \draw[surface, feature] plot[smooth] coordinates{(p0f) (p1f) (p2f) (p3f) (p4f)};
+
+        \begin{scope}[rotate=\rone, shift=(p1)]
+                \draw[black] (-1.5, 0) -- (1.5, 0);
+        \end{scope}
+        \begin{scope}[rotate=\rtwo, shift=(p2)]
+                \draw[black] (-1.5, 0) -- (1.5, 0);
+        \end{scope}
+        \begin{scope}[rotate=\rthree, shift=(p3)]
+                \draw[black] (-1.5, 0) -- (1.5, 0);
+        \end{scope}
+
+        \draw[arrow] (p1) -- ++(\rone:1cm) node[below right] {$\vr_1$};
+        \draw[arrow] (p2) -- ++(\rtwo:1cm) node[below right] {$\vr_2$};
+        \draw[arrow] (p3) -- ++(\rthree:1cm) node[below] {$\vr_3$};
+
+        \foreach \i in {1, 2, 3}{
+            \draw[point] (p\i) circle (0.5mm);
+        }
+        \node[below] at (p1) {$\vp_1$};
+        \node[below left] at (p2) {$\vp_2$};
+        \node[left] at (p3) {$\vp_3$};
+
+
+    \end{scope}
+
+\end{tikzpicture}
