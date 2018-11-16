@@ -99,7 +99,7 @@ Remember that during the transformation to the sparse representation, an
 isosurface mesh $M$ representing the flame surface $S$ was extracted. The
 profile lines were seeded at vertices of this mesh. For each point $\vp_i$
 on the flame surface we therefore know the position of a point on the feature
-surface $S_f$ by the corresponding shift value $t_{f_i}$ and the direction of
+surface $S_f$ by the corresponding shift value $t_{f,i}$ and the direction of
 the profile line $\vr_i$ (Figure~\ref{fig:featurepoints} (left)).
 %
 % Revealing a feature surface is a non-trivial task due to reasons of ambiguity:
@@ -149,8 +149,9 @@ representing the feature surface.
 %the flame surface mesh.
 \begin{figure}[t!]
 	\centering
-	\def\svgwidth{0.8\textwidth}
-	\import{figures/}{featurepoints.pdf_tex}
+	% \def\svgwidth{0.8\textwidth}
+	% \import{figures/}{featurepoints.pdf_tex}
+	\input{figures/featurepoints_tikz}
 	\caption{Construction of feature points and feature mesh.
 	Left: Feature points are constructed by shifting the anchor points
 	$\vp_i$ on the flame surface $S$ along their direction vectors
@@ -163,9 +164,12 @@ representing the feature surface.
 	their corresponding values of $t_f$.
 	}
 	\label{fig:featurepoints}
-	\Todo[inline]{Recreate in tikz and refer to points by
-		image refs/small pictures. Make caption shorter and move details
-		to running text.}
+	\Todo[inline]{Explicitly state this is 2D view. Refer to points by image
+		refs/small pictures. Make caption shorter and move details to running
+		text. Add more than one mesh point in between to show diffusion can be
+		over longer distances. Make colors more consistent with meaning (e.g.
+		gray only for diffused values). Make it clear that diffused values need
+		not reflect reality.}
 \end{figure}
 %
 

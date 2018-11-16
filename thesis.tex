@@ -51,9 +51,10 @@
     parsep=0pt,
     listparindent=\parindent}
 
-\usepackage[nolist,
-            smaller
-            ]{acronym}      % typeset and list acronyms
+% \usepackage[nolist,
+%             smaller
+%             ]{acronym}      % typeset and list acronyms
+\usepackage{acro}
 
 \usepackage{type1cm}
 \usepackage{lettrine}
@@ -129,7 +130,7 @@
 
 \renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                        % switch reference item
 \renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}                      % switch citation item
-\renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
+% \renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
 
 % the following requires a KOMA documentclass (scr*)
 \addtokomafont{disposition}{\switchtoPLF{}\bfseries}                    % section headings (includes heading font)
@@ -180,11 +181,11 @@
 %   \makebox[0pt][r]{#3}#4%
 % }
 
-\acused{1D}
-\acused{2D}
-\acused{3D}
-\acused{4D}
-\acused{5D}
+\acuse{1D}
+\acuse{2D}
+\acuse{3D}
+\acuse{4D}
+\acuse{5D}
 
 \definecolor{mycolor1}{HTML}{377EB8}%
 \definecolor{mycolor2}{HTML}{FF7F00}%
@@ -201,6 +202,8 @@
 % \usepackage{layout}
 
 \input{macros}              % math macros
+
+\input{acronyms}
 
 % symbols
 \newcommand{\seedDens}{\rho} % seed density function
@@ -351,8 +354,6 @@
 \input{sections/flame_surface_tracking/transform_interpolation}
 
 \backmatter
-
-\input{acronyms}
 
 \bibliographystyle{alpha}
 \bibliography{bib_master}
