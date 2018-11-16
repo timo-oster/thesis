@@ -338,7 +338,45 @@ We will again visit each of these methods briefly in the following sections.
 \subsection{Direct Methods} % (fold)
 \label{sub:direct_methods}
 %
+\paragraph{Arrow plots} are the simplest way to visualize a vector field.
+%
+In such a plot, arrow glyphs are placed at multiple locations throughout the
+domain.
+%
+The arrows are aligned with the direction of the local vector, and their
+length is typically scaled based on its magnitude.
+%
+Such plots can very accurately show the vectors at a limited number of
+locations, but they quickly become cluttered once too many arrows are plotted,
+or the arrows become too long and occlude each other.
+%
 
+%
+\paragraph{Color-mapping} can be applied to vector fields in different ways.
+%
+The most common one is simply displaying the magnitude of the vector field as a
+scalar.
+%
+Other scalars derived from the vector field, such as the vorticity magnitude and
+divergence, can be visualized in the same way.
+%
+All of this obviously goes along with a loss of information.
+%
+Since color has three degrees of freedom, a vector field can also be visualized
+without information loss by directly mapping the vector values to colors.
+%
+The most naive way is to simply interpret the three components of a \ac{3D}
+vector as RGB values.
+%
+Such images theoretically contain they full information of the original vector
+field.
+%
+However, they are very hard to interpret, as there is no inherent meaningful
+connection between the direction of the vector and the color it is mapped to.
+%
+This can be slightly improved for \ac{2D} vector fields by mapping the angle
+and magnitude of the vector to hue and value of the HSV color space.
+%
 % subsection direct_methods (end)
 %
 \subsection{Image-Based Methods} % (fold)
