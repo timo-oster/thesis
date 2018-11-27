@@ -107,7 +107,7 @@ $\nabla$ & Nabla-Operator
 %
 % section notation (end)
 
-\section{Scalar Fields} % (fold)
+\section{Scalar Field Visualization} % (fold)
 \label{sec:scalar_fields}
 %
 A scalar field is a map $s(\vx, t): D \times T \mapsto \RRSet$ that assigns a
@@ -165,7 +165,9 @@ scalar fields.
 %
 
 %
-\paragraph{Color-mapping} means assigning each scalar value a color from a
+\subsubsection*{Color-mapping}
+%
+Color-mapping means assigning each scalar value a color from a
 predefined color map and displaying the result as an image or texture.
 %
 Due to its simplicity, it is probably the most widespread method presented here.
@@ -176,7 +178,9 @@ the scalar value on the outside surface of the volume.
 %
 
 %
-\paragraph{Height-mapping} only works on \ac{2D} data.
+\subsubsection*{Height-mapping}
+%
+Height-mapping only works on \ac{2D} data.
 %
 It essentially means interpreting the scalar value at each point as a height
 value and displaying the resulting three-dimensional surface.
@@ -187,7 +191,9 @@ viewed from all directions.
 %
 
 %
-\paragraph{Direct volume rendering} is the extension of color-mapping to \ac{3D}
+\subsubsection*{Direct Volume Rendering}
+%
+Direct volume rendering is the extension of color-mapping to \ac{3D}
 scalar fields.
 %
 It involves two steps: Applying a transfer function, and accumulating the
@@ -213,7 +219,9 @@ topological features such as \emph{extremal- and saddle points}, as well as
 %
 
 %
-\paragraph{Isocontours and -surfaces} are subsets of the scalar field where the
+\subsubsection*{Isocontours and -surfaces}
+%
+Isocontours and -surfaces are subsets of the scalar field where the
 scalar is equal to a constant (iso-) value.
 %
 In the literature these are also often referred to as \emph{level sets}.
@@ -229,14 +237,18 @@ at the same time due to occlusion problems.
 %
 
 %
-\paragraph{Minima, maxima, and saddle points} are points in a scalar field where
+\subsubsection*{Minima, Maxima, and Saddle Points}
+%
+Minima, maxima, and saddle points are points in a scalar field where
 the gradient becomes zero.
 %
 As such, they are features of the scalar field's topology.
 %
 
 %
-\paragraph{Ridge- and valley lines and -surfaces} also belong to the category
+\subsubsection*{Ridge- and Valley Lines and -Surfaces}
+%
+Ridge- and valley lines and -surfaces also belong to the category
 of topological features.
 %
 There is no universal agreed-upon definition for these types of features.
@@ -261,7 +273,7 @@ space-filling segmentation of the data.
 %
 % section scalar_fields (end)
 
-\section{Vector Fields} % (fold)
+\section{Vector Field Visualization} % (fold)
 \label{sec:vector_fields}
 %
 A vector field $\vv(\vx,t): D \times T \mapsto \RRSet^n$ is a map from spatial
@@ -286,9 +298,9 @@ flow, we sometimes call it a (steady or unsteady) \emph{flow field}.
 %
 
 %
-Vector field visualization methods can be sorted into roughly five different
+Vector field visualization methods can be sorted into roughly six different
 classes: Direct methods, image-based methods, integral curves and -surfaces,
-topological features, and other feature-based methods.
+topological features, vortex extraction and \acl{LCS}.
 %
 We will again visit the most important methods in the following sections.
 %
@@ -305,7 +317,9 @@ the velocity magnitude, vorticity and other derived quantities directly.
 %
 
 %
-\paragraph{Arrow plots} are the simplest way to visualize a vector field.
+\subsubsection*{Arrow Plots}
+%
+Arrow plots are the simplest way to visualize a vector field.
 %
 In such a plot, arrow glyphs are placed at multiple locations throughout the
 domain.
@@ -319,7 +333,9 @@ or the arrows become too long and occlude each other.
 %
 
 %
-\paragraph{Color-mapping} can be applied to vector fields in different ways.
+\subsubsection*{Color-Mapping}
+%
+Color-mapping can be applied to vector fields in different ways.
 %
 The most common one is simply displaying the magnitude of the vector field as a
 scalar.
@@ -357,8 +373,10 @@ and \emph{texture advection}.
 %
 
 %
-\paragraph{Line integral convolution (\acs{LIC})}\acused{LIC} is the most
-popular image-based vector field visualization method.
+\subsubsection*{Line Integral Convolution}
+%
+Line integral convolution (\acs{LIC}\acused{LIC}) is the most popular
+image-based vector field visualization method.
 %
 It is based on ``smearing'' a random noise texture along stream lines of a
 \ac{2D} vector field.
@@ -375,8 +393,10 @@ but extensions have been developed for \ac{3D} and unsteady datasets.
 %
 
 %
-\paragraph{Spot noise} is also a method designed for \ac{2D} data and produces
-results similar to \ac{LIC}.
+\subsubsection*{Spot Noise}
+%
+Spot noise is also a method designed for \ac{2D} data and produces results
+similar to \ac{LIC}.
 %
 It works by blending noise sprites that have been stretched and rotated
 according to the local vector direction.
@@ -387,8 +407,9 @@ visible. \ToCite{Spot Noise}
 %
 
 %
-\paragraph{Texture advection} works on \ac{2D} steady and unsteady vector
-fields.
+\subsubsection*{Texture Advection}
+%
+Texture advection works on \ac{2D} steady and unsteady vector fields.
 %
 It is best suited for vector fields representing a flow, as it simulates the
 transport(advection) of a texture with the flow.
@@ -720,23 +741,24 @@ For unsteady flows, the equivalent of separatrices are \acl{LCS}, which we will
 cover in the next section.
 %
 % subsubsection separatrices (end)
-
 %
 % subsection vector_field_topology (end)
 %
-\subsection{Other Features} % (fold)
-\label{sub:other_features}
-%
-Other important features, particularly of unsteady flow fields, are vortices and
-\acf{LCS}.
-%
-
+\subsection{Vortex Extraction} % (fold)
+\label{sub:vortex_extraction}
 %
 Vortices are structures in a flow that show a swirling motion around a common
 center.
 %
-Even though this concept seems rather simple, hundreds of years of fluid
-dynamics research still has not resulted in a universally accepted formal
+They will usually stay intact for long periods of time.
+%
+Vortices are the defining characteristic of turbulent flow.
+%
+The study of their behavior is a central topic of current fluid dynamics
+research.
+%
+Even though the concept of a vortex seems rather simple, hundreds of years of
+fluid dynamics research still has not resulted in a universally accepted formal
 definition.
 %
 This is why there is a plethora of methods for detecting and quantifying
@@ -745,23 +767,68 @@ vortices in the literature.
 Most methods can be sorted into two categories: \emph{region-based} and
 \emph{line-based}.
 %
-We will cover some significant representatives for both categories here.
+They can be further classified by their invariance to transformations of the
+reference frame through which the flow is observed.
 %
-An extensive survey of vortex extraction methods can be found in
-\cite{Guenther2018}.
+Non-invariant methods are sensitive to all reference frame transformations.
+%
+Galilean invariant methods are insensitive to any motion of the reference frame
+with constant speed and direction.
+%
+Objective methods are insensitive to any smooth translation and rotation of the
+reference frame.
+%
+We will cover some significant vortex extraction methods here.
+%
+An extensive survey can be found in \cite{Guenther2018}.
 %
 
 %
-\ac{LCS} are volumes of a fluid that stay spatially intact for long periods of
-time, \eg, massless particles that are placed within such a volume at some point
-in time will remain near each other when advecting with the flow.
+Region-based methods measure the ``vortex-ness'' of the flow at a point by a
+scalar quantity.
 %
-Popular methods for visualizing such structures are the
-\emph{\acl{FTLE}} (\acs{FTLE}) and \emph{\acl{FSLE}} (\acs{FTLE}).
+Applying a threshold to this quantity shows the vortex regions.
+%
+Notable representatives of this category are the \emph{vorticity magnitude},
+\emph{$\lambda_2$-criterion} and \emph{Q-criterion}, which are all Galilean
+invariant methods that work on steady vector fields.
+%
+Recently, the \emph{\acl{IVD}}~(\acs{IVD}) has been proposed as an objective
+criterion for steady vector fields.
+%
+Its extension, the \emph{\acl{LAVD}}~(\acs{LAVD}) also accounts for unsteady
+behavior of the flow.
+%
+Region-based approaches are generally simple and efficient to implement, but the
+results are dependent on the choice of the threshold, and they do not produce
+explicit representations of the vortices.
 %
 
-\subsubsection{Vortices} % (fold)
-\label{ssub:vortices}
+%
+Line-based methods explicitly extract the vortex core line that is the center
+of the swirling behavior.
+%
+The \emph{reduced velocity} approach for extracting vortex core lines in steady
+flows was proposed by Sujudi and Haimes \cite{Sujudi1995} and later identified
+as an application of the \emph{parallel vectors} operator by Peikert and Roth
+\cite{Peikert1999}.
+%
+This approach is only Galilean invariant when applying it to \ac{2D} vector
+fields.
+%
+A Galilean invariant approach for finding the \emph{cores of swirling particle
+motion} in unsteady flows was proposed by Weinkauf \etal \cite{Weinkauf2007}.
+%
+Recently, G\"unther \etal \cite{Guenther2017} provided a framework for
+objective vortex core detection.
+%
+This is realized by determining a locally \emph{near-steady frame} for observing
+the flow.
+%
+
+%
+\subsubsection*{Vorticity Magnitude} % (fold)
+\label{ssub:vorticity_magnitude}
 %
 The vorticity is commonly used in fluid dynamics literature to characterize the
 rotational behavior of the flow.
@@ -773,37 +840,292 @@ rotation and whose magnitude indicates the rotation strength.
 %
 Vorticity magnitude is sometimes used to detect vortices.
 %
-However, in highly turbulent regions vortices can not be reliably separated from
-each other by this method, because the vorticity might be high everywhere.
+However, a constant threshold over the whole domain is often not sufficient to
+detect and distinguish all vortices, and it might yield false-positives in shear
+flow.
 %
-Also, slowly rotating vortices with a relatively low vorticity magnitude might
-be missed.
+This is why other methods often perform better.
 %
-This is why other methods often perform better at detecting vortices.
+% subsubsection vorticity_magnitude (end)
 %
-
+\subsubsection{Q-Criterion} % (fold)
+\label{ssub:q_criterion}
 %
-The $\lambda_2$-criterion \cite{Jeong1995} identifies vortex core regions by
-investigating the eigenvalues of the tensor $\mS^2+\bOmega^2$, where $\mS$ and
-$\bOmega$ are the symmetric and antisymmetric parts of the Jacobian.
+The Jacobian $\mJ$ of a flow field can be decomposed into a symmetric part $\mS$
+(often called \emph{strain rate tensor}) and an asymmetric part $\bOmega$ (often
+called \emph{vorticity tensor}) where
+%
+\begin{equation}
+    \mS = \frac{\mJ + \T{\mJ}}{2}\text{,}\quad
+    \bOmega = \frac{\mJ-\T{\mJ}}{2}\text{.}
+\end{equation}
+%
+For divergence-free (\ie, incompressible) flows, the Q-criterion states that a
+region belongs to a vortex if the vorticity tensor is stronger than the strain
+rate tensor, \ie,
+%
+\begin{equation}
+    (\Norm{\bOmega}^2 - \Norm{\mS}^2) > 0 \, \text{.}
+\end{equation}
+%
+The resulting regions are not as sensitive to the scaling of the data as the
+vorticity magnitude.
+%
+% subsubsection q_criterion (end)
+%
+\subsubsection{$\bm{\lambda_2}$-Criterion} % (fold)
+\label{ssub:lambda_2}
+%
+The $\lambda_2$-criterion \cite{Jeong1995} uses invariants of the Jacobian to
+detect pressure valleys in incompressible flows.
+%
+It identifies vortex core regions by investigating the eigenvalues of the tensor
+$\mS^2+\bOmega^2$.
 %
 If the local tensor has at least two negative eigenvalues (\ie, if the middle
 eigenvalue $\lambda_2$ is smaller than zero), a point is considered to belong to
 a vortex core region.
 %
-This tends to generate a lot of small regions that are not considered to be
-significant and have to be filtered out based on their size.
+In most cases, $\lambda_2$-criterion and Q-criterion yield similar results.
 %
-% subsubsection vortices (end)
+% subsubsection lambda_2 (end)
 %
-\subsubsection*{Lagrangian Coherent Structures} % (fold)
-\label{ssub:lagrangian_coherent_structures}
+\subsubsection{\acs{IVD}/\acs{LAVD}} % (fold)
+\label{ssub:ivd_lavd}
+%
+Recently, Haller \etal \cite{Haller2016} proposed the \acf{IVD} as an objective
+vortex measure for steady flow fields.
+%
+It is based on the observation that while the vorticity itself is not objective,
+the difference between two vorticity vectors is.
+%
+Based on this, they define the \ac{IVD} as the difference of the local vorticity
+to the average vorticity in a local neighborhood.
+%
+The \ac{LAVD} extends this to unsteady flows by integrating the \ac{IVD} along
+a pathline over a certain time interval.
+%
+% subsubsection ivd_lavd (end)
+%
+\subsubsection{Reduced Velocity/Parallel Vectors} % (fold)
+\label{ssub:reduced_velocity_parallel_vectors}
+%
+The first line-based method we present here was proposed by Sujudi and Haimes
+\cite{Sujudi1995} and works on steady flow fields.
+%
+It is based on the observation that vortex centers look like critical points
+when looking at a slice of the vector field that is orthogonal to the vortex
+core line.
+%
+In regions with swirling flow, the Jacobian has two complex conjugate and one
+real eigenvector, which points along the local axis of rotation.
+%
+The reduced velocity or Sujudi/Haimes criterion therefore states that a vortex
+core line is located where the projection of the local velocity onto a plane
+orthogonal to the single real eigenvector is zero.
+%
+Peikert and Roth \cite{Peikert1999} later discovered that this is equivalent to
+locations where the velocity vector $\vv$ is parallel to its acceleration
+$\mJ\vv$, and so is an application of the \emph{parallel vectors} operator,
+which does not require the explicit computation of eigenvectors.
+%
+% subsubsection reduced_velocity_parallel_vectors (end)
+%
+\subsubsection{Cores of Swirling Particle Motion} % (fold)
+\label{ssub:cores_of_swirling_particle_motion}
+%
+The method of Sujudi/Haimes only considers steady flow fields, or instantaneous
+snapshots of unsteady flows.
+%
+This means that this method finds the centers of swirling streamlines.
+%
+In unsteady flows, streamlines and pathlines appear to swirl around different
+cores if the vortex moves over time.
+%
+Weinkauf \etal \cite{Weinkauf2007} therefore developed an approach to find the
+cores of swirling pathlines in unsteady flows.
+%
+They express pathlines as streamlines in a flow field with one more dimension
+where time has been included as an additional explicit state variable.
+%
+For \ac{3D} unsteady flows, the pathlines are streamlines in \ac{4D} space-time.
+%
+They derive a criterion similar to Sujudi/Haimes for \ac{4D} vector fields that
+can be reduced to a parallel vectors operation on two derived \ac{3D} vector
+fields.
+%
+% subsubsection cores_of_swirling_particle_motion (end)
+%
+\subsubsection{Near-Steady Frame} % (fold)
+\label{ssub:near_steady_frame}
+%
+The optimal reference frame for observing a vortex is a frame that follows the
+vortex center over time \cite{Robinson1991}.
+%
+In such a frame, the observed vector field around the vortex becomes almost
+steady as ambient effects of larger flow structures are eliminated.
+%
+This is the basis of the approach proposed by G\"unther \etal
+\cite{Guenther2017}.
+%
+For each point in the flow, a locally optimal reference frame is computed in
+which the flow becomes almost steady.
+%
+The reference frame is determined for a finite-sized neighborhood via a simple
+linear optimization.
+%
+Once the vector field (and its derivatives) have been ``objectified'', any
+region- or line-based vortex extractor that is designed for steady vector fields
+can be used to extract objective unsteady vortices.
+%
+% subsubsection near_steady_frame (end)
+%
+% subsection vortices (end)
+%
+\subsection{Lagrangian Coherent Structures} % (fold)
+\label{sub:lagrangian_coherent_structures}
+%
+\acf{LCS} are structures that show a locally maximal attracting or repelling
+behavior of massless particles.
+%
+As the name suggests, these structures also tend to stay coherent over longer
+time periods.
+%
+They can be thought of as a counterpart to vortices.
+%
+Whereas vortices represent the centers of swirling behavior, \ac{LCS} tend to
+be located at the boundaries between vortices.
+%
+They act as transport barriers that have a minimal transverse flux of material
+and are therefore very important for the investigation of mixing and transport
+processes.
 %
 
 %
-% subsubsection lagrangian_coherent_structures (end)
+One popular approach to detecting such structures is the investigation of the
+local Lyapunov exponent \cite{Ott2002}.
 %
-% subsection other_features (end)
+The Lyapunov exponent describes the rate of separation of infinitesimally close
+trajectories over an infinite time interval.
+%
+Since real-world data is usually finite in time and space, two approximations of
+the Lyapunov exponent are commonly used in practice: the
+\emph{\acl{FTLE}\acused{FTLE}} (\acs{FTLE}) and \emph{\acl{FSLE}\acused{FSLE}}
+(\acs{FTLE}).
+%
+It has been shown that ridges of the \ac{FTLE} or \ac{FSLE} field correspond
+well to the locations of \ac{LCS} \cite{Shadden2005,Haller2001}.
+%
+
+%
+The basis for the computation of both \ac{FTLE} and \ac{FSLE} is the right
+Cauchy-Green deformation tensor
+%
+\begin{equation}
+    \mC(\vx, t_0, t) = \T{\mF(\vx, t_0, t)}\, \mF(\vx, t_0, t) \,\text{,}
+\end{equation}
+%
+where $\mF$ is the deformation gradient obtained from the derivative of the
+flow map
+%
+\begin{equation}
+    \mF(\vx, t_0, t) = \bPhi(\vx, t_0, t)\T{\nabla}\text{.}
+\end{equation}
+%
+The Cauchy-Green tensor describes the deformation the infinitesimal neighborhood
+of a point $\vx$ at time $t_0$ experiences when advecting with the flow until
+time $t$.
+%
+The maximum eigenvalue $\lambda_{\text{max}}$ of this tensor is a measure for
+the maximum separation of two particles starting in this infinitesimal
+neighborhood.
+%
+\subsubsection{Finite-Time Lyapunov Exponent} % (fold)
+\label{ssub:ftle}
+%
+The \acl{FTLE} measures the maximum separation of neighboring particles after
+advecting with the flow for a finite time:
+%
+\begin{equation}
+    \text{FTLE}(\vx, t_0, \tau)
+        = \frac{1}{|\tau|}\ln\sqrt{\lambda_{\text{max}}(\mC(\vx, t_0, t_0 + \tau))}\,\text{.}
+\end{equation}
+%
+
+%
+A straightforward way of approximating the \ac{FTLE} of a flow is to compute the
+flow map $\bPhi$ on a discrete grid and estimate the deformation gradient $\mF$
+via central differences.
+%
+Since the ridges of an \ac{FTLE} field can become very sharp with increasing
+time interval $\tau$, this is usually not very accurate.
+%
+Additionally, we are usually not interested in an accurate estimation of regions
+without ridges.
+%
+For this reason, there are multiple numerical schemes for more precise or
+performant \ac{FTLE} computations.
+%
+A good overview of the existing methods is provided in Alexander Kuhn's PhD
+thesis~\cite{Kuhn2013}.
+%
+% subsubsection ftle (end)
+%
+\subsubsection{Finite-Size Lyapunov Exponent} % (fold)
+\label{ssub:fsle}
+%
+The \acl{FSLE} measures the time a pair of infinitesimally close particles
+need to separate by a constant amount in space:
+%
+\begin{equation}
+    \text{FSLE}(\vx, t_0, r) = \frac{1}{|\tau_r|} \ln{r}\,\text{,}
+\end{equation}
+%
+where $\tau_r$ is the minimum time interval for which
+%
+\begin{equation}
+    \sqrt{\lambda_{\text{max}}(\mC(\vx, t_0, t_0+\tau_r))} = r\,\text{.}
+\end{equation}
+%
+
+%
+\ac{FSLE} is popular in the oceanography community, but has not been adopted
+much in the general visualization community.
+%
+As a result, \ac{FSLE} computation schemes in the literature are mostly
+straightforward.
+%
+Either the maximum separation $\lambda_{\text{max}}$ is estimated by a discrete
+sampling of the flow map in different directions
+\cite{dOvidio2004,Hernandez-Carrasco2011}, or the Cauchy-Green tensor is
+estimated based on central differences \cite{Peikert2014}.
+%
+
+%
+\ac{FTLE} and \ac{FSLE} yield very similar results, given the right parameters
+\cite{Peikert2014}.
+%
+However, their semantic differences might make one or the other more appropriate
+depending on the application.
+%
+While \ac{FTLE} operates on a finite integration time $\tau$, which must be
+estimated a-priori, it shows the behavior of the flow for all scales of spatial
+separation.
+%
+In contrast, \ac{FSLE} needs the choice of a separation size, which might be
+more intuitive.
+%
+It yields information about separation at different spatial scales, but it does
+not show separation that is smaller than the given threshold $r$.
+%
+% subsubsection fsle (end)
+%
+\todo[inline]{Add a short section detailing other approaches to \ac{LCS},
+\eg, papers by Haller that try to find attracting/repelling manifolds with
+different means.}
+%
+% subsection lagrangian_coherent_structures (end)
+%
 %
 % Direct
 % =====
@@ -844,7 +1166,7 @@ significant and have to be filtered out based on their size.
 %
 % section vector_fields (end)
 
-\section{Second-Order Tensor Fields} % (fold)
+\section{Second-Order Tensor Field Visualization} % (fold)
 \label{sec:tensor_fields}
 
 % section tensor_fields (end)
