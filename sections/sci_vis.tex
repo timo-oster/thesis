@@ -205,6 +205,8 @@ data that are interesting, and make the uninteresting parts transparent.
 Color and opacity values are then accumulated along viewing rays to simulate the
 transport of light through a semitransparent medium.
 %
+\Todo[inline]{mention shading by using 2D transfer function}
+%
 % subsection image_based_methods (end)
 
 \subsection{Geometry-Based Methods} % (fold)
@@ -299,17 +301,17 @@ flow, we sometimes call it a (steady or unsteady) \emph{flow field}.
 
 %
 Vector field visualization methods can be sorted into roughly six different
-classes: Direct methods, image-based methods, integral curves and -surfaces,
+classes: Basic methods, image-based methods, integral curves and -surfaces,
 topological features, vortex extraction and \acl{LCS}.
 %
 We will again visit the most important methods in the following sections.
 %
 
 %
-\subsection{Direct Methods} % (fold)
-\label{sub:direct_methods}
+\subsection{Basic Methods} % (fold)
+\label{sub:basic_methods}
 %
-Direct methods display the vector data in a very basic way, much like
+Basic methods display the vector data in a very basic way, much like
 image-based methods for scalar fields.
 %
 They encompass techniques such as \emph{arrow plots}, or \emph{color-mapping}
@@ -1159,11 +1161,81 @@ tensor fields $\mT(\vx)$.
 %
 
 %
-Tensor field visualization methods can be roughly classified into three
-different categories:
+The most important tensor field visualization methods can be roughly classified
+into three different categories:
 %
-glyph-based, line-/surface-based and topology-based.
+direct, image-based, glyph-based, line-/surface-based and topology-based.
 %
+% Direct:
+% =======
+% * color mapping directions {Pajevic1999}
+% * direct volume rendering {Kindlmann2000}
+% Image-based:
+% ============
+% * brush strokes {Laidlaw1998}
+% * HyperLIC {Zheng2003}
+% * Physically-based tensor vis {Hotz2004}
+% Glyph placement
+% ===============
+% * Anisotropic Noise Samples {Feng2008}
+% * Glyph Packing {Kindlmann2006}
+
+\subsection{Direct Methods} % (fold)
+\label{sub:direct_methods}
+%
+Direct methods display some properties of the tensor directly.
+%
+Usually, one or more scalar quantities are derived from the vector field and
+displayed using methods from scalar field visualization.
+%
+Notable examples for direct methods are \emph{color-mapping} and \emph{direct
+volume rendering}.
+%
+
+%
+\subsubsection{Color-Mapping} % (fold)
+\label{ssub:color_mapping}
+%
+Just like scalar and vector fields, \ac{2D} or slices of \ac{3D} tensor fields
+can be displayed by color-mapping some scalar properties of the tensor.
+%
+When investigating mechanical stress tensors, some norm of the tensor is often
+displayed.
+%
+When viewing diffusion tensors from \ac{DTI} data, the \ac{3D} direction of the
+major eigenvector is often encoded using a radial or spherical color
+map~\cite{Pajevic1999}.
+%
+Such a visualization is not very intuitive and requires the viewer to be
+familiar with the interpretation of the resulting images.
+%
+% subsubsection color_mapping (end)
+%
+
+\subsubsection{Direct Volume Rendering} % (fold)
+\label{ssub:direct_volume_rendering}
+%
+For \ac{3D} data, the equivalent of color-mapping is direct volume rendering.
+%
+The additional degrees of freedom of a tensor compared to scalar or vector data
+means that some information invariably gets lost when using normal direct volume
+rendering techniques.
+%
+This means an intelligent mapping of the tensor to color, opacity and shading
+needs to be performed to retain the most important aspects of the data.
+%
+For diffusion tensors, different possibilities for such mappings have been
+explored by Kindlmann \etal~\cite{Kindlmann2000}.
+%
+They base their mappings on the different kinds of anisotropies indicated by the
+ratio of the tensor's eigenvalues that can be found in diffusion tensor data
+(namely linear anisotropy, planar anisotropy, and isotropy).
+%
+This produces visualizations that represent the important features in \ac{DTI}
+data, but is not necessarily applicable to other application domains.
+%
+% subsubsection direct_volume_rendering (end)
+% subsection direct_methods (end)
 
 \subsection{Glyph-Based Methods} % (fold)
 \label{sub:glyph_based_methods}
@@ -1181,6 +1253,10 @@ There are various glyph designs for \emph{symmetric positive definite},
 \emph{symmetric (indefinite)}, and \emph{general tensors} in both \ac{2D} and
 \ac{3D}.
 %
+Some research has also focused on how to place and distribute glyphs to better
+emphasize global structures in the data, as opposed to the simple regular
+grid-based approach~\cite{Kindlmann2006,Feng2008}.
+%
 
 \subsubsection{Symmetric Positive Definite Tensors} % (fold)
 \label{ssub:symmetric_positive_definite_tensors}
@@ -1188,8 +1264,9 @@ There are various glyph designs for \emph{symmetric positive definite},
 Symmetric positive definite tensors are tensors that always have positive
 real eigenvalues, and whose eigenvectors are orthogonal.
 %
-They occur in \ac{DTI} data, where they represent the diffusion of Hydrogen
-atoms in organic tissue (specifically in neural fibers of the brain).
+The domain most explored in scientific visualization for these tensors is
+\ac{DTI} data, where they represent the diffusion of Hydrogen atoms in organic
+tissue (specifically in neural fibers of the brain).
 %
 The simplest glyphs for visualizing such tensors are ellipses~\cite{Basser1996},
 cylinders~\cite{Wiegell2000} or boxes~\cite{Schroeder2006}.
@@ -1235,11 +1312,17 @@ This poses a challenge for glyph design.
 Simply transforming a symmetric base shape with the tensor will produce the same
 image for eigenvalues with equal magnitude but opposite sign.
 %
-\Todo[inline]{Cite different glyphs for indefinite tensors listed by
-Schultz/Kindlmann~\cite{Schultz2010a}}
+Different glyphs for symmetric tensors in different application domains have
+been proposed in the literature~\cite{Pajevic1999,Hashash2003,Jeremic2002}.
 %
-By explicitly encoding eigenvalue signs in geometry, Schultz and
-Kindlmann~\cite{Schultz2010a} extended this to symmetric indefinite tensors.
+Often, color is used to indicate the sign of the eigenvalue.
+%
+Alternatively, the glyph base shape is modified to represent the difference
+between positive and negative eigenvalues.
+%
+Schultz and Kindlmann~\cite{Schultz2010a} built on top of all of this work to
+develop a set of superquadric-based tensor glyphs that clearly indicates
+eigenvalue sign by a combination of color and concave shape.
 %
 % subsubsection symmetric_tensors (end)
 %
