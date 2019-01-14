@@ -39,8 +39,13 @@ analytic test function, and show our results for the two simulation cases.
 %
 \begin{figure}
     \centering
-    \setlength\figurewidth\linewidth
-    \input{figures/ground_truth_errors_log_tikz}
+    % \begin{captionbeside}
+        % {Box plot of error distributions for the analytical test function.
+         % We show the minimum, lower quartile, median, upper quartile and
+         % maximum errors for different values of $r_\shortparallel$.}
+        \setlength\figurewidth{0.9\linewidth}
+        \input{figures/ground_truth_errors_log_tikz}
+    % \end{captionbeside}
     \caption{Box plot of error distributions for the analytical test function.
              We show the minimum, lower quartile, median, upper quartile and
              maximum errors for different values of $r_\shortparallel$.}

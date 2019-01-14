@@ -3,10 +3,12 @@
 
 \KOMAoptions{
     captions=tableheading,
+    captions=outerbeside,
     headings=twolinechapter,
     chapterprefix=true,
     numbers=noenddot
 }
+\setcapindent{0em}
 
 \usepackage[utf8]{inputenc} % allow using UTF-8 characters in input
 
@@ -89,6 +91,8 @@
     ]{todonotes}      % todo annotations
 
 % disable tikz externalization for todonotes
+% \let\oldmissingfigure\missingfigure
+\newcommand{\MissingFigure}[2][]{\tikzexternaldisable\missingfigure[#1]{#2}\tikzexternalenable}
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
 \newcommand{\Todo}[2][]{\ruggedtodo[color=orange, bordercolor=orange, #1]{#2}}
 \newcommand{\Error}[2][]{\ruggedtodo[color=red, bordercolor=red, #1]{#2}}
@@ -175,6 +179,11 @@
 \MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
 \fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{gray}{\thechapter}}%
 }
+
+
+% \AtBeginEnvironment{captionbeside}{\setcapindent{0em}}
+\addtokomafont{caption}{\small}
+\addtokomafont{captionlabel}{\small\bfseries}
 
 % Section numbers in margin
 % \renewcommand*{\sectionlinesformat}[4]{%

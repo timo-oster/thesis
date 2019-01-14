@@ -279,34 +279,42 @@ impede performance.
 \subsection{Feature Surface Visualization}
 %
 \begin{figure}[p]
-    \centering
- 	\def\svgwidth{0.5\linewidth}
-		\import{figures/}{contourmeshvis.pdf_tex}
-	\caption{\label{fig_contourmeshvis}%
-	Prototype of visual analysis tool for feature meshes showing dataset \textsc{Hydrogen}.
-	Top: Graphical user interface. 
-	Upper middle: %($S^{\text{HEATR}}_{\text{max}}$ vs. $S^{\text{TEMP}}_{\text{infl}}$)
-	%(Maximum surface of heat release vs. inflection point surface of temperature)
-	Effect of varying color scale parameter $u_1$. 
-	Lower middle: %($S^{\text{HEATR}}_{\text{max}}$ vs. $S^{\text{H}_2\text{O}_2}_{\text{max}}$)
-	%(Maximum surface of heat release vs. maximum surface of $\text{H}_2\text{O}_2$) 
-	Morphing between the different surfaces	by adjusting $u_2$.
-	Bottom: %($S^{\text{TEMP}}_{\text{infl}}$ vs. $S^{\text{O}}_{\text{max}}$)
-	%(Inflection point surface of temperature vs. maximum surface of O)
-	Sliding through time to observe the development of the feature meshes (circles).
-	%
-	% Prototype of visual analysis tool for feature meshes. Top: Graphical user
-	% interface of prototype. Middle: Pairwise difference visualization:
-	% the difference values $d$ for two variables are color-coded onto the flame
-	% mesh $M$. Parameter $u_1$ steers contrast and strength of the illumination.
-	% Bottom: Feature mesh visualization: $u_2$ steers which mesh is shown.
-	% Here, the variables $T$ and $CO_2$ are chosen from \textsc{Syngas I}.
-	% $u_2=0$ yields the flame mesh $M$ (left), $u_2=1$ yields the maximum mesh
-	% $M^T_{{max}}$ for variable $T$ (middle), and $u_2=2$ yields the maximum mesh
-	% $M^{CO_2}_{{max}}$ (right). 
-	%
+    % \centering
+    \begin{captionbeside}
+    {Prototype of visual analysis tool for feature meshes showing dataset
+	\textsc{Hydrogen}. Top: Graphical user interface. Upper middle: Effect of
+	varying color scale parameter $u_1$. Lower middle: Morphing between the
+	different surfaces  by adjusting $u_2$. Bottom: Sliding through time to
+	observe the development of the feature meshes (circles).
 	\Todo[inline]{Rearrange for paper format, make large enough to fill
 		page} }
+ 	\def\svgwidth{0.6\linewidth}
+		\import{figures/}{contourmeshvis.pdf_tex}
+    \end{captionbeside}
+	% \caption{\label{fig_contourmeshvis}%
+	% Prototype of visual analysis tool for feature meshes showing dataset \textsc{Hydrogen}.
+	% Top: Graphical user interface.
+	% Upper middle: %($S^{\text{HEATR}}_{\text{max}}$ vs. $S^{\text{TEMP}}_{\text{infl}}$)
+	% %(Maximum surface of heat release vs. inflection point surface of temperature)
+	% Effect of varying color scale parameter $u_1$.
+	% Lower middle: %($S^{\text{HEATR}}_{\text{max}}$ vs. $S^{\text{H}_2\text{O}_2}_{\text{max}}$)
+	% %(Maximum surface of heat release vs. maximum surface of $\text{H}_2\text{O}_2$)
+	% Morphing between the different surfaces	by adjusting $u_2$.
+	% Bottom: %($S^{\text{TEMP}}_{\text{infl}}$ vs. $S^{\text{O}}_{\text{max}}$)
+	% %(Inflection point surface of temperature vs. maximum surface of O)
+	% Sliding through time to observe the development of the feature meshes (circles).
+	% %
+	% % Prototype of visual analysis tool for feature meshes. Top: Graphical user
+	% % interface of prototype. Middle: Pairwise difference visualization:
+	% % the difference values $d$ for two variables are color-coded onto the flame
+	% % mesh $M$. Parameter $u_1$ steers contrast and strength of the illumination.
+	% % Bottom: Feature mesh visualization: $u_2$ steers which mesh is shown.
+	% % Here, the variables $T$ and $CO_2$ are chosen from \textsc{Syngas I}.
+	% % $u_2=0$ yields the flame mesh $M$ (left), $u_2=1$ yields the maximum mesh
+	% % $M^T_{{max}}$ for variable $T$ (middle), and $u_2=2$ yields the maximum mesh
+	% % $M^{CO_2}_{{max}}$ (right).
+	% %
+	\label{fig_contourmeshvis}
 \end{figure}
 %
 Having constructed feature meshes, we can now approach problem 3 of DNS data
