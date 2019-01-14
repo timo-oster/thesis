@@ -154,7 +154,7 @@ We will briefly cover the most important methods in the following.
 %
 
 \subsection{Image-Based Methods} % (fold)
-\label{sub:image_based_methods}
+\label{sub:scalar_image_based}
 %
 Image-based methods map the scalar at each position in space to a property and
 display it directly.
@@ -165,7 +165,7 @@ scalar fields.
 %
 
 %
-\subsubsection{Color-mapping}
+\subsubsection{Color-Mapping}
 %
 Color-mapping means assigning each scalar value a color from a
 predefined color map and displaying the result as an image or texture.
@@ -176,9 +176,22 @@ This technique is only applicable to \ac{2D} scalar fields, but is commonly used
 on \ac{3D} data by selecting slices or surfaces in a volume, or by displaying
 the scalar value on the outside surface of the volume.
 %
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}{Direct volume rendering of a \ac{CT} scan of a human skull using
+        volumetric raycasting with gradient-based shading. Image source: Wi\-ki\-me\-di\-a
+        Com\-mons.}
+        \includegraphics[width=0.6\textwidth]{figures/skull_direct_volume_rendering.jpg}
+    \end{captionbeside}
+    % \caption{Direct volume rendering of a \ac{CT} scan of a human skull using
+    % volumetric raycasting with gradient-based shading. Image source: Wikimedia
+    % Commons.}
+    \label{fig:direct_volume_rendering}
+\end{figure}
+%
 
 %
-\subsubsection{Height-mapping}
+\subsubsection{Height-Mapping}
 %
 Height-mapping only works on \ac{2D} data.
 %
@@ -193,8 +206,8 @@ viewed from all directions.
 %
 \subsubsection{Direct Volume Rendering}
 %
-Direct volume rendering is the extension of color-mapping to \ac{3D}
-scalar fields.
+Direct volume rendering~\cite{Levoy1988,Drebin1988} is the extension of
+color-mapping to \ac{3D} scalar fields.
 %
 It involves two steps: Applying a transfer function, and accumulating the
 resulting colors and opacities along viewing rays to produce an image.
@@ -205,12 +218,17 @@ data that are interesting, and make the uninteresting parts transparent.
 Color and opacity values are then accumulated along viewing rays to simulate the
 transport of light through a semitransparent medium.
 %
-\Todo[inline]{mention shading by using 2D transfer function}
+The shading of a solid surface can be approximated by using the gradient of
+the scalar field as the surface normal.
 %
-% subsection image_based_methods (end)
+More advanced techniques use a two-dimensional transfer function that also takes
+the gradient magnitude into account when deciding the color, opacity and
+shading parameters of a point along the viewing ray~\cite{Kindlmann1998}.
+%
+% subsection scalar_image_based (end)
 
 \subsection{Geometry-Based Methods} % (fold)
-\label{sub:geometry_based_methods}
+\label{sub:scalar_geometry_based}
 %
 Geometry-based methods extract some geometrical structures from the data and
 display these structures.
@@ -269,7 +287,29 @@ Height ridges are defined by a local differential analysis of the scalar field.
 As such, their computation is less costly, but they do not provide a
 space-filling segmentation of the data.
 %
-% subsection geometry_based_methods (end)
+Often, computation of raw ridges and valleys produces a lot of small and
+insignificant features due to noise.
+%
+An additional filtering step can be applied to only keep the most significant
+lines~\cite{Peikert2008}.
+%
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}
+        {Filtered ridge and valley lines of a scalar field.
+        Ridges are shown in red, valleys in blue. The scalar field is visualized
+        using a combination of height mapping (to obtain the shading) and
+        isocontours. Image source: Peikert and Sadlo~\cite{Peikert2008}.}
+        \includegraphics[width=0.6\textwidth]{figures/ridge_valley_lines_peikert.jpg}
+    \end{captionbeside}
+    % \caption{Filtered ridge and valley lines of a scalar field.
+    % Ridges are shown in red, valleys in blue. The scalar field is visualized
+    % using a combination of height mapping (to obtain the shading) and
+    % isocontours. Image source: Peikert and Sadlo~\cite{Peikert2008}.}
+    \label{fig:ridge_valley_lines}
+\end{figure}
+%
+% subsection scalar_geometry_based (end)
 %
 % subsection visualization_methods_for_scalar_fields (end)
 %
@@ -309,7 +349,7 @@ We will again visit the most important methods in the following sections.
 
 %
 \subsection{Basic Methods} % (fold)
-\label{sub:basic_methods}
+\label{sub:vector_basic}
 %
 Basic methods display the vector data in a very basic way, much like
 image-based methods for scalar fields.
@@ -365,7 +405,7 @@ and magnitude of the vector to hue and value of the HSV color space.
 % subsection direct_methods (end)
 %
 \subsection{Image-Based Methods} % (fold)
-\label{sub:image_based_methods}
+\label{sub:vector_image_based}
 %
 Image-based methods visualize the vector data by generating a space-filling
 texture.
@@ -377,35 +417,36 @@ and \emph{texture advection}.
 %
 \subsubsection{Line Integral Convolution}
 %
-Line integral convolution (\acs{LIC}\acused{LIC}) is the most popular
-image-based vector field visualization method.
+Line integral convolution (\acs{LIC}\acused{LIC})\cite{Cabral1993} is the most
+popular image-based vector field visualization method.
 %
 It is based on ``smearing'' a random noise texture along stream lines of a
 \ac{2D} vector field.
 %
 More specifically, the color at a certain position is determined as a weighted
 integral of the color values encountered along a stream line passing through
-that position\ToCite{LIC paper}.
+that position.
 %
 The result is a space-filling image where the direction of the vector field is
 visible at each location.
 %
 The basic \ac{LIC} technique is only applicable to \ac{2D} steady vector fields,
-but extensions have been developed for \ac{3D} and unsteady datasets.
+but extensions have been developed for \ac{3D}~\cite{Rezk-Salama1999} and
+unsteady~\cite{Shen1997} datasets.
 %
 
 %
 \subsubsection{Spot Noise}
 %
 Spot noise is also a method designed for \ac{2D} data and produces results
-similar to \ac{LIC}.
+similar to \ac{LIC}~\cite{Wijk1991,Leeuw1995}.
 %
 It works by blending noise sprites that have been stretched and rotated
 according to the local vector direction.
 %
 In contrast to \ac{LIC}, spot noise better represents the local vector
 magnitude, but in regions with low magnitude, the vector direction is not well
-visible. \ToCite{Spot Noise}
+visible.
 %
 
 %
@@ -430,7 +471,7 @@ in a \ac{2D} vector field.
 %
 
 %
-% subsection image_based_methods (end)
+% subsection vector_image_based (end)
 %
 \subsection{Integral Curves and -Surfaces} % (fold)
 \label{sub:integral_curves_and_surfaces}
@@ -444,6 +485,16 @@ and the accompanying surfaces.
 %
 Since integral structures play an important role in several parts of this
 thesis, we will cover them here in more detail.
+\ToCite{Cite a book that covers the fundamentals of integral curves/field lines
+in vector fields}
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/pathlines_aneurysm.png}
+    \caption{Streamlines in the simulated flow through a cranial aneurysm.
+             Image courtesy of Tim Gerrits~\cite{Gerrits2018}.}
+    \label{fig:streamlines}
+\end{figure}
 %
 
 \subsubsection{Streamlines} % (fold)
@@ -612,6 +663,14 @@ effect of the flow.
 As the end time $t$ advances, the line is transported and warped by the flow and
 visualizes the way the flow mixes and perturbs a region of the fluid.
 %
+\begin{figure}[t]
+    \centering
+    \MissingFigure{Image illustrating relationship between pathlines,
+    streaklines and timelines}
+    \caption{Pathlines, streaklines and timelines of a \ac{2D} vector field.}
+    \label{fig:figure1}
+\end{figure}
+%
 % subsubsection timelines (end)
 
 \subsubsection{Integral Surfaces} % (fold)
@@ -654,6 +713,20 @@ The topology of a vector field is defined by \emph{critical points},
 Together, they form a sort of skeleton of the vector field, from which the
 behavior of the full field can be inferred.
 %
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}
+        {\ac{LIC} of a \ac{2D} vector field with overlaid vector field topology
+        consisting of critical points, boundary switch points, and separatrices.
+        Image source: Holger Theisel.}
+        \includegraphics[width=0.6\textwidth]{figures/lic_topology.png}
+    \end{captionbeside}
+    % \caption{\ac{LIC} of a \ac{2D} vector field with overlaid vector field topology
+    % consisting of critical points, boundary switch points, and separatrices.
+    % Image source: Holger Theisel.}
+    \label{fig:lic_topo}
+\end{figure}
+%
 
 \subsubsection{Critical Points} % (fold)
 \label{ssub:critical_points}
@@ -695,7 +768,7 @@ by Helman and Hesselink~\cite{Helman1991}.
 % %
 
 \subsubsection{Separation- and Attachment Lines/Surfaces} % (fold)
-\label{ssub:subsubsection_name}
+\label{ssub:separation_attachment_lines}
 %
 Separation- and attachment lines/surfaces occur on no-slip boundaries.
 %
@@ -715,7 +788,7 @@ everywhere on a no-slip boundary.
 Instead, they are topological features of the skin friction field, which
 describes the shear of the flow near the boundary~\cite{Surana2006}.
 %
-% subsubsection subsubsection_name (end)
+% subsubsection separation_attachment_lines (end)
 
 \subsubsection{Separatrices} % (fold)
 \label{ssub:separatrices}
@@ -827,6 +900,14 @@ objective vortex core detection.
 %
 This is realized by determining a locally \emph{near-steady frame} for observing
 the flow.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/DeltaWingStreamlines.png}
+    \caption{Vortex core lines (yellow) and streamlines (blue) in the steady
+    flow around a delta wing.}
+    \label{fig:delta_wing_vortex_cores}
+\end{figure}
 %
 
 %
@@ -943,7 +1024,8 @@ snapshots of unsteady flows.
 This means that this method finds the centers of swirling streamlines.
 %
 In unsteady flows, streamlines and pathlines appear to swirl around different
-cores if the vortex moves over time.
+cores if the vortex moves over time (see
+\autoref{fig:cores_of_swirling_particle_motion}).
 %
 Weinkauf \etal~\cite{Weinkauf2007} therefore developed an approach to find the
 cores of swirling pathlines in unsteady flows.
@@ -956,6 +1038,17 @@ For \ac{3D} unsteady flows, the pathlines are streamlines in \ac{4D} space-time.
 They derive a criterion similar to Sujudi/Haimes for \ac{4D} vector fields that
 can be reduced to a parallel vectors operation on two derived \ac{3D} vector
 fields.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/pathline_streamline_core.png}
+    \caption{Streamlines and pathlines swirl around different cores. The red
+    tube shows the core of pathlines of a \ac{2D} vector field (rendered in
+    \ac{3D} spacetime). The blue tube shows the path of the vortex core
+    extracted from the individual time slices. Source: Weinkauf
+    \etal~\cite{Weinkauf2007}.}
+    \label{fig:cores_of_swirling_particle_motion}
+\end{figure}
 %
 % subsubsection cores_of_swirling_particle_motion (end)
 %
@@ -1056,7 +1149,8 @@ advecting with the flow for a finite time:
 %
 \begin{equation}
     \text{FTLE}(\vx, t_0, \tau)
-        = \frac{1}{|\tau|}\ln\sqrt{\lambda_{\text{max}}(\mC(\vx, t_0, t_0 + \tau))}\,\text{.}
+        = \frac{1}{|\tau|}
+          \ln\sqrt{\lambda_{\max}\left[\mC(\vx, t_0, t_0 + \tau)\right]}\,\text{.}
 \end{equation}
 %
 
@@ -1077,6 +1171,14 @@ performant \ac{FTLE} computations.
 A good overview of the existing methods is provided in Alexander Kuhn's PhD
 thesis~\cite{Kuhn2013}.
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/fsle_ftle_peikert.png}
+    \caption{Comparison of \ac{FSLE} (left) and \ac{FTLE} (right) of the flow
+    field of a meandering jet. Image source: Peikert \etal~\cite{Peikert2014}.}
+    \label{fig:ftle_fsle}
+\end{figure}
+%
 % subsubsection ftle (end)
 %
 \subsubsection{Finite-Size Lyapunov Exponent} % (fold)
@@ -1092,7 +1194,7 @@ need to separate by a constant amount in space:
 where $\tau_r$ is the minimum time interval for which
 %
 \begin{equation}
-    \sqrt{\lambda_{\text{max}}(\mC(\vx, t_0, t_0+\tau_r))} = r\,\text{.}
+    \sqrt{\lambda_{\max}\left[\mC(\vx, t_0, t_0+\tau_r)\right]} = r\,\text{.}
 \end{equation}
 %
 
@@ -1138,8 +1240,8 @@ not show separation that is smaller than the given threshold $r$.
 Although tensors are a very general concept in mathematics, when we talk about
 tensor fields in scientific visualization, we generally mean a map $\mT(\vx, t):
 D \times T \mapsto \RRSet^{m \times m}$ from spatial domain $D \in \EESet^n$ and
-temporal domain $T \in \RRSet$ to the space of second-order tensors $\RRSet^{m
-\times m}$.
+temporal domain $T \in \RRSet$ to the space of second-order tensors which can be
+represented by matrices from $\RRSet^{m \times m}$.
 %
 While a vector describes an effect acting on a point, a second-order tensor
 describes an effect on a vector.
@@ -1162,26 +1264,13 @@ tensor fields $\mT(\vx)$.
 
 %
 The most important tensor field visualization methods can be roughly classified
-into three different categories:
+into five different categories:
 %
 direct, image-based, glyph-based, line-/surface-based and topology-based.
 %
-% Direct:
-% =======
-% * color mapping directions {Pajevic1999}
-% * direct volume rendering {Kindlmann2000}
-% Image-based:
-% ============
-% * brush strokes {Laidlaw1998}
-% * HyperLIC {Zheng2003}
-% * Physically-based tensor vis {Hotz2004}
-% Glyph placement
-% ===============
-% * Anisotropic Noise Samples {Feng2008}
-% * Glyph Packing {Kindlmann2006}
 
 \subsection{Direct Methods} % (fold)
-\label{sub:direct_methods}
+\label{sub:tensor_direct_methods}
 %
 Direct methods display some properties of the tensor directly.
 %
@@ -1194,7 +1283,6 @@ volume rendering}.
 
 %
 \subsubsection{Color-Mapping} % (fold)
-\label{ssub:color_mapping}
 %
 Just like scalar and vector fields, \ac{2D} or slices of \ac{3D} tensor fields
 can be displayed by color-mapping some scalar properties of the tensor.
@@ -1213,7 +1301,6 @@ familiar with the interpretation of the resulting images.
 %
 
 \subsubsection{Direct Volume Rendering} % (fold)
-\label{ssub:direct_volume_rendering}
 %
 For \ac{3D} data, the equivalent of color-mapping is direct volume rendering.
 %
@@ -1237,8 +1324,85 @@ data, but is not necessarily applicable to other application domains.
 % subsubsection direct_volume_rendering (end)
 % subsection direct_methods (end)
 
+\subsection{Image-Based Methods} % (fold)
+\label{sub:tensor_image_based}
+%
+Like the equivalent techniques for vector fields, image-based visualization of
+second-order tensor fields works by generating space-filling images that are
+derived from the underlying tensor data.
+%
+Techniques in this category have yet to be adopted into mainstream visualization
+tools, so we will only discuss two notable examples: \emph{HyperLIC} by Zheng
+and Pang~\cite{Zheng2003} and \emph{LIC with variable input textures} by Hotz
+\etal~\cite{Hotz2004}.
+%
+Both techniques are modified versions of \ac{LIC} based on the eigenvectors of
+the tensor fields.
+%
+
+\subsubsection{HyperLIC} % (fold)
+%
+HyperLIC was introduced by Zheng and Pang~\cite{Zheng2003} as a visualization
+technique for diffusion tensor data.
+%
+In this data, a central characteristic is the diffusion anisotropy represented
+by the ratio of the eigenvalues.
+%
+While \ac{LIC} accumulates the values of an input texture along streamlines of a
+vector field, HyperLIC conceptually accumulates values in a strip- or tube-like
+volume that follows the local eigenvector direction and whose cross section is
+scaled according to the local eigenvalue ratio.
+%
+This produces \ac{LIC}-like results in areas with a strongly dominating
+eigenvalue, and blurry areas with no sense of direction in isotropic areas where
+all eigenvalues are similar.
+%
+As this technique is designed for diffusion tensors, which are positive
+definite, it lacks a way of indicating eigenvalue sign and therefore is not well
+suited for the visualization of indefinite tensors.
+%
+% subsection tensor_image_based (end)
+
+\subsubsection{\ac{LIC} with Variable Input Textures} % (fold)
+\label{ssub:lic_with_variable_input_textures}
+%
+A technique which is better suited for symmetric indefinite tensors, which can
+have negative eigenvalues, was presented by Hotz \etal~\cite{Hotz2004}.
+%
+As opposed to HyperLIC, which accumulates the values of the input texture in a
+volume instead of along a curve, this method uses a standard \ac{LIC} on the
+``eigenvector fields'' of the tensor field.
+%
+The remaining information in the tensor is visualized by carefully varying the
+spot size, spot density and color of the input noise texture as well as the
+convolution length based on the local eigenvalues.
+%
+Images from major and minor eigenvector are overlaid to visualize both at the
+same time.
+%
+\autoref{fig:lic_var_tex} shows an example of this technique applied to a slice
+of the stress tensor field from a two point load dataset with a pushing and
+pulling force.
+%
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}{LIC with variable input textures. Image source: Hotz
+    \etal~\cite{Hotz2004}.}
+        \includegraphics[width=0.6\textwidth]{figures/tensor_lic_variable_texture.png}
+    \end{captionbeside}
+    % \caption{LIC with variable input textures showing a stress tensor field of a
+    % two point load dataset with a pushing and pulling force. Red shows negative
+    % eigenvectors (compressive stress), green shows positive eigenvectors
+    % (tensile stress). Density, spot size, color intensity and convolution length
+    % are varied according to the local eigenvalues. Image source: Hotz
+    % \etal~\cite{Hotz2004}.}
+    \label{fig:lic_var_tex}
+\end{figure}
+%
+% subsubsection lic_with_variable_input_textures (end)
+
 \subsection{Glyph-Based Methods} % (fold)
-\label{sub:glyph_based_methods}
+\label{sub:tensor_glyph_based}
 %
 Glyph-based methods for tensor field visualization place small geometric objects
 in space to represent certain characteristics of the local tensor.
@@ -1259,7 +1423,6 @@ grid-based approach~\cite{Kindlmann2006,Feng2008}.
 %
 
 \subsubsection{Symmetric Positive Definite Tensors} % (fold)
-\label{ssub:symmetric_positive_definite_tensors}
 %
 Symmetric positive definite tensors are tensors that always have positive
 real eigenvalues, and whose eigenvectors are orthogonal.
@@ -1298,11 +1461,8 @@ the three eigenvalues of the tensor.
 In this way, ambiguities intrinsic to the usage of constant base shapes are
 eliminated.
 %
-% subsubsection symmetric_positive_definite_tensors (end)
 
-%
 \subsubsection{Symmetric Tensors} % (fold)
-\label{ssub:symmetric_tensors}
 %
 General symmetric tensors always have real orthogonal eigenvectors, but their
 eigenvalues can be negative.
@@ -1324,86 +1484,297 @@ Schultz and Kindlmann~\cite{Schultz2010a} built on top of all of this work to
 develop a set of superquadric-based tensor glyphs that clearly indicates
 eigenvalue sign by a combination of color and concave shape.
 %
-% subsubsection symmetric_tensors (end)
+% \begin{figure}[t]
+%     \begin{tikzpicture}
+%         \node (pos) {
+%             \includegraphics[width=0.3\textwidth]{figures/diffusion_tensor_glyphs.png}
+%         };
+%         \node[anchor=west] (symm) at (pos.east) {
+%             \includegraphics[width=0.3\textwidth]{figures/symmetric_tensor_glyphs.png}
+%         };
+%         \node[anchor=west] (general) at (symm.east) {
+%             \includegraphics[width=0.3\textwidth]{figures/general_tensor_glyphs.png}
+%         };
+%     \end{tikzpicture}
+%     \caption{Superquadric tensor glyphs for symmetric positive definite (left),
+%     symmetric indefinite (middle), and general (right) tensors.}
+%     \label{fig:tensor_glyphs}
+% \end{figure}
 %
+% \begin{figure}[t]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{figures/symmetric_tensor_glyphs.png}
+%     \caption{Superquadric glyphs for symmetric tensors. Image source: Schultz
+%     \etal~\cite{Schultz2010a}.}
+%     \label{fig:tensor_glyphs}
+% \end{figure}
+%
+\begin{figure}
+    \begin{captionbeside}
+        {Superquadric glyphs for symmetric tensors. Includes glyphs for positive
+         definite tensors as a subset (top triangle). Image source: Schultz
+         \etal~\cite{Schultz2010a}.}
+        \includegraphics[width=0.4\textwidth]{figures/symmetric_tensor_glyphs.png}
+    \end{captionbeside}
+\end{figure}
+
 \subsubsection{General Tensors} % (fold)
-\label{ssub:general_tensors}
 %
-Gerrits \etal~\cite{Gerrits2017} additionally incorporated complex eigenvalue
-information into the glyph design to visualize general second-order tensors
-in \ac{2D} and \ac{3D}.
+Apart from different eigenvalue signs, the eigenvectors of general (asymmetric)
+second-order tensors need not be orthogonal, and they can be complex.
 %
-% subsubsection general_tensors (end)
+Gerrits \etal~\cite{Gerrits2017} built on top of the work of Kindlmann \etal to
+design a set of glyphs for general tensors in \ac{2D} and \ac{3D} that can
+represent non-orthogonal eigenvectors and additionally incorporates information
+about complex eigenvalues via color.
 %
-A specialized glyph for stress and strain tensors was introduced by Hashash
-\etal~\cite{Hashash2003}.
-%
-Kindlmann and Westin~\cite{Kindlmann2006} addressed the problem of clutter by
-optimizing glyph placement to increase information density while minimizing
-occlusion.
-%
-Glyphs for comparative visualization of two different diffusion tensors were
-used on medical data by Zhang \etal~\cite{Zhang2016}.
-%
-% subsection glyph_based_methods (end)
 
 \subsection{Line-/Surface-Based Methods} % (fold)
-\label{sub:line_surface_based_methods}
+\label{sub:tensor_line_surface_based}
 %
-A simple extension of streamlines for visualizing symmetric tensor fields in \ac{3D}
-are hyperstreamlines, first introduced by Delmarcelle and
-Hesselink~\cite{Delmarcelle1993}.
+Line- and surface-based methods for the visualization of second-order tensor
+fields are very similar to integral lines and surfaces for vector fields.
 %
-These hyperstreamlines follow one of the eigenvectors of the tensor field, while
-their cross-section is a cross shape or ellipse aligned with the other two
-eigenvectors and scaled by the corresponding eigenvalues.
+They work by considering the eigenvectors of the tensor field as the equivalent
+of a vector field and basing the visualization on the resulting field lines.
 %
-The problem of undefined integration direction in near-isotropic areas was
-adressed by Weinstein \etal with a new concept called
-tensorlines~\cite{Weinstein1999}.
+Of course these methods can only visualize real eigenvectors and are therefore
+generally applied to symmetric tensor fields only.
 %
-These lines behave like hyperstreamlines, but try to preserve direction in areas
-of equal eigenvalues by incorporating local context information.
+Because of the differences between real vector fields and eigenvector fields,
+modified integration methods are necessary to form these field lines.
 %
-As an extension to this concept, Jeremi{\'c} \etal introduced
-hyperstreamsurfaces~\cite{Jeremic2002}, which are formed analogous to
-hyperstreamlines by using a line instead of a point as the seed structure.
+The most important methods based on this principle are \emph{tensor field
+lines}, \emph{hyperstreamlines}, \emph{tensorlines} and
+\emph{hyperstreamsurfaces}.
 %
-% subsection line_surface_based_methods (end)
+
+\subsubsection{Tensor Field Lines} % (fold)
+%
+\Todo{Make vocabulary consistent in tensor core lines chapter}
+Tensor field lines are lines that are everywhere tangent to an eigenvector of
+the tensor field.
+%
+They are the basis for all the methods in this category.
+%
+Tensor field lines have been known as \emph{stress trajectories} (see
+\autoref{fig:stress_trajectories}) in the context of solid mechanics since the
+1800s.
+%
+Early stress visualizations using this technique were drawn by hand based on
+photoelastic measurement techniques~\cite{Focht1962,Timoshenko1983}.
+%
+In a computer, these lines are obtained by integrating a vector field generated
+from the eigenvector field by choosing an orientation and magnitude at each
+location \cite{Dickinson1989,Tricoche2006}.
+%
+Since this choice is not always unique in the vicinity of degenerate points
+where two or more eigenvalues are equal, special care has to be taken to avoid
+a sudden flip of direction.
+%
+The resulting lines show the continuous change of direction of eigenvectors in
+the tensor field, but they are not well suited to judge the magnitude of the
+eigenvalues.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/stress_trajectories.png}
+    \caption{Major principal stress trajectories in a plate with a loaded hole.
+             Image source: Kelly and Tosh~\cite{Kelly2000}.}
+    \label{fig:stress_trajectories}
+\end{figure}
+%
+
+\subsubsection{Hyperstreamlines} % (fold)
+%
+To enhance the information content of tensor field line visualizations,
+Delmarcelle and Hesselink introduced hyperstreamlines~\cite{Delmarcelle1993}.
+%
+These hyperstreamlines follow the field lines of one of the eigenvectors of the
+tensor field, while their cross-section is a cross shape or ellipse aligned with
+the other two eigenvectors and scaled by the corresponding eigenvalues.
+%
+The eigenvalue corresponding to the eigenvector parallel to the hyperstreamline
+is color-coded on the surface.
+%
+In this way, the full information of the tensors along the hyperstreamlines is
+visualized.
+%
+It is important to note here that the term hyperstreamline is sometimes used
+in the literature to mean what we introduced as tensor field lines.
+%
+In this work, we use it exclusively for lines with a variable cross-section.
+%
+
+\subsubsection{Tensorlines} % (fold)
+%
+In the analysis of diffusion tensor fields obtained from \ac{DTI} scans of the
+human brain, tensor field lines are tracked to obtain the paths of neural
+fibers.
+%
+Because this data suffers from noise and partial voluming effects due to limited
+resolution, near-isotropic areas can occur where fibers with different
+directions cross.
+%
+In these areas, the eigenvector direction is not clearly defined and often
+dominated by noise.
+%
+Just following the vector field obtained from a single eigenvector will result
+in random paths that do not represent the paths of actual brain fibers.
+%
+To counteract this problem, Weinstein \etal~\cite{Weinstein1999} introduced
+tensorlines.
+%
+The core of the algorithm is a modified streamline integration that not only
+takes into account the direction of the major eigenvector but is also guided
+by the direction of the previous step in near-isotropic regions.
+%
+
+\subsubsection{Hyperstreamsurfaces} % (fold)
+%
+The concept of hyperstreamlines was extended to hyperstreamsurfaces by Jeremi\'c
+\etal~\cite{Jeremic2002}.
+%
+They are formed analogous to streamsurfaces by using a curve instead of a point
+as a seed structure for integration.
+%
+In this case, the other eigenvectors and eigenvalues can not be sensibly
+displayed by varying a cross section like with hyperstreamlines.
+%
+Instead, only the eigenvalue of the integrated eigenvector is color-coded on the
+surface.
+%
 
 \subsection{Topological Methods} % (fold)
-\label{sub:topological_methods}
+\label{sub:tensor_topological}
 %
-The topology of symmetric \ac{2D} and \ac{3D} tensor fields was studied by
-Delmarcelle~\cite{Delmarcelle1994} and Hesselink~\cite{Hesselink1997}.
+Similar to scalar- and vector fields, topological structures in tensor fields
+are defined by some mathematical degeneracy.
 %
-They characterized the topology of a tensor field by degenerate structures
-where two or more eigenvalues are equal.
+In contrast to the topology of vector fields, it is not the magnitude of the
+tensor that is important, but the relationship between the eigenvalues and
+eigenvectors.
 %
-Zheng and Pang~\cite{Zheng2004} build on top of this work and provide
-numerical algorithms for extracting the topological skeleton in practice.
+For symmetric tensor fields, the topology is formed by \emph{degenerate points
+and lines} and their \emph{separatrices}, as well as \emph{neutral and traceless
+tensors}.
 %
-Similar to the approach we take for extracting tensor core lines, their initial
-algorithm is based on finding the roots of a number of discriminant functions on
-the cell faces of a dataset using a bisection algorithm, and then connecting
-them to lines.
+For \emph{general (asymmetric) tensor fields}, the topology is formed by
+degenerate structures and circular points.
 %
-Zheng \etal later introduced alternative approaches that are based on solving
-a system of equations on each face, and on tracing the degenerate lines using
-their analytical tangent~\cite{Zheng2005}.
+
+\subsubsection{Degenerate Points and Lines} % (fold)
 %
-As Schulz \etal~\cite{Schultz2007} showed, these features are very sensitive to
-noise.
+The core of topological analysis of symmetric tensor fields are degenerate
+structures.
 %
-A more stable approach suitable to noisy data such as obtained from DTI scans
-was therefore proposed by Tricoche \etal~\cite{Tricoche2008}.
+These are structures where two eigenvalues are equal, and the eigenvector
+directions are not uniquely defined.
 %
-The notion of tensor topology was recently extended to surfaces of neutral and
-traceless tensors by Palacios \etal~\cite{Palacios2016}, who also propose an
-improved algorithm for extracting degenerate lines.
+They are the locations where tensor field lines intersect.
 %
-Assymetric tensors were studied in 2D by Zheng and Pang~\cite{Zheng2005a} and
-in the context of flow visualization by Zhang \etal~\cite{Zhang2009}.
+In \ac{2D} tensor fields, such structures can be classified into trisector and
+wedge points, depending on the behavior of the tensor field lines in their
+vicinity.
+%
+In \ac{3D}, degenerate features form lines.
+%
+Zheng \etal~\cite{Zheng2005b} showed that the type of degenerate point can
+switch at isolated points along these lines.
+%
+These are the points where the degenerate line is parallel to the plane spanned
+by the valid eigenvectors corresponding to the dual eigenvalue.
+%
+Degenerate lines in symmetric tensor fields were first studied by Delmarcelle,
+Hesselink \etal~\cite{Delmarcelle1994,Hesselink1997}.
+%
+Numerical algorithms for their robust extraction were developed by Zheng
+\etal~\cite{Zheng2004,Zheng2005} and later adapted for noisy \ac{DTI} data by
+Tricoche \etal~\cite{Tricoche2008}.
+%
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}
+        {Topology of the stress tensor in a double point load dataset.
+         Image source: Zheng and Pang~\cite{Zheng2004}.}[o]
+        \includegraphics[width=0.6\textwidth]{figures/tensor_topology.png}
+    \end{captionbeside}
+    % \caption{Topology of the stress tensor in a double point load dataset.
+    %          Image source: Zheng and Pang~\cite{Zheng2004}.}
+    \label{fig:tensor_topology}
+\end{figure}
+%
+
+\subsubsection{Separatrices} % (fold)
+%
+The tensor field lines that pass through a degenerate point form separatrices
+that separate the neighborhood of the point into sectors~\cite{Delmarcelle1994}.
+%
+These structures are akin to the separatrices of vector fields that separate
+the area around a saddle point.
+%
+In \ac{2D}, these separatrices are lines, in \ac{3D}, they form surfaces.
+%
+An algorithm for extracting such surfaces from \ac{3D} tensor fields was
+proposed by Zheng \etal~\cite{Zheng2005b}
+%
+
+\subsubsection{Neutral and Traceless Tensors} % (fold)
+%
+A different kind of topological feature are neutral and traceless tensors,
+which were first investigated bu Palacios \etal~\cite{Palacios2016}.
+%
+A neutral tensor is a tensor where the middle eigenvalue is the average of the
+major and minor eigenvalue.
+%
+Neutral tensors in \ac{3D} tensor fields form surfaces.
+%
+These surfaces mark the transition between areas of linear tensors (one
+dominating eigenvalue) and planar tensors (two dominating eigenvalues).
+%
+In stress tensors, these can be interpreted as the transition between
+predominantly tensile stress and predominantly compressive stress.
+%
+In diffusion tensors from \ac{DTI}, they indicate the separation between
+regions with clear fiber direction and regions where fiber tracts cross.
+%
+
+%
+Traceless tensors are tensors whose sum of eigenvalues is zero.
+%
+Traceless tensors also form surfaces in \ac{3D} tensor fields.
+%
+They mark the transition between areas of positive and negative trace.
+%
+In stress and strain tensors, these are equivalent to regions of expansion and
+compression.
+%
+Recently, Roy \etal~\cite{Roy2019} proposed a more robust extraction method for
+these surfaces as well as degenerate lines.
+%
+
+\subsubsection{Topology of General (Asymmetric) Tensor Fields} % (fold)
+%
+The topology of general tensor fields has been studied to a lesser extent.
+%
+Zheng and Pang~\cite{Zheng2005a} first introduced \emph{circular points} as the
+main topological structure in \ac{2D} general tensor fields.
+%
+These are points where the tensor is a perfect rotation matrix.
+%
+Analogous to degenerate points in symmetric tensor fields, these are also points
+where all vectors are valid eigenvectors.
+%
+Degenerate structures where two eigenvalues are equal also exist in general
+tensor fields, but here they mark the transition between regions of real and
+complex eigenvectors.
+%
+This means that they form lines instead of points in \ac{2D}, and their meaning
+is very different.
+%
+Zhang \etal~\cite{Zhang2009} later extended the study of \ac{2D} general tensor
+fields by defining eigenvector and eigenvalue manifolds to classify general
+tensors and distinguish different types of circular points.
 %
 % subsection topological_methods (end)
 %
