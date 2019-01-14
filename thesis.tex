@@ -132,20 +132,20 @@
 \newcommand\switchtoSLF{\fontfamily{jkpss}\selectfont}
 \newcommand\switchtoSOsF{\fontfamily{jkpssosn}\selectfont}
 
-\renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                        % switch reference item
-\renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}                      % switch citation item
+\renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                % switch reference item
+\renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}              % switch citation item
 \renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
 
 % the following requires a KOMA documentclass (scr*)
-\addtokomafont{disposition}{\switchtoPLF{}\bfseries}                    % section headings (includes heading font)
-\addtokomafont{captionlabel}{\switchtoPLF{}}                            % figure/table numbers
-\setlist[enumerate]{font=\switchtoPLF{}}                                % enumeration items
+\addtokomafont{disposition}{\switchtoPLF{}\bfseries}            % section headings (includes heading font)
+\addtokomafont{captionlabel}{\switchtoPLF{}}                    % figure/table numbers
+\setlist[enumerate]{font=\switchtoPLF{}}                        % enumeration items
 
 \usetocstyle{KOMAlike}
-\settocfeature{entryhook}{\switchtoPLF{}}                               % No old style figures in TOC
+\settocfeature{entryhook}{\switchtoPLF{}}                       % No old style figures in TOC
 
 % requires mathtools
-\newtagform{lining}[\switchtoPLF{}]{(}{)}                               % equation numbers
+\newtagform{lining}[\switchtoPLF{}]{(}{)}                       % equation numbers
 \usetagform{lining}
 
 % tabular lining figures in tables
