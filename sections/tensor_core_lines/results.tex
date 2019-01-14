@@ -26,7 +26,7 @@ In this section, we present the results of our algorithm on several datasets, we
 analyze its performance and parameter sensitivity, and we compare our results to
 the toplogical skeleton formed by degenerate lines.
 %
-\paragraph*{Cylinder} % (fold)
+\subsection{Cylinder} % (fold)
 \label{sub:torque_applied_to_a_cylinder}
 %
 In \autoref{fig:tube_lines} we show the eigenvector trajectories resulting from
@@ -52,10 +52,10 @@ After filtering them out, the clear central line visible in
 %
 % subsection torque_applied_to_a_cylinder (end)
 %
-\paragraph*{Handle} % (fold)
+\subsection{Handle} % (fold)
 \label{sub:hook}
 %
-\begin{figure*}
+\begin{figure}
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/hook_results_tikz}
@@ -68,7 +68,7 @@ After filtering them out, the clear central line visible in
              $s$. The tensor field is shown for context using elliptical
              glyphs.}
     \label{fig:hooks}
-\end{figure*}
+\end{figure}
 %
 This case shows a handle-like structure with a right angle being deformed in
 two different ways.
@@ -93,7 +93,7 @@ the center of a swirling behavior of the tensor field.
 %
 % subsection hook (end)
 %
-\paragraph*{Truck Bumper} % (fold)
+\subsection{Truck Bumper} % (fold)
 \label{sub:truck_bumper}
 %
 This case shows a load applied to the extreme end of the bumper of a cargo
@@ -118,7 +118,7 @@ be a tedious task.
 %
 Using the tensor core line extractor, they can be identified at a glance.
 %
-\begin{figure*}
+\begin{figure}
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/truck_bumper_results_tikz}
@@ -127,11 +127,11 @@ Using the tensor core line extractor, they can be identified at a glance.
              illustrative purposes. The right shows detail views of two
              interesting lines.}
     \label{fig:truck_bumper}
-\end{figure*}
+\end{figure}
 %
 % subsection truck_bumper (end)
 %
-\paragraph*{Crane} % (fold)
+\subsection{Crane} % (fold)
 \label{sub:crane}
 %
 In this dataset, the arm of a crane is exposed to a downward pull applied to
@@ -147,7 +147,7 @@ lower side.
 Again, looking closely at the tensors around the core lines, we can see the
 radial behavior.
 %
-\begin{figure*}
+\begin{figure}
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/crane_results_tikz}
@@ -157,11 +157,11 @@ radial behavior.
              rods. The detail image on the right shows the tensors are indeed
              aligned around a common core.}
     \label{fig:crane}
-\end{figure*}
+\end{figure}
 %
 % subsection crane (end)
 %
-\paragraph*{Spring} % (fold)
+\subsection{Spring} % (fold)
 \label{sub:spring}
 %
 A simulation of a coil spring being compressed and slightly bent between two
@@ -186,7 +186,7 @@ the diameter of the cross-section.
 %
 This is exactly where we find a tensor core line.
 %
-\begin{figure*}
+\begin{figure}[t]
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/spring_results_tikz}
@@ -195,7 +195,7 @@ This is exactly where we find a tensor core line.
              in this case. They make it easier to see the hyperbolic behavior of
              the eigenvectors that occurs in the coil's cross-section. }
     \label{fig:spring}
-\end{figure*}
+\end{figure}
 %
 % subsection spring (end)
 %
@@ -277,6 +277,7 @@ If accuracy is important, we found that choosing stricter tolerances than $M =
 %
 \begin{table}
     \centering
+    \caption{Performance of the algorithm for the datasets presented in this paper.}
     \begin{tabular}{lrrr}
         \toprule
         Dataset & \# of cells & time [s] & avg. time/face [ms] \\% & avg. time/face (single core) [ms] \\
@@ -287,12 +288,10 @@ If accuracy is important, we found that choosing stricter tolerances than $M =
         Crane & 108 k & 63 & 0.146 \\% & 0.59 \\
         Spring & 181 k & 82 & 0.114 \\
         \bottomrule
-    \end{tabular}
-    \caption{Performance of the algorithm for the datasets presented in this paper.}
-    \label{tab:performance}
+    \end{tabular}\label{tab:performance}
 \end{table}
 %
-\begin{figure}[tb]
+\begin{figure}[t]
     \centering
     \tikzset{external/export=false}
     \input{figures/parameters_cylinder_tikz}
@@ -305,7 +304,7 @@ If accuracy is important, we found that choosing stricter tolerances than $M =
     \tikzset{external/export=true}
 \end{figure}
 %
-\begin{figure}
+\begin{figure}[t]
     \centering
     \setlength\figurewidth\columnwidth
     \input{figures/unfiltered_lines_tikz}

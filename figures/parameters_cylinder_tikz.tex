@@ -6,7 +6,7 @@
 %
 \begin{tikzpicture}
 \pgfplotsset{myBar/.style={
-	small,
+	% small,
 	width=3.5cm,
 	ybar=1pt,
 	% x = 12pt,
@@ -109,7 +109,7 @@
 	coordinates {($10^{-2}$,9000) ($10^{-3}$,455) ($10^{-6}$,440) ($10^{-9}$,435)};
 \addplot[mycolor4, fill=mycolor4]
 	coordinates {($10^{-2}$,156) ($10^{-3}$,153) ($10^{-6}$,153) ($10^{-9}$,153)};
-\node[above] at (axis cs:$10^{-2}$,1300) {\textcolor{yellowdraw}{\footnotesize 9000}};
+\node[above] at (axis cs:$10^{-2}$,1300) {\textcolor{yellowdraw}{\small $9000$}};
 \end{axis}
 %
 \begin{axis}[
@@ -129,7 +129,7 @@
 	coordinates {($10^{-2}$,440) ($10^{-3}$,440) ($10^{-6}$,440) ($10^{-9}$,17000)};
 \addplot[mycolor4, fill=mycolor4]
 	coordinates {($10^{-2}$,153) ($10^{-3}$,153) ($10^{-6}$,153) ($10^{-9}$,1000)};
-\node[above] at (axis cs:$10^{-9}$,1300) {\textcolor{yellowdraw}{\footnotesize 17000}};
+\node[above] at (axis cs:$10^{-9}$,1300) {\textcolor{yellowdraw}{\small $17000$}};
 \end{axis}
 \end{tikzpicture}
 % \addplot

@@ -29,8 +29,8 @@
         % \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\scriptsize 0.\y}; }
         % draw stuff on image
         % (0, 0) is lower left corner, (1, 1) is upper right
-        \draw [thin, -] (0.55, 0.535) -- (0.55, 0.6) node [anchor=south] {\large \textbf{1}};
-        \draw [thin, -] (0.72, 0.435) -- (0.8, 0.4) node [anchor=west] {\large \textbf{2}};
+        \draw [thin, -] (0.55, 0.535) -- (0.55, 0.6) node [anchor=south] {\large \textbf{$1$}};
+        \draw [thin, -] (0.72, 0.435) -- (0.8, 0.4) node [anchor=west] {\large \textbf{$2$}};
     \end{scope}
 
     \node[image, right=of image2, xshift=0.25cm] (image3)
@@ -38,13 +38,13 @@
         \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail2}%
     };
     % place a text on the lower left corner of image3
-    \node [anchor=south west] at (image3.south west) {\LARGE \textbf{1}};
+    \node [anchor=south west] at (image3.south west) {\LARGE \textbf{$1$}};
 
     \node[image, right=of image3, xshift=0.25cm] (image4)
     {
         \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail1}%
     };
-    \node [anchor=south west] at (image4.south west) {\LARGE \textbf{2}};
+    \node [anchor=south west] at (image4.south west) {\LARGE \textbf{$2$}};
 
     \node[anchor=north west, xshift=-0.7cm, yshift=0.15cm] at (image4.north east){
         \begin{axis}[

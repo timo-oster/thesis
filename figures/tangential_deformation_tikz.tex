@@ -2,8 +2,8 @@
 %
 \begin{tikzpicture}[scale=\figurewidth/1cm*0.14,
                     line join=round]
-\tikzstyle{facefill} = [fill=mycolor1,fill opacity=0.0]
-\tikzstyle{planefill} = [fill=mycolor2,fill opacity=1.0]
+\tikzstyle{facefill} = [fill=mycolor2,fill opacity=0.0]
+\tikzstyle{planefill} = [fill=mycolor1,fill opacity=1.0]
 
 \coordinate (lll) at (-0.5, -0.5, -0.5);
 \coordinate (ull) at ( 0.5, -0.5, -0.5);
@@ -81,7 +81,7 @@
 
     \draw [thick, facefill] (uuu) -- (uul) -- (ull) -- (ulu) -- cycle;
 
-    \draw [thick, arrows=-latex] (-0.29389263, 0.4045085, 0) -- (-0.58778525, 0.80901699, 0) node [above right] {$\mU \cdot \vn$};
+    \draw [thick, arrows=-latex] (-0.29389263, 0.4045085, 0) -- (-0.58778525, 0.80901699, 0) node [above] {$\mU \cdot \vn$};
     % \draw [thick, arrows=-latex] (0.80901699, 0.58778525, 0) -- (0.80901699, 0.58778525, 0) node [right] {$\ve_1$};
     %\node [below right] at (e1) {$\ve_1$};
     \draw [thick, arrows=-latex] (0, 0, 0.5) -- (0, 0, 1); % node [below right] {$\ve_2$};

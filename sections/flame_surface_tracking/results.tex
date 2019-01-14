@@ -126,27 +126,25 @@ different tangential error thresholds $r_\shortparallel$ in
 For the sake of brevity, we only show the results for the complete interval
 $t=[0,\,2]$, which will naturally show the largest errors.
 %
-\begin{figure*}
+\begin{figure}
     \centering
     \setlength{\figurewidth}{\textwidth}
-    \centering
     \input{figures/results_simulations_spherical_tikz}
-    \centering
     \input{figures/results_simulations_hawkes_tikz}
-    \caption{Results of our algorithm for the real-world simulation cases.
-             We show the stretch coefficient $c$ on a logarithmic scale. For the
-             premixed flame case (top), $c$ was computed for an interval of
-             $\Delta t = \SI{1.7e-4}{\second}$ and
-             $\varepsilon_\shortparallel=0.02$. For the temporal diffusion jet
-             case (bottom), we show the stretch coefficient since the start of
-             the simulation, computed with $\varepsilon_\shortparallel=0.04$. We
-             also show the number of micro-patches per surface area as a factor
-             of the initial density at the start of the simulation. This density
-             factor $d$ is also shown on a logarithmic scale.
-             \todo[inline]{fix size/layout}
-             }
+    \caption{
+    Results of our algorithm for the real-world simulation cases. We show the
+    stretch coefficient $c$ on a logarithmic scale. For the premixed
+    flame case (top), $c$ was computed for an interval of $\Delta t =
+    \SI{1.7e-4}{\second}$ and $\varepsilon_\shortparallel=0.02$. For
+    the temporal diffusion jet case (bottom), we show the stretch coefficient
+    since the start of the simulation, computed with
+    $\varepsilon_\shortparallel=0.04$. We also show the number of micro-patches
+    per surface area as a factor of the initial density at the start of the
+    simulation. This density factor $d$ is also shown on a logarithmic scale.
+    % \todo[inline]{fix size/layout}
+    }
     \label{fig:simulation_results}
-\end{figure*}
+\end{figure}
 %
 As shown in Figures~\ref{fig:ground_truth_comparison} and
 \ref{fig:ground_truth_errors}, the accuracy of our method is strongly
