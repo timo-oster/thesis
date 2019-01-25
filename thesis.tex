@@ -48,7 +48,7 @@
 \usepackage{tabularx,tabulary}
 \usepackage[super]{nth}     % write 1st, 2nd, 3rd, i-th correctly
 \usepackage{enumitem}       % customizing list formatting
-\setlist{                   % a little more compace lists
+\setlist{                   % a little more compact lists
     topsep=1ex,
     parsep=0pt,
     listparindent=\parindent}
@@ -85,6 +85,31 @@
 \usepgfplotslibrary{external}
 \tikzexternalize[prefix=tikz/]
 
+\usepackage{etoolbox}
+\usepackage{calc}
+\usepackage[lofdepth, lotdepth]{subfig}
+
+% \usepackage[sf,sl,outermarks]{titlesec}
+\usepackage{tocstyle}
+
+\usepackage[
+    pagebackref]{hyperref}  % hyperlinking in PDF output
+
+\definecolor{mycolor1}{HTML}{377EB8}% blue
+\definecolor{mycolor2}{HTML}{FF7F00}% orange
+\definecolor{mycolor3}{HTML}{4DAF4a}% green
+\definecolor{mycolor4}{HTML}{E41A1C}% red
+\definecolor{mycolor5}{HTML}{984EA3}% purple
+
+\hypersetup{                % set up hyperref and pdf options
+    colorlinks,
+    linkcolor={mycolor4!70!black},
+    citecolor={mycolor1!70!black},
+    urlcolor={mycolor1!70!black},
+    pdftitle={PhD Thesis},
+    pdfauthor={Timo Oster}
+}
+
 % miscellaneous
 \usepackage[
     textsize=small
@@ -94,27 +119,11 @@
 % \let\oldmissingfigure\missingfigure
 \newcommand{\MissingFigure}[2][]{\tikzexternaldisable\missingfigure[#1]{#2}\tikzexternalenable}
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
-\newcommand{\Todo}[2][]{\ruggedtodo[color=orange, bordercolor=orange, #1]{#2}}
-\newcommand{\Error}[2][]{\ruggedtodo[color=red, bordercolor=red, #1]{#2}}
-\newcommand{\Suggestion}[2][]{\ruggedtodo[color=green!50, bordercolor=green!50, #1]{#2}}
-\newcommand{\ToCite}[2][]{\ruggedtodo[color=purple!50, bordercolor=purple!50, #1]{#2}}
+\newcommand{\Todo}[2][]{\ruggedtodo[color=mycolor2, bordercolor=mycolor2, #1]{#2}}
+\newcommand{\Error}[2][]{\ruggedtodo[color=mycolor4, bordercolor=mycolor4, #1]{#2}}
+\newcommand{\Suggestion}[2][]{\ruggedtodo[color=mycolor3!50, bordercolor=mycolor3!50, #1]{#2}}
+\newcommand{\ToCite}[2][]{\ruggedtodo[color=mycolor5!50, bordercolor=mycolor5!50, #1]{#2}}
 
-\usepackage{etoolbox}
-\usepackage[lofdepth, lotdepth]{subfig}
-
-% \usepackage[sf,sl,outermarks]{titlesec}
-\usepackage{tocstyle}
-
-\usepackage[
-    pagebackref]{hyperref}  % hyperlinking in PDF output
-\hypersetup{                % set up hyperref and pdf options
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black},
-    pdftitle={PhD Thesis},
-    pdfauthor={Timo Oster}
-}
 
 % turn off old-style figures where they don't belong
 % \makeatletter
@@ -138,7 +147,7 @@
 
 % the following requires a KOMA documentclass (scr*)
 \addtokomafont{disposition}{\switchtoPLF{}\bfseries}            % section headings (includes heading font)
-\addtokomafont{captionlabel}{\switchtoPLF{}}                    % figure/table numbers
+% \addtokomafont{captionlabel}{\switchtoPLF{}}                    % figure/table numbers
 \setlist[enumerate]{font=\switchtoPLF{}}                        % enumeration items
 
 \usetocstyle{KOMAlike}
@@ -171,13 +180,15 @@
 % \let\raggedchapter\relax
 \addtokomafont{chapter}{\otherscshape\LARGE}
 
+\def\chaptercolor{gray}
+
 \renewcommand*{\chapterformat}{%
 \vspace*{2cm}%
-\switchtoPLF{}\textcolor{gray}{%
+\switchtoPLF{}\textcolor{\chaptercolor}{%
 \hspace*{\fill}%
 \fontsize{0.8cm}{0.8cm}\selectfont\scshape%
 \MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
-\fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{gray}{\thechapter}}%
+\fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{\chaptercolor}{\thechapter}}%
 }
 
 
@@ -195,12 +206,6 @@
 \acused{3D}
 \acused{4D}
 \acused{5D}
-
-\definecolor{mycolor1}{HTML}{377EB8}%
-\definecolor{mycolor2}{HTML}{FF7F00}%
-\definecolor{mycolor3}{HTML}{4DAF4a}%
-\definecolor{mycolor4}{HTML}{E41A1C}%
-\definecolor{mycolor5}{HTML}{984EA3}%
 
 \usepackage{import}         % used by exported graphics from inkscape
 
@@ -239,16 +244,13 @@
 \input{sections/sci_vis}
 
 \part[On-the-fly Analysis and Visualization of Turbulent Combustion Simulations]
-        {On-the-fly Analysis and Visualization of the Flame Surface
+        {On-the-fly Analysis and Visualization of the Flame Front
          in Direct Numerical Simulations of Turbulent Combustion} % (fold)
 \label{part:on_the_fly}
 
-\chapter{Introduction to Turbulent Combustion Visualization} % (fold)
-\label{cha:turbulent_combustion}
+\input{sections/turbulent_combustion}
 
-% chapter turbulent_combustion (end)
-
-\chapter{Sparse Representation and Visualization for Premixed Flames} % (fold)
+\chapter[Sparse Representation for Turbulent Premixed Flames]{Sparse Representation and Visualization for Turbulent Premixed Flames} % (fold)
 \label{cha:sparse_representation}
 %
 \tikzset{external/export=false}

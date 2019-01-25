@@ -97,10 +97,11 @@ this feature surface from a feature point set.
 %
 Remember that during the transformation to the sparse representation, an
 isosurface mesh $M$ representing the flame surface $S$ was extracted. The
-profile lines were seeded at vertices of this mesh. For each point $\vp_i$
-on the flame surface we therefore know the position of a point on the feature
+profile lines were seeded at vertices of this mesh. For each point $\vp_i$ on
+the flame surface we therefore know the position of a point on the feature
 surface $S_f$ by the corresponding shift value $t_{f,i}$ and the direction of
-the profile line $\vr_i$ (Figure~\ref{fig:featurepoints} (left)).
+the profile line $\vr_i$ (\Todo{Make consistent use of
+\texttt{\textbackslash{}autoref} or not} Figure~\ref{fig:featurepoints} (left)).
 %
 % Revealing a feature surface is a non-trivial task due to reasons of ambiguity:
 % obviously, an infinite number of surfaces can be fitted to the point set. Thus,
@@ -286,8 +287,9 @@ impede performance.
 	varying color scale parameter $u_1$. Lower middle: Morphing between the
 	different surfaces  by adjusting $u_2$. Bottom: Sliding through time to
 	observe the development of the feature meshes (circles).
-	\Todo[inline]{Rearrange for paper format, make large enough to fill
-		page} }
+	% \Todo[inline]{Rearrange for paper format, make large enough to fill
+	% 	page}
+	}
  	\def\svgwidth{0.6\linewidth}
 		\import{figures/}{contourmeshvis.pdf_tex}
     \end{captionbeside}

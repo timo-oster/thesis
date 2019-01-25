@@ -112,9 +112,10 @@ In the following, we describe the details of this algorithm.
 A linear tensor field on a triangle is completely defined by the tensors at its
 three corners.
 %
-We denote the set of corner points as $\vx_\triangle = \{\vx_1, \vx_2, \vx_3\}$,
-and the set of corner tensors as $\mS_\triangle = \{\mS_1, \mS_2, \mS_3\}$
-and $\mT_\triangle = \{\mT_1, \mT_2, \mT_3\}$.
+We denote the set of corner points as \Todo{make notation consistent with tensor
+core lines ($\vx_\triangle$ or $\triangle_{\vx}$)} $\vx_\triangle = \{\vx_1, \vx_2, \vx_3\}$, and the set of corner
+tensors as $\mS_\triangle = \{\mS_1, \mS_2, \mS_3\}$ and $\mT_\triangle =
+\{\mT_1, \mT_2, \mT_3\}$.
 %
 We express the tensor fields in barycentric coordinates $\vw = \T{(w_1, w_2,
 w_3)}$:
@@ -382,7 +383,7 @@ directions inside, we accept the central direction as a candidate.
              sub-triangle $\vx_\triangle$, a recursive search in the space of
              possible eigenvector directions is performed to find a direction
              $\vr$ that becomes an eigenvector of both $\mS$ and $\mT$ within
-             $\vx_\triangle$. (Image similar to \cite{Oster2018}.)}
+             $\vx_\triangle$.}
     \label{fig:algorithm}
 \end{figure}
 %
@@ -398,7 +399,7 @@ Start with the complete triangle as $\vx_\triangle$.
 %
 Then, search for a direction that becomes an eigenvector of both $\mS$ and $\mT$
 somewhere inside the triangle by using the algorithm described in
-\autoref{sub:subdivision_in_direction_space}.
+\autoref{sub:subdivision_in_direction_space}\Todo{looks weird}.
 %
 If such a direction is found, subdivide the triangle and process the parts
 recursively.

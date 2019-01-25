@@ -12,15 +12,16 @@ points. Third, the resulting profiles are approximated by models, reducing each
 profile to a set of model parameters.
 
 As mentioned before, simulation variables vary most along the shortest path
-across the flame front. This direction is approximately orthogonal to the flame
-surface. We exploit this by representing the 3D scalar fields of the
-variables as a set of profiles on 1D lines. These profile lines are anchored at
-points $\vp_i$ on the flame surface and oriented along its normal
+across the flame front. \Todo{Mention pressure/density and velocity and that
+they need to be treated separately.} This direction is approximately orthogonal
+to the flame surface. We exploit this by representing the \ac{3D} scalar fields
+of the variables as a set of profiles on \ac{1D} lines. These profile lines are
+anchored at points $\vp_i$ on the flame surface and oriented along its normal
 $\vr_i$. By giving the lines a limited length, we discard information from
 outside of the flame front, where the variables are almost constant. The
 placement of the profile lines is dependent on the flame surface curvature,
-seeding more lines in highly curved areas and less in planar regions (see Figure
-\ref{fig:flamecrossing}).
+seeding more lines in highly curved areas and less in planar regions (see red
+circles in \autoref{fig:flamecrossing}).
 
 Variables are grouped into three classes: \emph{Reactants} have high
 concentrations outside of the burnt region and low concentrations inside,
@@ -52,10 +53,10 @@ those lines, and how these profiles are then approximated by simple models.
 \subsection{Strategy for Seeding Profile Lines} % (fold)
 \label{sub:seeding}
 %
-\begin{figure}[t!]
-	\begin{center}
-		\includegraphics[width=\linewidth]{figures/flamecrossing.pdf}
-	\end{center}
+\begin{figure}[t]
+	\setlength\figurewidth\textwidth
+	\centering
+	\input{figures/flamecrossing_tikz}
 	\caption{
 	Cross section scheme of flame surface with seeded points $\vp$:
 	profiles sampled from profile lines $\vp(t)$ at different locations
@@ -65,8 +66,7 @@ those lines, and how these profiles are then approximated by simple models.
 	shapes can occur (bottom right box). Seeding density is dependent on the
 	surface curvature (see green vs. red circle). }
 	\label{fig:flamecrossing}
-	\Todo[inline]{Recreate in tikz, don't use colored boxes, use standard colors,
-	possibly change color map}
+	\Todo[inline]{Fix description, possibly change color map}
 \end{figure}
 %
 Commonly, the flame surface in premixed combustion is defined as the
@@ -77,7 +77,7 @@ choice of the isovalue is very robust. Our experiments show that variations of
 $\pm 0.1$ lead to isosurfaces with Hausdorff distances less than 2\% of the
 longest side of the simulated domain. Anchor points $\vp_i$ for profile
 extraction are distributed on this surface, which we extract using
-CGAL~\cite{Boissonnat2005}. This yields a mesh with approximately uniformly-spaced
+\ac{CGAL}~\cite{Boissonnat2005}. This yields a mesh with approximately uniformly-spaced
 vertices and edges of approximately the same length as the voxel size in
 the original data.
 %
@@ -111,6 +111,13 @@ without curvature, and all vertices being selected in areas where $\seedDens >
 storage size of the sparse representation depends on the surface shape rather
 than on the resolution of the data. Adjusting $\seedDensQuot$ changes the total
 number of seed points and balances size vs. quality.
+%
+\begin{figure}[tb]
+	\centering
+	\MissingFigure{Points seeded on real surface}
+	\caption{Caption here}
+	\label{fig:figure1}
+\end{figure}
 %
 % The logarithmic shape of
 % $\seedDens$ ensures that medium curvatures, which are most frequent, are not

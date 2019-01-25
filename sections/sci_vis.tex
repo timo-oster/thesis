@@ -1,5 +1,5 @@
-\chapter{Fundamentals of Scientific Visualization} % (fold)
-\label{cha:fundamentals}
+\chapter{An Overview of Scientific Visualization} % (fold)
+\label{cha:sci_vis}
 %
 \lettrine[lines=3, findent=-2pt, nindent=5pt, loversize=0.02]{S}{cientific
 visualization} is the visualization of data from the natural sciences.
@@ -20,16 +20,26 @@ The techniques are demonstrated on simulation data from two different
 engineering domains: turbulent combustion and solid mechanics.
 %
 To set the scene for these contributions, we will therefore use this chapter to
-briefly recall the fundamental methods for visualizing scientific data.
+give an overview of the most important methods for visualizing scientific data.
 %
 Such data usually comes in the form of scalar-, vector-, or (second-order)
 tensor fields.
 %
-
-%
 After listing the notation used throughout the text, we will take a look at the
 definition and basic visualization techniques for each of these types of fields
 in the following sections.
+%
+
+%
+This chapter is necessarily sparse on details and omits a lot of basic knowledge
+on computer graphics, data representation, numerical algorithms, and
+visualization in general.
+%
+A more thorough introduction to the field is given in Alexandru Telea's book
+``Data Visualization''~\cite{Telea2014}.
+%
+Material for further reading can be found in the references cited throughout the
+text.
 %
 
 %
@@ -218,8 +228,8 @@ data that are interesting, and make the uninteresting parts transparent.
 Color and opacity values are then accumulated along viewing rays to simulate the
 transport of light through a semitransparent medium.
 %
-The shading of a solid surface can be approximated by using the gradient of
-the scalar field as the surface normal.
+The shading of a solid surface can be approximated by using the gradient of the
+scalar field as the surface normal (see \autoref{fig:direct_volume_rendering}).
 %
 More advanced techniques use a two-dimensional transfer function that also takes
 the gradient magnitude into account when deciding the color, opacity and
@@ -264,6 +274,8 @@ the gradient becomes zero.
 %
 As such, they are features of the scalar field's topology.
 %
+\Todo{More? Classification by Hessian? Significance?}
+%
 
 %
 \subsubsection{Ridge- and Valley Lines and -Surfaces}
@@ -290,8 +302,8 @@ space-filling segmentation of the data.
 Often, computation of raw ridges and valleys produces a lot of small and
 insignificant features due to noise.
 %
-An additional filtering step can be applied to only keep the most significant
-lines~\cite{Peikert2008}.
+An additional filtering step~\cite{Peikert2008} can be applied to only keep the most significant
+lines (see \autoref{fig:ridge_valley_lines}).
 %
 \begin{figure}[t]
     % \centering
@@ -428,7 +440,7 @@ integral of the color values encountered along a stream line passing through
 that position.
 %
 The result is a space-filling image where the direction of the vector field is
-visible at each location.
+visible at each location (see \autoref{fig:lic_topo}).
 %
 The basic \ac{LIC} technique is only applicable to \ac{2D} steady vector fields,
 but extensions have been developed for \ac{3D}~\cite{Rezk-Salama1999} and
@@ -536,7 +548,8 @@ They are either completely disjoint, or they coincide.
 Visualizing a steady vector field with stream lines shows the direction of the
 flow much like a \ac{LIC} image does, but not in a space-filling manner.
 %
-This allows for limited use of streamlines also in \ac{3D} data.
+This allows for use of streamlines also in \ac{3D} data (see
+\autoref{fig:streamlines}).
 %
 Streamline visualization can be deceiving when used on single time slices of
 an unsteady flow field.
@@ -1213,7 +1226,7 @@ is estimated based on central differences~\cite{Peikert2014}.
 
 %
 \ac{FTLE} and \ac{FSLE} yield very similar results, given the right
-parameters~\cite{Peikert2014}.
+parameters (see \autoref{fig:ftle_fsle}).
 %
 However, their semantic differences might make one or the other more appropriate
 depending on the application.
@@ -1482,7 +1495,8 @@ between positive and negative eigenvalues.
 %
 Schultz and Kindlmann~\cite{Schultz2010a} built on top of all of this work to
 develop a set of superquadric-based tensor glyphs that clearly indicates
-eigenvalue sign by a combination of color and concave shape.
+eigenvalue sign by a combination of color and concave shape (see
+\autoref{fig:tensor_glyphs}).
 %
 % \begin{figure}[t]
 %     \begin{tikzpicture}
@@ -1516,6 +1530,7 @@ eigenvalue sign by a combination of color and concave shape.
          \etal~\cite{Schultz2010a}.}
         \includegraphics[width=0.4\textwidth]{figures/symmetric_tensor_glyphs.png}
     \end{captionbeside}
+    \label{fig:tensor_glyphs}
 \end{figure}
 
 \subsubsection{General Tensors} % (fold)
@@ -1691,6 +1706,10 @@ Hesselink \etal~\cite{Delmarcelle1994,Hesselink1997}.
 Numerical algorithms for their robust extraction were developed by Zheng
 \etal~\cite{Zheng2004,Zheng2005} and later adapted for noisy \ac{DTI} data by
 Tricoche \etal~\cite{Tricoche2008}.
+%
+\autoref{fig:tensor_topology} shows the topology of a common test case in
+structural mechanics where two point loads are applied to the surface of a solid
+block.
 %
 \begin{figure}[t]
     % \centering

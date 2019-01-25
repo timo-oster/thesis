@@ -1,14 +1,17 @@
 %
 %
-\begin{tikzpicture}[scale=\figurewidth/1cm*0.13,
-					line join=round]
-\tikzstyle{ghostparticle} = [thick, fill=white, arrows=-o]
-\tikzstyle{b1style} = [thick, red, arrows=-latex]
-\tikzstyle{b2style} = [thick, blue, arrows=-latex]
-\tikzstyle{b1dstyle} = [very thick, red!50, arrows=-latex]
-\tikzstyle{b2dstyle} = [very thick, blue!50, arrows=-latex]
-\tikzstyle{ellipse1style} = [thick, dashed, cyan!70]
-\tikzstyle{ellipse2style} = [thick, dashed, orange!50]
+\begin{tikzpicture}[
+	font=\small,
+	thick,
+	scale=\figurewidth/1cm*0.13,
+	line join=round]
+\tikzstyle{ghostparticle} = [fill=white, arrows=-o]
+\tikzstyle{b1style} = [mycolor4, arrows=-latex]
+\tikzstyle{b2style} = [mycolor1, arrows=-latex]
+\tikzstyle{b1dstyle} = [very thick, mycolor4!50, arrows=-latex]
+\tikzstyle{b2dstyle} = [very thick, mycolor1!50, arrows=-latex]
+\tikzstyle{ellipse1style} = [mycolor3!70]
+\tikzstyle{ellipse2style} = [mycolor2!70]
 
 \coordinate (center1) at (0, 0);
 \coordinate (x1) at (1.5, 0.15);
@@ -20,7 +23,7 @@
 \coordinate (vx) at ($ (center1)!2/3!(b1) + (center1)!2/3!(b2)$);
 
 % normal
-% \draw [thick, fill=black, arrows=-latex]
+% \draw [fill=black, arrows=-latex]
 % 	(center1) -- (0, 0, 1) node [below left] {$\vn$};
 
 \fill [ellipse1style] (center1) circle [radius=0.4];
@@ -43,7 +46,7 @@
 		($ (center1)!2/3!(b1) + (center1)!2/3!(b2)$)
 		node [left, pos=0.4] {$b$};
 
-\draw [thick, fill=black] (vx) circle [radius=0.08]
+\draw [fill=black] (vx) circle [radius=0.08]
 		node [right, xshift=0.05cm] {$\vx'$};
 
 \begin{scope}[shift={(3.5, 0)}]
@@ -57,7 +60,7 @@
 	\coordinate (vx2) at ($ (center2)!2/3!(b1) + (center2)!2/3!(b2)$);
 
 	% normal
-	% \draw [thick, fill=black, arrows=-latex]
+	% \draw [fill=black, arrows=-latex]
 	% 	(center2) -- (0, 0, 1) node [below] {$\vn$};
 	\fill [ellipse1style] (center2) circle [x radius=0.5, y radius=0.4];
 	\fill [ellipse2style] (vx2) circle [x radius=0.6, y radius=0.4];
@@ -77,16 +80,16 @@
 	\draw [b2dstyle, shorten >=0.1cm] ($ (center2)!2/3!(b1) $) -- (vx2)
 			node [above left, pos=0.4] {$b$};
 
-	\draw [thick, fill=black] (vx2) circle [radius=0.08]
+	\draw [fill=black] (vx2) circle [radius=0.08]
 		node [right, xshift=0.05cm] {$\vx'$};
 \end{scope}
 
-\draw [very thick, cyan!70, shorten <=0.6cm, shorten >=0.6cm, arrows=-latex]
+\draw [very thick, ellipse1style, shorten <=0.6cm, shorten >=0.6cm, arrows=-latex]
 		(center1) to[out=-45, in=225]
 			node [below, midway, text=black, yshift=-0.1cm] {$\mE$}
 		(center2);
 
-\draw [very thick, orange!50, shorten <=0.6cm, shorten >=0.7cm, arrows=-latex]
+\draw [very thick, ellipse2style, shorten <=0.6cm, shorten >=0.7cm, arrows=-latex]
 		(vx) to[out=25, in=145]
 			node [above, midway, text=black, yshift=0.1cm] {$\mE'$}
 		(vx2);

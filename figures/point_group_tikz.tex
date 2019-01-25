@@ -2,8 +2,10 @@
 %
 %
 %
-\begin{tikzpicture}[scale=\figurewidth/1cm*0.08,
-                    thick, line join=round]
+\begin{tikzpicture}[
+    scale=\figurewidth/1cm*0.08,
+    thick, line join=round,
+    font=\small]
 \tikzset{xzplane/.style={canvas is xz plane at y=#1,very thin}}
 \tikzstyle{ghostparticle} = [fill=white]
 \tikzstyle{central} = [fill=black]
@@ -12,7 +14,7 @@
 \tikzstyle{real} = [thick]
 \tikzstyle{surface} = [real]
 \tikzstyle{tanplane} = [lin]
-\tikzstyle{normalerror} = [mycolor2, very thick]
+\tikzstyle{normalerror} = [mycolor4, very thick]
 \tikzstyle{tanerror} = [mycolor1, very thick]
 
 \begin{scope}

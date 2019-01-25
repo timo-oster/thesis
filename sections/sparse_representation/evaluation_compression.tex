@@ -25,7 +25,7 @@ the data on the original grid.
 % interpolated, an expression involving all data points has to be evaluated. 
 
 We compared two local interpolation methods for scattered data. The first method
-is a $k$-approximate-nearest-neighbor (kANN) \cite{Arya1998} interpolation
+is a \ac{kANN}~\cite{Arya1998} interpolation
 scheme that weighs the values of the $k$ approximate nearest neighbors using
 Shepard's inverse distance weights. 
 %
@@ -80,23 +80,23 @@ been torn into smaller parts by turbulence.
 %
 %, which yields a very similar surface, is used instead.
 %
-% 1. Errors made by fitting the models to the profile lines (RMS error)
+% 1. Errors made by fitting the models to the profile lines (\ac{RMS} error)
 % Normalized by data value range to make comparable
 % Shows raw error of models
 % Results show low percentual errors for all variables
 
 First, we investigate the error from approximating the original data by our
-models. We computed the average root mean square (RMS) error between the
+models. We computed the average \ac{RMS} error between the
 original data of the profiles and the fitted models. The data values in the
 range $x_{li}$ and $x_{ri}$ on each profile line are considered.
 %
 %(Figure~\ref{fig:models}), because values outside of this interval were not considered when fitting the models.
 %
-We used normalized RMS errors $E^V_{\text{fit}}$ in order to make the
+We used normalized \ac{RMS} errors $E^V_{\text{fit}}$ in order to make the
 variables $V$ comparable:
 %
 %To make the values comparable, the resulting average
-%RMS error for each variable was normalized by the range of its values.
+%\ac{RMS} error for each variable was normalized by the range of its values.
 %The fitting error for a variable $V$ is then:
 %
 \begin{equation*}
@@ -193,7 +193,7 @@ $\max(V)-\min(V)$.
 	\setlength\figureheight{0.2\textheight}
 	\setlength\figurewidth{0.9\textwidth}
 	\input{figures/mean_abs_fit.tikz}
-	\caption{Mean RMS fitting error for all variables. Note that not all data sets
+	\caption{Mean \ac{RMS} fitting error for all variables. Note that not all data sets
 	contain the same variables.}
 	\label{fig:fitting_rms_error}
 	\Todo[inline]{make horizontal bar chart}
@@ -248,28 +248,26 @@ $\max(V)-\min(V)$.
 % 	\label{fig:CRvMSE2}
 % \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[tp]
 	\centering
-	\def\svgwidth{0.5\textwidth}
-	\import{figures/}{comparison_lin_knn_down.pdf_tex} 
+	\setlength\figurewidth\textwidth
+	\input{figures/comparison_lin_knn_down_tikz.tex}
 	\caption{
-	Top: \textsc{Syngas II}: Comparison of reconstruction results for \ce{H} with
- 	$\seedDensQuot=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$). Bottom: \textsc{Syngas
- 	I}: Reconstruction results of linear interpolation for different sample
- 	densities for \ce{O2}.}
+	Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas II}
+ 	with $\seedDensQuot=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
+ 	Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using linear
+ 	interpolation with different sample densities (detail view).}
 	\label{fig:comp}
-	\Todo[inline]{recreate in tikz, rearrange to better fit page geometry,
-				  possibly remap colors}
 \end{figure}
 %
 
-We compared the results of linear and kANN interpolation for reconstruction.
-Our experiments show that for the kANN interpolation a combination of five
+We compared the results of linear and \ac{kANN} interpolation for reconstruction.
+Our experiments show that for the \ac{kANN} interpolation a combination of five
 nearest neighbors weighted with a Shepard weighting function using an exponent
 of 20 gave the lowest errors. Therefore, we illustrate the results for these
 parameters only.
 %
-% Since the kANN interpolation uses Shepard weights, we have two parameters: $k$
+% Since the \ac{kANN} interpolation uses Shepard weights, we have two parameters: $k$
 % for the number of approximate nearest neighbors to consider, and $p$, which is
 % the exponent in the Shepard weighting function. We computed the error for
 % values of $k$ ranging from $5$ to $20$, and of $p$ ranging from $1$ to $20$. A
@@ -280,7 +278,7 @@ We also compared our results to the error introduced by na\"{i}vely downsampling
 the data to the same storage size needed by the sparse representation. This is
 the currently established way of reducing the size of \ac{DNS} data. For
 comparison with a dedicated compression algorithm, we used the well-established
-3D-SPIHT algorithm~\cite{Kim2000} implemented in the QccPack
+\ac{3D}-\ac{SPIHT} algorithm~\cite{Kim2000} implemented in the QccPack
 library~\cite{Fowler2000} on our data.
 
 % To be able to evaluate the ability of the sparse form to accurately represent
@@ -299,26 +297,27 @@ small reduction ratios, the downsampling approach naturally performs better,
 because it does not introduce errors due to model assumptions. For higher
 reduction ratios, which are needed in practice, our sparse representation always
 performs significantly better. It is also apparent that linear interpolation
-performs better than kANN in almost all cases. As a dedicated compression
-algorithm, 3D-SPIHT achieves better reconstruction quality than our approach. It
+performs better than \ac{kANN} in almost all cases. As a dedicated compression
+algorithm, \ac{3D}-\ac{SPIHT} achieves better reconstruction quality than our approach. It
 is however necessary to decompress the data back to its full size before any
 analysis can be carried out, thus losing a major advantage of our sparse
 representation, which captures important data features by design.
 
 \begin{figure}[t]
+	\tikzset{external/export next=false}
 	\setlength\figureheight{0.2\textheight}
-	\setlength\figurewidth{0.81\textwidth}
-	
-	\hbox{\hspace{-1.5em}
+	\setlength\figurewidth{0.8\textwidth}
+	\centering
+	% \hbox{\hspace{-1.5em}
 	\input{figures/compr_table.tikz}
-	}
+	% }
 	\caption{
 	Reduction ratio $c$ and computation time $t$ for different seeding densities
 	\seedDensQuot. Plot shows mean (solid) and standard deviation (dashed) over
 	eight time steps of data set \textsc{Hydrogen} and values for the synthetic
 	data set (dash-dotted).}
 	\label{fig:compression_table}
-	\Todo[inline]{Use inline tikz to refer to plots}
+	\Todo[inline]{Make synthetic line more distinct}
 \end{figure}
 
 To further illustrate the performance of our approach, we tested it on eight

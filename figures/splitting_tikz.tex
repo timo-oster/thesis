@@ -1,13 +1,15 @@
 %
 %
-\begin{tikzpicture}[scale=\figurewidth/1cm*0.09]
+\begin{tikzpicture}[
+  scale=\figurewidth/1cm*0.09,
+  font=\small]
 \tikzstyle{ghostparticle} = [fill=white]
 \tikzstyle{patch} = [dashed]
 \tikzstyle{central} = [fill]
 \tikzstyle{vold} = [thick, gray!50]
 \tikzstyle{old} = [thick, gray]
 \tikzstyle{new} = [thick, black]
-\tikzstyle{ax1} = [very thick, mycolor2]
+\tikzstyle{ax1} = [very thick, mycolor4]
 \tikzstyle{ax2} = [very thick, mycolor1]
 
 \begin{scope}[rotate=0]
@@ -61,7 +63,7 @@
 \draw[new, central] (0, 0) circle [radius=0.1];
 \draw[new, central] (2, 0) circle [radius=0.1];
 
-\node at (0, -2.2) {\large split};
+\node at (0, -2.2) {split};
 
 \end{scope}
 
@@ -114,7 +116,7 @@
   \draw[new, ghostparticle] ($(center2) + (ax1dir)$) circle [radius=0.1];
   \draw[new, ghostparticle] ($(center2) - (ax1dir)$) circle [radius=0.1];
 
-  \node at (0, -2.2) {\large merge};
+  \node at (0, -2.2) {merge};
 \end{scope}
 
 \end{tikzpicture}

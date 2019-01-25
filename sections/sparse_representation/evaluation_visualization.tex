@@ -34,8 +34,10 @@ The results can be seen in Figure~\ref{fig:diffusion_quality}.
 % \todo{captain obvious?}
 
 \begin{figure}[t!]
-\setlength\figureheight{4.5cm} 
-	\setlength\figurewidth{0.75\linewidth}
+	\tikzset{external/export next=false}
+	\setlength\figureheight{4.5cm}
+	\setlength\figurewidth{0.75\textwidth}
+	\centering
 	\input{figures/diffusion_quality_small.tikz}
 	\caption{
 	Diffusion error (median, max and min) for selected variables of data set

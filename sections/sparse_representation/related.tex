@@ -53,7 +53,7 @@ original data sets.
 One way to achieve both flexibility and storage-efficiency is to compress the
 data before storing it. The compressed data can then be decoded and analyzed
 with any method. Numerous compression methods exist, but few are well-suited for
-\ac{DNS} data. The \ac{3D}-\acs{SPIHT} (\acl{SPIHT})
+\ac{DNS} data. The \ac{3D}-\acs{SPIHT} (\acl{SPIHT}\acused{SPIHT})
 algorithm~\cite{Kim2000} uses a global wavelet transform to compress volume
 data. A blockwise wavelet-based approach tailored to visualization applications
 is proposed in \cite{Nguyen2001}. Fout et al.~\cite{Fout2005} describe a vector
@@ -95,7 +95,14 @@ iso-surface, surface of maximum value, or surface of steepest slope. These
 feature surfaces are similar, but their differences give meaningful insights
 into the combustion process. Our sparse representation directly captures these
 feature surfaces and enables their analysis and visualization (see
-Figure~\ref{fig_contourmeshvis}).
+\autoref{fig_contourmeshvis}).
+
+\begin{figure}[tb]
+    \centering
+    \MissingFigure{Slices of all chemical species used in a Hydrogen simulation}
+    \caption{Caption here}
+    \label{fig:figure1}
+\end{figure}
 
 % In this work, we describe a space-saving sparse representation for \ac{DNS} data of
 % premixed combustion which captures the characteristics of the scalar fields

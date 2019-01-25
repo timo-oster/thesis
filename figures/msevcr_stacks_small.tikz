@@ -27,6 +27,8 @@
 \begin{tikzpicture}
 
 \pgfplotsset{
+    small,
+    legend style={font=\small},
 	width=\figurewidth,
 	height=\figureheight,
 	scale only axis,
@@ -48,8 +50,8 @@ ylabel={$E^V_\text{reconst}$},
 every axis y label/.style = {at={(ticklabel cs:0.5)},rotate=90,anchor=center},
 ytick={0,0.015,0.03},
 scaled y ticks = false,
-yticklabels={\textcolor{mycolor2}{$\text{CO}_2$},
-		 \textcolor{mycolor3}{H},
+yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
+		 \textcolor{mycolor2}{H},
 		 \textcolor{mycolor1}{O}},
 ymajorgrids,
 extra description/.code={
@@ -79,7 +81,7 @@ coordinates{
 	(10, 0)
 	(11, 0)
 };
-\addlegendentry{kANN interp.}
+\addlegendentry{k{\otherscshape{}ann} interp.}
 
 \addplot[color=black,
 dotted,
@@ -99,31 +101,31 @@ coordinates{
 	(10, 0)
 	(11, 0)
 };
-\addlegendentry{3D-SPIHT}
+\addlegendentry{{\otherscshape 3d}-{\otherscshape spiht}}
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 solid,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataI};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashed,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataI};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dotted,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataI};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashdotted,
 line width=1.0pt,
 forget plot
@@ -132,28 +134,28 @@ table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtI};
 
 
 \addplot [
-color=mycolor3,
+color=mycolor2,
 solid,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataI};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dashed,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataI};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dotted,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataI};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dashdotted,
 line width=1.0pt,
 forget plot
@@ -225,8 +227,8 @@ ylabel={$E^V_\text{reconst}$},
 every axis y label/.style = {at={(ticklabel cs:0.5)},rotate=90,anchor=center},
 ytick={0,0.015,0.03},
 scaled y ticks = false,
-yticklabels={\textcolor{mycolor2}{$\text{CO}_2$},
-		 \textcolor{mycolor3}{H},
+yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
+		 \textcolor{mycolor2}{H},
 		 \textcolor{mycolor1}{O}},
 ymajorgrids,
 extra description/.code={
@@ -239,28 +241,28 @@ extra description/.code={
 ]
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 solid,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataII};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashed,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataII};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dotted,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataII};
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashdotted,
 line width=1.0pt,
 forget plot
@@ -268,28 +270,28 @@ forget plot
 table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtII};
 
 \addplot [
-color=mycolor3,
+color=mycolor2,
 solid,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataII};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dashed,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataII};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dotted,
 line width=1.0pt,
 forget plot
 ]
 table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataII};
 \addplot [
-color=mycolor3,
+color=mycolor2,
 dashdotted,
 line width=1.0pt,
 forget plot
@@ -368,7 +370,7 @@ scaled y ticks = false,
 yticklabels={
 		 \textcolor{mycolor5}{HCO},
 		 \textcolor{mycolor4}{$\text{H}_{2}\text{O}_2$},
-		 \textcolor{mycolor2}{$\text{CO}_2$},},
+		 \textcolor{mycolor3}{$\text{CO}_2$},},
 ymajorgrids,
 extra description/.code={
 		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
@@ -396,7 +398,7 @@ forget plot
 table[x=compr, y expr=\thisrow{H2O2_lin}-0.005]{\dataIII};
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 solid,
 line width=1.0pt,
 forget plot
@@ -420,7 +422,7 @@ forget plot
 table[x=compr, y expr=\thisrow{H2O2_knn}-0.005]{\dataIII};
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashed,
 line width=1.0pt,
 forget plot
@@ -444,7 +446,7 @@ forget plot
 table[x=compr, y expr=\thisrow{H2O2_down}-0.005]{\dataIII};
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dotted,
 line width=1.0pt,
 forget plot
@@ -468,7 +470,7 @@ forget plot
 table[x=r, y expr=\thisrow{H2O2}+0.015]{\spihtIII};
 
 \addplot [
-color=mycolor2,
+color=mycolor3,
 dashdotted,
 line width=1.0pt,
 forget plot

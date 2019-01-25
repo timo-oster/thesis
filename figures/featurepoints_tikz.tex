@@ -1,11 +1,12 @@
 \begin{tikzpicture}[
+    font=\small,
     thick,
     surface/.style={gray, very thick},
     feature/.style={red!50!white},
     arrow/.style={-latex, very thick},
-    point/.style={draw=black, fill=yellow},
-    mesh/.style={fill=cyan},
-    fpoint/.style={fill=red}
+    point/.style={draw=black, fill=white},
+    mesh/.style={fill=gray},
+    fpoint/.style={fill=mycolor4}
     ]
 
     \newcommand*{\rzero}{30}
@@ -118,9 +119,9 @@
         % \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (p2) (m2) (p3) (p4)};
         % \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
         \node[above left] at (p0) {$M$};
-        \node[red, above] at (pf0) {$M_f$};
+        \node[mycolor4, above] at (pf0) {$M_f$};
         \draw[black] plot coordinates{(p0) (p1) (m1) (p2) (m2) (p3) (p4)};
-        \draw[red] plot coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
+        \draw[mycolor4] plot coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
 
         \draw[arrow] (p1) -- ++(\rone:1cm);
         \draw[arrow] (p2) -- ++(\rtwo:1cm);

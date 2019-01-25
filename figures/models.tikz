@@ -173,7 +173,7 @@ legend style={legend pos = north west}
 \addplot [
 color=mycolor4,
 solid,
-line width=2.0pt
+ultra thick
 ]
 table[row sep=crcr]{
 -4.303 316.491\\
@@ -201,12 +201,12 @@ table[row sep=crcr]{
 6.835 1712.925\\
 7.341 1724.045\\
 };
-\addlegendentry{Model $\mathfrak{S}(x)$}
+\addlegendentry{\small Model $\mathfrak{S}(x)$}
 
 \addplot [
-color=mycolor1,
+color=black,
 solid,
-line width=1.0pt
+thick
 ]
 table[row sep=crcr]{
 -14.936 488.950\\
@@ -270,12 +270,12 @@ table[row sep=crcr]{
 14.430 1561.301\\
 14.936 1536.410\\
 };
-\addlegendentry{Data $V(x)$}
+\addlegendentry{\small Data $V(x)$}
 
-\draw[color=mycolor2, line width=1.0pt]
+\draw[color=mycolor2, thick]
 % -1.265, 731.693
 	(axis cs: -3.53, 31.693) -- (axis cs: 3.265, 2131.693) 
-	node[right, pos=0.95]{$\gamma=\mathfrak{S}'(x=x_m)$};
+	node[right, pos=0.95]{\small $\gamma=\mathfrak{S}'(x=x_m)$};
 
 \draw[dashed]
 	(axis cs: -6.303, 731.693) -- (axis cs: -2.303, 731.693);
@@ -284,7 +284,7 @@ table[row sep=crcr]{
 	(axis cs: 5.341, 731.693) -- (axis cs: 9.341, 731.693);
 
 \addplot [
-color=green,
+color=mycolor1,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -301,7 +301,7 @@ table[row sep=crcr]{
 
 \draw[dashed] (axis cs: -4.303, 316.491) -- (axis cs: -4.303, 0) node[below, pos=1.0, anchor=north]{$x_l$};
 \addplot [
-color=cyan,
+color=mycolor3,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -314,7 +314,7 @@ table[row sep=crcr]{
 
 \draw[dashed] (axis cs: 7.341, 731.693) -- (axis cs: 7.341, 0) node[below, pos=1.0, anchor=north]{$x_r$};
 \addplot [
-color=red,
+color=mycolor4,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -403,21 +403,21 @@ legend style={legend pos = north west}
 \addplot [
 color=mycolor4,
 solid,
-line width=2pt
+ultra thick
 ]
 table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\modelradical};
-\addlegendentry{Model $\mathfrak{G}(x)$}
+\addlegendentry{\small Model $\mathfrak{G}(x)$}
 
 \addplot [
-color=mycolor1,
+color=black,
 solid,
-line width=1.0pt
+thick
 ]
 table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\dataradical};
-\addlegendentry{Data $V(x)$}
+\addlegendentry{\small Data $V(x)$}
 
 \addplot [
-color=red,
+color=mycolor4,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -433,7 +433,7 @@ table[row sep=crcr]{
 	node[below, pos=1.0, anchor=north]{$x_m$};
 
 \addplot [
-color=cyan,
+color=mycolor1,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -449,7 +449,7 @@ table[row sep=crcr]{
 	node[below, pos=1.0, anchor=north]{$x_l$};
 
 \addplot [
-color=cyan,
+color=mycolor1,
 only marks,
 mark=*,
 mark options={draw=black},

@@ -193,10 +193,10 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick, rotate around={5:(0.1, 0.56)}]
+                \draw[mycolor4, thick, rotate around={5:(0.1, 0.56)}]
                     (0.1, 0.56) ellipse (0.12 and 0.03);
-                \draw[red, thick] (0.71, 0.57) circle[radius=5pt];
-                \draw[red, thick] (0.91, 0.56) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.71, 0.57) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.91, 0.56) circle[radius=5pt];
             \end{scope}
         }
     \end{tabular}
@@ -206,7 +206,9 @@ stress directions.
              tensile force (blue arrow) is applied for the second stress tensor.
              Due to the parallel application of forces orthogonal to the
              surface, a plane of parallel eigenvectors forms between the load
-             points.}
+             points.
+             \Todo[inline]{Change color scale to be consistent with other figures.
+                           Make images larger.}}
     \label{fig:point_load}
 \end{figure*}
 \begin{figure*}
@@ -221,7 +223,7 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick, rotate around={-25:(0.55, 0.5)}]
+                \draw[mycolor4, thick, rotate around={-25:(0.55, 0.5)}]
                     (0.55, 0.5) ellipse (0.35 and 0.25);
             \end{scope}
         } \\
@@ -234,15 +236,15 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick] (0.33, 0.5) circle[radius=5pt];
-                \draw[red, thick] (0.27, 0.5) circle[radius=5pt];
-                \draw[red, thick] (0.485, 0.575) circle[radius=5pt];
-                \draw[red, thick] (0.67, 0.64) circle[radius=5pt];
-                \draw[red, thick] (0.67, 0.53) circle[radius=5pt];
-                \draw[red, thick] (0.72, 0.66) circle[radius=5pt];
-                \draw[red, thick] (0.31, 0.4) circle[radius=5pt];
-                \draw[red, thick] (0.31, 0.64) circle[radius=5pt];
-                \draw[red, thick] (0.585, 0.58) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.33, 0.5) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.27, 0.5) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.485, 0.575) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.67, 0.64) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.67, 0.53) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.72, 0.66) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.31, 0.4) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.31, 0.64) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.585, 0.58) circle[radius=5pt];
             \end{scope}
         } &
         \tikz{
@@ -254,7 +256,7 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick] (0.75, 0.58) ellipse (0.2 and 0.05);
+                \draw[mycolor4, thick] (0.75, 0.58) ellipse (0.2 and 0.05);
             \end{scope}
         }
     \end{tabular}
@@ -278,8 +280,8 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick] (0.58, 0.68) circle[radius=5pt];
-                \draw[red, thick] (0.47, 0.5) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.58, 0.68) circle[radius=5pt];
+                \draw[mycolor4, thick] (0.47, 0.5) circle[radius=5pt];
             \end{scope}
         } &
         \tikz{
@@ -291,8 +293,8 @@ stress directions.
                 % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
                 % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
                 % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-                \draw[red, thick] (0.75, 0.6) circle[radius=10pt];
-                \draw[red, thick] (0.75, 0.4) circle[radius=10pt];
+                \draw[mycolor4, thick] (0.75, 0.6) circle[radius=10pt];
+                \draw[mycolor4, thick] (0.75, 0.4) circle[radius=10pt];
             \end{scope}
         }
     \end{tabular}

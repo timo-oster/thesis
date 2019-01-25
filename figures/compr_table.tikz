@@ -16,6 +16,7 @@
 }
 
 \begin{axis}[%
+		font=\small,
 		name = times
 		axis y line* = left,
 		axis x line* = box,
@@ -66,6 +67,7 @@
 \end{axis}
 
 \begin{axis}[% --- CF
+		font=\small,
         xmin=1,
         xmax=240,
         xmode=log,
