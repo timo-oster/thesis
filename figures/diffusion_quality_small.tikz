@@ -29,6 +29,7 @@
 	width=\figurewidth,
 	height=\figureheight,
 	scale only axis,
+    every tick/.style={color=black, thin},
 	xmode=log,
 }
 
@@ -42,7 +43,6 @@
     %xtick = {1, 4.7, 6.7, 11.5, 16, 23.3, 36, 58, 240},
     xlabel = {$\seedDensQuot$},
     xlabel near ticks,
-    every tick/.style={color=black, thin},
     xmode = log,
     %
     ymin=0,
@@ -110,8 +110,7 @@
 
 \addplot[
 color=mycolor1,
-solid,
-line width=1.0pt,
+solid,thick,
 forget plot,
 error bars/.cd,
 y dir = minus,
@@ -120,8 +119,7 @@ y explicit
 table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 9]{\tempstat};
 \addplot[
 color=mycolor1,
-solid,
-line width=1.0pt,
+solid,thick,
 error bars/.cd,
 y dir = plus,
 y explicit,
@@ -188,8 +186,7 @@ table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 10]{\tempstat};
 
 \addplot[
 color=mycolor2,
-solid,
-line width=1.0pt,
+solid,thick,
 forget plot,
 error bars/.cd,
 y dir = minus,
@@ -198,8 +195,7 @@ y explicit
 table[x=densities, y expr = \thisrowno{8} + 0.05, y error index = 9]{\htotstat};
 \addplot[
 color=mycolor2,
-solid,
-line width=1.0pt,
+solid,thick,
 error bars/.cd,
 y dir = plus,
 y explicit,
@@ -266,8 +262,7 @@ table[x=densities, y expr = \thisrowno{8} + 0.05, y error index = 10]{\htotstat}
 
 \addplot[
 color=mycolor3,
-solid,
-line width=1.0pt,
+solid,thick,
 forget plot,
 error bars/.cd,
 y dir = minus,
@@ -276,8 +271,7 @@ y explicit
 table[x=densities, y expr = \thisrowno{8} + 0.1, y error index = 9]{\ostat};
 \addplot[
 color=mycolor3,
-solid,
-line width=1.0pt,
+solid,thick,
 error bars/.cd,
 y dir = plus,
 y explicit,
@@ -344,8 +338,7 @@ table[x=densities, y expr = \thisrowno{8} + 0.1, y error index = 10]{\ostat};
 
 \addplot[
 color=mycolor4,
-solid,
-line width=1.0pt,
+solid,thick,
 forget plot,
 error bars/.cd,
 y dir = minus,
@@ -354,8 +347,7 @@ y explicit
 table[x=densities, y expr = \thisrowno{8} + 0.15, y error index = 9]{\ohstat};
 \addplot[
 color=mycolor4,
-solid,
-line width=1.0pt,
+solid,thick,
 error bars/.cd,
 y dir = plus,
 y explicit,

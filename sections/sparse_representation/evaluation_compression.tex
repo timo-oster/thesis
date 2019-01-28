@@ -175,10 +175,10 @@ quality:
 \begin{equation*}
 	E^V_\text{reconst}
 		= 	\frac{1}{|H|}
-			\int\limits_{x \in H} 			
+			\int\limits_{\vx \in H}
 				\left|
-					\frac{R(x) - V(x)}{\max(V)-\min(V)}
-				\right| ~dx
+					\frac{R(\vx) - V(\vx)}{\max(V)-\min(V)}
+				\right| ~d\vx
 			 \text{ ,}
 \end{equation*}
 %
@@ -190,13 +190,12 @@ $\max(V)-\min(V)$.
 %
 \begin{figure}[t]
 	\centering
-	\setlength\figureheight{0.2\textheight}
-	\setlength\figurewidth{0.9\textwidth}
+    \setlength\figureheight{0.2\textheight}
+    \setlength\figurewidth{0.87\textwidth}
 	\input{figures/mean_abs_fit.tikz}
 	\caption{Mean \ac{RMS} fitting error for all variables. Note that not all data sets
 	contain the same variables.}
 	\label{fig:fitting_rms_error}
-	\Todo[inline]{make horizontal bar chart}
 \end{figure}
 %
 % 2. Total errors (MSE, PSNR?) after reconstruction
@@ -217,13 +216,11 @@ $\max(V)-\min(V)$.
 	% \input{figures/msevcr_stack_data2.tikz}\\
 	\input{figures/msevcr_stacks_small.tikz}
 	\caption{
-	Error vs. reduction ratio for selected variables. Top: \textsc{Syngas I},
-	middle: \textsc{Syngas II}, bottom: \textsc{Syngas III}. The plots
-	corresponding to each variable are shifted by a constant increment. The
-	horizontal lines signify the zero-levels of the respective plots.}
+	Error vs. reduction ratio for selected variables. The plots corresponding to
+	each variable are shifted by a constant increment. The horizontal lines
+	signify the zero-levels of the respective plots.}
 	\label{fig:CRvMSE}
-	\Todo[inline]{Find better solution to display plots on top of each other?
-						Label which dataset in plots.}
+	\Todo[inline]{Find better solution to display plots on top of each other?}
 \end{figure}
 
 % \begin{figure}[tb]

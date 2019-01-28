@@ -67,8 +67,8 @@ x y
 % 13.924050 5.396330e-05
 % 14.430379 3.109881e-05
 % 14.936708 1.150626e-05
-}\dataradical
-
+}\dataradical%
+%
 \pgfplotstableread{
 x y
 -5.822784 4.761071e-07
@@ -94,80 +94,43 @@ x y
 4.303797 2.952018e-05
 4.810126 2.940956e-05
 5.316455 2.937337e-05
-}\modelradical
-
+}\modelradical%
+%
 \begin{tikzpicture}
-% \begin{axis}[
-% name=sigmoid model,
-% small,
-% width=\figurewidth,
-% height=\figureheight,
-% scale only axis,
-% axis x line = middle,
-% axis y line = left,
-% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
-% every axis y label/.style={at={(current axis.north west)},anchor=south east},
-% every tick/.style={color=black, thin},
-% extra x ticks={0},
-% extra x tick style={grid=major,
-% 					%tick label style={font=\small},
-% 					color=black, thin
-% 					},
-% xtick = {-2, 2, 4, 6},
-% xmin = -2.5,
-% xmax = 6.5,
-% xlabel = {$x$},
-% ymin = 0,
-% ymax = 3,
-% ytick = {0, 1, 2},
-% ylabel = {$\mathfrak{S}(x)$},
-% ]
-% %xm = 3, ym = 2, al = 1.5, ar = 0.5, m = 1
-% \addplot[
-% 	domain=-2.5:3, 
-% 	samples=100, 
-% 	color=blue, 
-% 	line width=1.0pt]{
-% 		2*1.5/(1+exp(-2*1*(x-3)/1.5))-1.5+2
-% 	};
-% \addplot[
-% 	domain=3:6.5, 
-% 	samples=50, 
-% 	color=blue, 
-% 	line width=1.0pt]{
-% 		2*0.5/(1+exp(-2*1*(x-3)/0.5))-0.5+2
-% 	};
-% \draw[dashed] (axis cs: -2, 2) -- (axis cs: -1, 2);
-% \draw[dashed] (axis cs: 5, 2) -- (axis cs: 6, 2);
-% \draw[latex-latex] (axis cs: 3, 2) -- (axis cs: 3, 0) node[right, midway]{$y_m$};
-% \draw[latex-latex] (axis cs: 3, 2) -- (axis cs: 0, 2) node[above, midway]{$x_m$};
-% \draw[latex-latex] (axis cs: 5.5, 2.5) -- (axis cs: 5.5, 2) node[right, midway]{$a_r$};
-% \draw[latex-latex] (axis cs: -1.5, 2) -- (axis cs: -1.5, 0.5) node[right, midway]{$a_l$};
-% \draw[color=orange, line width=1.0pt] (axis cs: 1.5, 0.5) -- (axis cs: 4, 3) node[right, pos=0.9]{$\gamma=\mathfrak{S}'(x=x_m)$};
-% %\addplot{x^2}
-% \end{axis}
+
+\pgfplotsset{
+	legend style={
+		legend pos=north west,
+		font=\small,
+		legend cell align=left,
+		draw=none},
+	max/.style={mycolor4},
+	infl/.style={mycolor1},
+	min/.style={mycolor3},
+	xtick={0},
+	ytick={0},
+	xmin=-15,
+	xmax=15,
+	every tick/.style={color=black, thin},
+}
 
 \begin{axis}[%
 small,
-name = sigmoid fit,
-%at = {(sigmoid model.below south west)}, yshift=-0.5cm,
-anchor = north west,
-clip = false,
+name=sigmoid fit,
+%at={(sigmoid model.below south west)}, yshift=-0.5cm,
+anchor=north west,
+clip=false,
 width=\figurewidth,
 height=\figureheight,
 scale only axis,
-scaled y ticks = base 10:-3,
-xmin=-15,
-xmax=15,
+scaled y ticks=base 10:0,
 ymin=0,
 ymax=2300,
-axis y line = left,
-axis x line = bottom,
+% axis y line=left,
+% axis x line=bottom,
 xlabel=$t$,
-every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
-every tick/.style={color=black, thin},
-xtick = {-10, 0, 10},
-legend style={legend pos = north west}
+% ylabel=$V$,
+% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
 ]
 
 \addplot [
@@ -201,7 +164,7 @@ table[row sep=crcr]{
 6.835 1712.925\\
 7.341 1724.045\\
 };
-\addlegendentry{\small Model $\mathfrak{S}(x)$}
+\addlegendentry{Model $\mathfrak{S}(t)$}
 
 \addplot [
 color=black,
@@ -270,7 +233,7 @@ table[row sep=crcr]{
 14.430 1561.301\\
 14.936 1536.410\\
 };
-\addlegendentry{\small Data $V(x)$}
+\addlegendentry{Data $V(t)$}
 
 \draw[color=mycolor2, thick]
 % -1.265, 731.693
@@ -284,7 +247,7 @@ table[row sep=crcr]{
 	(axis cs: 5.341, 731.693) -- (axis cs: 9.341, 731.693);
 
 \addplot [
-color=mycolor1,
+infl,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -301,7 +264,7 @@ table[row sep=crcr]{
 
 \draw[dashed] (axis cs: -4.303, 316.491) -- (axis cs: -4.303, 0) node[below, pos=1.0, anchor=north]{$x_l$};
 \addplot [
-color=mycolor3,
+min,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -314,7 +277,7 @@ table[row sep=crcr]{
 
 \draw[dashed] (axis cs: 7.341, 731.693) -- (axis cs: 7.341, 0) node[below, pos=1.0, anchor=north]{$x_r$};
 \addplot [
-color=mycolor4,
+max,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -332,72 +295,27 @@ table[row sep=crcr]{
 \draw[latex-latex] 
 	(axis cs: -4.303, 316.491) -- (axis cs: -4.303, 731.693) 
 	node[left, midway]{$a_l$};
-
-
 \end{axis}
-
-% \begin{axis}[
-% name = gauss model,
-% small,
-% %at = {(sigmoid fit.below south west)}, yshift=-0.5cm,
-% anchor = north west,
-% width=\figurewidth,
-% height=\figureheight,
-% scale only axis,
-% axis x line = middle,
-% axis y line = left,
-% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
-% every axis y label/.style={at={(current axis.north west)},anchor=south east},
-% every tick/.style={color=black, thin},
-% extra x ticks={0},
-% extra x tick style={grid=major,
-% 					%tick label style={font=\small},
-% 					color=black, thin
-% 					},
-% xtick = {-2, 0, 2, 4},
-% xmin = -2.5,
-% xmax = 5.5,
-% xlabel = {$x$},
-% ymin = 0,
-% ymax = 3,
-% ytick = {0, 1, 2},
-% ylabel = {$\mathfrak{G}(x)$},
-% ]
-% %xm = 3, ym = 2.5, sl = 1, sr = 0.5, yl = 0.5, yr = 1 
-% \addplot[domain=-2.5:3, samples=100, color=blue, line width=1.0pt]{exp(-1/2*((x-3)/1.5)^2)*(2.5-0.5)+0.5};
-% \addplot[domain=3:5.5, samples=50, color=blue, line width=1.0pt]{exp(-1/2*((x-3)/0.5)^2)*(2.5-1)+1};
-% %\draw (axis cs: -5, 2) -- (axis cs: 5, 2);
-% %\draw (axis cs: 1, 3) -- (axis cs: 1, 0);
-% \draw[latex-latex] (axis cs: 3, 0) -- (axis cs: 3, 2.5) node[right, pos=0.4]{$y_m$};
-% \draw[latex-latex] (axis cs: 3, 2.5) -- (axis cs: 0, 2.5) node[above, midway]{$x_m$};
-% \draw[latex-latex] (axis cs: 3, 1.713) -- (axis cs: 1.5, 1.713) node[below, midway]{$\sigma_l$};
-% \draw[latex-latex] (axis cs: 3, 1.91) -- (axis cs: 3.5, 1.91) node[below, midway]{$\sigma_r$};
-% \draw[latex-latex] (axis cs: -2, 0) -- (axis cs: -2, 0.5) node[right, midway]{$y_l$};
-% \draw[latex-latex] (axis cs: 5, 0) -- (axis cs: 5, 1) node[right, midway]{$y_r$};
-% %\addplot{x^2}
-% \end{axis}
 
 \begin{axis}[%
 small,
-name = gauss fit,
-at = {(sigmoid fit.below south west)}, yshift=-0.5cm,
-anchor = north west,
+name=gauss fit,
+at={(sigmoid fit.below south west)}, yshift=-0.5cm,
+anchor=north west,
 clip=false,
 width=\figurewidth,
 height=\figureheight,
 scale only axis,
-scaled y ticks = base 10:4,
-xmin=-15,
-xmax=15,
+scaled y ticks=base 10:0,
 ymin=0,
-ymax=0.00012,
-axis y line = left,
-axis x line = bottom,
+ymax=0.0001,
+% axis y line=left,
+% axis x line=bottom,
 xlabel=$t$,
-every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
-every tick/.style={color=black, thin},
-xtick = {-10, 0, 10},
-legend style={legend pos = north west}
+% ylabel=$V$,
+% every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+% every tick/.style={color=black, thin},
+% xtick={-10, 0, 10},
 ]
 
 \addplot [
@@ -405,19 +323,19 @@ color=mycolor4,
 solid,
 ultra thick
 ]
-table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\modelradical};
-\addlegendentry{\small Model $\mathfrak{G}(x)$}
+table[x=x, y expr=\thisrow{y}*0.6 + 0.2e-4]{\modelradical};
+\addlegendentry{Model $\mathfrak{G}(t)$}
 
 \addplot [
 color=black,
 solid,
 thick
 ]
-table[x = x, y expr = \thisrow{y}*0.6 + 0.2e-4]{\dataradical};
-\addlegendentry{\small Data $V(x)$}
+table[x=x, y expr=\thisrow{y}*0.6 + 0.2e-4]{\dataradical};
+\addlegendentry{Data $V(t)$}
 
 \addplot [
-color=mycolor4,
+max,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -433,7 +351,7 @@ table[row sep=crcr]{
 	node[below, pos=1.0, anchor=north]{$x_m$};
 
 \addplot [
-color=mycolor1,
+min,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -449,7 +367,7 @@ table[row sep=crcr]{
 	node[below, pos=1.0, anchor=north]{$x_l$};
 
 \addplot [
-color=mycolor1,
+min,
 only marks,
 mark=*,
 mark options={draw=black},
@@ -475,4 +393,4 @@ table[row sep=crcr]{
 %0.253164 7.515031e-05
 
 \end{axis}
-\end{tikzpicture}
+\end{tikzpicture}%

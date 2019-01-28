@@ -15,6 +15,7 @@
 	ytick align=outside,
 	xtick style={draw=none},
 	xtick = data,
+    every tick/.style={color=black, thin},
 	x tick label style={rotate=45,anchor=north east, yshift=0.18cm, xshift=0.2cm},
 	axis x line*=bottom,
 	enlarge x limits=0.15,
@@ -23,15 +24,36 @@
         },
     clip=false
 }}
+
+\begin{axis}[
+	myBar,
+	name = axis_time,
+	ymin=0,
+	ymax=15.4,
+	% xlabel=$M$,
+	ylabel={run time [\si{\second}]},
+	% symbolic x coords = {$10$, $10^2$, $10^3$, $10^4$},
+	axis y line*=left,
+	hide x axis
+]
+\addplot[white]
+	coordinates {(0,0) (1,15.4)};
+	forget plot;
+% \label{plt:runtime}
+\end{axis}
+
 \begin{axis}[
 	myBar,
 	name = m_time,
+	at = {(axis_time.west)},
+	xshift = 0.3cm,
+	anchor=west,
 	ymin=0,
 	ymax=15.4,
 	% xlabel=$M$,
 	ylabel={run time [\si{\second}]},
 	symbolic x coords = {$10$, $10^2$, $10^3$, $10^4$},
-	axis y line*=left
+	hide y axis
 ]
 \addplot[mycolor1, fill=mycolor1]
 	coordinates {($10$,5) ($10^2$,6) ($10^3$,8.4) ($10^4$,15.4)};
@@ -72,17 +94,36 @@
 %
 \begin{axis}[
 	myBar,
-	name = m_lines,
-	at = {(m_time.below south west)},
-	yshift = -1cm,
+	name = axis_lines,
+	at = {(axis_time.below south west)},
+	yshift = -1.5cm,
 	anchor = north west,
+	ymin=0,
+	ymax=1100,
+	ylabel = {\# lines},
+	restrict y to domain*={0:1300},
+	% xlabel=$M$,
+	% symbolic x coords = {$10$, $10^{2}$, $10^{3}$, $10^{4}$},
+	axis y line*=left,
+	hide x axis
+]
+\addplot[white]
+	coordinates {(0,0) (1,1300)};
+\end{axis}
+%
+\begin{axis}[
+	myBar,
+	name = m_lines,
+	at = {(axis_lines.west)},
+	xshift = 0.3cm,
+	anchor = west,
 	ymin=0,
 	ymax=1100,
 	ylabel = {\# lines},
 	restrict y to domain*={0:1300},
 	xlabel=$M$,
 	symbolic x coords = {$10$, $10^{2}$, $10^{3}$, $10^{4}$},
-	axis y line*=left
+	hide y axis
 ]
 \addplot[yellowdraw,fill=yellowdraw]
 	coordinates {($10$,0) ($10^{2}$,186) ($10^{3}$,440) ($10^{4}$,693)};

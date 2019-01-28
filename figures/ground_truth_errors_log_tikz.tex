@@ -15,10 +15,12 @@
     ylabel={Error},
     ylabel near ticks,
     extra y ticks=0,
-    extra y tick style={grid=major}
+    extra y tick style={grid=major},
+    every tick/.style={color=black, thin},
 ]
 \addplot +[
     mycolor1,
+    thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
@@ -33,6 +35,7 @@
 
 \addplot +[
     mycolor1,
+    thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
@@ -47,6 +50,7 @@
 
 \addplot +[
     mycolor1,
+    thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
@@ -61,6 +65,7 @@
 
 \addplot +[
     mycolor1,
+    thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,

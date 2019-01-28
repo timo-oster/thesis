@@ -12,15 +12,16 @@
     \pgfplotsset{
         small,
         title style={
-            font=\bfseries\small,
+            font=\scshape,
             at={(0.5, 1)},
             anchor=north,
             inner sep=0pt,
-            yshift=-10pt,
+            yshift=-3mm,
         },
-        width=0.98\figurewidth,
+        width=0.9\figurewidth,
         height=0.6\figurewidth,
         tick align=inside,
+        every tick/.style={color=black, thin},
         tick pos=both,
         tick scale binop=\times,
         every y tick scale label/.style={
@@ -49,8 +50,9 @@
             at={(xticklabel* cs:1)},
             anchor=south east,
             inner sep=0pt,
-            yshift=2pt
+            yshift=4pt
         },
+        xtick={0, 5000, 10000, 15000, 20000},
         scaled y ticks=base 10:-5,
         scaled x ticks=base 10:-3,
         axis y line*=right,
@@ -200,13 +202,15 @@
 
     \matrix[
         anchor=north west,
-        draw,
-        fill=white,
+        % draw,
+        % fill=white,
         inner sep=0.2em,
         row sep=0.1em,
-        column sep=0.1em
+        column sep=0.1em,
+        xshift=2mm,
+        yshift=-2mm
       ]
-      at ($(spherical_np.north west) + (0.1, -0.1)$){
+      at (spherical_np.north west){
         \draw[t_low] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_low] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.02$}; \\
         \draw[t_mid] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_mid] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.05$}; \\
         \draw[t_high] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_high] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.1$}; \\
@@ -224,6 +228,7 @@
         ylabel={\color{nlowcolor}{$N$}},
         xlabel={Iterations},
         xtick={0, 1000, 2000, 3000},
+        ytick={0, 1000000, 2000000, 3000000},
         extra x ticks={1836, 2664, 3616},
         extra x tick style={
             grid=major,
@@ -357,18 +362,20 @@
                 x index=0,
                 y expr=\thisrowno{2}/1000,
             ] {figures/hawkes_timings.txt};
-        \addlegendentry{Base};
+        % \addlegendentry{Base};
     \end{axis}
 
     \matrix[
         anchor=north west,
-        draw,
-        fill=white,
+        % draw,
+        % fill=white,
         inner sep=0.2em,
         row sep=0.1em,
-        column sep=0.1em
+        column sep=0.1em,
+        xshift=2mm,
+        yshift=-2mm
       ]
-      at ($(hawkes_np.north west) + (0.1, -0.1)$){
+      at (hawkes_np.north west){
         \draw[t_low] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_low] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.04$}; \\
         \draw[t_mid] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_mid] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.08$}; \\
         \draw[t_high] (0,0.05cm) -- (0.4cm, 0.05cm); \draw[n_high] (0, -0.05cm) -- (0.4cm, -0.05cm); & \node[anchor=west, font=\small] {$\varepsilon_\shortparallel = 0.12$}; \\

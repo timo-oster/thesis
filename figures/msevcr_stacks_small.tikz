@@ -5,7 +5,7 @@
 \pgfplotstableread{figures/mse3_spiht.csv}\spihtII
 \pgfplotstableread{figures/mse2.csv}\dataIII
 \pgfplotstableread{figures/syngas_100_spiht_errs.csv}\spihtIII
-
+%
 % \pgfplotstableread{
 % 	q\\
 % 	240\\
@@ -19,16 +19,38 @@
 % 	2\\
 % 	1
 % }\densities
-
+%
 % \pgfplotstableset{
 % 	create on use/densities/.style={create col/copy column from table={\densities}{[index] 0}}
 % }
-
-\begin{tikzpicture}
+%
+\begin{tikzpicture}[
+    line/.style={thick},
+    O/.style={color=mycolor1},
+    H/.style={color=mycolor2},
+    CO2/.style={color=mycolor3},
+    H2O2/.style={color=mycolor4},
+    HCO/.style={color=mycolor5},
+    linear/.style={line, solid},
+    knn/.style={line, dashed},
+    downsampling/.style={line, dotted},
+    spiht/.style={line, dashdotted},
+]
 
 \pgfplotsset{
     small,
-    legend style={font=\small},
+    legend style={
+        font=\small,
+        draw=none,
+        legend pos = north west,
+        legend cell align=left},
+    title style={
+        at={(0.5, 1)},
+        anchor=north,
+        inner sep=0pt,
+        yshift=-3mm,
+    },
+    every tick/.style={color=black, thin},
 	width=\figurewidth,
 	height=\figureheight,
 	scale only axis,
@@ -36,463 +58,266 @@
 }
 
 \begin{axis}[%
-name = syngas1,
-axis y line* = left,
-axis x line* = box,
-xmin=7.63070945311032,
-xmax=1037.11379310345,
-xmode=log,
-xminorticks=true,
-every tick/.style={color=black, thin},
-ymin=0,
-ymax=0.06,%0.35119633835835,
-ylabel={$E^V_\text{reconst}$},
-every axis y label/.style = {at={(ticklabel cs:0.5)},rotate=90,anchor=center},
-ytick={0,0.015,0.03},
-scaled y ticks = false,
-yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
-		 \textcolor{mycolor2}{H},
-		 \textcolor{mycolor1}{O}},
-ymajorgrids,
-extra description/.code={
-		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
-        \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
-        \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
-        \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
-        },
-legend style={legend pos = north west}
+    name = syngas1,
+    title={\colorbox{white}{\textsc{Syngas I}}},
+    axis y line* = left,
+    axis x line* = box,
+    xmin=7.63070945311032,
+    xmax=1037.11379310345,
+    xmode=log,
+    xminorticks=true,
+    ymin=0,
+    ymax=0.08,%0.35119633835835,
+    ylabel={$E^V_\text{reconst}$},
+    every axis y label/.style={
+        at={(ticklabel cs:0.5)},rotate=90,anchor=center},
+    ytick={0,0.015,0.03},
+    scaled y ticks = false,
+    yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
+    		 \textcolor{mycolor2}{H},
+    		 \textcolor{mycolor1}{O}},
+    ymajorgrids,
+    extra description/.code={
+    		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
+            \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
+            \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
+            \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
+            },
 ]
-% dummy plots for legend
-\addplot[color=black,
-solid,
-line width=1.0pt
-]
-coordinates{
-	(10, 0)
-	(11, 0)
-};
-\addlegendentry{linear interp.}
+    % dummy plots for legend
+    \addplot[linear]
+    coordinates{
+    	(10, 0)
+    	(11, 0)
+    };
+    \addlegendentry{linear interp.}
+    \addplot[knn]
+    coordinates{
+    	(10, 0)
+    	(11, 0)
+    };
+    \addlegendentry{k{\otherscshape{}ann} interp.}
+    \addplot[downsampling]
+    coordinates{
+    	(10, 0)
+    	(11, 0)
+    };
+    \addlegendentry{downsampling}
+    \addplot[spiht]
+    coordinates{
+    	(10, 0)
+    	(11, 0)
+    };
+    \addlegendentry{{\otherscshape 3d}-{\otherscshape spiht}}
 
-\addplot[color=black,
-dashed,
-line width=1.0pt
-]
-coordinates{
-	(10, 0)
-	(11, 0)
-};
-\addlegendentry{k{\otherscshape{}ann} interp.}
+    \addplot [CO2, linear, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataI};
+    \addplot [CO2, knn, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataI};
+    \addplot [CO2, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataI};
+    \addplot [CO2, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtI};
 
-\addplot[color=black,
-dotted,
-line width=1.0pt
-]
-coordinates{
-	(10, 0)
-	(11, 0)
-};
-\addlegendentry{downsampling}
+    \addplot [H, linear, forget plot]
+        table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataI};
+    \addplot [H, knn, forget plot]
+        table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataI};
+    \addplot [H, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataI};
+    \addplot [H, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{H}+0.015]{\spihtI};
 
-\addplot[color=black,
-dashdotted,
-line width=1.0pt
-]
-coordinates{
-	(10, 0)
-	(11, 0)
-};
-\addlegendentry{{\otherscshape 3d}-{\otherscshape spiht}}
-
-\addplot [
-color=mycolor3,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataI};
-\addplot [
-color=mycolor3,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataI};
-\addplot [
-color=mycolor3,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataI};
-\addplot [
-color=mycolor3,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtI};
-
-
-\addplot [
-color=mycolor2,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataI};
-\addplot [
-color=mycolor2,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataI};
-\addplot [
-color=mycolor2,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataI};
-\addplot [
-color=mycolor2,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H}+0.015]{\spihtI};
-
-\addplot [
-color=mycolor1,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_lin}+0.03]{\dataI};
-\addplot [
-color=mycolor1,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_knn}+0.03]{\dataI};
-\addplot [
-color=mycolor1,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_down}+0.03]{\dataI};
-\addplot [
-color=mycolor1,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O}+0.03]{\spihtI};
+    \addplot [O, linear, forget plot]
+        table[x=compr, y expr=\thisrow{O_lin}+0.03]{\dataI};
+    \addplot [O, knn, forget plot]
+        table[x=compr, y expr=\thisrow{O_knn}+0.03]{\dataI};
+    \addplot [O, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{O_down}+0.03]{\dataI};
+    \addplot [O, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{O}+0.03]{\spihtI};
 
 \end{axis}
 
 \begin{axis}[% --- CF
-        xmin=\XMIN,
-        xmax=\XMAX,
-        ymin=\YMIN,
-        ymax=\YMAX,
-        ticklabel pos=right,        
-		axis y line* = right,
-		axis x line = none,
-		ytick={0,0.015,0.03, 0.045},
-		scaled y ticks = false,
-		yticklabel style = {/pgf/number format/precision=4,
-							/pgf/number format/fixed}
-    ]
+    xmin=\XMIN,
+    xmax=\XMAX,
+    ymin=\YMIN,
+    ymax=\YMAX,
+    ticklabel pos=right,
+	axis y line* = right,
+	axis x line = none,
+	ytick={0,0.015,0.03, 0.045, 0.06, 0.075},
+	scaled y ticks = false,
+	yticklabel style = {/pgf/number format/precision=4,
+						/pgf/number format/fixed}
+]
 \end{axis}
 
 \begin{axis}[%
-name = syngas2,
-at = {(syngas1.below south west)}, yshift=-0.2cm,
-height = 0.87\figureheight,
-anchor = north west,
-axis y line* = left,
-axis x line* = box,
-xmode=log,
-xmin=17.276,
-xmax=2120.3,
-xminorticks=true,
-every tick/.style={color=black, thin},
-every axis x label/.style = {at={(ticklabel cs:0.5)},anchor=center},
-ymin=0,
-ymax=0.07,%0.35119633835835,
-ylabel={$E^V_\text{reconst}$},
-every axis y label/.style = {at={(ticklabel cs:0.5)},rotate=90,anchor=center},
-ytick={0,0.015,0.03},
-scaled y ticks = false,
-yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
-		 \textcolor{mycolor2}{H},
-		 \textcolor{mycolor1}{O}},
-ymajorgrids,
-extra description/.code={
-		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
-        \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
-        \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
-        \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
-        },
-%legend style={legend pos = north west}
+    name = syngas2,
+    title={\colorbox{white}{\textsc{Syngas II}}},
+    at = {(syngas1.below south west)},
+    yshift=-0.2cm,
+    height = 0.87\figureheight,
+    anchor = north west,
+    axis y line* = left,
+    axis x line* = box,
+    xmode=log,
+    xmin=17.276,
+    xmax=2120.3,
+    xminorticks=true,
+    every axis x label/.style={
+        at={(ticklabel cs:0.5)},anchor=center},
+    ymin=0,
+    ymax=0.08,%0.35119633835835,
+    ylabel={$E^V_\text{reconst}$},
+    every axis y label/.style={
+        at={(ticklabel cs:0.5)},rotate=90,anchor=center},
+    ytick={0,0.015,0.03},
+    scaled y ticks = false,
+    yticklabels={\textcolor{mycolor3}{$\text{CO}_2$},
+        		 \textcolor{mycolor2}{H},
+        		 \textcolor{mycolor1}{O}},
+    ymajorgrids,
+    extra description/.code={
+    		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
+            \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
+            \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
+            \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
+            },
+    %legend style={legend pos = north west}
 ]
 
-\addplot [
-color=mycolor3,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataII};
-\addplot [
-color=mycolor3,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataII};
-\addplot [
-color=mycolor3,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataII};
-\addplot [
-color=mycolor3,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtII};
+    \addplot [CO2, linear, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_lin}+0.00]{\dataII};
+    \addplot [CO2, knn, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_knn}+0.00]{\dataII};
+    \addplot [CO2, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_down}+0.00]{\dataII};
+    \addplot [CO2, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{CO2}+0.00]{\spihtII};
 
-\addplot [
-color=mycolor2,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataII};
-\addplot [
-color=mycolor2,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataII};
-\addplot [
-color=mycolor2,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataII};
-\addplot [
-color=mycolor2,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H}+0.015]{\spihtII};
+    \addplot [H, linear, forget plot]
+        table[x=compr, y expr=\thisrow{H_lin}+0.015]{\dataII};
+    \addplot [H, knn, forget plot]
+        table[x=compr, y expr=\thisrow{H_knn}+0.015]{\dataII};
+    \addplot [H, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{H_down}+0.015]{\dataII};
+    \addplot [H, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{H}+0.015]{\spihtII};
 
-\addplot [
-color=mycolor1,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_lin}+0.03]{\dataII};
-\addplot [
-color=mycolor1,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_knn}+0.03]{\dataII};
-\addplot [
-color=mycolor1,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O_down}+0.03]{\dataII};
-\addplot [
-color=mycolor1,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{O}+0.03]{\spihtII};
+    \addplot [O, linear, forget plot]
+        table[x=compr, y expr=\thisrow{O_lin}+0.03]{\dataII};
+    \addplot [O, knn, forget plot]
+        table[x=compr, y expr=\thisrow{O_knn}+0.03]{\dataII};
+    \addplot [O, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{O_down}+0.03]{\dataII};
+    \addplot [O, spiht, forget plot]
+        table[x=compr, y expr=\thisrow{O}+0.03]{\spihtII};
 
 \end{axis}
 
 \begin{axis}[% --- CF
-		at = {(syngas1.below south west)}, yshift=-0.2cm,
-		height = 0.87\figureheight,
-		anchor = north west,	
-        xmin=\XMIN,
-        xmax=\XMAX,
-        ymin=\YMIN,
-        ymax=\YMAX,
-        ticklabel pos=right,        
-		axis y line* = right,
-		axis x line = none,
-		ytick={0,0.015,0.03, 0.045, 0.06},
-		scaled y ticks = false,
-		yticklabel style = {/pgf/number format/precision=4,
-							/pgf/number format/fixed}
-    ]
+	at = {(syngas1.below south west)},
+    yshift=-0.2cm,
+	height = 0.87\figureheight,
+	anchor = north west,
+    xmin=\XMIN,
+    xmax=\XMAX,
+    ymin=\YMIN,
+    ymax=\YMAX,
+    ticklabel pos=right,
+	axis y line* = right,
+	axis x line = none,
+	ytick={0,0.015,0.03, 0.045, 0.06, 0.075},
+	scaled y ticks = false,
+	yticklabel style = {/pgf/number format/precision=4,
+						/pgf/number format/fixed}
+]
 \end{axis}
 
 \begin{axis}[%
-name = syngas3,
-at = {(syngas2.below south west)}, yshift=-0.2cm,
-height = 0.87\figureheight,
-anchor = north west,
-axis y line* = left,
-axis x line* = box,
-xmin=55.6919459459459,
-xmax=3815.92962962963,
-xmode=log,
-xminorticks=true,
-every tick/.style={color=black, thin},
-xlabel={$c$},
-every axis x label/.style = {at={(ticklabel cs:0.5)},anchor=center},
-ymin=0,
-ymax=0.08,
-ylabel={$E^V_\text{reconst}$},
-every axis y label/.style = {at={(ticklabel cs:0.5)},rotate=90,anchor=center},
-ytick={0,0.015,0.03},
-scaled y ticks = false,
-yticklabels={
-		 \textcolor{mycolor5}{HCO},
-		 \textcolor{mycolor4}{$\text{H}_{2}\text{O}_2$},
-		 \textcolor{mycolor3}{$\text{CO}_2$},},
-ymajorgrids,
-extra description/.code={
-		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
-        \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
-        \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
-        \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
-        },
-%legend style={legend pos = north west}
+    name = syngas3,
+    title={\colorbox{white}{\textsc{Syngas III}}},
+    at = {(syngas2.below south west)},
+    yshift=-0.2cm,
+    height = 0.87\figureheight,
+    anchor = north west,
+    axis y line* = left,
+    axis x line* = box,
+    xmin=55.6919459459459,
+    xmax=3815.92962962963,
+    xmode=log,
+    xminorticks=true,
+    xlabel={$c$},
+    every axis x label/.style={
+        at={(ticklabel cs:0.5)},anchor=center},
+    ymin=0,
+    ymax=0.08,
+    ylabel={$E^V_\text{reconst}$},
+    every axis y label/.style={
+        at={(ticklabel cs:0.5)},rotate=90,anchor=center},
+    ytick={0,0.015,0.03},
+    scaled y ticks = false,
+    yticklabels={
+    		 \textcolor{mycolor5}{HCO},
+    		 \textcolor{mycolor4}{$\text{H}_{2}\text{O}_2$},
+    		 \textcolor{mycolor3}{$\text{CO}_2$},},
+    ymajorgrids,
+    extra description/.code={
+    		\xdef\XMIN{\pgfkeysvalueof{/pgfplots/xmin}}
+            \xdef\XMAX{\pgfkeysvalueof{/pgfplots/xmax}}
+            \xdef\YMIN{\pgfkeysvalueof{/pgfplots/ymin}}
+            \xdef\YMAX{\pgfkeysvalueof{/pgfplots/ymax}}
+            },
+    %legend style={legend pos = north west}
 ]
+    \addplot [CO2, linear, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_lin}-0.01]{\dataIII};
+    \addplot [CO2, knn, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_knn}-0.01]{\dataIII};
+    \addplot [CO2, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{CO2_down}-0.01]{\dataIII};
+    \addplot [CO2, spiht, forget plot]
+        table[x=r, y expr=\thisrow{CO2}+0.03]{\spihtIII};
 
-\addplot [
-color=mycolor5,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y=HCO_lin]{\dataIII};
+    \addplot [H2O2, linear, forget plot]
+        table[x=compr, y expr=\thisrow{H2O2_lin}-0.005]{\dataIII};
+    \addplot [H2O2, knn, forget plot]
+        table[x=compr, y expr=\thisrow{H2O2_knn}-0.005]{\dataIII};
+    \addplot [H2O2, downsampling, forget plot]
+        table[x=compr, y expr=\thisrow{H2O2_down}-0.005]{\dataIII};
+    \addplot [H2O2, spiht, forget plot]
+        table[x=r, y expr=\thisrow{H2O2}+0.015]{\spihtIII};
 
-\addplot [
-color=mycolor4,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H2O2_lin}-0.005]{\dataIII};
-
-\addplot [
-color=mycolor3,
-solid,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_lin}-0.01]{\dataIII};
-
-\addplot [
-color=mycolor5,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y=HCO_knn]{\dataIII};
-
-\addplot [
-color=mycolor4,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H2O2_knn}-0.005]{\dataIII};
-
-\addplot [
-color=mycolor3,
-dashed,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_knn}-0.01]{\dataIII};
-
-\addplot [
-color=mycolor5,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y=HCO_down]{\dataIII};
-
-\addplot [
-color=mycolor4,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{H2O2_down}-0.005]{\dataIII};
-
-\addplot [
-color=mycolor3,
-dotted,
-line width=1.0pt,
-forget plot
-]
-table[x=compr, y expr=\thisrow{CO2_down}-0.01]{\dataIII};
-
-\addplot [
-color=mycolor5,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=r, y=HCO]{\spihtIII};
-
-\addplot [
-color=mycolor4,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=r, y expr=\thisrow{H2O2}+0.015]{\spihtIII};
-
-\addplot [
-color=mycolor3,
-dashdotted,
-line width=1.0pt,
-forget plot
-]
-table[x=r, y expr=\thisrow{CO2}+0.03]{\spihtIII};
+    \addplot [HCO, linear, forget plot]
+        table[x=compr, y=HCO_lin]{\dataIII};
+    \addplot [HCO, knn, forget plot]
+        table[x=compr, y=HCO_knn]{\dataIII};
+    \addplot [HCO, downsampling, forget plot]
+        table[x=compr, y=HCO_down]{\dataIII};
+    \addplot [HCO, spiht, forget plot]
+        table[x=r, y=HCO]{\spihtIII};
 \end{axis}
+
 \begin{axis}[% --- CF
-		at = {(syngas2.below south west)}, yshift=-0.2cm,
-		anchor = north west,
-		height = 0.87\figureheight,
-        xmin=\XMIN,
-        xmax=\XMAX,
-        ymin=\YMIN,
-        ymax=\YMAX,
-        ticklabel pos=right,        
-		axis y line* = right,
-		axis x line = none,
-		ytick={0,0.015,0.03, 0.045, 0.06},
-		scaled y ticks = false,
-		yticklabel style = {/pgf/number format/precision=4,
-							/pgf/number format/fixed}
-    ]
+	at = {(syngas2.below south west)},
+    yshift=-0.2cm,
+	anchor = north west,
+	height = 0.87\figureheight,
+    xmin=\XMIN,
+    xmax=\XMAX,
+    ymin=\YMIN,
+    ymax=\YMAX,
+    ticklabel pos=right,
+	axis y line* = right,
+	axis x line = none,
+	ytick={0,0.015,0.03, 0.045, 0.06, 0.075},
+	scaled y ticks = false,
+	yticklabel style = {/pgf/number format/precision=4,
+						/pgf/number format/fixed}
+]
 \end{axis}
 
 \end{tikzpicture}%

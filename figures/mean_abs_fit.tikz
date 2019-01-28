@@ -1,56 +1,52 @@
-%
-%
-% This file was created by matlab2tikz v0.4.0.
-% Copyright (c) 2008--2013, Nico Schlömer <nico.schloemer@gmail.com>
-% All rights reserved.
 % 
-% The latest updates can be retrieved from
-%   http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz
-% where you can also make suggestions and rate matlab2tikz.
-% 
-\begin{tikzpicture}
+\begin{tikzpicture}%
 
 \begin{axis}[%
-small,
-width=\figurewidth,
-height=\figureheight,
-area legend,
-legend style={at={(0.98, 1.15)}, anchor=north east, legend columns=1, font=\small},
-scale only axis,
-axis y line = left,
-axis x line* = bottom,
-xmin=0.5,
-xmax=13.5,
-ylabel={$E^V_{\text{fit}}$},
-every axis y label/.style={at={(current axis.above origin)},anchor=south east},
-scaled y ticks = false,
-yticklabel style = {/pgf/number format/precision=3, /pgf/number format/fixed},
-ybar,
-ymin=0,
-ymax=0.085,
-xtick={1,2,3,4,5,6,7,8,9,10,11,12,13},
-xticklabels={OH,\ce{O2},O,\ce{HO2},HCO,\ce{H2O2},\ce{H2O},\ce{H2},H,\ce{CO2},CO,\ce{CH2O},T},
-every tick/.style={color=black, thin},
-x tick label style = {rotate=90},
+    small,
+    width=\figurewidth,
+    height=\figureheight,
+    % area legend,
+    legend style={
+        legend pos=north east,
+        draw=none,
+        font=\small,
+        legend cell align=left},
+    scale only axis,
+    % axis y line = left,
+    % axis x line* = bottom,
+    xmin=0.5,
+    xmax=13.5,
+    ylabel={$E^V_{\text{fit}}$},
+    % every axis y label/.style={at={(current axis.above origin)},anchor=south east},
+    scaled y ticks = false,
+    yticklabel style = {/pgf/number format/precision=3, /pgf/number format/fixed},
+    ybar,
+    ymin=0,
+    ymax=0.085,
+    xtick={1,2,3,4,5,6,7,8,9,10,11,12,13},
+    xticklabels={OH,\ce{O2},O,\ce{HO2},HCO,\ce{H2O2},\ce{H2O},\ce{H2},H,\ce{CO2},CO,\ce{CH2O},T},
+    every tick/.style={color=black, thin},
+    x tick label style = {rotate=90},
+    xtick pos=bottom,
 ]
-\addplot[ybar,mycolor1,bar width=0.01\figurewidth,fill=mycolor1] 
+\addplot[ybar,mycolor1,bar width=0.01\figurewidth,fill=mycolor1]
 coordinates
-{(1, 0.0160108368686018)
-(2, 0.0179611197947222)
-(3, 0.0512353285580825)
-(4, 0.0280660639669209)
-(5, 0.0216726758682414)
-(6, 0.0468526577521646)
-(7, 0.0159317115163465)
-(8, 0.0185940722130954)
-(9, 0.0297375593011707)
-(10, 0.019667950937967)
-(11, 0.020793157135868)
-(12, 0.000950809666194)
-(13, 0.030076831585527)};
+{(1, 0.01601)
+(2, 0.01796)
+(3, 0.05123)
+(4, 0.02806)
+(5, 0.02167)
+(6, 0.04685)
+(7, 0.01593)
+(8, 0.01859)
+(9, 0.02973)
+(10, 0.0196)
+(11, 0.0207)
+(12, 0.0009)
+(13, 0.0300)};
 \addlegendentry{\textsc{Syngas I}}
 
-\addplot[ybar,mycolor2,bar width=0.01\figurewidth,fill=mycolor2] 
+\addplot[ybar,mycolor2,bar width=0.01\figurewidth,fill=mycolor2]
 coordinates
 {(1, 0.0235)
 (2, 0.0165)
@@ -72,11 +68,11 @@ coordinates
 {
 (10, 0.0226)
 (6, 0.0136)
-(5, 0.0068)	
+(5, 0.0068)
 };
 \addlegendentry{\textsc{Syngas III}}
 
-% \addplot[ybar,mycolor3,bar width=0.01\figurewidth,fill=mycolor3] 
+% \addplot[ybar,mycolor3,bar width=0.01\figurewidth,fill=mycolor3]
 % coordinates
 % {
 % (13, 0.036749)
@@ -94,4 +90,5 @@ coordinates
 % \addlegendentry{\textsc{Hydrogen}}
 
 \end{axis}
+
 \end{tikzpicture}%

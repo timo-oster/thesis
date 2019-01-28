@@ -66,7 +66,8 @@ those lines, and how these profiles are then approximated by simple models.
 	shapes can occur (bottom right box). Seeding density is dependent on the
 	surface curvature (see green vs. red circle). }
 	\label{fig:flamecrossing}
-	\Todo[inline]{Fix description, possibly change color map}
+	\Todo[inline]{Fix description, possibly change color map, annotate normals
+	$\vn$ and label $t$ on plots}
 \end{figure}
 %
 Commonly, the flame surface in premixed combustion is defined as the
@@ -144,7 +145,7 @@ number of seed points and balances size vs. quality.
 %
 Once the points $\vp_i$ are seeded, profiles of all variables are sampled
 at regular intervals $t_j$ along lines $\vp_i(t_j)=\vp_i + t_j \cdot
-\vr_i$, with $||\vr_i|| = 1$ (Figure~\ref{fig:flamecrossing}).
+\vr_i$, with $||\vr_i|| = 1$ \Todo{use $\vn$ as normal} (Figure~\ref{fig:flamecrossing}).
 %
 % According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
 % size.
@@ -206,13 +207,13 @@ the others.
 \label{ssub:model_for_reactants_products}
 %
 Sigmoidal shapes are commonly expressed with the logistic
-function $1/(1+e^{-x})$, which we extend with parameters $\gamma$, adjusting
+function $1/(1+e^{-t})$, which we extend with parameters $\gamma$, adjusting
 the slope at the inflection and $a$, determining the limits of the function at
 positive/negative infinity:
 %
 \begin{equation*}
-	\mathfrak{s}(x,a,\gamma)
-		= \frac{2a}{ 1 + e^{ (-2\frac{\gamma x}{a}) } } - a \text{ .}
+	\mathfrak{s}(t,a,\gamma)
+		= \frac{2a}{ 1 + e^{ (-2\frac{\gamma t}{a}) } } - a \text{ .}
 \end{equation*}
 %
 While this function can roughly approximate the profiles of reactants and
@@ -223,18 +224,20 @@ point (Figure~\ref{fig:models}, top).
 %
 \begin{equation*}
 %	\begin{aligned}
-		\mathfrak{S}(x, a_l, a_r, \gamma, x_m, y_m) =  
+		\mathfrak{S}(t, a_l, a_r, \gamma, x_m, y_m) =
 		\begin{cases}
-			\mathfrak{s}(x, a_l, \gamma) + y_m, &\text{if }  x \leq x_m\\
-			\mathfrak{s}(y, a_r, \gamma) + y_m, & \text{if }  x > x_m\\
+			\mathfrak{s}(t, a_l, \gamma) + y_m, &\text{if }  t \leq x_m\\
+			\mathfrak{s}(t, a_r, \gamma) + y_m, & \text{if }  t > x_m\\
 		\end{cases}\\
 %		&\text{with } \sgn(\gamma) = \sgn(a_r) = \sgn(a_l) \text{ ,}
 %	\end{aligned}
 \end{equation*}
 %
-where $(x_m, y_m)$ is the location of the inflection point, $\gamma$ is the
-slope at the inflection and $y_m-a_l$ and $y_m+a_r$ are the limits of the
-function approaching negative and positive infinity.
+where $(x_m, y_m)$\Todo{Make use of $t$ for parameterization along profile line
+and $x, y$ for parameters of models consistent} is the location of the
+inflection point, $\gamma$ is the slope at the inflection and $y_m-a_l$ and
+$y_m+a_r$ are the limits of the function approaching negative and positive
+infinity.
 %
 % subsubsection model_for_reactants_products (end)
 %
@@ -247,8 +250,8 @@ extend the standard bell curve with additional parameters $y_m$, the value at
 the maximum, and $y$, the limit at infinity.
 %
 \begin{equation*}
-	\mathfrak{g}(x, x_m, y_m, \sigma, y) 
-		= e^{-\frac{1}{2}(\frac{x-x_m}{\sigma})^2}\cdot(y_m-y)+y \text{ .}
+	\mathfrak{g}(t, x_m, y_m, \sigma, y)
+		= e^{-\frac{1}{2}(\frac{t-x_m}{\sigma})^2}\cdot(y_m-y)+y \text{ .}
 \end{equation*}
 %
 Since the profiles tend to have a steeper slope on the unburnt side and some of
@@ -257,10 +260,10 @@ to accurately capture this behavior. We join the two bell curves smoothly at
 their maximum point, resulting in a model with six parameters:
 %
 \begin{equation*}
-	\mathfrak{G}(x, x_m, y_m, \sigma_l, y_l, \sigma_r, y_r) =  
+	\mathfrak{G}(t, x_m, y_m, \sigma_l, y_l, \sigma_r, y_r) =
 	\begin{cases}
-		\mathfrak{g}(x, x_m, y_m, \sigma_l, y_l), & \text{if }  x \leq x_m\\
-		\mathfrak{g}(x, x_m, y_m, \sigma_r, y_r), & \text{if }  x > x_m\\
+		\mathfrak{g}(t, x_m, y_m, \sigma_l, y_l), & \text{if }  t \leq x_m\\
+		\mathfrak{g}(t, x_m, y_m, \sigma_r, y_r), & \text{if }  t > x_m\\
 	\end{cases}
 \end{equation*}
 %
