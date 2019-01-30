@@ -1,0 +1,69 @@
+\begin{tikzpicture}[
+    label/.style={anchor=north west, font=\small},
+]
+\newlength\imgwidth
+\setlength\imgwidth{0.2\figurewidth - 1.6mm}
+\matrix (m) [
+    matrix of nodes,
+    column sep=2mm,
+    row sep=2mm,
+    inner sep=0,
+    outer sep=0
+]{
+    \includegraphics[width=\imgwidth]{images/CO_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/H2_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/O2_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/T_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/CO2_orig_rdoryl_s.png} \\
+    \includegraphics[width=\imgwidth]{images/H2O_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/OH_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/O_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/H_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/H2O2_orig_rdoryl_s.png} \\
+    \includegraphics[width=\imgwidth]{images/HO2_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/HCO_orig_rdoryl_s.png} &
+    \includegraphics[width=\imgwidth]{images/CH2O_orig_rdoryl_s.png} &
+    \begin{tikzpicture}
+        \draw[draw=none] (0, 0) rectangle (\imgwidth, \imgwidth);
+        \node[
+            draw=black,
+            anchor=south west,
+            thin,
+            inner sep=0.05mm
+        ] (cmap) at (0, 0) {%
+            \rotatebox{-90}{%
+                \includegraphics[height=0.25cm, width=\imgwidth]{figures/rdoryl.png}%
+            }
+        };
+        \node[
+            anchor=north west,
+            font=\small,
+            inner sep=0,
+            xshift=1mm
+        ] at (cmap.north east) {max};
+        \node[
+            anchor=south west,
+            font=\small,
+            inner sep=0,
+            xshift=1mm
+        ] at (cmap.south east) {min};
+    \end{tikzpicture}&
+    \tikz{\draw[draw=none] (0, 0) rectangle (\imgwidth, \imgwidth);} \\
+};
+
+\node[label, white] at (m-1-1.north west) {\ce{CO}};
+\node[label, white] at (m-1-2.north west) {\ce{H2}};
+\node[label, white] at (m-1-3.north west) {\ce{O2}};
+\node[label] at (m-1-4.north west) {\ce{T}};
+\node[label] at (m-1-5.north west) {\ce{CO2}};
+\node[label] at (m-2-1.north west) {\ce{H2O}};
+\node[label] at (m-2-2.north west) {\ce{OH}};
+\node[label] at (m-2-3.north west) {\ce{O}};
+\node[label] at (m-2-4.north west) {\ce{H}};
+\node[label] at (m-2-5.north west) {\ce{H2O2}};
+\node[label] at (m-3-1.north west) {\ce{HO2}};
+\node[label] at (m-3-2.north west) {\ce{HCO}};
+\node[label] at (m-3-3.north west) {\ce{CH2O}};
+
+
+\end{tikzpicture}
