@@ -1,0 +1,209 @@
+\chapter{Turbulent Combustion Simulation and -Visualization} % (fold)
+\label{cha:turbulent_combustion}
+%
+\lettrine[lines=3, lhang=0.05]{C}{ombustion} is one of the cornerstones of our
+civilization.
+%
+Its uses range from providing light to carrying objects into space.
+%
+The majority of high-tech combustion processes occur under turbulent conditions.
+%
+The nature of turbulent flow, and therefore also turbulent combustion, is still
+being actively studied by the scientific community.
+%
+Reducing the pollutant emissions and increasing the efficiency of combustion
+processes is essential in todays world where we are confronted more and more
+often with the realization that our resources are finite and the damage we do to
+our environment can not easily be undone.
+%
+
+%
+Simulations are an invaluable tool in the design of improved combustion
+processes.
+%
+They allow to test different setups quickly and for a relatively low cost.
+%
+Efficient simulations need models of the relevant physical and chemical
+processes.
+%
+As the demands on the accuracy of such models rises, more detailed insight into
+the low-level phenomena of turbulent combustion is needed.
+%
+Obtaining this insight via experiments is challenging.
+%
+Often only a small number of variables can be observed at the same time and
+observations are frequently limited to a \ac{2D} slice.
+%
+
+%
+Another approach is \acf{DNS}, which is sometimes referred to as a ``numerical
+experiment''.
+%
+In \ac{DNS}, the Navier-Stokes equation is directly solved on a very fine grid,
+without using any higher-level modeling assumptions.
+%
+This is computationally very expensive, which is why \ac{DNS} is typically
+performed on supercomputers using hundreds or thousands of cores.
+%
+In the simulation, all variables are available in full spatial and temporal
+resolution.
+%
+
+%
+Analyzing the data from such simulations poses a different challenge.
+%
+Due to the high spatial and temporal resolution, the raw data produced by a
+single \ac{DNS} run can range from Terabytes to Petabytes.
+%
+Data of this size can not be written to disk or transferred over a network in a
+reasonable amount of time, even if the enormous storage space that is required
+was available.
+%
+This limits the post-analysis of the data to spatially or temporally downsampled
+versions which lose a lot of important information.
+%
+In recent years, the subject of \emph{in-situ} analysis and visualization has
+therefore gained popularity.
+%
+The idea is to process the data while it is still in memory during the
+simulation.
+%
+The raw data is then discarded and only the results, which are typically much
+smaller in size, are stored on disk.
+%
+
+%
+This thesis contains two new in-situ focused approaches for analysis and
+visualization of turbulent combustion \ac{DNS}.
+%
+To provide some important context, this chapter provides a short introduction
+into the field of turbulent combustion research, the basics of turbulent
+combustion modeling and simulation, and an overview of relevant research
+concerning in-situ and post-processing of turbulent combustion data in
+particular and large-scale simulations in general.
+%
+
+\section{Combustion} % (fold)
+\label{sec:combustion}
+%
+Combustion is the exothermic chemical reaction of a fuel and an oxidizer into
+oxidized products and heat.
+%
+We will only concern ourselves with the combustion of gases, which is the
+most common case used in industrial applications.
+%
+The oxidizer is usually oxygen, while fuels can range from simple ones such as
+hydrogen or methane to complex organic fuels.
+%
+
+%
+A combustion process is a complex system of elementary chemical reactions
+transforming various chemical species into each other while absorbing or
+releasing heat.
+%
+It involves reactants and products but also various intermediate species which
+can be more or less stable and are often radicals with unpaired electrons.
+%
+The process can additionally be influenced by the diluting presence of inert
+gases that do not participate in the reaction.
+%
+
+%
+The reaction rate of each elementary reaction in an infinitesimal volume is
+dependent on the amounts (\ie, mass) of the different chemical species as well
+as the current temperature.
+%
+These characteristic quantities are intrinsically linked to the fluid motion of
+the gas:
+%
+As the gas is deformed and transported by the flow, the local concentration and
+temperature gradients change, which in turn control the diffusion of chemical
+species and heat.
+%
+Through diffusion, the local mixture and temperature changes, which in turn
+influences the reaction rates.
+%
+As the chemical reactions produce or consume heat, the gas expands or contracts,
+which in turn influences the fluid's velocity (the expanded gas has to go
+somewhere) and viscosity (molecules that are farther away from each other
+interact less).
+%
+This again influences the mixing and transport of the gas, and so the cycle goes
+on and on.
+%
+\subsection{Laminar Flames} % (fold)
+\label{sub:laminar_flames}
+%
+
+%
+\subsubsection{Laminar Premixed Flames} % (fold)
+\label{ssub:laminar_premixed_flames}
+%
+
+%
+% subsubsection laminar_premixed_flames (end)
+%
+\subsubsection{Laminar Diffusion Flames} % (fold)
+\label{ssub:laminar_diffusion_flames}
+%
+
+%
+% subsubsection laminar_diffusion_flames (end)
+%
+% subsection laminar_flames (end)
+%
+\subsection{Turbulent Flames} % (fold)
+\label{sub:turbulent_flames}
+%
+\subsubsection{Turbulent Premixed Flames} % (fold)
+\label{ssub:turbulent_premixed_flames}
+%
+
+%
+% subsubsection turbulent_premixed_flames (end)
+%
+\subsubsection{Turbulent Diffusion Flames} % (fold)
+\label{ssub:turbulent_diffusion_flames}
+%
+
+%
+% subsubsection turbulent_diffusion_flames (end)
+%
+% subsection turbulent_combustion (end)
+%
+% section combustion (end)
+%
+\section{Turbulent Combustion Modeling and Simulation} % (fold)
+\label{sec:simulation_of_turbulent_combustion}
+%
+\subsection{Chemical Schemes} % (fold)
+\label{sub:chemical_schemes}
+%
+
+%
+% subsection chemical_schemes (end)
+%
+\subsection{The Flamelet Assumption} % (fold)
+\label{sub:the_flamelet_assumption}
+%
+
+%
+% subsection the_flamelet_assumption (end)
+%
+\subsection{High-Level Models: \acs{RANS} and \acs{LES}} % (fold)
+\label{sub:high_level_models}
+%
+
+%
+% subsection high_level_models_for_turbulent_combustion_ac (end)
+%
+\subsection{Direct Numerical Simulations} % (fold)
+\label{sub:direct_numerical_simulations}
+%
+
+%
+% subsection direct_numerical_simulations_for_turbulent_combustion (end)
+%
+% section modeling_and_simulation_of_turbulent_combustion (end)
+%
+% chapter turbulent_combustion (end)
