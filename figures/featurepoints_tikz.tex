@@ -15,9 +15,9 @@
     \newcommand*{\rthree}{-45}
     \newcommand*{\rfour}{-80}
 
-    \newcommand*{\rmone}{15}
-    \newcommand*{\rmtwo}{-22}
-    \newcommand*{\rmthree}{-70}
+    \newcommand*{\rmone}{20}
+    \newcommand*{\rmtwo}{5}
+    \newcommand*{\rmthree}{-22}
 
     \newcommand*{\defcoords}{%
         \coordinate (p0) at (-0.75, 1.9);
@@ -26,8 +26,9 @@
         \coordinate (p3) at (-0.3, -1.2);
         \coordinate (p4) at (-1, -1.6);
 
-        \coordinate (m1) at (-0.205, 0.6);
-        \coordinate (m2) at (-0.08, -0.6);
+        \coordinate (m1) at (-0.3, 0.8);
+        \coordinate (m2) at (-0.05, 0.2);
+        \coordinate (m3) at (-0.06, -0.5);
 
         \coordinate (r0) at (\rzero:0.35cm);
         \coordinate (r1) at (\rone:0.3cm);
@@ -37,6 +38,7 @@
 
         \coordinate (rm1) at (\rmone:0.45cm);
         \coordinate (rm2) at (\rmtwo:0.65cm);
+        \coordinate (rm3) at (\rmthree:0.65cm);
 
         \coordinate (pf0) at ($(p0) + (r0)$);
         \coordinate (pf1) at ($(p1) + (r1)$);
@@ -46,16 +48,17 @@
 
         \coordinate (pmf1) at ($(m1) + (rm1)$);
         \coordinate (pmf2) at ($(m2) + (rm2)$);
+        \coordinate (pmf3) at ($(m3) + (rm3)$);
     }
 
     \begin{scope}[scale=1.5]
         \defcoords{}
 
-        \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (p2) (m2) (p3) (p4)};
+        \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (m2) (p2) (m3) (p3) (p4)};
         % \foreach \p in {pf1, pf2, pf3}{
         %     \begin{scope}
         %         \clip (\p) circle (0.5cm);
-        %         \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
+        %         \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf3) (pf3) (pf4)};
         %     \end{scope}
         % }
         \node[surface, above left] at (p0) {$S$};
@@ -81,7 +84,8 @@
                 \draw[point, fill=black] (0.7, 0) circle (0.5mm);
         \end{scope}
         \begin{scope}[rotate=\rthree, shift=(p3)]
-                \draw[black] (-1.5, 0) -- (1.5, 0);\draw plot[smooth, tension=0.5] coordinates{
+                \draw[black] (-1.5, 0) -- (1.5, 0);
+                \draw plot[smooth, tension=0.5] coordinates{
                     (-1.5, 0.05) (-1, 0.1) (-0.5, 0.22) (0, 0.35)
                     (0.5, 0.5) (1, 0.35) (1.5, 0.27)
                 };
@@ -98,9 +102,9 @@
             \draw[point] (p\i) circle (0.5mm);
             \draw[point, fill=black] (pf\i) circle (0.5mm);
         }
-        \foreach \i in {1, 2}{
+        \foreach \i in {1, 2, 3}{
             \draw[point, mesh] (m\i) circle (0.5mm);
-            \node[gray] at (pmf\i) {\LARGE\textbf{?}};
+            % \node[gray] at (pmf\i) {\LARGE\textbf{?}};
         }
         % \node[below left=0.15cm and -0.3cm of p1] {$\vp_1$};
         \node[below left] at (p2) {$\vp_i$};
@@ -110,18 +114,18 @@
         \node[below left=0.05cm and 0.1cm of pf2] {$\vp'_i$};
         % \node[below=0.15cm of pf3] {$\vp'_3$};
 
-        \node[left] at (m2) {$\vm_j$};
+        \node[left] at (m3) {$\vm_j$};
     \end{scope}
 
     \begin{scope}[scale=1.5, xshift=3cm]
         \defcoords{}
 
-        % \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (p2) (m2) (p3) (p4)};
-        % \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
+        % \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (p2) (m3) (p3) (p4)};
+        % \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf3) (pf3) (pf4)};
         \node[above left] at (p0) {$M$};
         \node[mycolor4, above] at (pf0) {$M_f$};
-        \draw[black] plot coordinates{(p0) (p1) (m1) (p2) (m2) (p3) (p4)};
-        \draw[mycolor4] plot coordinates{(pf0) (pf1) (pmf1) (pf2) (pmf2) (pf3) (pf4)};
+        \draw[black] plot coordinates{(p0) (p1) (m1) (m2) (p2) (m3) (p3) (p4)};
+        \draw[mycolor4] plot coordinates{(pf0) (pf1) (pmf1) (pmf2) (pf2) (pmf3) (pf3) (pf4)};
 
         \draw[arrow] (p1) -- ++(\rone:1cm);
         \draw[arrow] (p2) -- ++(\rtwo:1cm);
@@ -129,14 +133,15 @@
 
 
         \draw[arrow, gray] (m1) -- ++(\rmone:1cm);% node[right] {$\vr'_1$};
-        \draw[arrow, gray] (m2) -- ++(\rmtwo:1cm) node[right] {$\vr'_j$};
+        \draw[arrow, gray] (m2) -- ++(\rmtwo:1cm);
+        \draw[arrow, gray] (m3) -- ++(\rmthree:1cm) node[right] {$\vr'_j$};
         % \draw[arrow] (p3) -- ++(\rthree:1cm);
 
         \foreach \i in {1, 2, 3}{
             \draw[point] (p\i) circle (0.5mm);
             \draw[point, fill=black] (pf\i) circle (0.5mm);
         }
-        \foreach \i in {1, 2}{
+        \foreach \i in {1, 2, 3}{
             \draw[point, mesh] (m\i) circle (0.5mm);
             \draw[point, gray, fill=gray] (pmf\i) circle (0.5mm);
         }
@@ -144,9 +149,9 @@
         \node[left] at (p2) {$\vp_i$};
         % \node[above left=-0.15cm and 0.07cm of p3] {$\vp_3$};
         % \node[below left] at (m1) {$\vm_1$};
-        \node[left] at (m2) {$\vm_j$};
+        \node[left] at (m3) {$\vm_j$};
         % \node[gray, below left=0.0cm and -0.2cm of pmf1] {$\vm'_1$};
-        \node[gray, below left=-0.2cm and 0.1cm of pmf2] {$\vm'_j$};
+        \node[gray, below left=-0.2cm and 0.1cm of pmf3] {$\vm'_j$};
 
     \end{scope}
 
