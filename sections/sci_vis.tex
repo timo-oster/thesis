@@ -25,9 +25,8 @@ give an overview of the most important methods for visualizing scientific data.
 Such data usually comes in the form of scalar-, vector-, or (second-order)
 tensor fields.
 %
-After listing the notation used throughout the text, we will take a look at the
-definition and basic visualization techniques for each of these types of fields
-in the following sections.
+We will take a look at the definition and basic visualization techniques for
+each of these types of fields in the following sections.
 %
 
 %
@@ -41,82 +40,6 @@ A more thorough introduction to the field is given in Alexandru Telea's book
 Material for further reading can be found in the references cited throughout the
 text.
 %
-
-%
-\section{Notation} % (fold)
-\label{sec:notation}
-%
-We will use the following mathematical notation throughout the thesis.
-%
-Additional notation is introduced wherever it is needed.
-%
-
-% %
-% Scalars are typeset in italics: $s$, $f$, $a$, $\lambda$.
-% %
-% They usually have lowercase names.
-% %
-
-% %
-% Vectors have lowercase names in bold roman type: $\vv$, $\vr$, $\vx$.
-% %
-% The vector of all zeros is written as $\vNull$.
-% %
-% All vectors are by convention column vectors, and their components are written
-% as scalars with a subscript index: $v_i$, $r_i$, $x_i$.
-% %
-
-% %
-% Matrices are named with uppercase letters and typeset like vectors in bold roman
-% font: $\mA$, $\mS$, $\mT$.
-% %
-% The identitiy matrix is written as $\mI$.
-% %
-% The transpose of a matrix (or vector) is indicated by a superscript T: $\T\mA$,
-% $\T\vv$.
-% %
-
-% %
-% A block matrix $\begin{pmatrix}\va & \vb & \vc\end{pmatrix}$ is a matrix
-% composed of several other matrices or vectors.
-% %
-
-% %
-% The inner (dot-) product of two vectors $\T{\vv}\vw$ is written as $\vv \cdot
-% \vw$.
-% %
-
-% %
-% The Nabla-Operator $\nabla$ is a vector of partial derivatives
-% $\T{\left({\partial}/{\partial x_1}, \dots, {\partial}/{\partial x_n}\right)}$.
-% %
-% It is thought of as a regular vector, but multiplication with one of its
-% components is regarded as taking the partial derivative in the corresponding
-% coordinate direction.
-% %
-% It is useful for writing operations such as the gradient of a scalar field
-% ($\nabla s$), or the divergence of a vector field ($\nabla \cdot \vv$).
-% %
-
-\vspace*{\baselineskip}
-%
-\begin{tabularx}{\textwidth}{lX}
-$s$, $a$, $\lambda$ & Scalars \\
-$\vv$, $\vr$, $\vx$ & Column vectors \\
-$v_i$, $r_i$, $x_i$ & Components of the respective vectors \\
-$\vNull$ & The vector of all zeros \\
-$\mA$, $\mS$, $\mSigma$ & Matrices \\
-$\mI$ & The identity matrix \\
-$\T{\mA}$, $\T{\vv}$ & Transpose of a matrix/vector \\
-$\begin{pmatrix}\va & \vb & \vc\end{pmatrix}$ & Block matrix composed of several
-    matrices/vectors \\
-$\vv \cdot \vw$ & Inner (dot-) product of two vectors \\
-$\nabla$ & Nabla-Operator
-    $\T{\left({\partial}/{\partial x_1}, \dots, {\partial}/{\partial x_n}\right)}$
-\end{tabularx}
-%
-% section notation (end)
-
 \section{Scalar Field Visualization} % (fold)
 \label{sec:scalar_fields}
 %
