@@ -24,7 +24,7 @@ analytic test function, and show our results for the two simulation cases.
 \subsection{Analytical Test Function} % (fold)
 \label{sub:analytic_test_function}
 %
-\begin{figure*}
+\begin{figure}
     \centering
     \setlength{\figurewidth}{\textwidth}
     \input{figures/results_ground_truth_tikz}
@@ -50,7 +50,8 @@ analytic test function, and show our results for the two simulation cases.
     % \end{captionbeside}
     \caption{Box plot of error distributions for the analytical test function.
              We show the minimum, lower quartile, median, upper quartile and
-             maximum errors for different values of $r_\shortparallel$.}
+             maximum errors for different values of $r_\shortparallel$.
+             \Todo[inline]{Mention that this is corrected from the paper}}
     \label{fig:ground_truth_errors}
 \end{figure}
 %
@@ -162,6 +163,7 @@ dependent on $r_\shortparallel$.
 %
 For large values of $r_\shortparallel$, the resulting deformation does not only
 contain unreasonably large errors, but the surface also exhibits some holes.
+\Todo{Discuss exponential nature of error here to explain distribution}
 %
 Splitting too late means that there is potentially a lot of non-uniform
 stretching across the patch that is not accounted for by the resulting child
