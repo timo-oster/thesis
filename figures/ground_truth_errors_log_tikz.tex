@@ -1,4 +1,5 @@
 %
+% Commented out values show differences of log10'ed maximum stretch values
 %
 \begin{tikzpicture}%[scale=\figurewidth/1cm*0.05]
 \begin{axis}[
@@ -18,63 +19,123 @@
     extra y tick style={grid=major},
     every tick/.style={color=black, thin},
 ]
+% \addplot +[
+%     mycolor1,
+%     thick,
+%     forget plot,
+%     boxplot prepared={
+%         % average=-0.1209,
+%         draw position=0.01,
+%         lower whisker=-0.4754,
+%         lower quartile=-0.0448,
+%         median=-0.0018,
+%         upper quartile=0.0481,
+%         upper whisker=0.5447
+%     }
+% ] coordinates{};
+
 \addplot +[
     mycolor1,
-    thick,
+    % thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
         draw position=0.01,
-        lower whisker=-0.4754,
-        lower quartile=-0.0448,
-        median=-0.0018,
-        upper quartile=0.0481,
-        upper whisker=0.5447
+        lower whisker=-13.9811,
+        lower quartile=-0.3176,
+        median=0.0185,
+        upper quartile= 1.2833,
+        upper whisker= 38.4859
     }
 ] coordinates{};
 
+% \addplot +[
+%     mycolor1,
+%     thick,
+%     forget plot,
+%     boxplot prepared={
+%         % average=-0.1209,
+%         draw position=0.02,
+%         lower whisker=-0.6230,
+%         lower quartile=-0.0742,
+%         median=-0.0096,
+%         upper quartile=0.0663,
+%         upper whisker=0.8500
+%     }
+% ] coordinates{};
+
 \addplot +[
     mycolor1,
-    thick,
+    % thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
         draw position=0.02,
-        lower whisker=-0.6230,
-        lower quartile=-0.0742,
-        median=-0.0096,
-        upper quartile=0.0663,
-        upper whisker=0.8500
+        lower whisker=-23.9069,
+        lower quartile=-0.5360,
+        median= 0.0097,
+        upper quartile= 1.6632,
+        upper whisker=51.1135
     }
 ] coordinates{};
 
+% \addplot +[
+%     mycolor1,
+%     thick,
+%     forget plot,
+%     boxplot prepared={
+%         % average=-0.1209,
+%         draw position=0.05,
+%         lower whisker=-0.7818,
+%         lower quartile=-0.1556,
+%         median=-0.0455,
+%         upper quartile=0.0524,
+%         upper whisker=1.2208
+%     }
+% ] coordinates{};
+
 \addplot +[
     mycolor1,
-    thick,
+    % thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
         draw position=0.05,
-        lower whisker=-0.7818,
-        lower quartile=-0.1556,
-        median=-0.0455,
-        upper quartile=0.0524,
-        upper whisker=1.2208
+        lower whisker=-27.4750,
+        lower quartile=-1.0062,
+        median=-0.1040,
+        upper quartile= 1.0829,
+        upper whisker= 94.2205
     }
 ] coordinates{};
 
+% \addplot +[
+%     mycolor1,
+%     thick,
+%     forget plot,
+%     boxplot prepared={
+%         % average=-0.1209,
+%         draw position=0.1,
+%         lower whisker=-1.2460,
+%         lower quartile=-0.2575,
+%         median=-0.0991,
+%         upper quartile=0.0057,
+%         upper whisker=2.0031
+%     }
+% ] coordinates{};
+
 \addplot +[
     mycolor1,
-    thick,
+    % thick,
     forget plot,
     boxplot prepared={
         % average=-0.1209,
         draw position=0.1,
-        lower whisker=-1.2460,
-        lower quartile=-0.2575,
-        median=-0.0991,
-        upper quartile=0.0057,
-        upper whisker=2.0031
+        lower whisker=-41.4414,
+        lower quartile=-1.8953,
+        median=-0.4120,
+        upper quartile=0.2488,
+        upper whisker=77.4248
     }
 ] coordinates{};
 \end{axis}

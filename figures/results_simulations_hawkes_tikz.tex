@@ -1,7 +1,9 @@
 %
 %
-\begin{tikzpicture}
-    \tikzstyle{image} = [anchor=center, inner sep=0, outer sep=0, node distance = 0 and 0]
+\begin{tikzpicture}[
+        font=\small,
+        image/.style={anchor=center, inner sep=0, outer sep=0, node distance = 0 and 0}
+    ]
     \input{colormap_cooltowarm_extended}
     \input{colormap_green_purple}
     \node[image] (image1)
@@ -48,7 +50,7 @@
         width=0pt,
         domain=-2.5:2.5,
         colorbar,
-        colorbar/width=0.3cm,
+        colorbar/width=0.25cm,
         colormap name={cooltowarm_extended},
         point meta min=-2.5, point meta max=2.5,
         colorbar style={
@@ -73,7 +75,7 @@
         width=0pt,
         hide axis,
         colorbar,
-        colorbar/width=0.3cm,
+        colorbar/width=0.25cm,
         colormap name={green_purple},
         point meta min=-3, point meta max=3,
         colorbar style={

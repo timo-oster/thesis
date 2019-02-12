@@ -1,70 +1,141 @@
 %
 %
 
-\begin{tikzpicture}[scale=\figurewidth]
-    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+\begin{tikzpicture}[
+    font=\small,
+    thick,
+    mydash/.style={dashed, dash phase=-1.5pt},
+    label/.style={align=left, inner sep=0},
+    image/.style={inner sep=0, outer sep=0, node distance = 0 and 0}
+]
     \input{colormap_warm}
 
-    \node[image] (image1)
-    {
-        \includegraphics[width=0.188\figurewidth]{figures/ground_truth_log_highres}%
-    };
-    \node[anchor=north] at (image1.south) {\small ground truth};
+    % \node[image] (image1)
+    % {
+    %     \includegraphics[width=0.5\figurewidth]{figures/ground_truth_log_highres}%
+    % };
+    % \node[anchor=north] at (image1.south) {\small ground truth};
 
-    \node[image, right=of image1] (image2)
+    \node[image] (image2)
     {
-        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_01_log}%
+        \includegraphics[width=0.5\figurewidth]{figures/norm_0_5_tan_0_01_log}%
     };
-    \node[anchor=north, align=left] at (image2.south)
+    \begin{scope}
+        \clip (image2.south) -- (image2.south west) -- (image2.north west) --
+            (image2.north);
+        \node[image] (gt1) at (image2)
+        {
+            \includegraphics[width=0.5\figurewidth]{figures/ground_truth_log_highres}%
+        };
+    \end{scope}
+    \draw[mydash] (image2.south) -- (image2.north);
+    \node[label, anchor=east] at (image2.south east)
     {
-        \small $r_\shortparallel = 0.01$ \\ \small $N = \num{143.5}\si{\kilo}$
+        $
+        \begin{aligned}
+                r_\shortparallel &= 0.01 \\
+                N &= \num{143.5}\si{\kilo}
+        \end{aligned}
+        $
     };
+    % \node[label, anchor=south west] at (image2.south west) {ground\\truth};
+
 
     \node[image, right=of image2] (image3)
     {
-        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_02_log}%
+        \includegraphics[width=0.5\figurewidth]{figures/norm_0_5_tan_0_02_log}%
     };
-    \node[anchor=north, align=left] at (image3.south)
+    \begin{scope}
+        \clip (image3.south) -- (image3.south west) -- (image3.north west) --
+            (image3.north);
+        \node[image] (gt1) at (image3)
+        {
+            \includegraphics[width=0.5\figurewidth]{figures/ground_truth_log_highres}%
+        };
+    \end{scope}
+    \draw[mydash] (image3.south) -- (image3.north);
+    \node[anchor=east] at (image3.south east)
     {
-        \small $r_\shortparallel = 0.02$ \\ \small $N = \num{58.1}\si{\kilo}$
+        $
+        \begin{aligned}
+                r_\shortparallel &= 0.02 \\
+                N &= \num{58.1}\si{\kilo}
+        \end{aligned}
+        $
     };
+    % \node[label, anchor=south west] at (image3.south west) {ground\\truth};
 
-    \node[image, right=of image3] (image4)
+
+    \node[image, below=0.5cm of image2] (image4)
     {
-        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_05_log}%
+        \includegraphics[width=0.5\figurewidth]{figures/norm_0_5_tan_0_05_log}%
     };
-    \node[anchor=north, align=left] at (image4.south)
+    \begin{scope}
+        \clip (image4.south) -- (image4.south west) -- (image4.north west) --
+            (image4.north);
+        \node[image] (gt1) at (image4)
+        {
+            \includegraphics[width=0.5\figurewidth]{figures/ground_truth_log_highres}%
+        };
+    \end{scope}
+    \draw[mydash] (image4.south) -- (image4.north);
+    \node[anchor=east] at (image4.south east)
     {
-        \small $r_\shortparallel = 0.05$ \\ \small $N = \num{15.4}\si{\kilo}$
+        $
+        \begin{aligned}
+                r_\shortparallel &= 0.05 \\
+                N &= \num{15.4}\si{\kilo}
+        \end{aligned}
+        $
     };
+    % \node[label, anchor=south west] at (image4.south west) {ground\\truth};
+
 
     \node[image, right=of image4] (image5)
     {
-        \includegraphics[width=0.188\figurewidth]{figures/norm_0_5_tan_0_1_log}%
+        \includegraphics[width=0.5\figurewidth]{figures/norm_0_5_tan_0_1_log}%
     };
-    \node[anchor=north, align=left] at (image5.south)
+    \begin{scope}
+        \clip (image5.south) -- (image5.south west) -- (image5.north west) --
+            (image5.north);
+        \node[image] (gt1) at (image5)
+        {
+            \includegraphics[width=0.5\figurewidth]{figures/ground_truth_log_highres}%
+        };
+    \end{scope}
+    \draw[mydash] (image5.south) -- (image5.north);
+    \node[anchor=east] at (image5.south east)
     {
-        \small $r_\shortparallel = 0.1$ \\ \small $N = \num{5}\si{\kilo}$
+        $
+        \begin{aligned}
+                r_\shortparallel &= 0.1 \\
+                N &= \num{5}\si{\kilo}
+        \end{aligned}
+        $
     };
+    % \node[label, anchor=south west] at (image5.south west) {ground\\truth};
 
-    \node[anchor=west, xshift=-0.5cm] at (image5.east){
+
+    \node[anchor=north east, yshift=-0.5cm]
+        at (image5.south east){
         \begin{axis}[
-        scale only axis,
-        height=2cm,
-        hide axis,
-        domain=1e0:1e5,
-        ymode=log,
-        colorbar,
-        colorbar/width=0.3cm,
-        colormap name={warm},
-        point meta min=1e0, point meta max=1e5,
-        colorbar style={
-            title=$c$,
-            scaled ticks=false,
-            ytick={1e0, 1e5},
-            yticklabels = {$10^{\,0}$, $10^{\,5}$}
-        }]
-      \end{axis}
+            scale only axis,
+            height=3cm,
+            hide axis,
+            domain=0:2.1,
+            % xmode=log,
+            colorbar horizontal,
+            colorbar/width=0.25cm,
+            colormap name={warm},
+            point meta min=0, point meta max=2.1,
+            colorbar style={
+                title=$c$,
+                scaled ticks=false,
+                % xmode=log,
+                xtick={0, 1, 2},
+                xticklabels = {$10^{\,0}$, $10^{\,1}$, $10^{\,2}$}
+            }]
+          \end{axis}
     };
 
 \end{tikzpicture}
