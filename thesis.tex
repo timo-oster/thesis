@@ -6,7 +6,8 @@
     captions=outerbeside,
     headings=twolinechapter,
     chapterprefix=true,
-    numbers=noenddot
+    numbers=noenddot,
+    % headsepline
 }
 \setcapindent{0em}
 
@@ -17,7 +18,8 @@
 \usepackage{cool}
 
 % \usepackage[lining, semibold, p]{libertine}
-\usepackage[oldstylenums, nosf]{kpfonts}
+% \usepackage[oldstylenums, nosf]{kpfonts}
+\usepackage{kpfonts}
 % \usepackage[
 %     lining,
 %     semibold,
@@ -84,13 +86,14 @@
 \usepgfplotslibrary{statistics}
 \usepgfplotslibrary{external}
 \tikzexternalize[prefix=tikz/]
+\usepackage{tikzpagenodes}
 
 \usepackage{etoolbox}
 \usepackage{calc}
 \usepackage[lofdepth, lotdepth]{subfig}
 
 % \usepackage[sf,sl,outermarks]{titlesec}
-\usepackage{tocstyle}
+% \usepackage{tocstyle}
 
 \usepackage[
     pagebackref]{hyperref}  % hyperlinking in PDF output
@@ -100,6 +103,7 @@
 \definecolor{mycolor3}{HTML}{4DAF4a}% green
 \definecolor{mycolor4}{HTML}{E41A1C}% red
 \definecolor{mycolor5}{HTML}{984EA3}% purple
+\definecolor{accentcolor}{named}{gray}
 
 \hypersetup{                % set up hyperref and pdf options
     colorlinks,
@@ -116,7 +120,6 @@
     ]{todonotes}      % todo annotations
 
 % disable tikz externalization for todonotes
-% \let\oldmissingfigure\missingfigure
 \newcommand{\MissingFigure}[2][]{\tikzexternaldisable\missingfigure[#1]{#2}\tikzexternalenable}
 \newcommand{\ruggedtodo}[2][]{\tikzexternaldisable\todo[#1]{#2}\tikzexternalenable}
 \newcommand{\Todo}[2][]{\ruggedtodo[color=mycolor2, bordercolor=mycolor2, #1]{#2}}
@@ -141,65 +144,86 @@
 \newcommand\switchtoSLF{\fontfamily{jkpss}\selectfont}
 \newcommand\switchtoSOsF{\fontfamily{jkpssosn}\selectfont}
 
-\renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                % switch reference item
-\renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}              % switch citation item
+% \renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                % switch reference item
+% \renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}              % switch citation item
 \renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
 
 % the following requires a KOMA documentclass (scr*)
-\addtokomafont{disposition}{\switchtoPLF{}\bfseries}            % section headings (includes heading font)
+\addtokomafont{disposition}{\rmfamily}            % section headings (includes heading font)
 % \addtokomafont{captionlabel}{\switchtoPLF{}}                    % figure/table numbers
-\setlist[enumerate]{font=\switchtoPLF{}}                        % enumeration items
+% \setlist[enumerate]{font=\switchtoPLF{}}                        % enumeration items
 
-\usetocstyle{KOMAlike}
-\settocfeature{entryhook}{\switchtoPLF{}}                       % No old style figures in TOC
+% \usetocstyle{KOMAlike}
+% \settocfeature{entryhook}{\switchtoPLF{}}                       % No old style figures in TOC
 
 % requires mathtools
-\newtagform{lining}[\switchtoPLF{}]{(}{)}                       % equation numbers
-\usetagform{lining}
+% \newtagform{lining}[\switchtoPLF{}]{(}{)}                       % equation numbers
+% \usetagform{lining}
 
 % tabular lining figures in tables
-\AtBeginEnvironment{tabular}{\switchtoTLF{}}
-\AtBeginEnvironment{tabularx}{\switchtoTLF{}}
-\AtBeginEnvironment{tabulary}{\switchtoTLF{}}
+% \AtBeginEnvironment{tabular}{\switchtoTLF{}}
+% \AtBeginEnvironment{tabularx}{\switchtoTLF{}}
+% \AtBeginEnvironment{tabulary}{\switchtoTLF{}}
 
 % \useosf                     % switch on old style figures as default
 
-% \renewcommand{\thechapter}{\Roman{chapter}}
-% \titleformat{\chapter}[display]
-% {\switchtoPLF{}\bfseries\otherscshape\LARGE}
-% {\switchtoPLF{}\textcolor{gray}{%
-% \fontsize{0.75cm}{0.75cm}\selectfont\scshape\MakeLowercase{\chaptertitlename}}%
-% \fontsize{5cm}{5cm}\selectfont\filleft\textcolor{gray}{\thechapter}}
-% {0ex}
-% {\filright}
-
+% format parts
+% ============
 \renewcommand*{\partpagestyle}{empty}
-\addtokomafont{part}{\normalfont\otherscshape}
-\renewcommand*{\partformat}{\scshape\fontsize{5cm}{5cm}\selectfont\thepart\autodot}
+\addtokomafont{part}{\normalfont\otherscshape\LARGE}
+\renewcommand*{\partformat}{%
+\scshape\fontsize{3cm}{3cm}\selectfont\thepart\autodot}
 
+% format chapters
+% ===============
 % \let\raggedchapter\relax
 \addtokomafont{chapter}{\otherscshape\LARGE}
 
-\def\chaptercolor{gray}
+\def\chaptercolor{accentcolor}
 
 \renewcommand*{\chapterformat}{%
-\vspace*{2cm}%
-\switchtoPLF{}\textcolor{\chaptercolor}{%
-\hspace*{\fill}%
-\fontsize{0.8cm}{0.8cm}\selectfont\scshape%
-\MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
-\fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{\chaptercolor}{\thechapter}}%
+\vspace*{6cm}%
+% \switchtoPLF{}\textcolor{\chaptercolor}{%
+% \hspace*{\fill}%
+% \fontsize{0.8cm}{0.8cm}\selectfont\scshape%
+% \MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
+% % \fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{\chaptercolor}{\thechapter}}%
+% \fontsize{9cm}{9cm}\selectfont\textcolor{\chaptercolor}{\thechapter}}%
+\tikzset{external/export=false}%
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north east, inner sep=0, outer sep=0, yshift=-3cm]
+        at (current page text area.north east) {
+        \fontsize{12cm}{12cm}\selectfont\textcolor{white!70!gray}{\thechapter}
+    };
+\end{tikzpicture}%
+\tikzset{external/export=true}%
 }
 
+% Section numbers in margin
+\renewcommand*{\sectionlinesformat}[4]{%
+  \makebox[0pt][r]{#3}#4%
+}
+\renewcommand*{\sectionformat}{%
+\textcolor{accentcolor}{\thesection\autodot\enskip}}
+
+\renewcommand*{\subsectionformat}{%
+\textcolor{accentcolor}{\thesubsection\autodot\enskip}}
+
+% Page header
+% \addtokomafont{pagehead}{\otherscshape}
 
 % \AtBeginEnvironment{captionbeside}{\setcapindent{0em}}
 \addtokomafont{caption}{\small}
 \addtokomafont{captionlabel}{\small\bfseries}
 
-% Section numbers in margin
-% \renewcommand*{\sectionlinesformat}[4]{%
-%   \makebox[0pt][r]{#3}#4%
-% }
+\tikzstyle{paperheader}=[anchor=north west,
+                         at={(current page text area.north west)},
+                         align=left,
+                         text width=\textwidth,
+                         color=white,
+                         inner sep=0,
+                         outer sep=0]
+
 
 \acused{1D}
 \acused{2D}
@@ -250,17 +274,15 @@
 
 \input{sections/turbulent_combustion}
 
-\chapter[Sparse Representation for Turbulent Premixed Flames]{Sparse Representation and Visualization for Turbulent Premixed Flames} % (fold)
+\chapter[Sparse Representation for Turbulent Premixed Flames]
+        {Sparse Representation and Visualization for Turbulent Premixed Flames} % (fold)
 \label{cha:sparse_representation}
 %
 \tikzset{external/export=false}
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
-        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
-        \textcolor{gray}{
+    \node[paperheader] (banner_fst) {
             This chapter is based on\\
             \bibentry{Oster2014}
-        }
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -280,12 +302,9 @@
 %
 \tikzset{external/export=false}
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
-        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
-        \textcolor{gray}{
+    \node[paperheader] (banner_fst) {
             This chapter is based on\\
             \bibentry{Oster2018a}
-        }
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -314,12 +333,9 @@
 %
 \tikzset{external/export=false}
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
-        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
-        \textcolor{gray}{
+    \node[paperheader] (banner_fst) {
             This chapter is based on\\
             \bibentry{Oster2018b}
-        }
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -339,12 +355,9 @@
 %
 \tikzset{external/export=false}
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=north west, align=left, text width=\textwidth] (banner_fst)
-        at ($(current page.north west) + (1in+\hoffset+\oddsidemargin-1mm, -1in-\voffset-\headsep)$) {
-        \textcolor{gray}{
+    \node[paperheader] (banner_fst) {
             This chapter is based on\\
             \bibentry{Oster2018}
-        }
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
