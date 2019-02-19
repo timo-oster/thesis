@@ -9,24 +9,24 @@ obtaining them at the other vertices by diffusion, an error is introduced. We
 quantify this error as the normalized root mean square difference between a
 ground truth and the values at each vertex after the diffusion process. The
 ground truth is obtained by computing the model parameters $t_f$ for each vertex
-of $M$ as described in Section \ref{sub:fitting}. The diffusion error
+of $M$ as described in \cref{sub:fitting}. The diffusion error
 $E^{V,f}_{\text{diff}}$ for variable $V$ and feature $f$ is defined as
 %
-\begin{equation*}
+\begin{equation}
 	E^{V, f}_{\text{diff}} = 
 		\sum_{\vm_i \in M}
 			\left|
 				\frac{t^V_{f,i} - t'^{V}_{f,i}}{\max(t^V_f)-\min(t^V_f)}
 			\right|
 			\text{ ,}
-\end{equation*}
+\end{equation}
 %
 where $t^V_{f, i}$ is the true shift value for variable $V$ and feature $f$ at
 vertex $\vm_i$, $t'^{V}_{f,i}$ is the corresponding value obtained by
 diffusion, and $\max(t^V_f)-\min(t^V_f)$ is the range of true shift values over
 all vertices. We computed this error metric for all variables and time steps of
 data set \textsc{Hydrogen}, using different seeding densities $\seedDensQuot$.
-The results can be seen in Figure~\ref{fig:diffusion_quality}.
+The results can be seen in \cref{fig:diffusion_quality}.
 % An appropriate seeding density $\seedDensQuot$ for a desired diffusion quality
 % and therefore accuracy of visualization can be automatically determined by
 % successively lowering $\seedDensQuot$ and computing $E^{V, f}_{\text{diff}}$

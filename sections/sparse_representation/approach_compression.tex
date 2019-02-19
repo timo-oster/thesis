@@ -21,7 +21,7 @@ $\vr_i$. By giving the lines a limited length, we discard information from
 outside of the flame front, where the variables are almost constant. The
 placement of the profile lines is dependent on the flame surface curvature,
 seeding more lines in highly curved areas and less in planar regions (see red
-circles in \autoref{fig:flamecrossing}).
+circles in \cref{fig:flamecrossing}).
 
 Variables are grouped into three classes: \emph{Reactants} have high
 concentrations outside of the burnt region and low concentrations inside,
@@ -37,12 +37,12 @@ and profile line, and the full flame surface mesh for subsequent visualization.
 % of simulation variables $(V_1, \dotsc, V_v)$ to a tuple consisting of the
 % locations and directions of the profile lines, $(\vp_i, \vr_i)$, and
 % the model parameters for each variable and line, $\Phi$:
-% \begin{equation*}
+% \begin{equation}
 % 	\begin{aligned}
 % 		C(V_1, \dotsc, V_v) &= ((\vp_i, ~\vr_i), ~\Phi^{V_1}, \dotsc, \Phi^{V_v}), ~ i = 1, \dotsc, n\\
 % 		\text{with } \Phi^V &= \phi^V_{ij}, ~ j = 1, \dotsc, m \text{ .}\\
 % 	\end{aligned}
-% \end{equation*}
+% \end{equation}
 % Here, the set of model parameters for all lines of variable $V$ is denoted as
 % $\Phi^V \in \R^{n \times m}$, which is a matrix with entries $\phi^V_{ij}$,
 % denoting the $j$-th model parameter of the $i$-th profile line.
@@ -100,10 +100,10 @@ We estimate the principal curvatures $\kappa_1$ and $\kappa_2$ at each vertex
 (see, e.g., \cite{Kindlmann2003}). The curvatures are then transfomed into a
 seeding density by a logarithmic function:
 %
-\begin{equation*}
+\begin{equation}
 	\seedDens(\kappa_1, \kappa_2) = 
 		\frac{\ln(1 + \sqrt{\kappa_1^2+\kappa_2^2})}{\seedDensQuot}\text{ .}
-\end{equation*}
+\end{equation}
 Here, $\seedDensQuot > 1$ steers the seeding density. For each initial vertex, a
 uniformly distributed random number $r \in (0, 1)$ is now generated, and the
 point is selected if $\seedDens < r$. This results in few seed points in areas
@@ -145,7 +145,7 @@ number of seed points and balances size vs. quality.
 %
 Once the points $\vp_i$ are seeded, profiles of all variables are sampled
 at regular intervals $t_j$ along lines $\vp_i(t_j)=\vp_i + t_j \cdot
-\vr_i$, with $||\vr_i|| = 1$ \Todo{use $\vn$ as normal} (Figure~\ref{fig:flamecrossing}).
+\vr_i$, with $||\vr_i|| = 1$ \Todo{use $\vn$ as normal} (\cref{fig:flamecrossing}).
 %
 % According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
 % size.
@@ -157,10 +157,10 @@ simple models to further reduce the required storage space.
 %
 % The resulting profiles are discretely sampled functions
 %
-% \begin{equation*}
+% \begin{equation}
 % 	P_{ij}^V = V(\vp_i(t_j)), ~ i=1, \dotsc, n, ~ j = 1, \dotsc, m,~
 % 	t_j = -\frac{\tau}{2} + \frac{j-1}{m-1} \cdot \tau \text{ ,}
-% \end{equation*}
+% \end{equation}
 %
 % where $V$ is the variable from which the profiles are extracted, $n$ is the
 % number of lines, $m$ is the number of sample points along the line, and $\tau$
@@ -212,27 +212,27 @@ the slope at the inflection and $a$, determining the limits of the function at
 positive/negative infinity:
 \Todo{Slope of profile is useful for determining mesh resolution for simulation (\cite{Poinsot2012}, p. 57)}
 %
-\begin{equation*}
+\begin{equation}
 	\mathfrak{s}(t,a,\gamma)
 		= \frac{2a}{ 1 + e^{ (-2\frac{\gamma t}{a}) } } - a \text{ .}
-\end{equation*}
+\end{equation}
 %
 While this function can roughly approximate the profiles of reactants and
 products, it has too few degrees of freedom to reproduce the different
 curvatures of the profiles at both sides of the inflection point. For this
 reason, we use two pieces of this function, joining smoothly at the inflection
-point (Figure~\ref{fig:models}, top).
+point (\cref{fig:models}, top).
 %
-\begin{equation*}
+\begin{equation}
 %	\begin{aligned}
 		\mathfrak{S}(t, a_l, a_r, \gamma, x_m, y_m) =
 		\begin{cases}
 			\mathfrak{s}(t, a_l, \gamma) + y_m, &\text{if }  t \leq x_m\\
 			\mathfrak{s}(t, a_r, \gamma) + y_m, & \text{if }  t > x_m\\
-		\end{cases}\\
+		\end{cases}
 %		&\text{with } \sgn(\gamma) = \sgn(a_r) = \sgn(a_l) \text{ ,}
 %	\end{aligned}
-\end{equation*}
+\end{equation}
 %
 where $(x_m, y_m)$\Todo{Make use of $t$ for parameterization along profile line
 and $x, y$ for parameters of models consistent} is the location of the
@@ -250,28 +250,28 @@ maximum of the profiles of intermediate species can vary, it is necessary to
 extend the standard bell curve with additional parameters $y_m$, the value at
 the maximum, and $y$, the limit at infinity.
 %
-\begin{equation*}
+\begin{equation}
 	\mathfrak{g}(t, x_m, y_m, \sigma, y)
 		= e^{-\frac{1}{2}(\frac{t-x_m}{\sigma})^2}\cdot(y_m-y)+y \text{ .}
-\end{equation*}
+\end{equation}
 %
 Since the profiles tend to have a steeper slope on the unburnt side and some of
 them do not reach zero on the burnt side, a two-sided model is once again needed
 to accurately capture this behavior. We join the two bell curves smoothly at
 their maximum point, resulting in a model with six parameters:
 %
-\begin{equation*}
+\begin{equation}
 	\mathfrak{G}(t, x_m, y_m, \sigma_l, y_l, \sigma_r, y_r) =
 	\begin{cases}
 		\mathfrak{g}(t, x_m, y_m, \sigma_l, y_l), & \text{if }  t \leq x_m\\
 		\mathfrak{g}(t, x_m, y_m, \sigma_r, y_r), & \text{if }  t > x_m\\
 	\end{cases}
-\end{equation*}
+\end{equation}
 %
 where $(x_m, y_m)$ is the location of the maximum, $\sigma_l$ and $\sigma_r$
 determine the slope of the left and right part of the function and $y_l$ and
 $y_r$ are the limits of the function approaching negative and positive infinity
-(Figure \ref{fig:models}, bottom).
+(\cref{fig:models}, bottom).
 %
 % \begin{figure}[ht]
 % 	\centering
@@ -298,10 +298,10 @@ fluctuations, and the profile entering and leaving the reaction zone multiple
 times.
 
 To eliminate small fluctuations, we filter the profiles with a Gaussian kernel
-\cite{Jaehne2005}. The kernel size depends on the size of the fluctuations
-but can be chosen quite small. For the test data (see Section
-\ref{ssec:evaluation_compression}) we used a size of $6$ voxels, which translates
-to $\sigma = 1$.
+\cite{Jaehne2005}. The kernel size depends on the size of the fluctuations but
+can be chosen quite small. For the test data (see
+\cref{ssec:evaluation_compression}) we used a size of $6$ voxels, which
+translates to $\sigma = 1$.
 %
 Extrema are found at zero-crossings of the first derivative of the filtered
 profile. Possible shifts of the extrema due to the filtering are corrected by
@@ -311,7 +311,7 @@ sides. For finding inflection points, we use the same approach but on the second
 derivative.
 
 Due to the possibility of crossing the flame surface multiple times (see
-Figures~\ref{fig:flamecrossing} and \ref{fig:models}), we can find more feature
+\cref{fig:flamecrossing,fig:models}), we can find more feature
 points on the profile than we need for our models. We have to identify the ones
 closest to the anchor point.
 %
@@ -428,11 +428,11 @@ method to find the optimal fit.
 
 % The parameter matrix $\Phi^V_{\text{rp}}$ of the sigmoidal model for reactants
 % and products is
-% \begin{equation*}
+% \begin{equation}
 % \Phi^V_{\text{rp}} = 
 % 	(a_{li}, a_{ri}, m_i, x_{mi}, y_{mi}, x_{li}, x_{ri}),~
 % 	i=1,\dotsc,n \text{ .}
-% \end{equation*}
+% \end{equation}
 %For intermediate species, the Gaussian model $G$ is fitted to the data. 
 % Here,
 % the maximum of the profile that is nearest to the anchor point at the center is
@@ -446,11 +446,11 @@ method to find the optimal fit.
 % method, starting at the initial guess estimated in the previous step. 
 % The parameter matrix $\Phi^V_{\text{int}}$ of the Gaussian model for 
 % intermediate species is 
-% \begin{equation*}
+% \begin{equation}
 % \Phi^V_{\text{int}} =
 % 	(x_{mi}, y_{mi}, \sigma_{li}, y_{li}, \sigma_{ri}, y_{ri}, x_{li}, x_{ri}),~
 % 	i=1,\dotsc,n \text{ .}
-% \end{equation*}
+% \end{equation}
 
 With this, the original data is now described by the flame surface mesh, the
 $\vp_i$ and $\vr_i$ of the profile lines, and the

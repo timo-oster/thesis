@@ -47,7 +47,7 @@ Our results were computed on a 4-core Intel Core i7 CPU at
 In this example, we compare two different point loads applied to a uniform
 material with infinite extent.
 %
-The first load (red arrow in \autoref{fig:point_load}) is a compressive force,
+The first load (red arrow in \cref{fig:point_load}) is a compressive force,
 the second load (blue arrow) is a tensile force of equal magnitude.
 %
 We compute the \ac{PEV} operator for the two resulting stress tensor fields.
@@ -112,7 +112,7 @@ visible the directions in which forces propagate outwards from the load points.
 Next, we extracted \ac{PEV} lines for a beam that is fixed on one side.
 %
 We applied two different traction forces on the free end of the beam, whose
-directions are shown in~\autoref{fig:beam_full}.
+directions are shown in~\cref{fig:beam_full}.
 %
 The Clamped Beam dataset consists of 150k cells and 600k faces.
 %
@@ -135,7 +135,7 @@ There are two regions of particular interest in the Clamped Beam.
 %
 The first is near the middle of the beam, where a curved structure has high
 eigenvalues in both tensor fields (visible in red and blue
-in~\autoref{fig:beam_full}).
+in~\cref{fig:beam_full}).
 %
 This is where the beam experiences a lot of stress, and therefore the
 tensor fields have a high magnitude.
@@ -143,7 +143,7 @@ tensor fields have a high magnitude.
 The second is near the fixed end.
 %
 Here, the stress is high particularly for the more diagonal force indicated by
-the red arrow in~\autoref{fig:beam_full}.
+the red arrow in~\cref{fig:beam_full}.
 %
 We find a high number of bifurcation points in this region.
 %
@@ -320,7 +320,7 @@ Our final stress tensor dataset is a flange geometry from an
 OpenFoam~\cite{OpenFoamWWW} tutorial.
 %
 We subjected the flange to two different loads, applied on the back wall and the
-outlet tube (see red and blue arrows in \autoref{fig:flange_filtered}).
+outlet tube (see red and blue arrows in \cref{fig:flange_filtered}).
 %
 The original mesh uses polygonal cells, which is why we resampled the data,
 resulting in 1.2 million cells and 5 million faces.
@@ -330,13 +330,13 @@ The computing time was \SI{36}{\minute}, \ie, \SI{0.5}{\milli\second} per face.
 
 %
 The dataset exhibits a lot of \ac{PEV} lines, which can be seen
-in~\autoref{fig:flange_filtered} on the left.
+in~\cref{fig:flange_filtered} on the left.
 %
 Most of the \ac{PEV} lines correspond to eigenvectors with small eigenvalues in both
 tensor fields.
 %
 We therefore filtered out all \ac{PEV} lines where both eigenvalues are very small
-in the center and right images in~\autoref{fig:flange_filtered}.
+in the center and right images in~\cref{fig:flange_filtered}.
 %
 Especially prominent are two bifurcation points with high eigenvalues between
 the two outer screw holes and the central tube.

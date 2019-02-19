@@ -106,7 +106,7 @@ Then the tangential deformation gradient $\hat\mF$ is
 %
 Note that $\mB \in \RRSet^{3\times2}$; and thus $\hat\mF \in \RRSet^{2\times2}$.
 %
-See \autoref{fig:tangential_deformation} for an intuitive interpretation of this
+See \cref{fig:tangential_deformation} for an intuitive interpretation of this
 transformation.
 %
 Thus, $\hat\mF$ encodes the behavior of a point $\hat\vx$ in an
@@ -164,7 +164,7 @@ neighboring processors is known to be a major source of bottlenecks.
 %
 We therefore choose to represent the surface as a cloud of micro-patches
 consisting of a central point and four \textit{ghost particles} (see
-\autoref{fig:point_group}, left).
+\cref{fig:point_group}, left).
 %
 The ghost particles sample the shape and deformation of the micro-patch in the
 local neighborhood around the central point.
@@ -220,7 +220,7 @@ A micro-patch is represented by a group of five points: A center and four
 %
 On initialization, the points are arranged in an orthogonal cross shape in the
 tangent plane defined by the surface normal $\vn$ at the central point $\vx$
-(see \autoref{fig:point_group}).
+(see \cref{fig:point_group}).
 %
 In this way, they sample the shape and deformation in all directions as they
 follow the surface over time.
@@ -347,7 +347,7 @@ stay aligned with the ghost particles.
 %
 The major and minor axes of the current configuration can be reconstructed from
 the tangential component $\hat\mT$ of $\mT$, which is obtained similar to
-\eqref{eqn:tangent_deformation_tensor}:
+\cref{eqn:tangent_deformation_tensor}:
 %
 \begin{equation}
     \hat\mT = \T{\left( \ve_1 \quad \ve_2 \right)} \,
@@ -382,7 +382,7 @@ We also want to leave the central point in place, so we can track its path for
 as long as possible.
 %
 Consequently, we split the patch along its major axis into three identical new
-ones (see \autoref{fig:splitting_patch}).
+ones (see \cref{fig:splitting_patch}).
 %
 The points of the new patches are again arranged in an orthogonal cross shape
 with the axes parallel to the axes of the old patch.
@@ -539,7 +539,7 @@ interval, \ie, its ghost particles were not reset.
 %
 Because the real mapping between $\mC(t_s)$ and $\mC(t_e)$ will generally not be
 linear, $\mE_{\,t_s}^{\,t_e}$ is the solution to a least squares problem very
-similar to \eqref{eqn:normalized_system}.
+similar to \cref{eqn:normalized_system}.
 %
 To make the solution independent of the scale of the micro-patch, we scale the
 last four columns of both $\mC(t_s)$ and $\mC(t_e)$ by the average norm of these
@@ -582,7 +582,7 @@ particles were reset in the course of a split or merge operation.
 %
 Each sub-interval transformation is reconstructed from the new configuration of
 the micro-patch just after a split/merge and the old configuration just before
-the next one (see \autoref{fig:transformation_concatenation}).
+the next one (see \cref{fig:transformation_concatenation}).
 %
 
 %
@@ -596,7 +596,7 @@ parent patch by weighting the contributions of each ghost particle differently
 depending on their distance from the center of the new patch.
 %
 The details of this algorithm are presented in
-Appendix~\ref{sec:transform_interpolation}. \Todo{move appendix into regular
+\cref{sec:transform_interpolation}. \Todo{move appendix into regular
 chapter?}
 %
 With this, we can reconstruct the tangential deformation gradient of any
@@ -613,7 +613,7 @@ patches.
 Most simulations start with a very simple surface, such as a plane or
 sphere, for which this operation is trivial.
 %
-If the starting surface is more complex, any existing isosurface meshing
+If the starting surface is more complex, any existing iso-surface meshing
 algorithm that produces near-equilateral triangles can be used, with patches
 initialized to cover the area of the 1-ring of each vertex.
 %

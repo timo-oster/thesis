@@ -29,7 +29,7 @@ the toplogical skeleton formed by degenerate lines.
 \subsection{Cylinder} % (fold)
 \label{sub:torque_applied_to_a_cylinder}
 %
-In \autoref{fig:tube_lines} we show the eigenvector trajectories resulting from
+In \cref{fig:tube_lines} we show the eigenvector trajectories resulting from
 applying a torque around the long axis of a cylinder.
 %
 The yellow line visible in the center is the result of our algorithm applied to
@@ -45,10 +45,10 @@ Situations like this are common in stress tensor fields, and are handled in our
 algorithm by the threshold $M$.
 %
 Nevertheless, single line segments with low numeric stability $s$ may occur due
-to noise (see \autoref{fig:unfiltered_lines}).
+to noise (see \cref{fig:unfiltered_lines}).
 %
 After filtering them out, the clear central line visible in
-\autoref{fig:tube_lines} remains.
+\cref{fig:tube_lines} remains.
 %
 % subsection torque_applied_to_a_cylinder (end)
 %
@@ -79,7 +79,7 @@ The first is a rotation around the shaft, which applies a torque to it.
 %
 The second includes an additional downward shift.
 %
-\autoref{fig:hooks} shows a tensor core line in the center of the shaft for both
+\Cref{fig:hooks} shows a tensor core line in the center of the shaft for both
 cases.
 %
 Interestingly, a line is also visible in the ``handle''-part of the structure,
@@ -110,7 +110,7 @@ stability stand out.
 Somewhat counterintuitively, these are found on the side opposite to the end
 experiencing the load.
 %
-In \autoref{fig:truck_bumper}, we can clearly see the radial behavior of the
+In \cref{fig:truck_bumper}, we can clearly see the radial behavior of the
 tensor field around both lines.
 %
 Finding these locations by manually inspecting the tensor field in detail would
@@ -135,7 +135,7 @@ Using the tensor core line extractor, they can be identified at a glance.
 \label{sub:crane}
 %
 In this dataset, the arm of a crane is exposed to a downward pull applied to
-the lower side of a cube at the end (see \autoref{fig:crane}).
+the lower side of a cube at the end (see \cref{fig:crane}).
 %
 Similar to the truck bumper, it is not intuitively clear in which parts of the
 structure a swirling behavior of the tensors will occur, just from looking at
@@ -165,7 +165,7 @@ radial behavior.
 \label{sub:spring}
 %
 A simulation of a coil spring being compressed and slightly bent between two
-plates is shown in~\autoref{fig:spring}.
+plates is shown in~\cref{fig:spring}.
 %
 Apart from numerical noise in the poorly resolved plates, we find significant
 tensor core lines at the center of the coil's cross-section.
@@ -176,7 +176,7 @@ do not have a simple swirling behavior of the tensors.
 Instead, the tensor field shows something similar to a hyperbolic behavior in
 vector fields.
 %
-In the rightmost picture in~\autoref{fig:spring}, we can see that eigenvector
+In the rightmost picture in~\cref{fig:spring}, we can see that eigenvector
 trajectories start at the wall on both sides and curve into the same direction.
 %
 This direction is reversed on the top and bottom side of the spring.
@@ -214,7 +214,7 @@ Our implementation is parallelized over the faces of the dataset using
 OpenMP~\cite{OMP2013}.
 %
 Performance numbers for the different datasets shown in this paper are presented
-in \autoref{tab:performance}.
+in \cref{tab:performance}.
 %
 To examine the dependence of the performance and results of our algorithm on the
 parameters $M$, $\varepsilon_{\mathrm{t}}$ and $\varepsilon_{\mathrm{c}}$, we
@@ -226,7 +226,7 @@ We selected baseline parameters $M = 10^3$, $\varepsilon_{\mathrm{t}} =
 We then varied each parameter separately and applied our algorithm to the
 cylinder dataset.
 %
-The results can be seen in \autoref{fig:parameter_study}.
+The results can be seen in \cref{fig:parameter_study}.
 %
 We can see that the performance is controlled by the threshold $M$, which
 controls at which point we assume we are not converging onto an isolated
@@ -348,7 +348,7 @@ core lines are located.
 In the Truck Bumper dataset, a degenerate line coincides with one of the two
 most significant tensor core lines we find, but not the other one.
 %
-Closeups of both datasets are shown in~\autoref{fig:topo_comparison}.
+Closeups of both datasets are shown in~\cref{fig:topo_comparison}.
 %
 In several datasets, such as the Cylinder and Handle, Zheng and Pang's method
 fails to locate any degenerate lines at all.

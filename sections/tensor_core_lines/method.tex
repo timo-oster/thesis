@@ -124,7 +124,7 @@ We are not interested in the magnitude and orientation of $\vr$, only its
 direction.
 %
 We can therefore safely restrict the search space for $\vr$ to a hemisphere
-discretized by a number of triangles (see~\autoref{fig:subdivision_scheme}).
+discretized by a number of triangles (see~\cref{fig:subdivision_scheme}).
 %
 In each triangle $\vr_\triangle = \{\vr_1, \vr_2, \vr_3\}$, $\vr$ is then also
 expressed in barycentric coordinates $\vu = \T{(u_1, u_2, u_3)}$:
@@ -237,7 +237,7 @@ split into four equally-sized parts.
 This can be done by a fixed linear operator applied to the vector of
 coefficients.
 %
-\autoref{fig:subdivision_scheme} shows a triangle pair after several subdivision
+\Cref{fig:subdivision_scheme} shows a triangle pair after several subdivision
 steps have been performed.
 %
 
@@ -280,7 +280,7 @@ on an iterative Newton-Rhapson method that might get stuck in local minima.}
 \subsection{Clustering and Filtering} % (fold)
 \label{sub:clustering_and_filtering}
 % 
-The result of \autoref{sub:recursive_subdivision_scheme} is a list of triangle
+The result of \cref{sub:recursive_subdivision_scheme} is a list of triangle
 pairs $(\vx_{\triangle i}, \vr_{\triangle i})$ where $\hat{h}_i(\vw, \vu) <
 \epsilon_{\mathrm{t}}$.
 %

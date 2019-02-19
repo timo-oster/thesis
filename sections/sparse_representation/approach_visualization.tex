@@ -5,11 +5,10 @@
 %
 The models used in the sparse representation directly capture the
 characteristics of the scalar fields in the vicinity of the flame surface. This
-information can directly be analyzed, thus solving problem 2 discussed in
-Section~\ref{sec:intro}. The model parameters $x_l$, $x_m$ and $x_r$ (see
-Figure~\ref{fig:models}) describe three classes of feature points on the
-profiles: \emph{minimum} (min), \emph{maximum} (max) and \emph{inflection point}
-(infl).
+information can directly be analyzed, thus solving problem \ref{i:analyze}
+discussed in \cref{sec:intro}. The model parameters $x_l$, $x_m$ and $x_r$ (see
+\cref{fig:models}) describe three classes of feature points on the profiles:
+\emph{minimum} (min), \emph{maximum} (max) and \emph{inflection point} (infl).
 %
 % Using the position and direction of the profile lines, we transform those
 % feature points into points in space. These points can describe a feature surface
@@ -46,16 +45,16 @@ and their subsequent visualization.
 %
 \subsection{Feature Point Construction}
 %
-As shown in Figure~\ref{fig:featurepoints} (left), each class of feature points
+As shown in \cref{fig:featurepoints} (left), each class of feature points
 can be transformed into a point set in space. By considering all profile lines
 $\vp_i (t)= \vp_i + t \cdotp \vr_i$, which have been sent
-out from the flame surface $S$ (Figure~\ref{fig:featurepoints}, left), the
+out from the flame surface $S$ (\cref{fig:featurepoints}, left), the
 position of a feature point $\vp(t_f)$ with $f \in \{\text{min},
 \text{max}, \text{infl}\}$ is given by
 %
-\begin{equation*}
+\begin{equation}
 	\vp(t_{f})=\vp+ t_f \cdotp \vr.
-\end{equation*}
+\end{equation}
 % with $t_{n}$ being the normalization
 % \begin{equation}
 % 	t_{n}= - \frac{ \vp \cdotp \vr }{ ||\vr||^2 }
@@ -101,7 +100,7 @@ profile lines were seeded at vertices of this mesh. For each point $\vp_i$ on
 the flame surface we therefore know the position of a point on the feature
 surface $S_f$ by the corresponding shift value $t_{f,i}$ and the direction of
 the profile line $\vr_i$ (\Todo{Make consistent use of
-\texttt{\textbackslash{}autoref} or not} Figure~\ref{fig:featurepoints} (left)).
+\texttt{\textbackslash{}autoref} or not} \cref{fig:featurepoints} (left)).
 %
 % Revealing a feature surface is a non-trivial task due to reasons of ambiguity:
 % obviously, an infinite number of surfaces can be fitted to the point set. Thus,
@@ -175,11 +174,10 @@ representing the feature surface.
 %
 
 The simplest way to implement this transformation would be to move the vertices
-$\textbf{m}_j \in M$ of the flame mesh $M$ along the direction vectors
-$\vr$ of the profile lines to a related feature point, given by the shift
-value $t_f$. Unfortunately, the values for $t_f$ and $\vr$ are only known
-at vertices where profile lines have been seeded (see Section~\ref{sub:seeding},
-Figure~\ref{fig:featurepoints}).
+$\textbf{m}_j \in M$ of the flame mesh $M$ along the direction vectors $\vr$ of
+the profile lines to a related feature point, given by the shift value $t_f$.
+Unfortunately, the values for $t_f$ and $\vr$ are only known at vertices where
+profile lines have been seeded (see \cref{sub:seeding,fig:featurepoints}).
 %
 % Unfortunately, this is not possible, since the flame mesh $M$ and the profile
 % lines $\vp(t)=\vp+ t \cdotp \vr$ are mutually not aligned,
@@ -210,7 +208,7 @@ we use an explicit weighted averaging scheme, iteratively replacing the values
 at each vertex with the sum of its neighbors, weighted with the neighbor's
 inverse distance. After this process has finished, directions and shift values
 are known for each vertex $\vm_j$ (grey arrows and dots in
-Figure~\ref{fig:featurepoints} (right)). This process is a preprocessing step
+\cref{fig:featurepoints} (right)). This process is a preprocessing step
 that has to be performed only once before visualization and does not further
 impede performance.
 %
@@ -354,34 +352,34 @@ it by two different values $t_f^V$ and $t_f^W$ along the local profile direction
 $\vr'$. Thus, the distance between the vertices is simply the difference
 between the two shift values.
 
-% \begin{equation*}
+% \begin{equation}
 % 	d(\vm_f^{V, W}) = t_f^V - t_f^W
-% \end{equation*}
+% \end{equation}
 %
 This distance is computed for each vertex and linearly mapped onto a color map. 
 % The mapping is given by
 % %
-% \begin{equation*}
+% \begin{equation}
 % 	\begin{array}{ll}
 % 		1 & \text{if } u_1 \cdotp d + 0.5 > 1 \text{,}\\
 % 		0 & \text{if } u_1 \cdotp d + 0.5 < 0 \text{,}\\
 % 		u_1 \cdotp d + 0.5 & \text{ else.}\\
 % 	\end{array}
-% \end{equation*}
+% \end{equation}
 % %
 % This mapping ensures that $d=0$ is always mapped to the center of the color map.
 %
-We use a color map adapted to our application: black for values near
-zero (the meshes intersect), red to yellow for growing positive distances
-(one mesh is outside of the other locally), and blue to cyan for negative
-distances (the opposite applies). We introduce parameter $u_1$ as a scaling factor
-for adjusting the color contrast and controlling how much of the data is mapped
+We use a color map adapted to our application: black for values near zero (the
+meshes intersect), red to yellow for growing positive distances (one mesh is
+outside of the other locally), and blue to cyan for negative distances (the
+opposite applies). We introduce parameter $u_1$ as a scaling factor for
+adjusting the color contrast and controlling how much of the data is mapped
 inside the displayed color range and how much is clamped to the maximum/minimum
 color. This enables a quick visual search for both extreme difference values (by
 choosing a low value for $u_1$), or an overview of areas with positive or
 negative difference values (by choosing a high value for $u_1$). The color scale
 and the effect of varying parameter $u_1$ are shown in
-Figure~\ref{fig_contourmeshvis}.
+\cref{fig_contourmeshvis}.
 
 % Let $M^{v}_{f}$ and $M^{w}_{f}$ feature meshes for two variables $v$ and $w$ of
 % DNS data w.r.t. the same feature class $f$. Let $M$ the related flame mesh, and
@@ -481,7 +479,7 @@ user-controlled linear morphing between the flame surface mesh $M$ and the two
 chosen feature meshes $M^{V}_{f}$ and $M^{W}_{f}$. A parameter $u_2 \in [0, 2]$
 steers the morphing, showing the flame surface $M$ for $u_2 = 0$, the first
 feature surface $M^{V}_{f}$ for $u_2 = 1$ and $M^{W}_{f}$ for $u_2 = 2$
-(Figure~\ref{fig_contourmeshvis}). The morphing itself is trivial. Since the
+(\cref{fig_contourmeshvis}). The morphing itself is trivial. Since the
 corresponding vertices between all the meshes are known and their topology is
 identical, they just have to be linearly translated as the value of $u_2$ changes.
 % \todo{neccessary?} Letting the user continuously control the value of $u_2$ lets them control the

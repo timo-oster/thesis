@@ -132,7 +132,7 @@ the tangential deformation.
 %
 We show the distribution of differences to the ground truth solution for
 different tangential error thresholds $r_\shortparallel$ in
-\autoref{fig:ground_truth_errors}.
+\cref{fig:ground_truth_errors}.
 %
 For the sake of brevity, we only show the results for the complete interval
 $t=[0,\,2]$, which will naturally show the largest errors.
@@ -157,9 +157,8 @@ $t=[0,\,2]$, which will naturally show the largest errors.
     \todo[inline]{fix size/layout, credit ParaView?}
 \end{figure}
 %
-As shown in Figures~\ref{fig:ground_truth_comparison} and
-\ref{fig:ground_truth_errors}, the accuracy of our method is strongly
-dependent on $r_\shortparallel$.
+As shown in \cref{fig:ground_truth_comparison,fig:ground_truth_errors}, the
+accuracy of our method is strongly dependent on $r_\shortparallel$.
 %
 For large values of $r_\shortparallel$, the resulting deformation does not only
 contain unreasonably large errors, but the surface also exhibits some holes.
@@ -219,7 +218,9 @@ The thresholds $r_{\text{size}}$ and $t_{\text{size}}$ were chosen such that a
 surface patch is always smaller than the smallest extent of a block of the
 simulation domain, and larger than $\sfrac{1}{16}$ of the size of a grid cell.
 %
-\autoref{fig:simulation_results} (top) shows the results of our algorithm for
+
+%
+\Cref{fig:simulation_results} (top) shows the results of our algorithm for
 four snapshots of the simulation.
 %
 The simulation starts with a spherical configuration represented by about
@@ -239,8 +240,9 @@ track the surface without any neighbor information between micro-patches.
 We obtain smooth results that show which regions of the surface have expanded or
 contracted significantly.
 %
+
 %
-\autoref{fig:simulation_results} shows the change in number of patches per
+\Cref{fig:simulation_results} shows the change in number of patches per
 surface area compared to the initial seeding density.
 %
 A high concentration of patches occurs in areas with high surface curvature, as
@@ -259,7 +261,7 @@ The number of splits performed per iteration fluctuates around
 %
 The number of merge events per iteration is almost zero up until the time
 between the second and third snapshot shown in
-\autoref{fig:simulation_results}\Todo{Check if autoref works everywhere}, at
+\cref{fig:simulation_results}\Todo{Check if autoref works everywhere}, at
 iteration 15000, where it starts to increase, stabilizing at around half the
 number of splits.
 %
@@ -303,7 +305,7 @@ The thresholds $r_{\text{size}}$ and $t_{\text{size}}$ were chosen with the same
 method employed for the premixed case.
 %
 We show our results for three different snapshots in
-\autoref{fig:simulation_results} (bottom).
+\cref{fig:simulation_results} (bottom).
 %
 The case starts with a planar surface on both sides of the fuel jet, which is
 moving from left to right in the images.
@@ -353,7 +355,7 @@ pockets, which causes lots of small patches to accumulate in a small area.
 \subsection{Performance} % (fold)
 \label{sub:fst_performance}
 %
-\autoref{fig:performance_spherical} shows the performance over the course of the
+\cref{fig:performance_spherical} shows the performance over the course of the
 simulation, as well as the number of micro-patches existing at each time step.
 %
 We conducted multiple experiments with different choices for the subdivision
@@ -440,7 +442,7 @@ The additional memory consumption here reaches from \SI{800}{\giga\byte} to
                 \draw[thick, nhighcolor] (0, -0.5ex) -- (0.4cm, -0.5ex);
              \end{tikzpicture}
              ). The vertical lines mark the snapshots
-             shown in \autoref{fig:simulation_results}.
+             shown in \cref{fig:simulation_results}.
              \tikzset{external/export=true}
     }
     \label{fig:performance_spherical}

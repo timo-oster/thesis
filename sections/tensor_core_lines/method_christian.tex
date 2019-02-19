@@ -13,7 +13,7 @@ tetrahedron.
 %%
 
 %
-In general, tensor core structures are line features (see \autoref{sec:tcl_theory}).
+In general, tensor core structures are line features (see \cref{sec:tcl_theory}).
 %%
 We extract them by first bounding the search space to individual
 tetrahedral cells and then to the cell boundary.
@@ -35,7 +35,7 @@ degenerate lines in tensor fields by Zheng and Pang~\cite{Zheng2004}.
 %%
 A tensor core line consists of all locations $\vx$ where
 $\mT(\vx)\, \vr \parallel \vr$ and $\nabla_{\vr}\mT(\vx)\, \vr \parallel \vr$,
-see equation~\eqref{eq:tensor_line}.
+see \eqref{eq:tensor_line}.
 %%
 This can be expressed as solutions to
 %%
@@ -65,18 +65,18 @@ simultaneously become zero.
 
 %
 We construct a bisection algorithm that uses the Bernstein-B\'ezier form
-(\autoref{sec:bb}) of the polynomials to exclude the presence of roots within
+(\cref{sec:bb}) of the polynomials to exclude the presence of roots within
 subtriangles.
 %%
-Within the search space (\autoref{sec:searchspace}) a recursive
-subdivision (\autoref{sec:subdiv}) approximates the locations of roots in
+Within the search space (\cref{sec:searchspace}) a recursive
+subdivision (\cref{sec:subdiv}) approximates the locations of roots in
 $\vx$-$\vr$-space with an arbitrary user-defined precision.
 %%
 The local feature extraction is followed by a stage that clusters solutions and
-then connects feature points to lines within cells (\autoref{sec:cluster})
+then connects feature points to lines within cells (\cref{sec:cluster})
 %
 Finally, we use a filtering criterion for removing unstable solutions
-(\autoref{sec:filt}).
+(\cref{sec:filt}).
 %
 \subsection{Polynomial System in Bernstein-B\'ezier Form}
 \label{sec:bb}
@@ -174,7 +174,7 @@ for $\vx$ and $\vr$.
 We remark that there is no need for an ``accurate'' approximation of
 the hemisphere.
 %%
-We simply use a four-sided open pyramid (see \autoref{fig:subdivision_scheme}).
+We simply use a four-sided open pyramid (see \cref{fig:subdivision_scheme}).
 %%
 
 %
@@ -260,14 +260,14 @@ The system \eqref{eq:system} defines six polynomials.
 %%
 For the initialization of the algorithm, we need to determine the
 Bernstein-B\'ezier form, \ie, the coefficients $b_{ijk\,\alpha\beta\gamma}$
-in equation~\eqref{eq:polynomial}, for each of these polynomials.
+in \cref{eq:polynomial}, for each of these polynomials.
 %%
 This can be done easily by sampling and interpolation:
 %%
 There are $3\times{}10$ coefficients and two triangular parameter
 domains.
 %%
-As equation~\eqref{eq:polynomial} lives in a tensor-product space,
+As \cref{eq:polynomial} lives in a tensor-product space,
 interpolation of position and direction can be separated.
 %%
 Chose $3$ or $10$ distinct sampling positions in $\Delta_{\vx}$ or
@@ -315,7 +315,7 @@ In this case we \emph{subdivide}\/ one of the parameter triangles.
 We alternate between subdividing $\Delta_{\vx}$ in position-space and
 $\Delta_{\vr}$ in direction-space.
 %%
-For both, we use a regular 1:4-split (see \autoref{fig:subdivision_scheme}).
+For both, we use a regular 1:4-split (see \cref{fig:subdivision_scheme}).
 %%
 Each of the four new subtriangles is processed recursively in the same
 way.
@@ -414,7 +414,7 @@ field within $\Delta_{\vx}$.
 \subsubsection*{Breadth-First Search Modification}
 %%
 %%
-As we hinted at in \autoref{sec:tcl_theory}, the symmetries and regular shapes
+As we hinted at in \cref{sec:tcl_theory}, the symmetries and regular shapes
 inherent to data such as stress simulations of mechanical parts often lead to
 \eqref{eq:tensor_line} being fulfilled or almost fulfilled on surface- or
 volume-type structures.
@@ -500,7 +500,7 @@ For each tetrahedral cell of the dataset, we now connect the root points found
 on its faces by a line segment.
 %%
 Since in piecewise linear fields, tensor lines are always straight within a cell
-(see \autoref{sec:tcl_theory}), we greedily connect the two points with the smallest
+(see \cref{sec:tcl_theory}), we greedily connect the two points with the smallest
 difference in eigenvector direction until no more pairs are left.
 %%
 Similar to the vortex core lines by Sujudi and Haimes \cite{Sujudi1995}, this

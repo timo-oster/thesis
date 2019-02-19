@@ -95,10 +95,10 @@ In terms of the \ac{PV} operator, this equation has the form
 %
 \begin{figure}
     \begin{captionbeside}
-        {Example of seven distinct core lines in a random linear tensor field.}
+        {Example of seven distinct core lines in a random linear tensor field.
+        \label{fig:7lines}}
         \includegraphics[width=0.5\columnwidth]{figures/7lines}
     \end{captionbeside}
-    \label{fig:7lines}
 \end{figure}
 %
 
@@ -107,43 +107,45 @@ We now examine the mathematical properties of tensor core lines.
 %
 
 %
-\newtheorem{lemma1}{Lemma}
-\begin{lemma1}\label{thm:lemma1}
+\begin{lemma}\label{thm:lemma1}
 In a $C^1$-continuous tensor field, tensor core lines are structurally stable
 line structures.
-\end{lemma1}
+\end{lemma}
 %
 Here, structural stability refers to the property that adding noise slightly
 perturbs the structures but does not destroy them.
 %
-To show Lemma \ref{thm:lemma1}, we consider a local
-approximation of a real eigenvector field in the neighborhood of a point as a
-normalized vector field.
+To show \cref{thm:lemma1}, we consider a local approximation of a real
+eigenvector field in the neighborhood of a point as a normalized vector field.
 %
-Then the fact that \ac{PV} lines give line structures~\cite{Peikert1999} shows the
-lemma.
+Then the fact that \ac{PV} lines give line structures~\cite{Peikert1999} shows
+the lemma.
 %
 Note that although such a consideration of an eigenvector field as a normalized
 vector field is locally possible, it does not apply globally in a consistent
 way, and therefore does not provide a strategy to extract tensor core lines.
+\Todo{Proof done by Holger. How to handle?}
 %
 We also mention that in real datasets, tensor cores may build surfaces or even
-parts of spatial structures. This is due to shape symmetries often observed in
-artificial data produced by humans. Even though these structures are unstable
-(adding noise destroys the surfaces to many lines), our extraction algorithm has
-to deal with them.
+parts of spatial structures.
+%
+This is due to shape symmetries often observed in artificial data produced by
+humans.
+%
+Even though these structures are unstable (adding noise destroys the surfaces to
+many lines), our extraction algorithm has to deal with them.
 %
 
 %
-\begin{lemma1}
+\begin{lemma}
 For a linear tensor field, tensor core lines are straight lines.
-\end{lemma1}
+\end{lemma}
 %
 This follows from the fact that for linear tensor fields, the linear
-approximation in equation~\eqref{eq:lin_approx} describes the whole data set
-exactly: if equation~\eqref{eq:lin_cond} holds for a small $h$, it holds for all
+approximation in \cref{eq:lin_approx} describes the whole data set
+exactly: if \cref{eq:lin_cond} holds for a small $h$, it holds for all
 $h$ (i.e., on a whole straight line) as well.
 %
-\autoref{fig:7lines} shows an example of a random linear tensor field containing
+\Cref{fig:7lines} shows an example of a random linear tensor field containing
 7 isolated tensor core lines.
 %

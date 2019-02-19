@@ -99,7 +99,7 @@ variables $V$ comparable:
 %\ac{RMS} error for each variable was normalized by the range of its values.
 %The fitting error for a variable $V$ is then:
 %
-\begin{equation*}
+\begin{equation}
 	E^V_{\text{fit}} 
 		= 	\frac{(\max(V)-\min(V))^{-1}}{\sum_{i=1}^n x_{ri}-x_{li}} 
 			\sum_{i=1}^n~
@@ -107,7 +107,7 @@ variables $V$ comparable:
 						\frac{|P_{ij}^V-u_{ij}^V|}
 							{x_{ri}-x_{li}} 
 	\text{ .}
-\end{equation*}
+\end{equation}
 %
 Here, $u_{ij}^V$ is the value of the fitted model corresponding to the original
 profile value $P_{ij}^V$, while $\{j | x_{li} \leq x_{ji} \leq x_{ri}\}$ are the
@@ -117,7 +117,7 @@ this error for all possible profile lines in all data sets.
 % For smoothing the profiles before finding the feature points, we used a
 % Gaussian kernel with $\sigma = 1 \text{ voxel}$.
 %
-As Figure~\ref{fig:fitting_rms_error} shows, the errors are quite low, ranging
+As \cref{fig:fitting_rms_error} shows, the errors are quite low, ranging
 from 0.1\% to 6.3\% of the respective variable's range.
 
 For investigating the overall error after reconstruction, We computed the
@@ -150,10 +150,10 @@ needed by the sparse representation.
 % \todo{explain this earlier. Especially emphasize data dependence of
 % seeding and therefore reduction ratio.}
 %
-% \begin{equation*}
+% \begin{equation}
 % 	c 
 % 		= \frac{B_\text{original}}{B_\text{sparse}} 
-% \end{equation*}
+% \end{equation}
 %
 % Where $B_\text{original}$ and $B_\text{sparse}$ are the storage space needed to
 % store the original and transformed data. 
@@ -172,7 +172,7 @@ needed by the sparse representation.
 We used a normalized root mean square error metric to compute the reconstruction
 quality:
 %
-\begin{equation*}
+\begin{equation}
 	E^V_\text{reconst}
 		= 	\frac{1}{|H|}
 			\int\limits_{\vx \in H}
@@ -180,7 +180,7 @@ quality:
 					\frac{R(\vx) - V(\vx)}{\max(V)-\min(V)}
 				\right| ~d\vx
 			 \text{ ,}
-\end{equation*}
+\end{equation}
 %
 where $V$ is the original data of the variable, $R$ is the reconstructed data,
 $H$ is the convex hull of all points used to reconstruct the data, and $|H|$ is
@@ -286,7 +286,7 @@ library~\cite{Fowler2000} on our data.
 % used the same metric $E^V_\text{reconst}$ to compute the error introduced by
 % this process.
 
-Figure~\ref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction
+\Cref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction
 error $E_\text{reconst}^V$ for all tested methods for selected variables. Please
 note that for \textsc{Syngas II}, higher reduction ratios are achieved than for
 \textsc{Syngas I}, due to the flame in the former being relatively smaller. For
@@ -339,7 +339,7 @@ result to real simulations, making it suitable for scalability tests.
 Since each profile line has to be processed separately, the run time of the
 algorithm is approximately linear in the number of seed points, and thus depends
 indirectly on the flame surface area and structure.
-Figure~\ref{fig:compression_table} shows run times and compression ratios for
+\Cref{fig:compression_table} shows run times and compression ratios for
 the synthetic data set and \textsc{Hydrogen}. Data set volume and flame surface
 area of the synthetic data set are one order of magnitude higher than that of
 \textsc{Hydrogen}. This results in a run time which is also one order of

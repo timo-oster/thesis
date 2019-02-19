@@ -50,7 +50,7 @@ over extended time periods, such as described by Sripakagorn
 \etal~\cite{Sripakagorn2004}, to the complete flame surface.
 %
 Additionally, we extend the notion of instantaneous surface stretch (such as
-described by Poinsot and Veynante in \cite{Poinsot2012}) to the tangential
+described by Poinsot and Veynante\cite{Poinsot2012}) to the tangential
 deformation of the surface over arbitrary time intervals.
 %
 
@@ -76,7 +76,7 @@ Our algorithm must overcome the following challenges:
         arbitrary time interval.
 \end{enumerate}
 %
-Point~\ref{it:parallel} precludes the use of a mesh or space partition data
+\Cref{it:parallel} precludes the use of a mesh or space partition data
 structure with neighborhood information, as the global nature of operations in
 such a structure is not well suited for a massively parallel algorithm.
 %
@@ -84,21 +84,21 @@ Instead, we represent the surface as a number of independent micro-patches
 consisting of a central point and four ghost particles measuring the local
 surface deformation.
 %
-This is described in Section~\ref{sub:surface_patch_representation}.
+This is described in \cref{sub:surface_patch_representation}.
 %
-Points~\ref{it:on-the-fly} and~\ref{it:refinement} mean that we need to refine
+\Cref{it:on-the-fly,it:refinement} mean that we need to refine
 the micro-patches adaptively before they are significantly distorted.
 %
 We therefore introduce a way of monitoring the distortion of a patch and split
 it before the distortion becomes too large in
-Section~\ref{sub:splitting_surface_patches}.
+\cref{sub:splitting_surface_patches}.
 %
 This method of tracking and refining a surface without explicit neighbor
 information is a major contribution of this work.
 %
 Based on the behavior of the micro-patches over time, we introduce the
-computation of the tangential deformation gradient (point~\ref{it:deformation})
+computation of the tangential deformation gradient (\cref{it:deformation})
 for arbitrary time intervals in
-Section~\ref{sub:reconstructing_tangential_surface_deformation}.
+\cref{sub:reconstructing_tangential_surface_deformation}.
 %
 % section introduction (end)
