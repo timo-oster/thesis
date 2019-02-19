@@ -37,8 +37,9 @@
 
 % math
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{mathtools}
-\mathtoolsset{showonlyrefs}
+% \mathtoolsset{showonlyrefs}
 \usepackage{bm}
 \usepackage{xfrac}
 \usepackage[binary-units=true]{siunitx}
@@ -96,7 +97,8 @@
 % \usepackage{tocstyle}
 
 \usepackage[
-    pagebackref]{hyperref}  % hyperlinking in PDF output
+    pagebackref,
+    hypertexnames=false]{hyperref}  % hyperlinking in PDF output
 
 \definecolor{mycolor1}{HTML}{377EB8}% blue
 \definecolor{mycolor2}{HTML}{FF7F00}% orange
@@ -113,6 +115,10 @@
     pdftitle={PhD Thesis},
     pdfauthor={Timo Oster}
 }
+
+\usepackage[capitalize, noabbrev]{cleveref}
+
+\usepackage{autonum}
 
 % miscellaneous
 \usepackage[
@@ -237,6 +243,8 @@
 \newlength{\figurewidth}    % used in tikz figures to enable scaling
 \newlength{\figureheight}
 
+\newtheorem{lemma}{Lemma}
+
 % \usepackage{layout}
 
 \input{macros}              % math macros
@@ -248,6 +256,7 @@
 \newcommand{\seedDensQuot}{q} % parameter to regulate seed density
 
 \title{ Dissertation }
+\subtitle{ Visualization Methods for Engineering Simulations }
 
 \author{ Timo Oster }
 
