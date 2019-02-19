@@ -207,6 +207,14 @@ Intermediates generally do not occur in the fresh gases, but some radicals may
 exist on the burnt gas side due to dissociation of combustion products at high
 temperatures.
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/laminar_flame.png}
+    \caption{Profiles of species (Y), temperature and heat release of a
+    laminar premixed \ce{H2}-\ce{O2} flame. Image source: Poinsot and
+    Veynante~\cite{Poinsot2012}}
+    \label{fig:laminar_premixed_profiles}
+\end{figure}
 
 %
 The characteristic properties of a premixed flame front are \emph{flame speed},
@@ -263,6 +271,9 @@ It can be induced by a non-uniform flow, but also by the expansion or
 contraction a curved flame front experiences due to its propagation in normal
 direction.
 %
+\Cref{fig:stretched_premixed_flames} shows some examples of stretched laminar
+premixed flames.
+%
 If the flame experiences positive stretch, it is tangentially expanded and
 compressed in normal direction.
 %
@@ -275,8 +286,14 @@ If the flame is stretched too quickly, this can lead to quenching.
 %
 Negative stretch (compression) leads to less fresh gas being transported near
 the reaction zone, which increases the flame thickness and reduces flame speed.
-\Todo{Example 2D flame configuration illustrating stretch/thickness variations}
 %
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/stretched_premixed_flames.png}
+    \caption{Examples of stretched laminar premixed flames. Image source:
+    Poinsot and Veynante~\cite{Poinsot2012}}
+    \label{fig:stretched_premixed_flames}
+\end{figure}
 
 %
 Due to their defining characteristic for the behavior of the flame, flame speed,
@@ -294,6 +311,19 @@ Combustion can only occur where both mix in a sufficient ratio via diffusion.
 %
 This is why non-premixed flames are also called diffusion flames.
 %
+\Cref{fig:laminar_diffusion_profiles} shows a \ac{1D} cross-section of a
+typical laminar diffusion flame.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/laminar_diffusion_flame.png}
+    \caption{Basic configuration of a one-dimensional laminar diffusion flame.
+    Image source: Poinsot and Veynante~\cite{Poinsot2012}}
+    \label{fig:laminar_diffusion_profiles}
+\end{figure}
+%
+
+%
 The prototypical example of a diffusion flame is a jet flame where fuel gas is
 injected into ambient air and ignited.
 %
@@ -306,7 +336,16 @@ laminar diffusion flame.
 %
 The heat generated from the flame is sufficient to ignite the fresh fuel being
 supplied from the wick and sustain the reaction.
-\Todo{Example diffusion flame configuration (Bunsen burner?)}
+%
+\Cref{fig:laminar_diffusion_jet} shows a simplified example of such a flame.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/laminar_diffusion_jet.png}
+    \caption{Simple \ac{2D} laminar diffusion jet flame. Image source: Poinsot
+    and Veynante~\cite{Poinsot2012}}
+    \label{fig:laminar_diffusion_jet}
+\end{figure}
 %
 
 %
@@ -434,6 +473,14 @@ and thereby influencing the flow.
 On the other hand turbulent flow transports and mixes the gases, thereby
 influencing the conditions for combustion.
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/balloon_burner.jpg}
+    \caption{Example of a turbulent non-premixed flame: The burner of a hot air
+    balloon.}
+    \label{fig:balloon_burner}
+\end{figure}
+%
 
 %
 The effect of turbulence on the flame depends on the size and strength of
@@ -508,6 +555,9 @@ from the difference in velocities between the two gases.
 This leads to a reaction zone that is typically very thin at the outlet and
 becomes thicker as more mixing occurs downstream, where a substantial volume is
 occupied by combustion products.
+%
+A practical example for a diffusion jet flame is shown in
+\cref{fig:balloon_burner}.
 %
 
 %
@@ -624,13 +674,10 @@ reaction rate in dependence on the current temperature.
 \begin{table}[t]
     \caption[Example scheme for \ce{H2}-\ce{O2} combustion]
             {Example scheme for a seemingly simple chemical reaction: Hydrogen
-             and Oxygen react to produce water \cite{Miller1982}. The scheme
-             uses 9 different species and 19 individual reactions. \ce{M} is a
+             and Oxygen react to produce water \cite{Miller1982}. \ce{M} is a
              placeholder for a third molecule that is needed to absorb and
              dissipate excess energy to stabilize the product.}
     \label{tab:hydrogen_scheme}
-    \Todo[inline]{Move point about many species and reactions even for simple
-    reactions into text body}
     \centering
     \begin{tabularx}{\linewidth}{lX}
     \toprule
@@ -666,6 +713,12 @@ parameters for each one.
 For complex hydrocarbon fuels the number of different species considered
 can easily go into the hundreds, while thousands of intermediate steps
 contribute to the reaction.
+%
+Even for seemingly simple reactions, such as Hydrogen and Oxygen to Water,
+the reaction schemes can be surprisingly complex.
+%
+The scheme by Miller \etal~\cite{Miller1982} displayed in
+\cref{tab:hydrogen_scheme} has 9 species and 19 different reactions.
 %
 Adding this to an already computationally intensive fluid dynamics simulation
 that only involves five different variables (density, temperature and three
@@ -786,6 +839,15 @@ small-scale flame structure are subject of ongoing research.
 \subsection{High-Level Models: \acs{RANS} and \acs{LES}} % (fold)
 \label{sub:high_level_models}
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/rans_vs_les.png}
+    \caption{Comparison of temperature iso-surfaces in a swirled combustor when
+    using \ac{RANS} and \ac{LES}. Image source: Poinsot and Veynante
+    \cite{Poinsot2012}}
+    \label{fig:rans_vs_les}
+\end{figure}
+%
 Computational fluid dynamics (\acs{CFD}\acused{CFD}) knows three main categories
 of models for simulating turbulent flow.
 %
@@ -811,6 +873,9 @@ averaged and fluctuating parts.
 %
 The result are average values for all simulation variables at each location.
 %
+Images of \ac{RANS} simulations show very smooth fields that have almost no
+small-scale features (see \eg, \cref{fig:rans_vs_les}).
+%
 
 %
 Combustion models for \ac{RANS} can be based on quantities such as the mean
@@ -822,12 +887,11 @@ density functions based on one-point statistics.
 Since \ac{RANS} simulations do not resolve unsteady effects, their results have
 to be interpreted with care.
 %
-For example, a low temperature at some point in the domain does not necessarily
-mean that very high temperatures never occur there, just that they are very
-rare.
+Mean values reported by \ac{RANS} say nothing about the possibly large
+fluctuations that occur there.
 %
-However, they are the most popular and widespread simulations because of their
-low computational cost.
+However, \ac{RANS} is the most popular and widespread method for simulating
+turbulent combustion because of its low computational cost.
 %
 % subsubsection rans (end)
 %
@@ -844,7 +908,8 @@ scales explicitly.
 %
 Small-scale sub-grid effects are modeled.
 %
-\ac{LES} produce an unsteady, but "blurry" representation of reality.
+\ac{LES} produce an unsteady, but "blurry" representation of reality (see
+\cref{fig:rans_vs_les}).
 %
 
 %
@@ -939,6 +1004,14 @@ still impossible to obtain via experiments.
 This data allows an in-depth analysis of the behavior of turbulent flames that
 can be leveraged to build, validate and improve higher-level models.
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Hawkes_VolRend.png}
+    \caption{Direct volume rendering of the mixture fraction in a
+    \ac{DNS} of a turbulent non-premixed flame.}
+    \label{fig:turbulent_diffusion_flame_dns}
+\end{figure}
+%
 
 %
 \ac{DNS} is used mainly for two purposes:
@@ -1015,7 +1088,14 @@ For example, Sankaran \etal \cite{Sankaran2007} analyzed the flame thickness and
 curvature in a premixed jet flame statistically and compared the results to a
 laminar flame.
 %
-\Todo{Another example}
+Hawkes and Chen~\cite{Hawkes2006} investigated the statistical similarity of
+methane-air flames in the ``thin reaction zones'' regime, which uses slightly
+weaker assumptions than the flamelet regime, to strained laminar flames.
+%
+The approach presented in \cref{cha:sparse_representation} facilitates such
+studies by providing a representation of a premixed flame from which such
+statistics can readily be computed, as well as enhancing it by an additional
+possibility of visual analysis.
 %
 
 %
