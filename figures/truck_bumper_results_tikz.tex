@@ -6,18 +6,18 @@
 \begin{tikzpicture}[
     font=\small
 ]
-    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0.25cm and 0.25cm]
 
     % place image in node
     \node[image] (image1)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_deformation}%
+        \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_deformation}%
     };
 
     % place next image to the right with a little space in between
-    \node[image, right=of image1, xshift=0.25cm] (image2)
+    \node[image, right=of image1] (image2)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_lines}%
+        \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_lines}%
     };
     % create new coordinate system on image2:
     \begin{scope}[
@@ -35,40 +35,27 @@
         \draw [thin, -] (0.72, 0.435) -- (0.8, 0.4) node [anchor=west] {\normalsize \textbf{$2$}};
     \end{scope}
 
-    \node[image, right=of image2, xshift=0.25cm] (image3)
+    \node[image, below=of image1] (image3)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail2}%
+        \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_detail2}%
     };
     % place a text on the lower left corner of image3
     \node [anchor=south west] at (image3.south west) {\large \textbf{$1$}};
 
-    \node[image, right=of image3, xshift=0.25cm] (image4)
+    \node[image, right=of image3] (image4)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/truck_bumper_detail1}%
+        \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_detail1}%
     };
     \node [anchor=south west] at (image4.south west) {\large \textbf{$2$}};
 
-    \node[anchor=north west, xshift=-0.7cm, yshift=0.15cm] at (image4.north east){
+
+    \clip (image1.north west) -- ($(image2.north east) + (2.25cm, 0)$) --
+    ($(image4.south east) + (2.25cm, -2mm)$) -- (image3.south west) -- cycle;
+
+    \node[anchor=south west, xshift=-0.6cm, yshift=-3.5mm] (stabscale) at (image4.south east){
         \begin{axis}[
             scale only axis,
-            height=1.1cm,
-            hide axis,
-            domain=1:20,
-            colorbar,
-            colorbar/width=0.25cm,
-            colormap name={cubicyf},
-            point meta min=0, point meta max=9e6,
-            colorbar style={
-                title=$\sigma_{\text{vM}}$,
-                scaled ticks=false,
-                ytick={0, 9e6}
-            }]
-        \end{axis}
-    };
-    \node[anchor=south west, xshift=-0.8cm, yshift=-0.15cm] at (image4.south east){
-        \begin{axis}[
-            scale only axis,
-            height=1.1cm,
+            height=2.8cm,
             hide axis,
             domain=1:20,
             colorbar,
@@ -79,6 +66,23 @@
                 title=$\log(s)$,
                 scaled ticks=false,
                 ytick={1.5, 15}
+            }]
+        \end{axis}
+    };
+    \node[anchor=south west, xshift=1.3mm] at (stabscale.north west){
+        \begin{axis}[
+            scale only axis,
+            height=2.8cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=9e6,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 9e6}
             }]
         \end{axis}
     };

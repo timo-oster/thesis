@@ -6,71 +6,55 @@
 \begin{tikzpicture}[
     font=\small
 ]
-    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
+    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0.25cm and 0.25cm]
 
     % place image in node
     \node[image] (image1)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook2_deformation}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook2_deformation}%
     };
 
-    \node[image, right=of image1, xshift=0.25cm] (image2)
+    \node[image, below=of image1] (image2)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook2_lines}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook2_lines}%
     };
 
-    \node[image, right=of image2, xshift=0.25cm] (image3)
+    \node[image, below=of image2] (image3)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook2_detail1}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook2_detail1}%
     };
 
-    \node[image, right=of image3, xshift=0.25cm] (image4)
+    \node[image, below=of image3] (image4)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook2_detail2}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook2_detail2}%
     };
 
-    \node[image, below=of image1, yshift=-0.25cm] (image5)
+    \node[image, right=of image1] (image5)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook3_deformation}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook3_deformation}%
     };
 
-    \node[image, right=of image5, xshift=0.25cm] (image6)
+    \node[image, below=of image5] (image6)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook3_lines}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook3_lines}%
     };
 
-    \node[image, right=of image6, xshift=0.25cm] (image7)
+    \node[image, below=of image6] (image7)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook3_detail1}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook3_detail1}%
     };
 
-    \node[image, right=of image7, xshift=0.25cm] (image8)
+    \node[image, below=of image7] (image8)
     {
-        \includegraphics[width=0.22\figurewidth]{figures/hook3_detail2}%
+        \includegraphics[width=0.31\figurewidth]{figures/hook3_detail2}%
     };
 
     % This is how you can add a color scale
-    \node[anchor=west, xshift=-0.75cm, yshift=-0.1cm] at (image4.east){
+
+    \node[anchor=south west, yshift=-4mm] (stabscale) at (image8.south east){
         \begin{axis}[
             scale only axis,
-            height=3.1cm,
-            hide axis,
-            domain=1:20,
-            colorbar,
-            colorbar/width=0.25cm,
-            colormap name={cubicyf},
-            point meta min=0, point meta max=8e9,
-            colorbar style={
-                title=$\sigma_{\text{vM}}$,
-                scaled ticks=false,
-                ytick={0, 8e9}
-            }]
-        \end{axis}
-    };
-    \node[anchor=west, xshift=-0.85cm, yshift=-0.1cm] at (image8.east){
-        \begin{axis}[
-            scale only axis,
-            height=3.1cm,
+            height=2.8cm,
             hide axis,
             domain=1:20,
             colorbar,
@@ -81,6 +65,23 @@
                 title=$\log(s)$,
                 scaled ticks=false,
                 ytick={-5, 11}
+            }]
+        \end{axis}
+    };
+    \node[anchor=south west, xshift=1.3mm] at (stabscale.north west){
+        \begin{axis}[
+            scale only axis,
+            height=2.8cm,
+            hide axis,
+            domain=1:20,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={cubicyf},
+            point meta min=0, point meta max=8e9,
+            colorbar style={
+                title=$\sigma_{\text{vM}}$,
+                scaled ticks=false,
+                ytick={0, 8e9}
             }]
         \end{axis}
     };
