@@ -121,18 +121,18 @@ tensors as $\mS_\triangle = \{\mS_1, \mS_2, \mS_3\}$ and $\mT_\triangle =
 We express the tensor fields in barycentric coordinates $\vw = \T{(w_1, w_2,
 w_3)}$:
 %
-\[
+\begin{equation*}
     \mS(\vw) = \sum_i{w_i\mS_i}\,\text{,} \quad
     \mT(\vw) = \sum_i{w_i\mT_i}\,\text{,} \quad
     \text{with}\quad \sum_i{w_i} = 1 \, \text{.}
-\]
+\end{equation*}
 %
 The position (in barycentric coordinates) at which an arbitrary direction $\vr$
 becomes an eigenvector in $\mS$ is given by the solution to
 %
-\[
+\begin{equation*}
     \mS(\vw)\vr = \sum_i{w_i \mS_i \vr} = \lambda \vr \, \text{.}
-\]
+\end{equation*}
 %
 Rather than needing the exact position, we want to know if the position is
 inside the triangle or not, \ie, if $\vr$ is a valid eigenvector direction for
@@ -142,23 +142,23 @@ In barycentric coordinates, a point is inside the triangle if all $w_i > 0$.
 %
 Since the scaling factor $\lambda$ is arbitrary, we eliminate it:
 %
-\begin{gather}
+\begin{gather*}
     \sum_i{\tilde{w}_i \mS_i \vr} =
     \mA(\vr)\tilde\vw =
     \vr \, \text{,} \\
     \text{with} \quad
     \mA(\vr) = \begin{pmatrix} \mS_1 \vr & \mS_2 \vr & \mS_3 \vr \end{pmatrix}
     \, \text{,} \quad \tilde\vw = \vw / \lambda \,\text{,}
-\end{gather}
+\end{gather*}
 %
 and only require that all $\tilde{w}_i$ have the same sign.
 %
 Using Cramer's rule, we can give an analytic solution for the components of
 $\tilde\vw$:
 % 
-\begin{equation}
+\begin{equation*}
     \tilde{w}_i = \frac{\det \mA_i(\vr)}{\det \mA(\vr)}
-\end{equation}
+\end{equation*}
 % 
 Here, $\mA_i$ denotes the matrix $\mA$ with its $i$-th column replaced by $\vr$.
 % 
@@ -212,21 +212,21 @@ We again express a direction in a triangle $\vr_\triangle = \{\vr_1, \vr_2,
 \vr_3\}$ on this hemisphere in barycentric coordinates $u_j$ of its corner
 vectors:
 %
-\[
+\begin{equation*}
     \vr(\vu) = \sum_j{u_j\vr_j} \, \text{.}
-\]
+\end{equation*}
 %
-Substituting this in \cref{eq:coordinate_functions}, the barycentric coordinate
+Substituting this in \eqref{eq:coordinate_functions}, the barycentric coordinate
 functions now become
 % 
-\[
+\begin{equation}
     \hat{w}_i(\vu) = \det \left( \sum_j{u_j\mA_i(\vr_j)} \right)\, \text{.}
-\]
+\end{equation}
 % 
 % We express the relevant behavior of $\hat{w}_i(\vu)$ inside the triangle by
 % the indicator function $s(\hat{w}_i(\vu))$:
 % %
-% \[
+% \begin{equation}
 %     s(\hat{w}_i(\vu)) =
 %     \begin{cases}
 %         \hfill 1 \text{,} &
@@ -237,7 +237,7 @@ functions now become
 %             \forall \{\vu\; |\; u_j \geqslant 0\} \\
 %         \hfill 0 \text{,} & \text{else.}
 %     \end{cases}
-% \]
+% \end{equation}
 % %
 % This indicator tells us if the sign of $\hat{w}_i$ is consistent everywhere
 % inside $\vr_\triangle$, and if it is positive or negative.
@@ -247,11 +247,11 @@ functions now become
 %
 We can now express $\hat{w}_i$ in Bernstein-Bézier basis:
 %
-\[
+\begin{equation}
     \hat{w}_i(\vu) = \sum_{\substack{j,\, k,\, l \geqslant 0 \, \text{,} \\ j+k+l=3}}{
         \frac{3!}{j! \, k! \, l!} \, u_1^j \, u_2^k \, u_3^l \cdot \alpha_{jkl}}
         \, \text{.}
-\]
+\end{equation}
 %
 Here, $\alpha_{jkl}$ are the 10 coefficients needed to express a trivariate
 polynomial of degree 3.
@@ -299,7 +299,7 @@ eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
 % $\hat{w}_i$ is consistent everywhere inside $\vr_\triangle$, and if it is
 % positive or negative.:
 % %
-% \[
+% \begin{equation}
 %     s_i =
 %     \begin{cases}
 %         \hfill 1 \text{,} &
@@ -308,7 +308,7 @@ eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
 %         \text{if} \quad  \alpha_{jkl}(\hat{w}_i) < 0 \quad  \forall \ j+k+l=3 \\
 %         \hfill 0 \text{,} & \text{else.}
 %     \end{cases}
-% \]
+% \end{equation}
 % %
 % %
 % If there are $i, j$ such that $s_i \neq 0$ and $s_j \neq 0$ with $s_i \neq s_j$,
@@ -468,14 +468,14 @@ are most parallel as the representative and discard the others.
 Since we already have eigenvector directions for each point, we do not need to
 explicitly compute them again.
 %
-Instead, we use the parallelity error
+Instead, we use the parallelism error
 %
-\[
+\begin{equation}
 e_p = {\left\| \frac{\mS(\vw) \vr}{\| \mS(\vw) \vr \|}
             \times \frac{\vr}{\| \vr \|} \right\|}
       + {\left\| \frac{\mT(\vw) \vr}{\| \mT(\vw) \vr \|}
             \times \frac{\vr}{\| \vr \|} \right\|} \, \text{,}
-\]
+\end{equation}
 %
 which measures the deviation of $\vr$ from the true eigenvectors of both
 $\mS(\vw)$ and $\mT(\vw)$.

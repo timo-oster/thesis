@@ -109,12 +109,12 @@ $a_\ell:=a_\ell(\vu)$, the linear polynomials that satisfy
 % \end{aligned}
 % \end{equation}
 %%
-\begin{equation}\label{eq:bc}
+\begin{equation*}
 \begin{aligned}
 a_1\vu_1+a_2\vu_2+a_3\vu_3 = \vu\quad\text{and}\quad
 a_1+a_2+a_3 = 1
 \end{aligned}
-\end{equation}
+\end{equation*}
 \wrt triangle $\Delta$ spanned by vertices $\vu_1,\vu_2,\vu_3$
 \cite{Hoschek1993}.
 %%
@@ -260,14 +260,14 @@ The system \eqref{eq:system} defines six polynomials.
 %%
 For the initialization of the algorithm, we need to determine the
 Bernstein-B\'ezier form, \ie, the coefficients $b_{ijk\,\alpha\beta\gamma}$
-in \cref{eq:polynomial}, for each of these polynomials.
+in \eqref{eq:polynomial}, for each of these polynomials.
 %%
 This can be done easily by sampling and interpolation:
 %%
 There are $3\times{}10$ coefficients and two triangular parameter
 domains.
 %%
-As \cref{eq:polynomial} lives in a tensor-product space,
+As \eqref{eq:polynomial} lives in a tensor-product space,
 interpolation of position and direction can be separated.
 %%
 Chose $3$ or $10$ distinct sampling positions in $\Delta_{\vx}$ or
@@ -382,7 +382,7 @@ simultaneously.
 For each polynomial its magnitude is bounded in
 $(\Delta_{\vx},\Delta_{\vr})$, and we test
 %%
-\begin{equation}\label{eq:stop}
+\begin{equation}
   \begin{aligned}
     |p|~<~%
     \varepsilon_{\mathrm{t}}\,\cdot\,\invn{\mT}_{\infty}~,
@@ -394,7 +394,7 @@ the magnitude of p in $(\Delta_{\vx},\Delta_{\vr})$.
 %%
 The magnitude of the tensor field in $\Delta_{\vx}$ is given as
 %%
-\begin{equation}\label{eq:magt}
+\begin{equation}
   \begin{aligned}
     \invn{\mT}_{\infty}=\sup_{\vx\in\Delta_{\vx}} \{\,\invn{\mT(\vx)}\,\}
     = \max_i\{\, \invn{\mT_i} \,\}~,

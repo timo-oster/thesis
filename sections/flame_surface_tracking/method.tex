@@ -24,18 +24,18 @@ A point $\vx$ with velocity $\vu$ tracking the surface has a zero Lagrangian
 derivative, \ie, the value of $s$ at the point does not change over time.
 Therefore
 %
-\begin{equation}
+\begin{equation*}
     \frac{\mathrm{D}s}{\mathrm{D}t} =
     \frac{\partial s}{\partial t} + \nabla s \cdot \vu = 0 \, \text{.}
-\end{equation}
+\end{equation*}
 %
 This constrains the component of $\vu$ that is normal to the surface.
 %
 In tangential direction, we want $\vu$ to adhere to the fluid velocity, \ie,
 %
-\begin{equation}
+\begin{equation*}
     \Norm{\vu - \vv}^2 \rightarrow \text{min}\,\text{.}
-\end{equation}
+\end{equation*}
 %
 Combining both constraints using Lagrange multipliers, the solution for
 the velocity of a point on the implicit surface is given by
@@ -76,10 +76,10 @@ The spatial deformation gradient $\mF = \nabla \bchi$, which encodes the behavio
 of a point $\vx$ in an infinitesimally small neighborhood around $\vNull$, can
 then be expressed as
 %
-\begin{equation}
+\begin{equation*}
     \mF\, \vx = \bchi(\vx, t)\quad
         \text{for } \vx \rightarrow \vNull \, \text{.}
-\end{equation}
+\end{equation*}
 %
 We are only interested in the tangential part of this deformation, \ie, the
 behavior in a tangential coordinate system that moves and rotates with the
@@ -99,8 +99,7 @@ its columns.
 %
 Then the tangential deformation gradient $\hat\mF$ is
 %
-\begin{equation}
-    \label{eqn:tangent_deformation_tensor}
+\begin{equation} \label{eqn:tangent_deformation_tensor}
     \hat\mF = \T\mB \, \T\mU \, \mF \, \mB\,\text{.}
 \end{equation}
 %
@@ -112,10 +111,10 @@ transformation.
 Thus, $\hat\mF$ encodes the behavior of a point $\hat\vx$ in an
 infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
 %
-\begin{equation}
+\begin{equation*}
     \hat\mF \cdot \hat\vx = \T\mB \, \bchi(\mB \, \hat\vx, t)\quad
     \text{for } \vx \rightarrow \vNull \, \text{.}
-\end{equation}
+\end{equation*}
 %
 \begin{figure}[tb]
     \centering
@@ -244,12 +243,12 @@ For the initial configuration at some time $t_0$, $\mC$ can be exactly
 represented by a unit base configuration $\mC_0$ being transformed by a linear
 transformation $\mT$, \ie,
 %
-\begin{equation}
+\begin{equation*}
     \mC(t_0) = \mT \, \mC_0, \quad \text{with} \quad
     \mC_0 = \begin{pmatrix}
         \ve_3 & \ve_1 & -\ve_1 & \ve_2 & -\ve_2
     \end{pmatrix} \, \text{,}
-\end{equation}
+\end{equation*}
 %
 where $\ve_i$ are the unit vectors in the $i$-th coordinate direction.
 %
@@ -260,9 +259,9 @@ Their relation to $\mC_0$ might no longer be linear.
 Now, $\mT$ is the linear transformation that best approximates the mapping
 between $\mC_0$ and $\mC$, \ie, the solution to the least squares problem
 %
-\begin{equation}
+\begin{equation*}
     e^2 = \Frob{\T\mC_0 \, \T\mT - \T\mC}^2 \rightarrow \text{min} \, \text{.}
-\end{equation}
+\end{equation*}
 %
 Here, $\Frob{\cdot}$ denotes the Frobenius norm.
 %
@@ -344,7 +343,7 @@ stay aligned with the ghost particles.
 %
 The major and minor axes of the current configuration can be reconstructed from
 the tangential component $\hat\mT$ of $\mT$, which is obtained similar to
-\cref{eqn:tangent_deformation_tensor}:
+\eqref{eqn:tangent_deformation_tensor}:
 %
 \begin{equation}
     \hat\mT = \T{\left( \ve_1 \quad \ve_2 \right)} \,
@@ -358,9 +357,9 @@ where $\T\mU$ is the rotation obtained from the polar decomposition $\mT =
 The directions and extents of the principal axes of the micro-patch are
 encoded in the singular value decomposition
 %
-\begin{equation}
+\begin{equation*}
     \hat\mT = \hat\mV \, \hat\mSigma \, \T{\hat\mW} \, \text{.}
-\end{equation}
+\end{equation*}
 %
 The singular values $\sigma_{1,2}$ on the diagonal of $\hat\mSigma$ are the
 extents of the ellipse, while the rows of $\hat\mV$ are the directions of the
@@ -534,7 +533,7 @@ interval, \ie, its ghost particles were not reset.
 %
 Because the real mapping between $\mC(t_s)$ and $\mC(t_e)$ will generally not be
 linear, $\mE_{\,t_s}^{\,t_e}$ is the solution to a least squares problem very
-similar to \cref{eqn:normalized_system}.
+similar to \eqref{eqn:normalized_system}.
 %
 To make the solution independent of the scale of the micro-patch, we scale the
 last four columns of both $\mC(t_s)$ and $\mC(t_e)$ by the average norm of these

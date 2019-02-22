@@ -445,10 +445,10 @@ use it to check if a given curve is a streamline.
 %
 To compute streamlines, we typically solve the ordinary differential equation
 %
-\begin{equation}
+\begin{equation*}
     \frac{\partial \vc(s)}{\partial s} = \vv(\vc(s))
     \text{, with } \vc(0) = \vx_0 \, \text{.}
-\end{equation}
+\end{equation*}
 %
 This yields a streamline with a particular parameterization: an integral curve
 of the vector field.
@@ -488,10 +488,10 @@ flow.
 %
 They are defined as the solution to the ordinary differential equation
 %
-\begin{equation}
+\begin{equation*}
     \frac{\partial \vc(t)}{\partial t} = \vv(\vc(t), t)
     \text{, with } \vc(t_0) = \vx_0 \, \text{,}
-\end{equation}
+\end{equation*}
 %
 where $\vc(t)$ is the curve of the pathline, $t$ is time, and $\vv(\vx, t)$ is
 an unsteady vector field.
@@ -541,9 +541,9 @@ start time.
 Using the flow map $\bPhi$, which we introduced earlier, we can formally define
 a streakline as
 %
-\begin{equation}
+\begin{equation*}
     \vc(s) = \bPhi(\vx, s, t)\,\text{,}
-\end{equation}
+\end{equation*}
 %
 where $t$ is the current time, $\vx$ is the injection point, and $s$ is the
 continuously increasing start time that runs along the curve.
@@ -580,9 +580,9 @@ with the same start and end time, but continuously changing start position.
 Given a seed curve $\vs(s)$ and start and end times $t_0$ and $t$, we can
 formally define a timeline in terms of the flow map as
 %
-\begin{equation}
+\begin{equation*}
     \vc(s) = \bPhi(\vs(s), t_0, t)\,\text{.}
-\end{equation}
+\end{equation*}
 %
 Much like streaklines, timelines are often animated to show the progressive
 effect of the flow.
@@ -862,18 +862,18 @@ The Jacobian $\mJ$ of a flow field can be decomposed into a symmetric part $\mS$
 (often called \emph{strain rate tensor}) and an asymmetric part $\bOmega$ (often
 called \emph{vorticity tensor}) where
 %
-\begin{equation}
+\begin{equation*}
     \mS = \frac{\mJ + \T{\mJ}}{2}\text{,}\quad
     \bOmega = \frac{\mJ-\T{\mJ}}{2}\text{.}
-\end{equation}
+\end{equation*}
 %
 For divergence-free (\ie, incompressible) flows, the Q-criterion states that a
 region belongs to a vortex if the vorticity tensor is stronger than the strain
 rate tensor, \ie,
 %
-\begin{equation}
+\begin{equation*}
     (\Norm{\bOmega}^2 - \Norm{\mS}^2) > 0 \, \text{.}
-\end{equation}
+\end{equation*}
 %
 The resulting regions are not as sensitive to the scaling of the data as the
 vorticity magnitude.
@@ -1045,16 +1045,16 @@ well to the locations of \ac{LCS}~\cite{Shadden2005,Haller2001}.
 The basis for the computation of both \ac{FTLE} and \ac{FSLE} is the right
 Cauchy-Green deformation tensor
 %
-\begin{equation}
+\begin{equation*}
     \mC(\vx, t_0, t) = \T{\mF(\vx, t_0, t)}\, \mF(\vx, t_0, t) \,\text{,}
-\end{equation}
+\end{equation*}
 %
 where $\mF$ is the deformation gradient obtained from the derivative of the
 flow map
 %
-\begin{equation}
+\begin{equation*}
     \mF(\vx, t_0, t) = \bPhi(\vx, t_0, t)\T{\nabla}\text{.}
-\end{equation}
+\end{equation*}
 %
 The Cauchy-Green tensor describes the deformation the infinitesimal neighborhood
 of a point $\vx$ at time $t_0$ experiences when advecting with the flow until
@@ -1070,11 +1070,11 @@ neighborhood.
 The \acl{FTLE} measures the maximum separation of neighboring particles after
 advecting with the flow for a finite time:
 %
-\begin{equation}
+\begin{equation*}
     \text{FTLE}(\vx, t_0, \tau)
         = \frac{1}{|\tau|}
           \ln\sqrt{\lambda_{\max}\left[\mC(\vx, t_0, t_0 + \tau)\right]}\,\text{.}
-\end{equation}
+\end{equation*}
 %
 
 %
@@ -1110,15 +1110,15 @@ thesis~\cite{Kuhn2013}.
 The \acl{FSLE} measures the time a pair of infinitesimally close particles
 need to separate by a constant amount in space:
 %
-\begin{equation}
+\begin{equation*}
     \text{FSLE}(\vx, t_0, r) = \frac{1}{|\tau_r|} \ln{r}\,\text{,}
-\end{equation}
+\end{equation*}
 %
 where $\tau_r$ is the minimum time interval for which
 %
-\begin{equation}
+\begin{equation*}
     \sqrt{\lambda_{\max}\left[\mC(\vx, t_0, t_0+\tau_r)\right]} = r\,\text{.}
-\end{equation}
+\end{equation*}
 %
 
 %

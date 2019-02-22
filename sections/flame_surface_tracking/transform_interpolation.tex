@@ -73,23 +73,23 @@ but if we want to initialize a new patch whose center is slightly offset, we
 get a more accurate result if we adjust the weights depending on where the
 new center is located.
 %
-To this effect, we parameterize the tangent space of the micro-patch by
+For this purpose, we parameterize the tangent space of the micro-patch by
 expressing it as a linear combination of the two base vectors $\vb_1(t)$ and
 $\vb_2(t)$.
 %
 We can now express the location of the new center $\vx'$ in this new basis:
 %
-\[
+\begin{equation*}
     \vx' = \lambda_1 \vb_1(t_k) + \lambda_2 \vb_2(t_k)\, \text{.}
-\]
+\end{equation*}
 %
 These coordinates correspond directly to the coordinates of
 $(\mE_{\,t_{k-1}}^{\,t_k})^{-1} \vx'$ at time $t_{k-1}$:
 %
-\[
+\begin{equation*}
     (\mE_{\,t_{k-1}}^{\,t_k})^{-1} \, \vx'
       = \lambda_1 \vb_1(t_{k-1}) + \lambda_2 \vb_2(t_{k-1})\, \text{.}
-\]
+\end{equation*}
 %
 If $\lambda_1$ is positive, \ie, if $\vx'$ is located more towards $\vx_1(t_k)$
 than towards $\vx_2(t_k)$, we want $\vx_1(t_k)$ to have a stronger influence on
@@ -131,13 +131,13 @@ the system
 The complete transformation of a micro-patch that has been split off from a
 parent at some intermediate time $t_k$ is then obtained by
 %
-\[
+\begin{equation}
     \mE_{\,t_s}^{\,t_e} = \mE_{\,t_n}^{\,t_e} \cdot
                       \mE_{\,t_{n-1}}^{\,t_n} \cdot \; \cdots \; \cdot
                       \mE_{\,t_k}^{\,t_{k+1}} \cdot
                       {\mE_{\,t_{k-1}}^{\,t_k}}' \cdot
                       \mE_{\,t_s}^{\,t_{k-1}}\, \text{.}
-\]
+\end{equation}
 %
 Here, $\mE_{\,t_s}^{\,t_{k-1}}$ is the transformation of the parent patch from
 the start of the interval up to the time when its ghost particles were last

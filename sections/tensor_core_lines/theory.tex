@@ -39,11 +39,11 @@ we need to consider the derivative of $\mT$ in this direction.
 The directional derivative of $\mT$ along $\vr$ is the linear combination
 of three component-wise derivatives
 %
-\begin{equation}
+\begin{equation*}
     \nabla_{\vr}\mT(\vx) = \nabla \mT(\vx)\,\vr = \mT_{x_1}(\vx)\, r_1
                            + \mT_{x_2}(\vx)\, r_2
                            + \mT_{x_3}(\vx)\, r_3
-\end{equation}
+\end{equation*}
 %
 for $\vx = \T{(x_1, x_2, x_3)}$ and $\vr = \T{(r_1, r_2, r_3)}$.
 %
@@ -71,22 +71,22 @@ for $\mu \in \RRSet$. This means that $\vr$ is only scaled by a factor $\mu$.
 %
 If we substitute $\mT(\vx)\,\vr = \lambda \vr$, we get
 %
-\begin{align}
+\begin{align*}
     \lambda \vr + h\, \nabla_{\vr}\mT(\vx)\,\vr &= \mu\, \vr \\
     \nabla_{\vr}\mT(\vx)\,\vr &= \frac{\mu-\lambda}{h}\, \vr\, \text{,}
-\end{align}
+\end{align*}
 %
 \ie, $\vr$ is also an eigenvector of $\nabla_{\vr} \mT(\vx)$.
 %
 With this, a tensor core line is an isolated line of positions $\vx$ where
 %
-\begin{equation}
+\begin{equation*}
     \lambda \mT(\vx) \, \vr = \mu \nabla_{\vr}\mT(\vx)\,\vr = \vr \text{,}
-\end{equation}
+\end{equation*}
 %
 for $\vr \neq \vNull$ and $\lambda,\, \mu \in \RRSet$.
 %
-In terms of the \ac{PV} operator, this equation has the form
+In terms of the \ac{PV} operator, this equation can be expressed as
 %
 \begin{equation}
 \label{eq:tensor_line}
@@ -142,8 +142,8 @@ For a linear tensor field, tensor core lines are straight lines.
 \end{lemma}
 %
 This follows from the fact that for linear tensor fields, the linear
-approximation in \cref{eq:lin_approx} describes the whole data set
-exactly: if \cref{eq:lin_cond} holds for a small $h$, it holds for all
+approximation in \eqref{eq:lin_approx} describes the whole data set
+exactly: if \eqref{eq:lin_cond} holds for a small $h$, it holds for all
 $h$ (i.e., on a whole straight line) as well.
 %
 \Cref{fig:7lines} shows an example of a random linear tensor field containing

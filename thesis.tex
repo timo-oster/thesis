@@ -39,7 +39,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathtools}
-% \mathtoolsset{showonlyrefs}
+\mathtoolsset{showonlyrefs=false}
 \usepackage{bm}
 \usepackage{xfrac}
 \usepackage[binary-units=true]{siunitx}
@@ -88,16 +88,24 @@
 \usepgfplotslibrary{external}
 \tikzexternalize[prefix=tikz/]
 \usepackage{tikzpagenodes}
+\usepackage{import}         % used by exported graphics from inkscape
 
 \usepackage{etoolbox}
 \usepackage{calc}
 \usepackage[lofdepth, lotdepth]{subfig}
 
+% miscellaneous
+\usepackage[
+    textsize=small
+    ]{todonotes}      % todo annotations
+
+
 % \usepackage[sf,sl,outermarks]{titlesec}
 % \usepackage{tocstyle}
 
 \usepackage[
-    pagebackref,
+    % pagebackref,
+    % plainpages=false,
     hypertexnames=false]{hyperref}  % hyperlinking in PDF output
 
 \definecolor{mycolor1}{HTML}{377EB8}% blue
@@ -118,12 +126,7 @@
 
 \usepackage[capitalize, noabbrev]{cleveref}
 
-\usepackage{autonum}
-
-% miscellaneous
-\usepackage[
-    textsize=small
-    ]{todonotes}      % todo annotations
+% \usepackage{autonum}
 
 % disable tikz externalization for todonotes
 \newcommand{\MissingFigure}[2][]{\tikzexternaldisable\missingfigure[#1]{#2}\tikzexternalenable}
