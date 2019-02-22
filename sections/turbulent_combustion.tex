@@ -1164,12 +1164,226 @@ investigations in large-scale \ac{DNS}.
 \section{Visualization for \ac{DNS} of Turbulent Combustion} % (fold)
 \label{sec:visualization_for_dns_of_turbulent_combustion}
 %
+Apart from the mostly statistical forms of analysis that have been traditionally
+employed by turbulent combustion researchers, visualization has become an
+important tool for gaining understanding from simulation data.
+%
+Simple visualization techniques such as slicing, iso-surface rendering and
+scatterplots are routinely used by combustion researchers to gain an overview of
+the data.
+%
+Special techniques for visualization-supported analysis have been developed to
+answer more complex research questions.
+%
+They are essential for understanding the increasingly complex phenomena
+incorporated into modern \ac{RANS} and \ac{LES} models.
+%
 
 %
-\subsection{Post Processing} % (fold)
+As the computing power of supercomputers is steadily increasing, so is the size
+and complexity of problems simulated with \ac{DNS}.
+%
+Storage and network infrastructure are developing at a much slower pace.
+%
+This has brought us to a situation where the bottleneck in the simulation
+pipeline has shifted from the \ac{CPU} to the hard disk.
+%
+A single snapshot of a \ac{3D} turbulent combustion \ac{DNS} run occupies tens
+to hundreds of gigabytes.
+%
+With thousands of time steps per simulation the raw data produced by a single
+simulation can easily reach into the tera- or even petabytes.
+%
+
+%
+The problem with this is twofold.
+%
+First, most supercomputers today simply do not have the hard disk space to store
+more than a couple of simulation runs completely.
+%
+Second, writing the raw data to disk after each iteration slows down the
+simulation by an order of magnitude or more.
+%
+As a result, researchers often store only a few snapshots with large temporal
+gaps in between.
+%
+This approach limits the analysis of the data to instantaneous quantities.
+%
+Unsteady effects become almost impossible to observe and rare events such as
+local flame extinction are frequently missed.
+%
+
+%
+In recent years, in-situ approaches have been established as a way to overcome
+this problem.
+%
+The idea is to process the data in parallel to the simulation while it is still
+in memory.
+%
+Only the results of the visualization/analysis, which are typically orders of
+magnitude smaller than the raw data, are then stored to disk.
+%
+Performing such in-situ processing is challenging because it requires a higher
+degree of technical sophistication and often comes with the drawback of reduced
+interactivity.
+%
+However, it can take advantage of all the raw data available during the
+simulation and therefore enables a much more detailed analysis.
+%
+
+%
+This section gives an overview of the state of the art in visualization for
+turbulent combustion simulations.
+%
+We will start with simple and advanced post-processing techniques and then go on
+to in-situ approaches specialized to turbulent combustion and general purpose
+frameworks for in-situ applications.
+%
+% Distinction between analysis methods in last section and visualization methods
+% not always clear. Visualization methods tend to be designed to be applicable
+% to a wider range of questions with a focus on the technical side while works
+% from the combustion community tend to focus on the specific question to be
+% answered and devise analysis methods ad-hoc without a great focus on
+% implementation.
+%
+\subsection{Post-Processing} % (fold)
 \label{sub:post_processing}
 %
+The classic approach for gaining insight from simulation data is to store it on
+a hard disk, possibly transfer it to a dedicated analysis workstation, and then
+apply any visualization and analysis methods as a post-process.
+%
+Often basic visualization techniques are sufficient for most analysis tasks.
+%
+However, several methods that support specific questions in turbulent combustion
+research have been developed.
+%
+\subsubsection{Basic Visualization} % (fold)
+\label{ssub:basic_visualization}
+%
+Combustion researchers have always used simple visualization methods to analyze
+their data.
+%
+Plots of aggregated or point-wise variables over time, space, or other variables
+give an idea about the state and behavior of the system.
+%
+Scatterplots reveal correlations and probability density functions that are the
+basis for modeling turbulent combustion phenomena.
+%
 
+%
+Every commercial and open source software package for scientific visualization
+offers basic facilities to explore the three-dimensional structure of the data.
+%
+Color-mapping on cutting planes (slicing) and iso-surface rendering are among
+the most commonly used techniques for visualizing scalar and velocity data.
+%
+For example, the shape of the flame is represented by an iso-surface of the
+temperature or mixture fraction.
+%
+Iso-surfaces or slices of the velocity magnitude and vorticity are often used to
+get a rough idea about the shape and turbulence level of the flow.
+%
+Scientists sometimes use direct volume rendering to show the full \ac{3D} data.
+%
+This is particularly attractive as it allows visualizing several variables at
+the same time by carefully choosing transfer functions.
+%
+If the detailed structure of the flow field is important, it is often visualized
+with streamlines, although this is less useful for high levels of turbulence.
+%
+
+%
+Multiple simple techniques can be combined to build more powerful visualization
+pipelines.
+%
+As an example, a combustion researcher might first extract the iso-surface of
+the stoichiometric mixture fraction as a representative of the flame front.
+%
+She then applies a temperature threshold to extract all regions of the flame
+surface that are currently considered extinguished.
+%
+In these regions, she plots a histogram of the instantaneous strain rate of the
+surface and compares it with a histogram of the same variable for the burning
+regions of the flame.
+%
+
+%
+As the size of the raw data increases, visualization often has to be performed
+on a supercomputer as well.
+%
+Many supercomputing centers have clusters with dedicated visualization nodes or
+entirely separate clusters for visualization.
+%
+Visualization software such as ParaView~\cite{Ahrens2005} and
+VisIt~\cite{HPV:VisIt} have the capability to run on supercomputing clusters
+and split the work of processing and rendering datasets over many processes.
+%
+% subsubsection basic_visualization (end)
+%
+\subsubsection{Turbulent Combustion-Focused Methods} % (fold)
+\label{ssub:turbulent_combustion_focused_methods}
+%
+Going further than basic scientific visualization, several more specialized
+methods have been developed for turbulent combustion applications.
+%
+\Todo[inline]{flesh out paragraph}
+%
+
+%
+Zistl \etal~\cite{Zistl2009} developed a toolbox focused on the analysis of
+\ac{DNS} data.
+%
+It combines steps such as geometrical analysis of the flame surface and flame
+structure, quantification of turbulent flow properties and turbulence/flame
+interaction, and statistical analysis.
+%
+This allows for a more streamlined process when performing common research
+tasks on the data.
+%
+
+%
+Another group of visualization tools focus on the identification and tracking of
+volumetric features.
+%
+Bremer \etal precompute a merge-tree representation and accompanying
+segmentation of volumetric \cite{Bremer2009} and surface features
+\cite{Bremer2010} defined by thresholding.
+%
+This allows an interactive post-hoc exploration of the threshold parameter
+space and resulting tracking graph representing the evolution of features over
+time.
+%
+Similarly, Schnorr \etal~\cite{Schnorr2018} track cells in a space-filling
+topological segmentation defined by the Morse-Smale complex of a scalar variable
+\Todo{don't forget to define in scivis chapter} by solving two graph
+optimization problems.
+%
+These cells, which are called dissipation elements in combustion literature,
+carry significance in flamelet modeling.
+%
+
+%
+As a first step towards analyzing unsteady features, some \ac{DNS} codes have
+begun saving large amounts of Lagrangian particles (pathlines) and the
+accompanying time series of simulation variables in addition to snapshots of the
+(Eulerian) state of the simulation.
+%
+These pathlines allow tracking of volumetric features even in snapshots with
+large temporal gaps, as shown by Sauer \etal~\cite{Sauer2014}.
+%
+They can also be visualized by themselves, to get an idea about the dynamic
+behavior of the system.
+%
+Wei \etal~\cite{Wei2011} developed a visualization that combines a visualization
+of particles in physical space with a visualization in the temperature --
+mixture fraction phase space.
+%
+Trajectories are clustered in phase space to identify different chemical
+behavior, and the classes are then displayed in physical space for a visual
+analysis.
+%
+% subsubsection turbulent_combustion_focused_methods (end)
 %
 % subsection post_processing (end)
 %
