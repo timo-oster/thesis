@@ -252,7 +252,8 @@ maximum temperature.
 Different alternative definitions exist as well, some of them based on radical
 species.
 %
-The flame thickness is inversely proportional to the flame speed.
+The flame thickness is inversely proportional to the flame speed in canonical
+configurations.
 %
 A thinner flame travels more quickly and slow-moving flames tend to be thicker.
 %
@@ -298,7 +299,7 @@ the reaction zone, which increases the flame thickness and reduces flame speed.
 %
 Due to their defining characteristic for the behavior of the flame, flame speed,
 thickness and stretch are the basis for a lot of combustion models, and a focus
-of study in many combustion experiments and -simulations.
+of study in many combustion experiments and simulations.
 %
 % subsubsection laminar_premixed_flames (end)
 %
@@ -380,7 +381,7 @@ Diffusion flames do not propagate like premixed flames.
 %
 Their position is fixed at the interface between fuel and oxidizer.
 %
-For this reason, the speed of the flame is not a relevant quantity in for
+For this reason, the speed of the flame is not a relevant quantity for
 analyzing the behavior of diffusion flames.
 %
 Instead, the defining variable is the mixture fraction between fuel and
@@ -537,7 +538,7 @@ combustion engines.
 Here, air-fuel mixture is sucked into the cylinder, compressed and then ignited.
 %
 Starting from the ignition point, the flame front travels through the cylinder,
-being wrinkled by the turbulent flow of the gas and transforming all fresh gases
+being wrinkled by the turbulent flow of the gas and transforming fresh gases
 into hot combustion products.
 %
 % subsubsection turbulent_premixed_flames (end)
@@ -625,7 +626,7 @@ This is why good models of the underlying processes are so important.
 On the other hand, simulations also need to be efficient.
 %
 If running the simulation is more expensive and time-consuming than setting up
-a comparable experiment, the simulation loses much of its value.
+a comparable experiment, the simulation loses its value.
 %
 
 %
@@ -660,7 +661,7 @@ Most reactions do not consist of a single step but rather a complex system of
 intermediate reactions.
 %
 Many of these reactions can be reversible and their reaction rates depend on the
-current composition and temperature of the gas.
+current composition and pressure or temperature of the gas.
 %
 The more complex the fuel, the more intermediate steps are possible and need to
 be considered when modeling the reaction.
@@ -669,13 +670,13 @@ A system of intermediate steps that models a whole reaction is called a chemical
 scheme (see, \eg, \cref{tab:hydrogen_scheme}).
 %
 Each individual reaction step has a number of parameters controlling the
-reaction rate in dependence on the current temperature.
+reaction rate in dependence on the current conditions.
 %
 \begin{table}[t]
     \caption[Example scheme for \ce{H2}-\ce{O2} combustion]
-            {Example scheme for a seemingly simple chemical reaction: Hydrogen
-             and Oxygen react to produce water \cite{Miller1982}. \ce{M} is a
-             placeholder for a third molecule that is needed to absorb and
+            {Example scheme for a seemingly simple chemical reaction: hydrogen
+             and oxygen react to produce water \cite{Miller1982}. \ce{M} is a
+             placeholder for any third molecule that is needed to absorb and
              dissipate excess energy to stabilize the product.}
     \label{tab:hydrogen_scheme}
     \centering
@@ -714,11 +715,11 @@ For complex hydrocarbon fuels the number of different species considered
 can easily go into the hundreds, while thousands of intermediate steps
 contribute to the reaction.
 %
-Even for seemingly simple reactions, such as Hydrogen and Oxygen to Water,
+Even for seemingly simple reactions, such as hydrogen and oxygen to water,
 the reaction schemes can be surprisingly complex.
 %
 The scheme by Miller \etal~\cite{Miller1982} displayed in
-\cref{tab:hydrogen_scheme} has 9 species and 19 different reactions.
+\cref{tab:hydrogen_scheme} has 9 species and 19 different reversible reactions.
 %
 Adding this to an already computationally intensive fluid dynamics simulation
 that only involves five different variables (density, temperature and three
@@ -866,6 +867,8 @@ and \ac{LES} models, we will briefly discuss the ideas behind both here.
 \subsubsection{Reynolds-Averaged Navier-Stokes} % (fold)
 \label{ssub:rans}
 %
+\Todo[inline]{Also discuss URANS}
+%
 \acl{RANS} simulates the time-averaged, steady-state behavior of the system.
 %
 It is based on the decomposition of the behavior of a turbulent system into
@@ -895,7 +898,7 @@ turbulent combustion because of its low computational cost.
 %
 % subsubsection rans (end)
 %
-\subsubsection{Large Eddie Simulations} % (fold)
+\subsubsection{Large Eddy Simulations} % (fold)
 \label{ssub:les}
 %
 A step up from \ac{RANS} in terms of accuracy and computational cost are
@@ -973,7 +976,7 @@ geometries.
 %
 
 %
-Like for \ac{RANS} and \ac{LES}, the choice of chemistry model for \ac{DNS} is
+Like for \ac{RANS} and \ac{LES}, the choice of a chemistry model for \ac{DNS} is
 largely dependent on the available computing resources and performance demands.
 %
 If we apply the ideal of solving everything without high-level models, then the
