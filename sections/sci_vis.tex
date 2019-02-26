@@ -16,8 +16,8 @@ flow around a car.
 %
 This thesis presents several new scientific visualization techniques.
 %
-The techniques are demonstrated on simulation data from two different
-engineering domains: turbulent combustion and solid mechanics.
+The techniques are applied to simulation data from two different engineering
+domains: turbulent combustion and solid mechanics.
 %
 To set the scene for these contributions, we will therefore use this chapter to
 give an overview of the most important methods for visualizing scientific data.
@@ -147,6 +147,8 @@ data that are interesting, and make the uninteresting parts transparent.
 Color and opacity values are then accumulated along viewing rays to simulate the
 transport of light through a semitransparent medium.
 %
+
+%
 The shading of a solid surface can be approximated by using the gradient of the
 scalar field as the surface normal (see \cref{fig:direct_volume_rendering}).
 %
@@ -232,8 +234,8 @@ space-filling segmentation of the data.
 Often, computation of raw ridges and valleys produces a lot of small and
 insignificant features due to noise.
 %
-An additional filtering step~\cite{Peikert2008} can be applied to only keep the most significant
-lines (see \cref{fig:ridge_valley_lines}).
+An additional filtering step~\cite{Peikert2008} can be applied to only keep the
+most significant lines (see \cref{fig:ridge_valley_lines}).
 %
 \begin{figure}[t]
     \begin{captionbeside}
@@ -447,12 +449,10 @@ starting from different kinds of seed structures.
 %
 Depending on the seeding strategy and the kind of vector field, we can obtain
 \emph{streamlines}, \emph{pathlines}, \emph{streaklines}, \emph{timelines},
-and the accompanying surfaces.
+and the accompanying surfaces\ToCite{Batchelor}.
 %
 Since integral structures play an important role in several parts of this
 thesis, we will cover them here in more detail.
-\ToCite{Cite a book that covers the fundamentals of integral curves/field lines
-in vector fields}
 %
 \begin{figure}[t]
     \centering
@@ -466,8 +466,7 @@ in vector fields}
 \subsubsection{Streamlines} % (fold)
 \label{ssub:streamlines}
 %
-Streamlines are the simplest form of integral curve in a vector
-field.
+Streamlines are the simplest form of integral curve in a vector field.
 %
 They are defined for steady vector fields.
 %
@@ -553,8 +552,7 @@ advecting with the flow until time $t$.
 Pathlines allow the visualization of the dynamic behavior of an unsteady flow
 in a static image.
 %
-To show the temporal information, the time is often color-mapped on the
-curve.
+To show the temporal information, the time is often color-mapped on the curve.
 %
 Unlike streamlines, pathlines can and do intersect each other.
 %
@@ -643,8 +641,8 @@ visualizes the way the flow mixes and perturbs a region of the fluid.
 \subsubsection{Integral Surfaces} % (fold)
 \label{ssub:integral_surfaces}
 %
-Integral surfaces can be formed from any of the integral lines by
-using a higher-dimensional seeding structure.
+Integral surfaces can be formed from any of the integral lines by using a
+higher-dimensional seeding structure.
 %
 For stream-, path-, and streaklines this means using a line as the seeding
 structure.
@@ -1175,8 +1173,8 @@ is estimated based on central differences~\cite{Peikert2014}.
 %
 
 %
-\ac{FTLE} and \ac{FSLE} yield very similar results, given the right
-parameters (see \cref{fig:ftle_fsle}).
+\ac{FTLE} and \ac{FSLE} yield similar results, given the right parameters (see
+\cref{fig:ftle_fsle}).
 %
 However, their semantic differences might make one or the other more appropriate
 depending on the application.
