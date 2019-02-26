@@ -180,8 +180,18 @@
 % ============
 \renewcommand*{\partpagestyle}{empty}
 \addtokomafont{part}{\normalfont\otherscshape\LARGE}
-\renewcommand*{\partformat}{%
-\scshape\fontsize{3cm}{3cm}\selectfont\thepart\autodot}
+% \renewcommand*{\partformat}{%
+% \scshape\fontsize{3cm}{3cm}\selectfont\thepart\autodot}
+\renewcommand*{\partformat}{
+\tikzset{external/export=false}%
+\begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center, inner sep=0, outer sep=0, yshift=3cm]
+        at (current page.center) {
+        \scshape\fontsize{10cm}{10cm}\selectfont\textcolor{white!70!gray}{\thepart}
+    };
+\end{tikzpicture}%
+\tikzset{external/export=true}%
+}
 
 % format chapters
 % ===============
