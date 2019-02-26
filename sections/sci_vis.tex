@@ -186,14 +186,18 @@ at the same time due to occlusion problems.
 %
 
 %
-\subsubsection{Minima, Maxima, and Saddle Points}
+\subsubsection{Critical Points}
 %
-Minima, maxima, and saddle points are points in a scalar field where
-the gradient becomes zero.
+Critical points are points in a scalar field where the gradient becomes zero.
 %
 As such, they are features of the scalar field's topology.
 %
-\Todo{More? Classification by Hessian? Significance?}
+Critical points can be classified by the eigenvalues of the Hessian matrix at
+the critical point:
+%
+If all eigenvalues are positive the point is a minimum, if all are negative it
+is a maximum, and if the Hessian has both positive and negative eigenvalues,
+the point is a saddle.
 %
 
 %
@@ -208,11 +212,17 @@ The two most common, competing definitions are \emph{watersheds} and
 \emph{height ridges}~\cite{Peikert2008,Eberly2012}.
 %
 Watersheds are global features that separate the scalar field into ``areas of
-influence'' of the different maxima (or minima).
+influence'' of the different minima (or maxima).
 %
-Together with the critical points, they form the topological skeleton of the
-scalar field.
-\Todo{introduce Morse-Smale complex}
+Imaginine a scalar field as a height field.
+%
+Starting a gradient descent from two points on the same side of a watershed
+will end up in the same minimum.
+%
+Starting from two points on opposite sides of the watershed will end up in two
+different minima.
+%
+
 %
 Height ridges are defined by a local differential analysis of the scalar field.
 %
@@ -235,6 +245,35 @@ lines (see \cref{fig:ridge_valley_lines}).
         \includegraphics[width=0.6\textwidth]{figures/ridge_valley_lines_peikert.jpg}
     \end{captionbeside}
 \end{figure}
+%
+\subsubsection{Morse-Smale Decomposition} % (fold)
+\label{ssub:morse_smale_decomposition}
+%
+The Morse-Smale Decomposition forms the topological skeleton of a scalar field.
+%
+It is based on the idea of integral lines of the scalar field.
+%
+These are maximal paths that are everywhere tangent to the gradient of the
+scalar field (see also integral curves in vector fields,
+\cref{sub:integral_curves_and_surfaces}).
+%
+Integral lines always connect two critical points or end at the domain boundary.
+%
+
+%
+The Morse-Smale decomposition separates the scalar field into a disjoint set of
+cells whose union is the whole domain.
+%
+Each cell is defined as the set of all integral lines that connect the same
+minimum and maximum.
+%
+In this sense, the Morse-Smale decomposition is closely related to the idea of
+watersheds:
+%
+The boundarties of the cells are precisely the watersheds of the scalar field
+and its negative.
+%
+% subsubsection morse_smale_decomposition (end)
 %
 % subsection scalar_geometry_based (end)
 %
