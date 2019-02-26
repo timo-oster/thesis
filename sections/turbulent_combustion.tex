@@ -837,7 +837,8 @@ small-scale flame structure are subject of ongoing research.
 %
 % subsection the_flamelet_assumption (end)
 %
-\subsection{High-Level Models: \acs{RANS} and \acs{LES}} % (fold)
+\subsection[High-Level Models: RANS and LES]
+           {High-Level Models: \acs{RANS} and \acs{LES}} % (fold)
 \label{sub:high_level_models}
 %
 \begin{figure}[t]
@@ -867,17 +868,19 @@ and \ac{LES} models, we will briefly discuss the ideas behind both here.
 \subsubsection{Reynolds-Averaged Navier-Stokes} % (fold)
 \label{ssub:rans}
 %
-\Todo[inline]{Also discuss URANS}
+\acl{RANS} equations describe the time-averaged behavior of the system.
 %
-\acl{RANS} simulates the time-averaged, steady-state behavior of the system.
-%
-It is based on the decomposition of the behavior of a turbulent system into
-averaged and fluctuating parts.
+It is based on the decomposition of a turbulent flow into mean and
+fluctuating parts.
 %
 The result are average values for all simulation variables at each location.
 %
 Images of \ac{RANS} simulations show very smooth fields that have almost no
 small-scale features (see \eg, \cref{fig:rans_vs_les}).
+%
+The typical \ac{RANS} equations assume a steady-state system, but the \ac{URANS}
+variant can account for some unsteady behavior if it is slow compared to the
+turbulent timescales.
 %
 
 %
@@ -887,11 +890,11 @@ density functions based on one-point statistics.
 %
 
 %
-Since \ac{RANS} simulations do not resolve unsteady effects, their results have
-to be interpreted with care.
+Since \ac{RANS} simulations only resolve time-averaged values, their results
+have to be interpreted with care.
 %
-Mean values reported by \ac{RANS} say nothing about the possibly large
-fluctuations that occur there.
+Mean values reported by \ac{RANS} at a certain location say nothing about the
+possibly large fluctuations that occur there.
 %
 However, \ac{RANS} is the most popular and widespread method for simulating
 turbulent combustion because of its low computational cost.
@@ -1164,7 +1167,8 @@ investigations in large-scale \ac{DNS}.
 %
 % section modeling_and_simulation_of_turbulent_combustion (end)
 %
-\section{Visualization for \ac{DNS} of Turbulent Combustion} % (fold)
+\section[Visualization for DNS of Turbulent Combustion]
+        {Visualization for \acs{DNS} of Turbulent Combustion} % (fold)
 \label{sec:visualization_for_dns_of_turbulent_combustion}
 %
 Apart from the mostly statistical forms of analysis that have been traditionally
@@ -1368,9 +1372,8 @@ identify and track volumetric features in a distributed memory environment
 where features may span several processors.
 %
 Schnorr \etal~\cite{Schnorr2018} track cells in a space-filling topological
-segmentation defined by the Morse-Smale complex of a scalar variable
-\Todo{don't forget to define in scivis chapter} by solving two graph
-optimization problems.
+segmentation defined by the Morse-Smale decomposition of a scalar variable (see
+\cref{sub:scalar_geometry_based}) by solving two graph optimization problems.
 %
 These cells, which are called dissipation elements in combustion literature,
 carry significance in flamelet modeling.
@@ -1637,7 +1640,7 @@ a definitive in-situ framework has yet to be developed.
 \label{ssub:visualization_and_analysis_methods}
 %
 Although most work has been done to lay the groundwork for efficient basic
-visualization techniques, there have been some developments of more specific
+visualization techniques, there have been some developments of more specialized
 in-situ visualization methods.
 %
 We will discuss some examples here that are applicable to the field of turbulent
@@ -1659,8 +1662,8 @@ Tikhonova \etal~\cite{Tikhonova2011} developed a more flexible approach by
 rendering the data into an intermediate representation that retains original
 data values.
 %
-A final transfer function can be applied after the fact, allowing for a certain
-degree of interactivity.
+A final transfer function can then be applied after the fact, allowing for a
+certain degree of interactivity.
 %
 This approach fits well with the image databases discussed in the previous
 section \cite{Kageyama2014,Ahrens2014}.
