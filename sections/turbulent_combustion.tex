@@ -1360,7 +1360,7 @@ Another group of visualization tools focus on the identification and tracking of
 volumetric features.
 %
 Bremer \etal precompute a merge-tree representation and accompanying
-segmentation of volumetric \cite{Bremer2009} and surface features
+segmentation of volumetric \cite{Bremer2009,Bremer2011} and surface features
 \cite{Bremer2010} defined by thresholding.
 %
 This allows an interactive post-hoc exploration of the threshold parameter
@@ -1416,8 +1416,8 @@ interleaved with the simulation, without first writing it to a hard disk.
 This allows for the analysis of the complete simulation output, rather than
 the infrequent snapshots that are used in post-processing approaches.
 %
-Kwan-Liu Ma gave an overview of the problems and opportunities inherent in
-in-situ visualization~\cite{Ma2009}.
+Ma gave an overview of the problems and opportunities inherent in in-situ
+visualization~\cite{Ma2009}.
 %
 
 %
@@ -1605,7 +1605,7 @@ Lakshminarasimhan \etal~\cite{Lakshminarasimhan2011} developed such an algorithm
 whose core idea is to sort the data before compression to take advantage of the
 special characteristics of scientific data.
 %
-If the compression ratio is good, this approach allows to store a much larger
+With a compression ratio of about 1:7, this approach allows to store a much larger
 amount of data while still retaining complete freedom for an exploratory
 analysis of the data.
 %
@@ -1639,9 +1639,9 @@ a definitive in-situ framework has yet to be developed.
 \subsubsection{Visualization and Analysis Methods} % (fold)
 \label{ssub:visualization_and_analysis_methods}
 %
-Although most work has been done to lay the groundwork for efficient basic
-visualization techniques, there have been some developments of more specialized
-in-situ visualization methods.
+Although most work in the field of in-situ visualization has been done to lay
+the groundwork for efficient basic visualization, there have been some
+developments of more specialized in-situ methods.
 %
 We will discuss some examples here that are applicable to the field of turbulent
 combustion.
@@ -1669,6 +1669,60 @@ This approach fits well with the image databases discussed in the previous
 section \cite{Kageyama2014,Ahrens2014}.
 %
 
+%
+Moving to more analytic approaches, several works have addressed the extraction
+and tracking of volumetric features.
+%
+Chen \etal~\cite{Chen2003} presented an in-situ system for tracking volumetric
+features defined by thresholding.
+%
+Zhang \etal~\cite{Zhang2012} used the \ac{DOC} algorithm \cite{Quiroz2008} to
+identify and track features defined by clusters in state space during a
+simulation run.
+%
+This can for example be used to identify and track burning regions in combustion
+simulations.
+%
+The IFDT framework \cite{Duque2012} takes a more flexible approach by letting a
+user interactively pick individual structures to track.
+%
+The system includes a machine learning component that learns to identify the
+features picked by the user based on their visual properties.
+%
+This is intended to be more robust than detection based on thresholds which
+might not be applicable over long time periods.
+%
+Ye \etal~\cite{Ye2015} combined image-based visualization with feature tracking
+by storing rendered depth maps of multiple iso-surfaces.
+%
+These are later used to create visualizations and to track features in image
+space based on their depth information.
+%
+
+%
+The idea of precomputing an intermediate representation of the data in-situ and
+then exploring it post-hoc has also been applied in some more specialized
+visualization systems.
+%
+Landge \etal~\cite{Landge2014} adapted the computation of segmented merge trees
+\cite{Bremer2009,Bremer2011} for in-situ applications.
+%
+This allows for an interactive exploration of the space of possible thresholds
+or iso-levels for scalar variables.
+%
+Ye \etal~\cite{Ye2016} proposed a system for exploring joint field/particle
+datasets as are for example produced by some combustion \ac{DNS} codes.
+%
+They compute \acp{PDF} to represent the field data and reorganize the particle
+data into a more efficient scheme.
+%
+Researchers can then explore the \acp{PDF} in a post-hoc tool and define queries
+to select matching particle data.
+%
+A similar precomputed representation for post-hoc analysis is presented in
+\cref{cha:sparse_representation} of this thesis, although it was not implemented
+as an actual in-situ algorithm.
+%
 %
 % subsubsection visualization_and_analysis_methods (end)
 %
