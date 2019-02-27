@@ -122,7 +122,8 @@
     citecolor={mycolor1!70!black},
     urlcolor={mycolor1!70!black},
     pdftitle={PhD Thesis},
-    pdfauthor={Timo Oster}
+    pdfauthor={Timo Oster},
+    bookmarksnumbered
 }
 
 \usepackage[capitalize, noabbrev]{cleveref}
@@ -284,6 +285,8 @@
 
 \maketitle
 
+\cleardoublepage
+\pdfbookmark{\contentsname}{toc}
 \tableofcontents
 
 \mainmatter
