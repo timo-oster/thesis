@@ -6,8 +6,7 @@
     captions=outerbeside,
     headings=twolinechapter,
     chapterprefix=true,
-    numbers=noenddot,
-    bibliography=totoc
+    numbers=noenddot
     % headsepline
 }
 \setcapindent{0em}
@@ -50,6 +49,7 @@
 \usepackage{microtype}      % small adjustments for better-looking text
 \usepackage{booktabs}
 \usepackage{tabularx,tabulary}
+\usepackage[autostyle]{csquotes}
 \usepackage[super]{nth}     % write 1st, 2nd, 3rd, i-th correctly
 \usepackage{enumitem}       % customizing list formatting
 \setlist{                   % a little more compact lists
@@ -66,9 +66,19 @@
 % \renewcommand{\LettrineFontHook}{\fontfamily{fvs}\fontseries{bx}}
 
 % bibliography
-\usepackage{natbib}         % bibliography and reference styles
-\usepackage{bibentry}
-\nobibliography*
+% \usepackage{natbib}         % bibliography and reference styles
+% \usepackage{bibentry}
+% \nobibliography*
+\usepackage[
+    backend=biber,
+    style=numeric-comp,
+    sorting=none,
+    doi=false,
+    url=false,
+    isbn=false,
+    maxbibnames=99,
+    giveninits=true
+    ]{biblatex}
 % \usepackage{cite}
 
 % graphics
@@ -264,6 +274,8 @@
 
 % \usepackage{layout}
 
+\addbibresource{bib_master.bib}
+
 \input{macros}              % math macros
 
 \input{acronyms}
@@ -278,7 +290,6 @@
 \author{ Timo Oster }
 
 \begin{document}
-
 % \layout
 
 \frontmatter
@@ -315,7 +326,7 @@
 \begin{tikzpicture}[remember picture, overlay]
     \node[paperheader] (banner_fst) {
             This chapter is based on\\
-            \bibentry{Oster2014}
+            \fullcite{Oster2014}
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -337,7 +348,7 @@
 \begin{tikzpicture}[remember picture, overlay]
     \node[paperheader] (banner_fst) {
             This chapter is based on\\
-            \bibentry{Oster2018a}
+            \fullcite{Oster2018a}
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -368,7 +379,7 @@
 \begin{tikzpicture}[remember picture, overlay]
     \node[paperheader] (banner_fst) {
             This chapter is based on\\
-            \bibentry{Oster2018b}
+            \fullcite{Oster2018b}
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -390,7 +401,7 @@
 \begin{tikzpicture}[remember picture, overlay]
     \node[paperheader] (banner_fst) {
             This chapter is based on\\
-            \bibentry{Oster2018}
+            \fullcite{Oster2018}
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
@@ -419,7 +430,8 @@
 
 \backmatter
 
-\bibliographystyle{alpha}
-\bibliography{bib_master}
+% \bibliographystyle{unsrt}
+% \bibliography{bib_master}
+\printbibliography[heading=bibintoc]
 
 \end{document}
