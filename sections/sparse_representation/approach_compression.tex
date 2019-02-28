@@ -75,9 +75,9 @@ choice of the isovalue is very robust. Our experiments show that variations of
 $\pm 0.1$ lead to isosurfaces with Hausdorff distances less than 2\% of the
 longest side of the simulated domain. Anchor points $\vp_i$ for profile
 extraction are distributed on this surface, which we extract using
-\ac{CGAL}~\cite{Boissonnat2005}. This yields a mesh with approximately uniformly-spaced
-vertices and edges of approximately the same length as the voxel size in
-the original data.
+\ac{CGAL}~\cite{Boissonnat2005}. This yields a mesh with approximately
+uniformly-spaced vertices and edges of approximately the same length as the
+voxel size in the original data.
 %
 %We first place a point into every surface voxel. 
 %
@@ -110,13 +110,6 @@ circles in \cref{fig:flamecrossing}). Hence, the
 storage size of the sparse representation depends on the surface shape rather
 than on the resolution of the data. Adjusting $\seedDensQuot$ changes the total
 number of seed points and balances size vs. quality.
-%
-\begin{figure}[tb]
-	\centering
-	\MissingFigure{Points seeded on real surface}
-	\caption{Caption here}
-	\label{fig:seeded_surface}
-\end{figure}
 %
 % The logarithmic shape of
 % $\seedDens$ ensures that medium curvatures, which are most frequent, are not
@@ -374,12 +367,12 @@ sigmoidal model, the values for $\sigma_l$ and $\sigma_r$ of the Gaussian model
 still have to be found. We obtain an initial guess for $\sigma_{l/r}$ by
 transforming the intervals of the profile between $x_l$ and $x_m$ and between
 $x_m$ and $x_r$ into the interval $[0, 1]$ and regarding them as halves of two
-symmetric probability density functions (pdf). The variance of a discrete random
-variable $X$ with the pdf $p(x)$ and expected value $\mu$ is given by: $\var(X)
-= \int p(x) \cdot (x-\mu)^2 ~dx$. Since for a normal distribution, the variance
-is $\sigma^2$, we can directly use this equation on our transformed profiles. We
-then refine this estimate with a simple optimization scheme such as Newton's
-method to find the optimal fit.
+symmetric \acp{PDF}. The variance of a discrete random variable $X$ with the
+\ac{PDF} $p(x)$ and expected value $\mu$ is given by: $\var(X) = \int p(x) \cdot
+(x-\mu)^2 ~dx$. Since for a normal distribution, the variance is $\sigma^2$, we
+can directly use this equation on our transformed profiles. We then refine this
+estimate with a simple optimization scheme such as Newton's method to find the
+optimal fit.
 
 % As an initial guess, we use the fact that for a normal
 % distribution, $\sigma^2$ is equal to the variance. Since our model, like the

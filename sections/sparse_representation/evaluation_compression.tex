@@ -271,7 +271,7 @@ parameters only.
 % combination of $k=5$ and $p=20$ yielded the best results. Therefore, we
 % illustrate the results for these parameters.
 %
-We also compared our results to the error introduced by na\"{i}vely downsampling
+We also compared our results to the error introduced by naively downsampling
 the data to the same storage size needed by the sparse representation. This is
 the currently established way of reducing the size of \ac{DNS} data. For
 comparison with a dedicated compression algorithm, we used the well-established
@@ -314,19 +314,21 @@ representation, which captures important data features by design.
 	eight time steps of data set \textsc{Hydrogen} and values for the synthetic
 	data set (dash-dotted).}
 	\label{fig:compression_table}
-	\Todo[inline]{Make synthetic line more distinct}
+	\Todo[inline]{Make synthetic line more distinct. Use inline tikz instead of
+	text to describe pattern}
 \end{figure}
 
 To further illustrate the performance of our approach, we tested it on eight
 time steps of the data set \textsc{Hydrogen}. This data set is from a turbulent
-premixed spherical hydrogen flame and has a resolution of $\text{400}^3$ voxels and
-11 variables. This is a typical size for our cooperation partner. One time
-step amounts to about 5 GB of data. The whole simulation has hundreds of
-thousands of time steps. Even storing a fraction of them quickly results in
-terabytes of data. We selected eight time steps from a late (most complex) stage
-of the simulation. Choosing $\seedDensQuot=\text{5}$, which retains very high accuracy
-for reconstruction, we reduced them to about 30 MB each. This means only 0.6\%
-of the original storage space is required.
+premixed spherical hydrogen flame and has a resolution of $\text{400}^3$ voxels
+and 11 variables. This is a typical size for our cooperation partner. One time
+step amounts to about 5 GB\Todo{Use SI units or similar to typeset memory sizes}
+of data. The whole simulation has hundreds of thousands of time steps. Even
+storing a fraction of them quickly results in terabytes of data. We selected
+eight time steps from a late (most complex) stage of the simulation. Choosing
+$\seedDensQuot=\text{5}$, which retains very high accuracy for reconstruction,
+we reduced them to about 30 MB each. This means only 0.6\% of the original
+storage space is required.
 
 For a scalability test, we generated a synthetic data set with $\text{900}^3$ voxels
 and 11 variables. This is three times the maximum volume our cooperation
