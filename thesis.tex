@@ -77,7 +77,8 @@
     url=false,
     isbn=false,
     maxbibnames=99,
-    giveninits=true
+    giveninits=true,
+    backref=true
     ]{biblatex}
 % \usepackage{cite}
 
@@ -115,9 +116,8 @@
 % \usepackage{tocstyle}
 
 \usepackage[
-    % pagebackref,
-    % plainpages=false,
-    hypertexnames=false]{hyperref}  % hyperlinking in PDF output
+    % hypertexnames=false
+    ]{hyperref}  % hyperlinking in PDF output
 
 \definecolor{mycolor1}{HTML}{377EB8}% blue
 \definecolor{mycolor2}{HTML}{FF7F00}% orange
@@ -138,7 +138,6 @@
 
 \usepackage[capitalize, noabbrev]{cleveref}
 
-% \usepackage{autonum}
 
 % disable tikz externalization for todonotes
 \newcommand{\MissingFigure}[2][]{\tikzexternaldisable\missingfigure[#1]{#2}\tikzexternalenable}
