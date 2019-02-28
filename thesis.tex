@@ -176,10 +176,19 @@
 % \MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
 % % \fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{\chaptercolor}{\thechapter}}%
 % \fontsize{9cm}{9cm}\selectfont\textcolor{\chaptercolor}{\thechapter}}%
+%
+% \tikzset{external/export=false}%
+% \begin{tikzpicture}[remember picture, overlay]
+%     \node[anchor=north east, inner sep=0, outer sep=0, yshift=-3cm]
+%         at (current page text area.north east) {
+%         \fontsize{12cm}{12cm}\selectfont\textcolor{white!70!gray}{\thechapter}
+%     };
+% \end{tikzpicture}%
+% \tikzset{external/export=true}%
+%
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=north east, inner sep=0, outer sep=0, yshift=-3cm]
-        at (current page text area.north east) {
+    \node[anchor=south east, xshift=\textwidth+5mm, inner sep=0, outer sep=0]{
         \fontsize{12cm}{12cm}\selectfont\textcolor{white!70!gray}{\thechapter}
     };
 \end{tikzpicture}%
