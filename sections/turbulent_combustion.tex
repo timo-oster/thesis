@@ -1270,14 +1270,12 @@ research have been developed.
 \label{ssub:basic_visualization}
 %
 \begin{figure}[t]
-    \begin{captionbeside}{Direct volume rendering of the temperature in a
-        \ac{DNS} of a turbulent premixed jet flame generated using
-        VisIt~\cite{HPV:VisIt}. Image source: Abdelsamie
-        \etal~\cite{Abdelsamie2016}.
-        \Todo[inline]{Find own generated renderings with multiple variables.}
-        \label{fig:visit_volrend}}[o]
-        \includegraphics[width=0.6\textwidth]{figures/jet_visit.png}
-    \end{captionbeside}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/visit_isosurface.png}
+    \caption{Temperature isosurfaces of a premixed jet flame.
+        Simulated with DINO~\cite{Abdelsamie2016} and visualized using
+        VisIt~\cite{HPV:VisIt}.}
+    \label{fig:visit_isosurface}
 \end{figure}
 %
 Combustion researchers have always used simple visualization methods to analyze
@@ -1298,13 +1296,12 @@ Color-mapping on cutting planes (slicing) and iso-surface rendering are among
 the most commonly used techniques for visualizing scalar and velocity data.
 %
 For example, the shape of the flame is represented by an iso-surface of the
-temperature or mixture fraction.
+temperature or mixture fraction (see \cref{fig:visit_isosurface}).
 %
 Iso-surfaces or slices of the velocity magnitude and vorticity are often used to
 get a rough idea about the shape and turbulence level of the flow.
 %
-Scientists sometimes use direct volume rendering to show the full \ac{3D} data
-(see \cref{fig:visit_volrend}).
+Scientists sometimes use direct volume rendering to show the full \ac{3D} data.
 %
 This is particularly attractive as it allows visualizing several variables at
 the same time by carefully choosing transfer functions.
@@ -1410,7 +1407,16 @@ mixture fraction phase space.
 %
 Trajectories are clustered in phase space to identify different chemical
 behavior, and the classes are then displayed in physical space for a visual
-analysis.
+analysis (see \cref{fig:wei_particle_clusters}).
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/wei_particle_clusters.png}
+    \caption{Hybrid visualization of particle trajectories in phase space (left)
+    and physical space (right) of an ethylene/air jet flame. Image source:
+    Wei \etal~\cite{Wei2011}.}
+    \label{fig:wei_particle_clusters}
+\end{figure}
 %
 % subsubsection special_methods_for_turbulent_combustion (end)
 %
@@ -1474,7 +1480,8 @@ This is not necessarily an optimal distribution for visualization tasks.
 The result can be a significant communication overhead, which is a major
 bottleneck in supercomputing clusters.
 %
-In-situ algorithms need to be carefully crafted to avoid this.
+In-situ algorithms need to be carefully crafted to find a good balance between
+communication overhead and efficiency gained by data reorganization.
 %
 
 %
@@ -1672,14 +1679,26 @@ This gives an idea about the evolution of the simulation but does not allow for
 quantitative analysis of the data.
 %
 Tikhonova \etal~\cite{Tikhonova2011} developed a more flexible approach by
-rendering the data into an intermediate representation that retains original
-data values.
+rendering the data into an intermediate representation that stores an
+attenuation function instead of color values.
 %
-A final transfer function can then be applied after the fact, allowing for a
-certain degree of interactivity.
+The transfer function can then be changed after the fact, allowing for a certain
+degree of interactivity (see \cref{fig:tikhonova_tf}).
 %
 This approach fits well with the image databases discussed in the previous
 section \cite{Kageyama2014,Ahrens2014}.
+%
+\begin{figure}[t]
+    \begin{captionbeside}{
+        Retroactive adjustment of the transfer function in direct volume
+        renderings of a turbulent jet flame. Left: original transfer function.
+        Middle: Opacity modulation. Right: Opacity modulation and
+        re-colorization. Image source: Tikhonova \etal~\cite{Tikhonova2011}.
+        \label{fig:tikhonova_tf}
+    }[o]
+        \includegraphics[width=0.6\textwidth]{figures/tikhonova_transfer_function.png}
+    \end{captionbeside}
+\end{figure}
 %
 
 %
