@@ -18,7 +18,7 @@ they need to be treated separately.} This direction is approximately orthogonal
 to the flame surface. We exploit this by representing the \ac{3D} scalar fields
 of the variables as a set of profiles on \ac{1D} lines. These profile lines are
 anchored at points $\vp_i$ on the flame surface and oriented along its normal
-$\vr_i$. By giving the lines a limited length, we discard information from
+$\vn_i$. By giving the lines a limited length, we discard information from
 outside of the flame front, where the variables are almost constant. The
 placement of the profile lines is dependent on the flame surface curvature,
 seeding more lines in highly curved areas and less in planar regions (see red
@@ -31,7 +31,7 @@ surface between unburnt and burnt regions but have low values on either side.
 This behavior can be modeled with few degrees of freedom, reducing the amount of
 data even further. The information that has to be stored in the sparse
 representation consists of the locations and directions of the profile
-lines, $\vp_i$ and $\vr_i$, the model parameters for each variable
+lines, $\vp_i$ and $\vn_i$, the model parameters for each variable
 and profile line, and the full flame surface mesh for subsequent visualization.
 %
 % The compression $C$ then becomes a transformation from a set
@@ -143,7 +143,7 @@ number of seed points and balances size vs. quality.
 %
 Once the points $\vp_i$ are seeded, profiles of all variables are sampled
 at regular intervals $t_j$ along lines $\vp_i(t_j)=\vp_i + t_j \cdot
-\vr_i$, with $||\vr_i|| = 1$ \Todo{use $\vn$ as normal} (\cref{fig:flamecrossing}).
+\vn_i$, with $||\vn_i|| = 1$ (\cref{fig:flamecrossing}).
 %
 % According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
 % size.
@@ -451,7 +451,7 @@ method to find the optimal fit.
 % \end{equation}
 
 With this, the original data is now described by the flame surface mesh, the
-$\vp_i$ and $\vr_i$ of the profile lines, and the
+$\vp_i$ and $\vn_i$ of the profile lines, and the
 model parameters for each profile line and variable. For the sigmoidal model,
 this is $(a_{li}, a_{ri}, \gamma_i, x_{mi}, y_{mi}, x_{li}, x_{ri})$ for each
 profile line. For the Gaussian model, the parameters are $(x_{mi}, y_{mi},
