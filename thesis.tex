@@ -9,31 +9,18 @@
     numbers=noenddot
     % headsepline
 }
-\setcapindent{0em}
 
-\usepackage[utf8]{inputenc} % allow using UTF-8 characters in input
+% allow using UTF-8 characters in input
+\usepackage[utf8]{inputenc}
 
 \usepackage[german, english]{babel}
 
 \usepackage{cool}
 
-% \usepackage[lining, semibold, p]{libertine}
-% \usepackage[oldstylenums, nosf]{kpfonts}
 \usepackage{kpfonts}
-% \usepackage[
-%     lining,
-%     semibold,
-%     p]{libertine}           % libertine font with lining proportional figures (numbers) as default
 
-\usepackage[T1]{fontenc}    % font encoding most suitable for european languages
-% \usepackage{textcomp}       % needed for special characters
-% \usepackage[
-%     scale=0.95]{inconsolata}% typewriter font
-% \usepackage[zerostyle=d, scale=0.95]{newtxtt}
-% \usepackage[p,osf]{newtxtext}
-% \usepackage[
-%     heuristica,
-%     vvarbb]{newtxmath}      % math font
+% font encoding most suitable for european languages
+\usepackage[T1]{fontenc}
 
 % math
 \usepackage{amsmath}
@@ -46,29 +33,25 @@
 \usepackage[version=3]{mhchem}
 
 % typesetting
-\usepackage{microtype}      % small adjustments for better-looking text
+\usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{tabularx,tabulary}
 \usepackage[autostyle]{csquotes}
-\usepackage[super]{nth}     % write 1st, 2nd, 3rd, i-th correctly
-\usepackage{enumitem}       % customizing list formatting
-\setlist{                   % a little more compact lists
+\usepackage[super]{nth}
+
+\usepackage{enumitem}
+\setlist{
     topsep=1ex,
     parsep=0pt,
     listparindent=\parindent}
 
 \usepackage[nolist
-            ]{acronym}      % typeset and list acronyms
-% \usepackage{acro}
+            ]{acronym}
 
 \usepackage{type1cm}
 \usepackage{lettrine}
-% \renewcommand{\LettrineFontHook}{\fontfamily{fvs}\fontseries{bx}}
 
 % bibliography
-% \usepackage{natbib}         % bibliography and reference styles
-% \usepackage{bibentry}
-% \nobibliography*
 \usepackage[
     backend=biber,
     style=numeric-comp,
@@ -79,28 +62,32 @@
     maxbibnames=99,
     giveninits=true,
     backref=true
-    ]{biblatex}
-% \usepackage{cite}
+]{biblatex}
 
 % graphics
 \usepackage{tikz}
-\usetikzlibrary{decorations.pathreplacing,
-                shapes.misc,
-                shadings,
-                arrows,
-                calc,
-                3d,
-                positioning,
-                matrix}
+\usetikzlibrary{
+    decorations.pathreplacing,
+    shapes.misc,
+    shadings,
+    arrows,
+    calc,
+    3d,
+    positioning,
+    matrix}
 \tikzset{>=latex}
+
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
 \pgfplotsset{compat = newest}
 \usepgfplotslibrary{statistics}
+
 \usepgfplotslibrary{external}
 \tikzexternalize[prefix=tikz/]
+
 \usepackage{tikzpagenodes}
-\usepackage{import}         % used by exported graphics from inkscape
+
+\usepackage{import} % used by exported graphics from inkscape
 
 \usepackage{etoolbox}
 \usepackage{calc}
@@ -109,15 +96,7 @@
 % miscellaneous
 \usepackage[
     textsize=small
-    ]{todonotes}      % todo annotations
-
-
-% \usepackage[sf,sl,outermarks]{titlesec}
-% \usepackage{tocstyle}
-
-\usepackage[
-    % hypertexnames=false
-    ]{hyperref}  % hyperlinking in PDF output
+    ]{todonotes}
 
 \definecolor{mycolor1}{HTML}{377EB8}% blue
 \definecolor{mycolor2}{HTML}{FF7F00}% orange
@@ -126,7 +105,9 @@
 \definecolor{mycolor5}{HTML}{984EA3}% purple
 \definecolor{accentcolor}{named}{gray}
 
-\hypersetup{                % set up hyperref and pdf options
+\usepackage{hyperref}
+
+\hypersetup{
     colorlinks,
     linkcolor={mycolor4!70!black},
     citecolor={mycolor1!70!black},
@@ -149,14 +130,6 @@
 
 
 % turn off old-style figures where they don't belong
-% \makeatletter
-% \newcommand\switchtoTLF{\def\libertine@figurealign{T}\libertineLF}
-% \newcommand\switchtoPLF{\def\libertine@figurealign{}\libertineLF}
-% \newcommand\switchtoTOsF{\def\libertine@figurealign{T}\libertineOsF}
-% \newcommand\switchtoPOsF{\def\libertine@figurealign{}\libertineOsF}
-% \newcommand\switchtoSLF{\biolinumLF}
-% \newcommand\switchtoSOsF{\biolinumOsF}
-% \makeatother
 \newcommand\switchtoTLF{\fontfamily{jkp}\selectfont}
 \newcommand\switchtoPLF{\fontfamily{jkp}\selectfont}
 \newcommand\switchtoTOsF{\fontfamily{jkposn}\selectfont}
@@ -164,33 +137,14 @@
 \newcommand\switchtoSLF{\fontfamily{jkpss}\selectfont}
 \newcommand\switchtoSOsF{\fontfamily{jkpssosn}\selectfont}
 
-% \renewcommand{\bibnumfmt}[1]{[\switchtoPLF{}#1]}                % switch reference item
-% \renewcommand{\citenumfont}[1]{{\switchtoPLF{}#1}}              % switch citation item
 \renewcommand{\acsfont}[1]{{\otherscshape{\MakeLowercase{#1}}}} % acronyms
 
-% the following requires a KOMA documentclass (scr*)
-\addtokomafont{disposition}{\rmfamily}            % section headings (includes heading font)
-% \addtokomafont{captionlabel}{\switchtoPLF{}}                    % figure/table numbers
-% \setlist[enumerate]{font=\switchtoPLF{}}                        % enumeration items
-
-% \usetocstyle{KOMAlike}
-% \settocfeature{entryhook}{\switchtoPLF{}}                       % No old style figures in TOC
-
-% requires mathtools
-% \newtagform{lining}[\switchtoPLF{}]{(}{)}                       % equation numbers
-% \usetagform{lining}
-
-% tabular lining figures in tables
-% \AtBeginEnvironment{tabular}{\switchtoTLF{}}
-% \AtBeginEnvironment{tabularx}{\switchtoTLF{}}
-% \AtBeginEnvironment{tabulary}{\switchtoTLF{}}
-
-% \useosf                     % switch on old style figures as default
 
 % format parts
 % ============
 \renewcommand*{\partpagestyle}{empty}
 \addtokomafont{part}{\normalfont\otherscshape\LARGE}
+
 \renewcommand*{\partformat}{%
 \centering
 \scshape\fontsize{10cm}{10cm}\selectfont\textcolor{white!70!gray}{\thepart}
@@ -232,6 +186,10 @@
 \tikzset{external/export=true}%
 }
 
+% format sections
+% ===============
+\addtokomafont{disposition}{\rmfamily}
+
 % Section numbers in margin
 \renewcommand*{\sectionlinesformat}[4]{%
   \makebox[0pt][r]{#3}#4%
@@ -246,16 +204,18 @@
 % \addtokomafont{pagehead}{\otherscshape}
 
 % \AtBeginEnvironment{captionbeside}{\setcapindent{0em}}
+\setcapindent{0em}
 \addtokomafont{caption}{\small}
 \addtokomafont{captionlabel}{\small\bfseries}
 
-\tikzstyle{paperheader}=[anchor=north west,
-                         at={(current page text area.north west)},
-                         align=left,
-                         text width=\textwidth,
-                         color=gray,
-                         inner sep=0,
-                         outer sep=0]
+\tikzstyle{
+    paperheader}=[anchor=north west,
+                  at={(current page text area.north west)},
+                  align=left,
+                  text width=\textwidth,
+                  color=gray,
+                  inner sep=0,
+                  outer sep=0]
 
 
 \acused{1D}
@@ -266,19 +226,20 @@
 \acused{CPU}
 
 % commands and definitions
-\newlength{\figurewidth}    % used in tikz figures to enable scaling
+% ========================
+
+% used in tikz figures to enable scaling
+\newlength{\figurewidth}
 \newlength{\figureheight}
 
 \newtheorem{lemma}{Lemma}
 
-% \usepackage{layout}
-
-\addbibresource{bib_master.bib}
 
 \input{macros}              % math macros
 
 \input{acronyms}
 
+\addbibresource{bib_master.bib}
 
 \title{ Dissertation }
 \subtitle{ New Visualization Techniques for Engineering Simulations }
@@ -419,7 +380,7 @@ with the same algorithm}
 
 % chapter tensor_vis_conclusions (end)
 
-% chapter tensor_vis (end)
+% part tensor_vis (end)
 \part{Appendix}
 \label{part:appendix}
 
@@ -429,8 +390,6 @@ with the same algorithm}
 
 \backmatter
 
-% \bibliographystyle{unsrt}
-% \bibliography{bib_master}
 \printbibliography[heading=bibintoc]
 
 \end{document}
