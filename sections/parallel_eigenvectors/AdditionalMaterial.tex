@@ -1,70 +1,25 @@
-\documentclass{egpubl}
-\usepackage{EGVMV18}
-\usepackage[utf8]{inputenc}
-\WsPaper
-\electronicVersion % can be used both for the printed and electronic version
+\chapter{Proof that the Parallel Eigenvectors Operator Delivers Structurally Stable Lines} % (fold)
+\label{cha:proof_pev_stable_lines}
 
-% !! *please* don't change anything above
-% !! unless you REALLY know what you are doing
-% ------------------------------------------------------------------------
-
-% for including postscript figures
-% mind: package option 'draft' will replace PS figure by a filname within a frame
-\ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
-\else \usepackage[dvips]{graphicx} \fi
-
-\PrintedOrElectronic
-
-% prepare for electronic version of your document
-\usepackage{t1enc,dfadobe}
-
-\usepackage{egweblnk}
-\usepackage{cite}
-
-\usepackage{cool}
-\usepackage{amsfonts}
-\usepackage{mathtools}
-\mathtoolsset{showonlyrefs}
-\usepackage{bm}
-
-\input{macros}
-
-
-\title{The Parallel Eigenvectors Operator -- Additional Material}
-\author[T. Oster, C. R{\"o}ssl \& H. Theisel]
-       {T. Oster, C. R{\"o}ssl and H. Theisel \\
-        University of Magdeburg, Germany}
-
-\begin{document}
-
-% \section*{Additional Material} % (fold)
-% \label{sec:additional_material}
+\Todo[inline]{Make this read smoother, repeat theorem with same number. Mention
+proof is from Holger.}
 
 \section*{Notation} % (fold)
 \label{sec:pev_notation}
 %
-\noindent
-\begin{tabular}{ll}
-$\mM$ & Matrix in $\RRSet^{3 \times 3}$\\
-$\vv$ & Column vector in $\RRSet^3$ \\
-$v_i$ & Components of a vector $\vv$\\
-$\begin{pmatrix} \va & \vb & \vc \end{pmatrix}$ & Block matrix of multiple matrices/vectors \\
+\begin{tabularx}{\textwidth}{lX}
 $\overline{\mM}$, $\overline{\vr}$ & Matrix in $\RRSet^{6 \times 6}$/vector in $\RRSet^6$ \\
 $\vj_i$ & Unit vector along i-th coordinate \\
 $\mM_x, \vv_y,...$ & Partial derivatives of a Matrix/vector in $x, y, \dots$ \\
-$\nabla$ & Nabla operator $\T{(\frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}, \dots)}$
-\end{tabular}
-
-\section*{Proof of Theorem 1} % (fold)
-\label{sub:proof_of_theorem_1}
+\end{tabularx}
 
 \begin{theorem}
-    \label{thm:1}
+    \label{thm:pev_stable_lines_app}
     The PEV operator delivers structurally stable curves that are either closed
     or end at the boundaries of the domain.
 \end{theorem}
 %
-The main idea to prove \cref{thm:1} is to search for PEV lines not in 3D
+The main idea to prove \cref{thm:pev_stable_lines} is to search for PEV lines not in 3D
 $(x,y,z)$ space but in a 6D $(x,y,z,u,v,w)$ space:
 %
 at every point $\vx=\T{(x,y,z)}$, all vector directions $\vr=\T{(u,v,w)}$ are
