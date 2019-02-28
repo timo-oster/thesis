@@ -134,6 +134,25 @@
     \end{scope}
 
     % profile for point 3
+    % \begin{scope}[
+    %         shift={($(img.south east)!0.00!(img.north east) + (0.3cm, 0.4cm)$)},
+    %         x={\plotwidth},
+    %         y={0.15\figurewidth}
+    %     ]
+    %     \coordinate (pl3) at (0, 0);
+    %     \draw[arrow] (0, 0) -- (1, 0);
+    %     \draw[point] (0.5, 0) circle (0.8mm) node [below] {$\vp_3$};
+    %     \draw[-latex] (0, 0) -- (0, 1)
+    %         node[right, yshift=1mm] {\ce{CO2}};
+    %     \draw (0, 0.75) to[out=10, in=180]
+    %           (0.25, 0.85) to[out=0, in=130]
+    %           (0.5, 0.5) to[out=-50, in=180]
+    %           (0.8, 0) --
+    %           (1, 0);
+    %     \draw[point, infl] (0.5, 0.5) circle (0.8mm);
+    %     \draw[point, max] (0.25, 0.85) circle (0.8mm);
+    %     \draw[point, min] (0.8, 0.0) circle (0.8mm);
+    % \end{scope}
     \begin{scope}[
             shift={($(img.south east)!0.00!(img.north east) + (0.3cm, 0.4cm)$)},
             x={\plotwidth},
@@ -144,13 +163,13 @@
         \draw[point] (0.5, 0) circle (0.8mm) node [below] {$\vp_3$};
         \draw[-latex] (0, 0) -- (0, 1)
             node[right, yshift=1mm] {\ce{CO2}};
-        \draw (0, 0.75) to[out=10, in=180]
-              (0.25, 0.85) to[out=0, in=130]
+        \draw (0, 0.47) to[out=40, in=180]
+              (0.3, 0.75) to[out=0, in=130]
               (0.5, 0.5) to[out=-50, in=180]
               (0.8, 0) --
               (1, 0);
         \draw[point, infl] (0.5, 0.5) circle (0.8mm);
-        \draw[point, max] (0.25, 0.85) circle (0.8mm);
+        \draw[point, max] (0.3, 0.75) circle (0.8mm);
         \draw[point, min] (0.8, 0.0) circle (0.8mm);
     \end{scope}
 
@@ -213,7 +232,8 @@
     % profile plot connecting lines
     \draw[legend dark] (p14) |- (pl1);
     \draw[legend dark] (p12) |- (pl2);
-    \draw[legend dark] (p9) |- (pl3);
+    % \draw[legend dark] (p9) |- (pl3);
+    \draw[legend dark] (p7) |- (pl3);
 
     % \draw[legend light] (p14) |- (pl1);
     % \draw[legend light] (p12) |- (pl2);
@@ -222,5 +242,6 @@
     % point labels
     \node[above left=-0.1cm and 0.05cm of p14] {$\vp_1$};
     \node[above right=-0.05cm and -0.07cm of p12] {$\vp_2$};
-    \node[right=0.1cm of p9] {$\vp_3$};
+    % \node[right=0.1cm of p9] {$\vp_3$};
+    \node[above left=-0.1cm and -0.05cm of p7] {$\vp_3$};
 \end{tikzpicture}%

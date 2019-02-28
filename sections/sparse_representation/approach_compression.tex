@@ -59,16 +59,12 @@ those lines, and how these profiles are then approximated by simple models.
 	\centering
 	\input{figures/flamecrossing_tikz}
 	\caption{
-	Cross section scheme of flame surface with seeded points $\vp$:
-	profiles sampled from profile lines $\vp(t)$ at different locations
-	on the flame surface. The minimum, inflection, and maximum of the sigmoidal
-	shape are indicated by the blue, green and red dots. If the sampled line
-	enters or leaves the burning region multiple times, multiple sigmoidal
-	shapes can occur (bottom right box). Seeding density is dependent on the
-	surface curvature (see green vs. red circle). }
+	Cross section scheme of the flame surface with seeded points $\vp$. Profiles
+	are sampled from profile lines $\vp(t)$ at different locations on the flame
+	surface. The minimum, inflection, and maximum of the sigmoidal shape are
+	indicated by the green, blue and red dots.}
 	\label{fig:flamecrossing}
-	\Todo[inline]{Fix description, possibly change color map, annotate normals
-	$\vn$ and label $t$ on plots}
+	\Todo[inline]{annotate normals $\vn$ and label $t$ on plots}
 \end{figure}
 %
 Commonly, the flame surface in premixed combustion is defined as the
@@ -109,7 +105,8 @@ Here, $\seedDensQuot > 1$ steers the seeding density. For each initial vertex, a
 uniformly distributed random number $r \in (0, 1)$ is now generated, and the
 point is selected if $\seedDens < r$. This results in few seed points in areas
 without curvature, and all vertices being selected in areas where $\seedDens >
-1$. Areas of higher curvature get more seeds than less curved ones. Hence, the
+1$. Areas of higher curvature get more seeds than less curved ones (see blue
+circles in \cref{fig:flamecrossing}). Hence, the
 storage size of the sparse representation depends on the surface shape rather
 than on the resolution of the data. Adjusting $\seedDensQuot$ changes the total
 number of seed points and balances size vs. quality.
@@ -312,7 +309,7 @@ sides. For finding inflection points, we use the same approach but on the second
 derivative.
 
 Due to the possibility of crossing the flame surface multiple times (see
-\cref{fig:flamecrossing,fig:models}), we can find more feature
+$\vp_3$ in \cref{fig:flamecrossing}), we can find more feature
 points on the profile than we need for our models. We have to identify the ones
 closest to the anchor point.
 %
