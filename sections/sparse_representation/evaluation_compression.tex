@@ -121,7 +121,7 @@ As \cref{fig:fitting_rms_error} shows, the errors are quite low, ranging
 from 0.1\% to 6.3\% of the respective variable's range.
 
 For investigating the overall error after reconstruction, We computed the
-reduction ratio $c$ for different $\seedDensQuot$ and compared it to the
+reduction ratio $c$ for different $q$ and compared it to the
 deviation from the original data after reconstruction. The reduction ratio is
 defined as the storage space needed for the original data divided by the space
 needed by the sparse representation.
@@ -139,7 +139,7 @@ needed by the sparse representation.
 % model used for representing those species needs seven parameters, while the
 % Gaussian model needs eight. 
 % Most significant for the reduction ratio, however, is the number of seeded
-% profile lines. This is steered by the value of $\seedDensQuot$, but mainly
+% profile lines. This is steered by the value of $q$, but mainly
 % depends on the data itself. Higher data resolution means that more lines are
 % seeded. More importantly, the size and structure of the flame itself is
 % responsible for the reduction ratio. A small flame naturally results in fewer
@@ -250,7 +250,7 @@ $\max(V)-\min(V)$.
 	\input{figures/comparison_lin_knn_down_tikz.tex}
 	\caption{
 	Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas II}
- 	with $\seedDensQuot=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
+ 	with $q=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
  	Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using linear
  	interpolation with different sample densities (detail view).}
 	\label{fig:comp}
@@ -309,7 +309,7 @@ representation, which captures important data features by design.
 	% }
 	\caption{
 	Reduction ratio $c$ and computation time $t$ for different seeding densities
-	\seedDensQuot. Plot shows mean (solid) and standard deviation (dashed) over
+	q. Plot shows mean (solid) and standard deviation (dashed) over
 	eight time steps of data set \textsc{Hydrogen} and values for the synthetic
 	data set (dash-dotted).}
 	\label{fig:compression_table}
@@ -325,7 +325,7 @@ step amounts to about 5 GB\Todo{Use SI units or similar to typeset memory sizes}
 of data. The whole simulation has hundreds of thousands of time steps. Even
 storing a fraction of them quickly results in terabytes of data. We selected
 eight time steps from a late (most complex) stage of the simulation. Choosing
-$\seedDensQuot=\text{5}$, which retains very high accuracy for reconstruction,
+$q=\text{5}$, which retains very high accuracy for reconstruction,
 we reduced them to about 30 MB each. This means only 0.6\% of the original
 storage space is required.
 

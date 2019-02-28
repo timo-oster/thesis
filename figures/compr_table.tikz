@@ -25,7 +25,7 @@
 		xmax=240,
 		xmode=log,
 		xminorticks=true,
-		xlabel={$\seedDensQuot$},
+		xlabel={$q$},
 		every tick/.style={color=black, thin},
 		ymin=1,
 		ymax=500,

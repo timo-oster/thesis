@@ -50,7 +50,7 @@
     extra x ticks = {1, 6.7, 36, 240},
     extra x tick labels = { , 6.7, 36, 240},
     extra tick style={grid=major},
-    xlabel = {$\seedDensQuot$},
+    xlabel = {$q$},
     xlabel near ticks,
     xmode = log,
     enlargelimits={abs=3mm},

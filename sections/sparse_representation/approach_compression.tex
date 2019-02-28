@@ -98,21 +98,21 @@ We estimate the principal curvatures $\kappa_1$ and $\kappa_2$ at each vertex
 seeding density by a logarithmic function:
 %
 \begin{equation}
-	\seedDens(\kappa_1, \kappa_2) = 
-		\frac{\ln(1 + \sqrt{\kappa_1^2+\kappa_2^2})}{\seedDensQuot}\text{ .}
+	\rho(\kappa_1, \kappa_2) =
+		\frac{\ln(1 + \sqrt{\kappa_1^2+\kappa_2^2})}{q}\text{ .}
 \end{equation}
-Here, $\seedDensQuot > 1$ steers the seeding density. For each initial vertex, a
+Here, $q > 1$ steers the seeding density. For each initial vertex, a
 uniformly distributed random number $r \in (0, 1)$ is now generated, and the
-point is selected if $\seedDens < r$. This results in few seed points in areas
-without curvature, and all vertices being selected in areas where $\seedDens >
+point is selected if $\rho < r$. This results in few seed points in areas
+without curvature, and all vertices being selected in areas where $\rho >
 1$. Areas of higher curvature get more seeds than less curved ones (see blue
 circles in \cref{fig:flamecrossing}). Hence, the
 storage size of the sparse representation depends on the surface shape rather
-than on the resolution of the data. Adjusting $\seedDensQuot$ changes the total
+than on the resolution of the data. Adjusting $q$ changes the total
 number of seed points and balances size vs. quality.
 %
 % The logarithmic shape of
-% $\seedDens$ ensures that medium curvatures, which are most frequent, are not
+% $\rho$ ensures that medium curvatures, which are most frequent, are not
 % discarded as often, and sampling density is more even across areas of higher
 % curvature. By allowing the density of the maximum curvature to drop below 1, it
 % becomes possible to avoid overly dense seeding in high-curvature areas.
