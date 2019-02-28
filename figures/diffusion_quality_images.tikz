@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+    font=\small,
+    node distance=0.25cm,
+    every node/.style={inner sep=0pt, outer sep=0pt}
+]
+    \node (img1) {
+        \includegraphics[width=0.25\figurewidth-0.25cm*3/4]{figures/diffusion_quality_1_00.png}
+    };
+    \node[anchor=north, below=of img1] {$q=1$};
+
+    \node[right=of img1] (img2) {
+        \includegraphics[width=0.25\figurewidth-0.25cm*3/4]{figures/diffusion_quality_6_70.png}
+    };
+    \node[anchor=north, below=of img2] {$q=6.7$};
+
+    \node[right=of img2] (img3) {
+        \includegraphics[width=0.25\figurewidth-0.25cm*3/4]{figures/diffusion_quality_36_00.png}
+    };
+    \node[anchor=north, below=of img3] {$q=36$};
+
+    \node[right=of img3] (img4) {
+        \includegraphics[width=0.25\figurewidth-0.25cm*3/4]{figures/diffusion_quality_240_00.png}
+    };
+    \node[anchor=north, below=of img4] {$q=240$};
+\end{tikzpicture}

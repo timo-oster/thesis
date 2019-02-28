@@ -33,18 +33,26 @@ The results can be seen in \cref{fig:diffusion_quality}.
 % until a satisfactory error level is reached.
 % \todo{captain obvious?}
 
-\begin{figure}[t!]
+\begin{figure}[t]
 	\tikzset{external/export next=false}
 	\setlength\figureheight{4.5cm}
-	\setlength\figurewidth{0.75\textwidth}
+	\setlength\figurewidth{0.85\textwidth}
 	\centering
 	\input{figures/diffusion_quality_small.tikz}
 	\caption{
 	Diffusion error (median, max and min) for selected variables of data set
 	\textsc{Hydrogen}. Images show qualitative results of visualization for
-	different seeding densities $\seedDensQuot$. The plots corresponding to each
-	variable are shifted by a constant increment.}
+	different seeding densities $\seedDensQuot$. Qualitative results for the
+	values indicated by vertical lines are shown in
+	\cref{fig:diffusion_quality_img}.}
 	\label{fig:diffusion_quality}
-	\Todo[inline]{Make figure less ugly, move example images out of
-		plots, remove gradient, solve stacking plots more elegantly}
+\end{figure}
+
+\begin{figure}[t]
+	\setlength\figurewidth{\textwidth}
+	\centering
+	\input{figures/diffusion_quality_images.tikz}
+	\caption{Qualitative comparison of diffusion results for different seeding
+	densities $q$.}
+	\label{fig:diffusion_quality_img}
 \end{figure}
