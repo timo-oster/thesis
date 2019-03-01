@@ -25,6 +25,8 @@
 % math
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{thm-restate}
 \usepackage{mathtools}
 \mathtoolsset{showonlyrefs=false}
 \usepackage{bm}
@@ -232,6 +234,7 @@
 \acused{3D}
 \acused{4D}
 \acused{5D}
+\acused{6D}
 \acused{CPU}
 
 % commands and definitions
@@ -241,7 +244,7 @@
 \newlength{\figurewidth}
 \newlength{\figureheight}
 
-\newtheorem{lemma}{Lemma}
+\declaretheorem{theorem}
 
 
 \input{macros}              % math macros

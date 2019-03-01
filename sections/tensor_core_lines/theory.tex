@@ -107,20 +107,19 @@ We now examine the mathematical properties of tensor core lines.
 %
 
 %
-\begin{lemma}\label{thm:lemma1}
-In a $C^1$-continuous tensor field, tensor core lines are structurally stable
+\begin{theorem}\label{thm:tcl_stable_lines}
+In a $C^1$\Todo{$C^0$?}-continuous tensor field, tensor core lines are structurally stable
 line structures.
-\end{lemma}
-\Todo{Decide between theorem and lemma.}
+\end{theorem}
 %
 Here, structural stability refers to the property that adding noise slightly
 perturbs the structures but does not destroy them.
 %
-To show \cref{thm:lemma1}, we consider a local approximation of a real
+To show \cref{thm:tcl_stable_lines}, we consider a local approximation of a real
 eigenvector field in the neighborhood of a point as a normalized vector field.
 %
 Then the fact that \ac{PV} lines give line structures~\cite{Peikert1999} shows
-the lemma.
+the theorem.
 %
 Note that although such a consideration of an eigenvector field as a normalized
 vector field is locally possible, it does not apply globally in a consistent
@@ -138,9 +137,9 @@ many lines), our extraction algorithm has to deal with them.
 %
 
 %
-\begin{lemma}
+\begin{theorem}
 For a linear tensor field, tensor core lines are straight lines.
-\end{lemma}
+\end{theorem}
 %
 This follows from the fact that for linear tensor fields, the linear
 approximation in \eqref{eq:lin_approx} describes the whole data set

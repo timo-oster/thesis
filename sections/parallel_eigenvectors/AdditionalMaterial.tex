@@ -1,4 +1,6 @@
-\chapter{Proof that the Parallel Eigenvectors Operator Delivers Structurally Stable Lines} % (fold)
+\chapter[Proof that PEV Yields Structurally Stable Curves]
+    {Proof that the Parallel Eigenvectors Operator Yields Structurally Stable
+    Curves} % (fold)
 \label{cha:proof_pev_stable_lines}
 
 \Todo[inline]{Make this read smoother, repeat theorem with same number. Mention
@@ -13,23 +15,19 @@ $\vj_i$ & Unit vector along i-th coordinate \\
 $\mM_x, \vv_y,...$ & Partial derivatives of a Matrix/vector in $x, y, \dots$ \\
 \end{tabularx}
 
-\begin{theorem}
-    \label{thm:pev_stable_lines_app}
-    The PEV operator delivers structurally stable curves that are either closed
-    or end at the boundaries of the domain.
-\end{theorem}
+\pevstablelines*
 %
-The main idea to prove \cref{thm:pev_stable_lines} is to search for PEV lines not in 3D
-$(x,y,z)$ space but in a 6D $(x,y,z,u,v,w)$ space:
+The main idea to prove \cref{thm:pev_stable_lines} is to search for \ac{PEV} lines
+not in \ac{3D} $(x,y,z)$ space but in a \ac{6D} $(x,y,z,u,v,w)$ space:
 %
 at every point $\vx=\T{(x,y,z)}$, all vector directions $\vr=\T{(u,v,w)}$ are
 checked for being an eigenvector of $\mS$ and $\mT$.
 %
-This means that we search for all 6D points $\T{(\vx,\vr)}$ fulfilling
+This means that we search for all \ac{6D} points $\T{(\vx,\vr)}$ fulfilling
 $\mS(\vx)\, \vr \times \vr = \vNull$ and $\mT(\vx)\, \vr \times \vr = \vNull$.
 %
-We formulate this to search for all 6D points $\T{(\vx,\vr)}$ where a 6D vector
-field $\overline{\vh}$ vanishes:
+We formulate this to search for all \ac{6D} points $\T{(\vx,\vr)}$ where a
+\ac{6D} vector field $\overline{\vh}$ vanishes:
 %
 \begin{equation}
     \label{eq:theory_1}
@@ -41,10 +39,10 @@ field $\overline{\vh}$ vanishes:
     = \overline{\vNull}.
 \end{equation}
 %
-Suppose a point $\T{(\vx_0,\vr_0)}$ is on a PEV structure, \ie, fulfills
-\eqref{eq:theory_1}.
+Suppose a point $\T{(\vx_0,\vr_0)}$ is on a \ac{PEV} structure, \ie, fulfills
+\cref{eq:theory_1}.
 %
-In order to study the PEV structures in a linear neighborhood of
+In order to study the \ac{PEV} structures in a linear neighborhood of
 $\T{(\vx_0,\vr_0)}$, we search for all directions $\T{(d \vx,d \vr)}$ in which
 $\overline{\vh}$ remains zero: $\nabla \overline{\vh} \cdot \T{(d \vx,d \vr)} =
 \overline{\vNull}$.
@@ -103,7 +101,7 @@ Then
    \T{\mG_1} \, \vr \; =\;  \T{\mG_2} \, \vr\; =\; 0
 \end{equation}
 %
-and from \eqref{eq:theory_1} follows
+and from \cref{eq:theory_1} follows
 %
 \begin{equation}
    \label{eq:theory_5}
@@ -115,7 +113,7 @@ and
    \mG_3 \, \vr \;=\; \mG_4 \, \vr \;=\; 0 \, \text{.}
 \end{equation}
 %
-Equations \eqref{eq:theory_4} and \eqref{eq:theory_5} give that
+\Cref{eq:theory_4,eq:theory_5} give that
 %
 \begin{equation}
    \label{eq:theory_6}
@@ -127,35 +125,35 @@ in the structurally stable case.
 This means that for $\Rank{\nabla \overline{\vh}} < 4$, adding noise to $\mS,
 \mT$ brings $\Rank{\nabla \overline{\vh}}$ to $4$.
 %
-Equation \eqref{eq:theory_6} means that the PEV structure around
-$\T{(\vx_0,\vr_0)}$ is a 2-manifold in 6D.
+\Cref{eq:theory_6} means that the \ac{PEV} structure around
+$\T{(\vx_0,\vr_0)}$ is a 2-manifold in \ac{6D}.
 %
-To see Equation \eqref{eq:theory_6}, we consider a rotation of the underlying
+To see \cref{eq:theory_6}, we consider a rotation of the underlying
 coordinate system such that $\vr=(0,0,r_z)$.
 %
-Then Equations \eqref{eq:theory_4} and \eqref{eq:theory_5} give
+Then \cref{eq:theory_4,eq:theory_5} give
 that the rotated tensors $\mG_1,\mG_2,\mG_3,\mG_4$ have vanishing third columns.
 %
-This and Equation \eqref{eq:theory_1} gives that $\nabla \overline{\vh}$ has
-two colums, which proves Equation \eqref{eq:theory_6}.
+This and \cref{eq:theory_1} gives that $\nabla \overline{\vh}$ has
+two colums, which proves \cref{eq:theory_6}.
 %
 
 %
 One vector in the null space of $\nabla \overline{\vh}$ is trivial and denotes a
 simple scaling of $\vr$:
 %
-Equations \eqref{eq:theory_4} -- \eqref{eq:theory_5a}
+\Cref{eq:theory_4,eq:theory_5,eq:theory_5a}
 give $\nabla \overline{\vh}
 \cdot \T{(\vNull, \vr)} = \overline{\vNull}$.
 %
 This means that the projection of the null space of $\nabla \overline{\vh}$ into
-the spatial subspace $\vx$ gives a one-manifold in 3D.
+the spatial subspace $\vx$ gives a one-manifold in \ac{3D}.
 %
-This shows that PEV gives line structures in 3D.
+This shows that \ac{PEV} gives line structures in \ac{3D}.
 %
 To show that they are closed, we consider the 6 components of $\nabla
-\overline{\vh}$ as scalar fields and interpret the PEV structure as intersection
-of their \ac{5D} iso-hypersurfaces.
+\overline{\vh}$ as scalar fields and interpret the \ac{PEV} structure as
+intersection of their \ac{5D} iso-hypersurfaces.
 %
 Iso-hypersurfaces are always closed, which means their intersections are also
 closed.
