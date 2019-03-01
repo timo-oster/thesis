@@ -96,29 +96,10 @@ y explicit,
 table[x=densities, y expr = \thisrowno{8} + 0.00, y error index = 10]{\htotstat};
 \addlegendentry{\ce{H2O2}}
 
-% Plots for O
-
-\addplot[
-color=mycolor3,
-forget plot,
-error bars/.cd,
-y dir = minus,
-y explicit
-]
-table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 9]{\ostat};
-\addplot[
-color=mycolor3,
-error bars/.cd,
-y dir = plus,
-y explicit,
-]
-table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 10]{\ostat};
-\addlegendentry{O}
-
 % Plots for OH
 
 \addplot[
-color=mycolor4,
+color=mycolor3,
 forget plot,
 error bars/.cd,
 y dir = minus,
@@ -126,13 +107,33 @@ y explicit
 ]
 table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 9]{\ohstat};
 \addplot[
-color=mycolor4,
+color=mycolor3,
 error bars/.cd,
 y dir = plus,
 y explicit,
 ]
 table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 10]{\ohstat};
 \addlegendentry{OH}
+
+
+% Plots for O
+
+\addplot[
+color=mycolor4,
+forget plot,
+error bars/.cd,
+y dir = minus,
+y explicit
+]
+table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 9]{\ostat};
+\addplot[
+color=mycolor4,
+error bars/.cd,
+y dir = plus,
+y explicit,
+]
+table[x=densities, y expr = \thisrowno{8} + 0.0, y error index = 10]{\ostat};
+\addlegendentry{O}
 
 \end{axis}
 \end{tikzpicture}%
