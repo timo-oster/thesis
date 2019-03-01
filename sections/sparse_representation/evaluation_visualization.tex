@@ -6,7 +6,7 @@
 %
 By computing the shift values $t_f$ only for some of the vertices of $M$, and
 obtaining them at the other vertices by diffusion, an error is introduced. We
-quantify this error as the normalized root mean square difference between a
+quantify this error as the normalized \ac{RMS} difference between a
 ground truth and the values at each vertex after the diffusion process. The
 ground truth is obtained by computing the model parameters $t_f$ for each vertex
 of $M$ as described in \cref{sub:fitting}. The diffusion error
@@ -41,10 +41,8 @@ The results can be seen in \cref{fig:diffusion_quality}.
 	\input{figures/diffusion_quality_small.tikz}
 	\caption{
 	Diffusion error (median, max and min) for selected variables of data set
-	\textsc{Hydrogen}. Images show qualitative results of visualization for
-	different seeding densities $q$. Qualitative results for the
-	values indicated by vertical lines are shown in
-	\cref{fig:diffusion_quality_img}.}
+	\textsc{Hydrogen}. Qualitative results for the values indicated by vertical
+	lines are shown in \cref{fig:diffusion_quality_img}.}
 	\label{fig:diffusion_quality}
 \end{figure}
 
