@@ -2,6 +2,8 @@
 \subsection{Reconstructing the Scalar Fields} % (fold)
 \label{sec:reconstruction}
 %
+\Todo[inline]{Move the part about reconstruction and performance to the back}
+%
 If desired, the scalar fields on the original grid can be reconstructed from the
 sparse representation by interpolation. We sample the fitted models in regular
 intervals between the respective $x_l$ and $x_r$ of each line and variable. We
@@ -108,6 +110,7 @@ variables $V$ comparable:
 							{x_{ri}-x_{li}} 
 	\text{ .}
 \end{equation}
+\Todo{Check if equation is correct}
 %
 Here, $u_{ij}^V$ is the value of the fitted model corresponding to the original
 profile value $P_{ij}^V$, while $\{j | x_{li} \leq x_{ji} \leq x_{ri}\}$ are the
@@ -314,7 +317,7 @@ representation, which captures important data features by design.
 	data set (dash-dotted).}
 	\label{fig:compression_table}
 	\Todo[inline]{Make synthetic line more distinct. Use inline tikz instead of
-	text to describe pattern}
+	text to describe pattern. Add minor ticks on right side.}
 \end{figure}
 
 To further illustrate the performance of our approach, we tested it on eight
