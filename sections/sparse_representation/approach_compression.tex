@@ -58,14 +58,18 @@ those lines, and how these profiles are then approximated by simple models.
 	\setlength\figurewidth\textwidth
 	\centering
 	\input{figures/flamecrossing_tikz}
+	\vspace*{-6mm}
 	\tikzset{external/export=false}
 	\caption{
-	Cross section scheme of the flame surface with seeded points $\vp$. Profiles
-	are sampled from profile lines $\vp(t)$ at different locations on the flame
-	surface. The minimum, inflection, and maximum of the sigmoidal shape are
-	indicated by the green, blue and red dots.}
+		Cross section scheme of the flame surface with seeded points $\vp$.
+		Profiles are sampled from profile lines $\vp(t)$ (arrows) at different
+		locations on the flame surface. The minimum
+		(\protect\tikz\protect\draw[thick, fill=mycolor3] circle
+		[radius=0.8mm];), inflection (\protect\tikz\protect\draw[thick,
+		fill=mycolor1] circle [radius=0.8mm];) , and maximum
+		(\protect\tikz\protect\draw[thick, fill=mycolor4] circle
+		[radius=0.8mm];) of the sigmoidal shape are indicated on the profiles. }
 	\label{fig:flamecrossing}
-	\Todo[inline]{annotate normals $\vn$ and label $t$ on plots}
 	\tikzset{external/export=true}
 \end{figure}
 %
@@ -323,6 +327,7 @@ other crossings are already captured by other profile lines seeded there.
 	\setlength\figurewidth{0.95\linewidth}
 	\setlength\figureheight{2.2cm}
 	\input{figures/models.tikz}
+	\vspace*{-2mm}
 	\caption{
 	Sigmoidal model (top) and Gaussian model (bottom) with examples of models
 	fitted to a profile.}

@@ -38,8 +38,8 @@ Shepard's inverse distance weights.
 %
 % \begin{equation}
 % \label{eqn:shepardweights}
-% 	f(\vx) = \sum_{j=1}^k \frac{w_{i_j}(\vx)f_{i_j}}{\sum_{l=1}^k w_{i_l}(\vx)}, ~
-% 	\text{with} ~ w_{i_j}(\vx) = \frac{1}{||\vx-\vx_{i_j}||^p}
+%   f(\vx) = \sum_{j=1}^k \frac{w_{i_j}(\vx)f_{i_j}}{\sum_{l=1}^k w_{i_l}(\vx)}, ~
+%   \text{with} ~ w_{i_j}(\vx) = \frac{1}{||\vx-\vx_{i_j}||^p}
 % \end{equation}
 % and $i_j, ~j=1,\dotsc, k$ are the indices of the $k$ approximate nearest
 % neighbors of $\vx$.
@@ -102,13 +102,13 @@ variables $V$ comparable:
 %The fitting error for a variable $V$ is then:
 %
 \begin{equation}
-	E^V_{\text{fit}} 
-		= 	\frac{(\max(V)-\min(V))^{-1}}{\sum_{i=1}^n x_{ri}-x_{li}} 
-			\sum_{i=1}^n~
-			\sum_{\{j | x_{li} \leq x_{ji} \leq x_{ri}\}}
-						\frac{|P_{ij}^V-u_{ij}^V|}
-							{x_{ri}-x_{li}} 
-	\text{ .}
+    E^V_{\text{fit}}
+        =   \frac{(\max(V)-\min(V))^{-1}}{\sum_{i=1}^n x_{ri}-x_{li}}
+            \sum_{i=1}^n~
+            \sum_{\{j | x_{li} \leq x_{ji} \leq x_{ri}\}}
+                        \frac{|P_{ij}^V-u_{ij}^V|}
+                            {x_{ri}-x_{li}}
+    \text{ .}
 \end{equation}
 \Todo{Check if equation is correct}
 %
@@ -154,8 +154,8 @@ needed by the sparse representation.
 % seeding and therefore reduction ratio.}
 %
 % \begin{equation}
-% 	c 
-% 		= \frac{B_\text{original}}{B_\text{sparse}} 
+%   c
+%       = \frac{B_\text{original}}{B_\text{sparse}}
 % \end{equation}
 %
 % Where $B_\text{original}$ and $B_\text{sparse}$ are the storage space needed to
@@ -176,13 +176,13 @@ We used a normalized root mean square error metric to compute the reconstruction
 quality:
 %
 \begin{equation}
-	E^V_\text{reconst}
-		= 	\frac{1}{|H|}
-			\int\limits_{\vx \in H}
-				\left|
-					\frac{R(\vx) - V(\vx)}{\max(V)-\min(V)}
-				\right| ~d\vx
-			 \text{ ,}
+    E^V_\text{reconst}
+        =   \frac{1}{|H|}
+            \int\limits_{\vx \in H}
+                \left|
+                    \frac{R(\vx) - V(\vx)}{\max(V)-\min(V)}
+                \right| ~d\vx
+             \text{ ,}
 \end{equation}
 %
 where $V$ is the original data of the variable, $R$ is the reconstructed data,
@@ -192,13 +192,14 @@ $\max(V)-\min(V)$.
 
 %
 \begin{figure}[t]
-	\centering
+    \centering
     \setlength\figureheight{0.2\textheight}
     \setlength\figurewidth{0.87\textwidth}
-	\input{figures/mean_abs_fit.tikz}
-	\caption{Mean \ac{RMS} fitting error for all variables. Note that not all data sets
-	contain the same variables.}
-	\label{fig:fitting_rms_error}
+    \input{figures/mean_abs_fit.tikz}
+    \vspace*{-7mm}
+    \caption{Mean \ac{RMS} fitting error for all variables. Note that not all data sets
+    contain the same variables.}
+    \label{fig:fitting_rms_error}
 \end{figure}
 %
 % 2. Total errors (MSE, PSNR?) after reconstruction
@@ -212,51 +213,53 @@ $\max(V)-\min(V)$.
 % Compression factors up to about 1:150 without terrible errors
 %
 \begin{figure}[p]
-	\setlength\figureheight{0.26\textheight}
-	\setlength\figurewidth{0.8\textwidth}
-	% \input{figures/msevcr_stack_small.tikz}\\
-	% \input{figures/msevcr_stack_data3_small.tikz}\\
-	% \input{figures/msevcr_stack_data2.tikz}\\
-	\input{figures/msevcr_stacks_small.tikz}
-	\caption{
-	Error vs. reduction ratio for selected variables. The plots corresponding to
-	each variable are shifted by a constant increment. The horizontal lines
-	signify the zero-levels of the respective plots.}
-	\label{fig:CRvMSE}
+    \setlength\figureheight{0.26\textheight}
+    \setlength\figurewidth{0.8\textwidth}
+    % \input{figures/msevcr_stack_small.tikz}\\
+    % \input{figures/msevcr_stack_data3_small.tikz}\\
+    % \input{figures/msevcr_stack_data2.tikz}\\
+    \input{figures/msevcr_stacks_small.tikz}
+    \vspace*{-6mm}
+    \caption{
+    Error vs. reduction ratio for selected variables. The plots corresponding to
+    each variable are shifted by a constant increment. The horizontal lines
+    signify the zero-levels of the respective plots.}
+    \label{fig:CRvMSE}
 \end{figure}
 
 % \begin{figure}[tb]
-% 	\centering
-% 	\setlength\figureheight{5cm} 
-% 	\setlength\figurewidth{0.7\textwidth}
-% 	\input{figures/msevcr_stack_data3_small.tikz}
-% 	\caption{Error vs. reduction ratio (\textsc{Syngas II}). See Figure 
-% 	\ref{fig:CRvMSE} for explanation.
-% 	}
-% 	\label{fig:CRvMSE3}
+%   \centering
+%   \setlength\figureheight{5cm}
+%   \setlength\figurewidth{0.7\textwidth}
+%   \input{figures/msevcr_stack_data3_small.tikz}
+%   \caption{Error vs. reduction ratio (\textsc{Syngas II}). See Figure
+%   \ref{fig:CRvMSE} for explanation.
+%   }
+%   \label{fig:CRvMSE3}
 % \end{figure}
 
 % \begin{figure}[tb]
-% 	\centering
-% 	\setlength\figureheight{5cm} 
-% 	\setlength\figurewidth{0.7\textwidth}
-% 	\input{figures/msevcr_stack_data2.tikz}
-% 	\caption{Error vs. reduction ratio (\textsc{Syngas III}). See Figure 
-% 	\ref{fig:CRvMSE} for explanation.
-% 	}
-% 	\label{fig:CRvMSE2}
+%   \centering
+%   \setlength\figureheight{5cm}
+%   \setlength\figurewidth{0.7\textwidth}
+%   \input{figures/msevcr_stack_data2.tikz}
+%   \caption{Error vs. reduction ratio (\textsc{Syngas III}). See Figure
+%   \ref{fig:CRvMSE} for explanation.
+%   }
+%   \label{fig:CRvMSE2}
 % \end{figure}
 
 \begin{figure}[tp]
-	\centering
-	\setlength\figurewidth\textwidth
-	\input{figures/comparison_lin_knn_down_tikz.tex}
-	\caption{
-	Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas II}
- 	with $q=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
- 	Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using linear
- 	interpolation with different sample densities (detail view).}
-	\label{fig:comp}
+    \centering
+    \setlength\figurewidth\textwidth
+    \input{figures/comparison_lin_knn_down_tikz.tex}
+    \vspace*{-5mm}
+    \caption{
+        Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas II}
+        with $q=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
+        Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using linear
+        interpolation with different sample densities (detail view).}
+    \label{fig:comp}
 \end{figure}
 %
 
@@ -303,22 +306,26 @@ analysis can be carried out, thus losing a major advantage of our sparse
 representation, which captures important data features by design.
 
 \begin{figure}[t]
-	\setlength\figureheight{0.2\textheight}
+    \setlength\figureheight{0.2\textheight}
+    \setlength\figurewidth{0.8\textwidth}
+    \centering
+    % \hbox{\hspace{-1.5em}
+    \input{figures/compr_table.tikz}
+    % }
+    \vspace*{-7mm}
     \tikzset{external/export=false}
-	\setlength\figurewidth{0.8\textwidth}
+    \caption{
+    Reduction ratio $c$ and computation time $t$ for different seeding densities
+    q. Plot shows mean
+    (\protect\tikz[baseline=-0.5ex]\protect\draw[thick, black] (0, 0) -- (4mm, 0);)
+    and standard deviation
+    (\protect\tikz[baseline=-0.5ex]\protect\draw[thick, black, dashed] (0, 0) -- (4mm, 0);)
+    over eight time steps of data set \textsc{Hydrogen} and values for the synthetic
+    data set
+    (\protect\tikz[baseline=-0.5ex]\protect\draw[thick, black, dashdotted] (0, 0) -- (4mm, 0);)
+    .}
+    \label{fig:compression_table}
     \tikzset{external/export=true}
-	\centering
-	% \hbox{\hspace{-1.5em}
-	\input{figures/compr_table.tikz}
-	% }
-	\caption{
-	Reduction ratio $c$ and computation time $t$ for different seeding densities
-	q. Plot shows mean (solid) and standard deviation (dashed) over
-	eight time steps of data set \textsc{Hydrogen} and values for the synthetic
-	data set (dash-dotted).}
-	\label{fig:compression_table}
-	\Todo[inline]{Make synthetic line more distinct. Use inline tikz instead of
-	text to describe pattern. Add minor ticks on right side.}
 \end{figure}
 
 To further illustrate the performance of our approach, we tested it on eight
