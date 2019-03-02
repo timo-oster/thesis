@@ -191,7 +191,9 @@ behavior of the points in a group between split/merge events.
     \centering
     \setlength{\figurewidth}{\linewidth}
     \input{figures/point_group_tikz.tex}
-    \caption{Ghost particles
+    \tikzset{external/export=false}
+    \caption{
+            Ghost particles
             (\protect\tikz
                 \protect\draw[thick, fill=white] circle [radius=0.08cm];)
             are initialized in an orthogonal configuration around the central
@@ -209,6 +211,7 @@ behavior of the points in a group between split/merge events.
                 \protect\draw[very thick, mycolor1] (0, 0) -- (2ex, 0);).
             }
     \label{fig:point_group}
+    \tikzset{external/export=true}
 \end{figure}
 %
 A micro-patch is represented by a group of five points: A center and four
@@ -394,35 +397,38 @@ central point.
 From this point on, they are treated idependently again.
 %
 \begin{figure}[tb]
-\centering
-\setlength{\figurewidth}{0.9\linewidth}
-\input{figures/splitting_tikz}
-         \caption{Splitting and merging micro-patches.
-         Left: An old micro-patch
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [thick, dashed, gray, fill=gray!20]
-          circle [x radius=2ex, y radius=1ex];)
-         is split up along its major axis
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [very thick, mycolor4] (0, 0) -- (2ex, 0);)
-         into three new identical patches
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [thick, dashed]
-          circle [x radius=2ex, y radius=1ex];).
-         Right: An old micro-patch
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [thick, dashed, gray, fill=gray!20]
-          circle [x radius=2ex, y radius=1ex];)
-         is extended to three times its size along its minor axis
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [very thick, mycolor1] (0, 0) -- (2ex, 0);).
-         Neighboring patches
-         (\protect\tikz[baseline=-0.5ex]
-          \protect\draw [thick, dashed, gray!50, fill=gray!10]
-         circle [x radius=2ex, y radius=1ex];) that were split off from the
-         central one at some earlier time are deleted instead.
-         }
-\label{fig:splitting_patch}
+    \centering
+    \setlength{\figurewidth}{0.9\linewidth}
+    \input{figures/splitting_tikz}
+    \tikzset{external/export=false}
+    \caption{
+        Splitting and merging micro-patches.
+        Left: An old micro-patch
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [thick, dashed, gray, fill=gray!20]
+        circle [x radius=2ex, y radius=1ex];)
+        is split up along its major axis
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [very thick, mycolor4] (0, 0) -- (2ex, 0);)
+        into three new identical patches
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [thick, dashed]
+        circle [x radius=2ex, y radius=1ex];).
+        Right: An old micro-patch
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [thick, dashed, gray, fill=gray!20]
+        circle [x radius=2ex, y radius=1ex];)
+        is extended to three times its size along its minor axis
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [very thick, mycolor1] (0, 0) -- (2ex, 0);).
+        Neighboring patches
+        (\protect\tikz[baseline=-0.5ex]
+        \protect\draw [thick, dashed, gray!50, fill=gray!10]
+        circle [x radius=2ex, y radius=1ex];) that were split off from the
+        central one at some earlier time are deleted instead.
+    }
+    \label{fig:splitting_patch}
+    \tikzset{external/export=true}
 \end{figure}
 %
 

@@ -48,22 +48,25 @@ In other words, $\mE_{\,t_{k-1}}^{\,t_k}$ is the average of the transformations 
 map the corresponding ghost particles to each other exactly.
 %
 \begin{figure}[tb]
-\centering
-\setlength{\figurewidth}{0.9\linewidth}
-\input{figures/transform_interpolation_tikz}
-\caption{Interpolating the transformation at an offset position $\vx'$.
-         The ghost particles in the direction of $\vx'$ have been stretched more
-         than their counterparts during the time interval. Therefore the
-         interpolated $\mE'$ has a stronger stretching effect on the local
-         neighborhood of $\vx'$
-         (\protect\tikz[baseline=-0.5ex]{
-            \protect\fill[mycolor2!70] circle [radius=1ex];})
-         than $\mE$ stretches the
-         local neighborhood of $\vx$
-         (\protect\tikz[baseline=-0.5ex]{
-            \protect\fill[mycolor3!70] circle [radius=1ex];}).
-         }
-\label{fig:interpolate_base_vectors}
+    \centering
+    \setlength{\figurewidth}{0.9\linewidth}
+    \input{figures/transform_interpolation_tikz}
+    \tikzset{external/export=false}
+    \caption{
+        Interpolating the transformation at an offset position $\vx'$.
+        The ghost particles in the direction of $\vx'$ have been stretched more
+        than their counterparts during the time interval. Therefore the
+        interpolated $\mE'$ has a stronger stretching effect on the local
+        neighborhood of $\vx'$
+        (\protect\tikz[baseline=-0.5ex]{
+        \protect\fill[mycolor2!70] circle [radius=1ex];})
+        than $\mE$ stretches the
+        local neighborhood of $\vx$
+        (\protect\tikz[baseline=-0.5ex]{
+        \protect\fill[mycolor3!70] circle [radius=1ex];}).
+        }
+    \label{fig:interpolate_base_vectors}
+    \tikzset{external/export=true}
 \end{figure}
 %
 
