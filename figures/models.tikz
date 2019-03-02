@@ -250,7 +250,7 @@ table[row sep=crcr]{
 infl,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
@@ -267,7 +267,7 @@ table[row sep=crcr]{
 min,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
@@ -280,7 +280,7 @@ table[row sep=crcr]{
 max,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
@@ -338,7 +338,7 @@ table[x=x, y expr=\thisrow{y}*0.6 + 0.2e-4]{\dataradical};
 max,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
@@ -354,7 +354,7 @@ table[row sep=crcr]{
 min,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
@@ -370,7 +370,7 @@ table[row sep=crcr]{
 min,
 only marks,
 mark=*,
-mark options={draw=black},
+mark options={draw=black, thick},
 forget plot
 ]
 table[row sep=crcr]{
