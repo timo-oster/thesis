@@ -1,5 +1,4 @@
-
-\subsection{Reconstructing the Scalar Fields} % (fold)
+\section{Reconstructing Full Scalar Fields} % (fold)
 \label{sec:reconstruction}
 %
 \Todo[inline]{Move the part about reconstruction and performance to the back}
@@ -54,9 +53,6 @@ no degenerate mesh cells.
 Interpolation methods providing higher smoothness exist. However, these are more
 computationally expensive and it is not guaranteed that they produce results
 closer to the original data than the simpler methods.
-
-\subsection{Quality and Performance Evaluation} % (fold)
-\label{ssec:evaluation_compression}
 
 % Evaluation of compression scheme to assess compression errors
 % Used three different data sets
@@ -295,15 +291,15 @@ library~\cite{Fowler2000} on our data.
 error $E_\text{reconst}^V$ for all tested methods for selected variables. Please
 note that for \textsc{Syngas II}, higher reduction ratios are achieved than for
 \textsc{Syngas I}, due to the flame in the former being relatively smaller. For
-small reduction ratios, the downsampling approach naturally performs better,
+small reduction ratios, the downsampling approach performs better,
 because it does not introduce errors due to model assumptions. For higher
 reduction ratios, which are needed in practice, our sparse representation always
 performs significantly better. It is also apparent that linear interpolation
 performs better than \ac{kANN} in almost all cases. As a dedicated compression
-algorithm, \ac{3D}-\ac{SPIHT} achieves better reconstruction quality than our approach. It
+algorithm, \ac{3D}-\ac{SPIHT} naturally achieves better reconstruction quality than our approach. It
 is however necessary to decompress the data back to its full size before any
-analysis can be carried out, thus losing a major advantage of our sparse
-representation, which captures important data features by design.
+analysis can be carried out, while our sparse representation directly supports
+flamelet-related analysis.
 
 \begin{figure}[t]
     \setlength\figureheight{0.2\textheight}
@@ -328,12 +324,12 @@ representation, which captures important data features by design.
     \tikzset{external/export=true}
 \end{figure}
 
-To further illustrate the performance of our approach, we tested it on eight
+To further illustrate the data reduction performance of our approach, we tested it on eight
 time steps of the data set \textsc{Hydrogen}. This data set is from a turbulent
 premixed spherical hydrogen flame and has a resolution of $\text{400}^3$ voxels
 and 11 variables. This is a typical size for our cooperation partner. One time
 step amounts to about 5 GB\Todo{Use SI units or similar to typeset memory sizes}
-of data. The whole simulation has hundreds of thousands of time steps. Even
+of data. The whole simulation has tens of thousands of time steps. Even
 storing a fraction of them quickly results in terabytes of data. We selected
 eight time steps from a late (most complex) stage of the simulation. Choosing
 $q=\text{5}$, which retains very high accuracy for reconstruction,
@@ -341,8 +337,8 @@ we reduced them to about 30 MB each. This means only 0.6\% of the original
 storage space is required.
 
 For a scalability test, we generated a synthetic data set with $\text{900}^3$ voxels
-and 11 variables. This is three times the maximum volume our cooperation
-partner is able to simulate. We created noise based on an isotropic turbulence
+and 11 variables. This is a typical size for a modern large-scale \ac{DNS} run.
+We created noise based on an isotropic turbulence
 frequency spectrum~\cite{Ferrante2003}. This noise was added to a low frequency
 component to emulate larger flame structures with smaller surface pertubations.
 Thresholding produces a surface on which average profiles of the different
@@ -357,13 +353,13 @@ area of the synthetic data set are one order of magnitude higher than that of
 \textsc{Hydrogen}. This results in a run time which is also one order of
 magnitude higher, confirming the scalability of our approach.
 
-We have shown that full scalar fields can be reconstructed with good agreement
-to the original data from a sparse representation requiring a small fraction of
-the storage space. This representation explicitly captures features such
-as the points of steepest slope of reactants and products and the point
-of maximum concentration of intermediate species. In the following section,
-these feature points are used to visualize the relations between feature
-surfaces of different variables.
+% We have shown that full scalar fields can be reconstructed with good agreement
+% to the original data from a sparse representation requiring a small fraction of
+% the storage space. This representation explicitly captures features such
+% as the points of steepest slope of reactants and products and the point
+% of maximum concentration of intermediate species. In the following section,
+% these feature points are used to visualize the relations between feature
+% surfaces of different variables.
 %
 % our compression approach maintains good quality while
 % providing high reduction ratios. It also preserves features of the data such

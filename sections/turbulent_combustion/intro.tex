@@ -1,0 +1,81 @@
+\lettrine[lines=3, findent=-1pt, nindent=2pt, lhang=0.05]{C}{ombustion} is one
+of the cornerstones of our civilization.
+%
+It provides light in a candle or carries objects into space in a rocket engine.
+%
+The majority of high-tech combustion processes occur under turbulent conditions.
+%
+The nature of turbulent flow, and therefore also turbulent combustion, is still
+being actively studied by the scientific community.
+%
+Reducing the pollutant emissions and increasing the efficiency of combustion
+processes is essential in todays world where we are confronted more and more
+often with the realization that our resources are finite and the damage we do to
+our environment can not easily be undone.
+%
+
+%
+Simulations are an invaluable tool in the design of improved combustion
+processes.
+%
+They allow to test different setups quickly and for a relatively low cost.
+%
+Efficient simulations need models of the relevant physical and chemical
+processes.
+%
+As the demands on the accuracy of such models rises, more detailed insight into
+the low-level phenomena of turbulent combustion is needed.
+%
+Obtaining this insight via experiments is challenging.
+%
+Often only a small number of variables can be observed at the same time and
+observations are frequently limited to a \ac{2D} slice.
+%
+
+%
+Another approach is \acf{DNS}, which is sometimes referred to as a ``numerical
+experiment''.
+%
+In \ac{DNS}, the Navier-Stokes equation is directly solved on a very fine grid,
+without using any higher-level modeling assumptions.
+%
+This is computationally very expensive, which is why \ac{DNS} is typically
+performed on supercomputers using hundreds or thousands of cores.
+%
+In the simulation, all variables are available in full spatial and temporal
+resolution.
+%
+
+%
+Analyzing the data from such simulations poses a different challenge.
+%
+Due to the high spatial and temporal resolution, the raw data produced by a
+single \ac{DNS} run can range from Terabytes to Petabytes.
+%
+Data of this size can not be written to disk or transferred over a network in a
+reasonable amount of time, even if the enormous storage space that is required
+was available.
+%
+This limits the post-analysis of the data to spatially or temporally downsampled
+versions which lose a lot of important information.
+%
+In recent years, the subject of \emph{in-situ} analysis and visualization has
+therefore gained popularity.
+%
+The idea is to process the data while it is still in memory during the
+simulation.
+%
+The raw data is then discarded and only the results, which are typically much
+smaller in size, are stored on disk.
+%
+
+%
+This thesis contains two new in-situ focused approaches for analysis and
+visualization of turbulent combustion \ac{DNS}.
+%
+To provide some important context, this chapter provides a short introduction
+into the field of turbulent combustion research, the basics of turbulent
+combustion modeling and simulation, and an overview of relevant research
+concerning in-situ and post-processing of turbulent combustion data in
+particular and large-scale simulations in general.
+%

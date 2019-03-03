@@ -1,6 +1,4 @@
-
-%
-\section{Extraction and Visualization of Feature Surfaces}
+\section{Construction and Visualization of Feature Surfaces}
 \label{sec:visualization}
 %
 The models used in the sparse representation directly capture the
@@ -196,20 +194,19 @@ profile lines have been seeded (see \cref{sub:seeding,fig:featurepoints}).
 % 	values of the points (yellow). For simplicity, cross sections are shown. }
 % \end{figure}
 %
-Thus, the first step of the transformation is to obtain this information for
-each vertex $\vm_j$ of the flame mesh $M$. We use a diffusion-driven
-approach to obtain the directions $\vn'_j$ and shift values $t'_{f,j}$ for
-each mesh vertex from the original $\vn_i$ and $t_{f,i}$. For this, we fix
-the original values at the vertices corresponding to points $\vp_i$ and
-diffuse them over the rest of the mesh until convergence. Different diffusion
-methods can be used to obtain results of varying smoothness. For simplicity,
-we use an explicit weighted averaging scheme, iteratively replacing the values
-at each vertex with the sum of its neighbors, weighted with the neighbor's
-inverse distance. After this process has finished, directions and shift values
-are known for each vertex $\vm_j$ (grey arrows and dots in
-\cref{fig:featurepoints} (right)). This process is a preprocessing step
-that has to be performed only once before visualization and does not further
-impede performance.
+Thus, the first step of the transformation is to approximate this information
+for the other vertices. We use a diffusion-driven approach to obtain directions
+$\vn'_j$ and shift values $t'_{f,j}$ for each mesh vertex from the original
+$\vn_i$ and $t_{f,i}$. For this, we fix the original values at the vertices
+corresponding to points $\vp_i$ and diffuse them over the rest of the mesh until
+convergence. Different diffusion methods can be used to obtain results of
+varying smoothness. For simplicity, we use an explicit weighted averaging
+scheme, iteratively replacing the values at each vertex with the sum of its
+neighbors, weighted with the neighbor's inverse distance. After this process has
+finished, we have directions and shift values for each vertex $\vm_j$ (grey
+arrows and dots in \cref{fig:featurepoints} (right)). This process is a
+preprocessing step that has to be performed only once before visualization and
+does not further impede performance.
 %
 % Thus, the first step of transformation has to be to map required information
 % onto the flame mesh $M$. This information are the directions of the profile line
@@ -284,8 +281,8 @@ impede performance.
 	varying color scale parameter $u_1$. Lower middle: Morphing between the
 	different surfaces  by adjusting $u_2$. Bottom: Sliding through time to
 	observe the development of the feature meshes (circles).
-	% \Todo[inline]{Rearrange for paper format, make large enough to fill
-	% 	page}
+	\Todo[inline]{Rearrange for paper format, make large enough to fill
+		page}
 	}
  	\def\svgwidth{0.6\linewidth}
 		\import{figures/}{contourmeshvis.pdf_tex}
