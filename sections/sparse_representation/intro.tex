@@ -1,0 +1,76 @@
+\lettrine[lines=3, loversize=0.02, lhang=0.02, nindent=0pt]{T}{he development}
+and validation of flamelet models is one of the central applications of
+\ac{DNS}.
+%
+As already mentioned in \cref{sub:the_flamelet_assumption}, the flamelet
+assumption is one of the most important simplifications applied for modeling
+turbulent combustion.
+%
+It states that a turbulent flame behaves like a collection of strained laminar
+flames (``flamelets'') located side-by-side on the flame surface.
+%
+This assumption is most often applicable to premixed flames and essentially
+allows to treat the flame as a \ac{2D} manifold.
+%
+
+%
+The analysis of \ac{DNS} data in the context of flamelet modeling can be for
+two purposes: validation of existing flamelet models, or development of new
+models.
+%
+In both cases, it is necessary to extract flamelet data from the \ac{DNS}.
+%
+This is often done by sampling the simulation variables along lines orthogonal
+to the flame surface (see \eg, \cite{Zistl2009}).
+%
+The single flamelets obtained from this are then used for statistical analysis,
+for example to check model assumptions or discover correlations that can be
+incorporated into new models.
+%
+
+%
+In this chapter we propose a sparse representation for premixed flames that
+explicitly encodes flamelets and readily supports flamelet-related analysis
+tasks.
+%
+This representation is significantly smaller than storing the full DNS data,
+which enables the analysis of a larger number of time steps per simulation run.
+%
+We also propose a novel visualization based on this data that augments
+traditional statistical analysis with a visual component.
+%
+If necessary, full scalar fields on the original grid can be reconstructed
+from the sparse representation to retain full flexibility for post-processing.
+%
+
+%
+In spirit, the approach we present is similar to existing works that propose
+computing a smaller representation of the data that can later be used for
+analysis.
+%
+Lakshminarasimhan \etal presented the ISABELA compression algorithm
+\cite{Lakshminarasimhan2011} and a tool for querying the compressed data
+\cite{Lakshminarasimhan2011a}.
+%
+Bremer and Landge~\cite{Bremer2009,Bremer2011,Bremer2010,Landge2014} presented
+multiple works based on the computation of segmented merge trees that facilitate
+a post-hoc exploration of thresholds on scalar fields.
+%
+Ye \etal~\cite{Ye2016} condensed high-resolution grid data into block-wise
+probability density functions that can later be explored efficiently.
+%
+
+%
+The rest of this chapter is organized as follows:
+%
+We first introduce our approach for constructing a sparse representation of the
+flame in \cref{sec:compression}.
+%
+We then introduce our novel visualization techniques based on this
+representation in \cref{sec:visualization}.
+%
+\Cref{sec:reconstruction} describes the reconstruction of full scalar fields and
+evaluates the compression ratio and reconstruction quality we achieve.
+%
+Finally, we provide a discussion and conclusion in \cref{sec:conclusion}.
+%
