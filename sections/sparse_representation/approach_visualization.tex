@@ -1,10 +1,16 @@
 \section{Construction and Visualization of Feature Surfaces}
 \label{sec:visualization}
 %
-The models used in the sparse representation directly capture the
-characteristics of the scalar fields in the vicinity of the flame surface. This
-information can directly be analyzed, thus solving problem \ref{i:analyze}
-discussed in \cref{sec:intro}. The model parameters $x_l$, $x_m$ and $x_r$ (see
+The flamelets extracted as profiles in the previous step can directly be used
+by combustion researchers for statistical analysis.
+%
+In this section, we present a novel visualization based on the feature points
+extracted on the profiles that augments this traditional approach with a
+visual analysis component.
+%
+
+%
+The model parameters $x_l$, $x_m$ and $x_r$ (see
 \cref{fig:models}) describe three classes of feature points on the profiles:
 \emph{minimum} (min), \emph{maximum} (max) and \emph{inflection point} (infl).
 %
@@ -17,10 +23,13 @@ discussed in \cref{sec:intro}. The model parameters $x_l$, $x_m$ and $x_r$ (see
 These feature points span feature surfaces that represent alternative
 definitions of the flame surface (such as the surface of maximum heat release),
 or inner and outer bounds of the burning region (e.g. minimum and maximum fuel
-concentration). Investigating the shapes and local distances of these surfaces
-gives insight into the local combustion process and how it is affected
-by turbulent flow. We now describe the construction of those feature surfaces
-and their subsequent visualization.
+concentration).
+%
+Investigating the shapes and local distances of these surfaces gives insight
+into the local combustion process and how it is affected by turbulent flow.
+%
+We now describe the construction of those feature surfaces and their
+visualization.
 %
 % This section describes techniques to visualize feature surfaces -- i.e.,
 % surfaces of interest -- of the DNS data. For this, by having the above
