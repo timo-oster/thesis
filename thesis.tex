@@ -62,6 +62,7 @@
     url=false,
     isbn=false,
     maxbibnames=99,
+    maxcitenames=99,
     giveninits=true,
     backref=true
 ]{biblatex}
@@ -191,11 +192,25 @@
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture, overlay]
     \node[anchor=south east, xshift=\textwidth+5mm, inner sep=0, outer sep=0]{
-        \fontsize{10cm}{10cm}\selectfont\textcolor{white!70!gray}{\thechapter}
+        \fontsize{10cm}{10cm}\selectfont\textcolor{white!70!accentcolor}{\thechapter}
     };
 \end{tikzpicture}%
 \tikzset{external/export=true}%
 }
+
+\tikzstyle{paperheader}=[
+    anchor=south west,
+    at={(current page text area.north west)},
+    yshift=-8.3cm,
+    % anchor=north west,
+    % at={(current page header area.north west)},
+    align=left,
+    text width=0.5\textwidth,
+    % text width=\textwidth,
+    color=accentcolor,
+    font=\small,
+    inner sep=0,
+    outer sep=0]
 
 % format sections
 % ===============
