@@ -5,7 +5,7 @@ Apart from the mostly statistical forms of analysis that have been traditionally
 employed by turbulent combustion researchers, visualization has become an
 important tool for gaining understanding from simulation data.
 %
-Simple visualization techniques such as slicing, iso-surface rendering and
+Simple visualization techniques such as slicing, isosurface rendering and
 scatterplots are routinely used by combustion researchers to gain an overview of
 the data.
 %
@@ -121,13 +121,13 @@ basis for modeling turbulent combustion phenomena.
 Every commercial and open source software package for scientific visualization
 offers basic facilities to explore the three-dimensional structure of the data.
 %
-Color-mapping on cutting planes (slicing) and iso-surface rendering are among
+Color-mapping on cutting planes (slicing) and isosurface rendering are among
 the most commonly used techniques for visualizing scalar and velocity data.
 %
-For example, the shape of the flame is represented by an iso-surface of the
+For example, the shape of the flame is represented by an isosurface of the
 temperature or mixture fraction (see \cref{fig:visit_isosurface}).
 %
-Iso-surfaces or slices of the velocity magnitude and vorticity are often used to
+Isosurfaces or slices of the velocity magnitude and vorticity are often used to
 get a rough idea about the shape and turbulence level of the flow.
 %
 Scientists sometimes use direct volume rendering to show the full \ac{3D} data.
@@ -143,7 +143,7 @@ with streamlines, although this is less useful for high levels of turbulence.
 Multiple simple techniques can be combined to build more powerful visualization
 pipelines.
 %
-As an example, a combustion researcher might first extract the iso-surface of
+As an example, a combustion researcher might first extract the isosurface of
 the stoichiometric mixture fraction as a representative of the flame front.
 %
 She then applies a temperature threshold to extract all regions of the flame
@@ -468,7 +468,7 @@ Produce a database of visualizations that the user can explore later.
 During the simulation, rendered images are produced for a range of parameters
 of the same visualization.
 %
-For example, iso-surfaces of different variables with different iso-levels are
+For example, isosurfaces of different variables with different iso-levels are
 rendered from different camera angles and stored into the database.
 %
 The user can then select a set of parameters after the fact, retrieve the
@@ -554,7 +554,7 @@ This is intended to be more robust than detection based on thresholds which
 might not be applicable over long time periods.
 %
 Ye \etal~\cite{Ye2015} combined image-based visualization with feature tracking
-by storing rendered depth maps of multiple iso-surfaces.
+by storing rendered depth maps of multiple isosurfaces.
 %
 These are later used to create visualizations and to track features in image
 space based on their depth information.
