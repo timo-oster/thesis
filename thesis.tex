@@ -93,6 +93,7 @@
 \usepackage{import} % used by exported graphics from inkscape
 
 \usepackage{etoolbox}
+\usepackage{xstring}
 \usepackage{calc}
 \usepackage[lofdepth, lotdepth]{subfig}
 
@@ -167,6 +168,13 @@
 
 % format chapters
 % ===============
+
+\newcommand*{\adjustchkerning}[1]{%
+    \IfEndWith{#1}{2}{2}{%
+    #1%
+    }%
+}
+
 % \let\raggedchapter\relax
 \addtokomafont{chapter}{\scshape\LARGE}
 
@@ -190,8 +198,8 @@
 %
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=south east, xshift=\textwidth+5mm, inner sep=0, outer sep=0]{
-        \fontsize{10cm}{10cm}\selectfont\textcolor{laccentcolor}{\thechapter}
+    \node[anchor=south east, xshift=\textwidth, inner sep=0, outer sep=0]{
+        \fontsize{10cm}{10cm}\selectfont\textcolor{laccentcolor}{\adjustchkerning{\thechapter}}
     };
 \end{tikzpicture}%
 \tikzset{external/export=true}%
