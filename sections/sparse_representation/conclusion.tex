@@ -1,20 +1,23 @@
 \section{Discussion and Conclusion}
 \label{sec:conclusion}
 %
-We introduced a sparse representation for \ac{DNS} data of premixed combustion. This
-representation enables an integrated approach for dealing with the three core
-problems of \ac{DNS} data analysis (see \cref{sec:intro}). The sparse
-representation enables storing the simulation results with far smaller space
-requirements. The space requirement is mainly dependent on the complexity of the
-flame shape, not on the size or resolution of the data, i.e., the less complex
-the flame shape, the less profile lines need to be seeded for an accurate
-representation. Via fitting of models, the sparse representation directly
+We introduced a sparse representation for \ac{DNS} data of premixed combustion
+that is tailored to flamelet-related analysis tasks.
+%
+The sparse representation enables storing the simulation results with far
+smaller space requirements.
+%
+The space requirement is mainly dependent on the complexity of the flame shape,
+not on the size or resolution of the data, i.e., the less complex the flame
+shape, the less profile lines need to be seeded for an accurate representation.
+%
+Via fitting of models using feature points, the sparse representation directly
 captures important characteristics of the scalar fields that can be analyzed in
-different ways without the need for data reconstruction. Feature surfaces
-derived from these models can directly be visualized and facilitate the visual
-analysis of the data. Previously existing approaches do not address all of the
-issues mentioned above, restricting the ability to effectively analyze
-simulation data.
+different ways without the need for data reconstruction.
+%
+Feature surfaces derived from these models can directly be visualized and
+facilitate the visual analysis of the data.
+%
 
 % Our approach is able to effectively compress simulation variables
 % directly related to chemistry, which is the vast majority in simulations of
@@ -27,80 +30,134 @@ simulation data.
 % RW commend is addressed here
 Apart from the feature surfaces, further characteristics might be extracted from
 the sparse representation, such as gradient fields and their topology.
-Note that our approach is specifically tailored to \ac{DNS} data, but can be used
-for other kinds of multi-field data where changes are only located in 
-narrow-band regions. Such data might be geological data of the material within
-the earth's mantle, or air field pressure measurements of the supersonic bang of
-a plane.
+%
+Note that our approach is specifically tailored to \ac{DNS} data, but can be
+used for other kinds of multi-field data where changes are only located in
+narrow-band regions.
+%
+Such data might be geological data of the material within the earth's mantle, or
+air field pressure measurements of the supersonic bang of a plane.
 %----------------
 
 %If the profiles of a variable do not conform with our model assumptions, fitting
 %the models proves challenging and often produces extreme model parameters.
 %
-Despite its many advantages, our approach has some limitations. Seldom outliers
-lead to locally large distances of the feature surface to the flame surface,
-which is visible as spots in the visualization. These are however rare and
-indicate areas of unusual behavior on the flame surface, which also provides
-meaningful information.
+Despite its many advantages, our approach has some limitations.
+%
+Because we assume combustion in the flamelet regime, our approach has limited
+applicability in scenarios where the flamelet assumption is not or only
+partially fulfilled.
+%
+However, there is still a large number of practical scenarios for premixed
+combustion where the flamelet assumption is valid.
+%
+
+%
+Our sparse representation does not capture pressure or velocity information, as
+these do not only vary in narrow-band regions and they do not necessarily
+conform to the models we use to approximate variable profiles.
+%
+Many flamelet-related analysis tasks can do without this data.
+%
+If it is needed for flamelet analysis, one could store the raw unmodeled data
+for these variables along the profile lines.
+%
+It would however not be possible to reconstruct this data on the original grid
+with sufficient accuracy.
+%
+As an alternative, these variables could be stored in the original resolution.
+%
+Since pressure and velocity only represent a small fraction of the data in
+combustion simulations, this will still result in a significant reduction in
+storage size.
+%
+
+%
+Our approach also has some technical limitations.
+%
+Seldom outliers lead to locally large distances between feature surface and
+flame surface, which is visible as spots in the visualization.
+%
+These are however rare and indicate areas of unusual behavior on the flame
+surface, which also provides meaningful information.
 %
 %Another possible problem is the reliance on a single isosurface when seeding the
 %initial profile lines. 
 %
-Furthermore, if the flame surface does not capture regions that have non-zero
-gradients, the information about these regions will be lost. This might happen
-because, e.g., the temperature there is below the used iso-value. Fortunately,
-such regions are very rare and solely occur during the short periods of time
-when a burning region ignites. Thus, practically this case is not relevant.
-%
-%or is quenched.
-%
 Finally, relying on a random process to seed the profile lines might produce
-insufficient numbers of samples in some regions. This might be avoided by using
-a deterministic seeding approach and is left for future work.
+insufficient numbers of samples in some regions.
+%
+This might be avoided by using a deterministic seeding approach and is left for
+future work.
+%
 
-Four experts in combustion \ac{DNS} examined our approach, two of which were also
-partly involved in its development. They stated that the extraction of feature
-surfaces especially for variables that have a maximum near the flame surface is
-a welcome addition to their set of analysis tools. Such surfaces are of
-particular interest in the comparison of combustion processes in laminar vs.
-turbulent flows. Previously, such surfaces were often approximated by iso-
-surfaces of other variables, which were assumed to be close to the desired
-feature surface based on the conditions in laminar flow. This hindered the
-investigation of the effects of turbulence. The possibility of directly
-comparing feature surfaces with our approach opens new possibilities in the
-investigation of the effects of turbulence on combustion.
+%
+Four experts in combustion \ac{DNS} examined our approach, two of which were
+also partly involved in its development.
+%
+They stated that the extraction of feature surfaces especially for variables
+that have a maximum near the flame surface is a welcome addition to their set of
+analysis tools.
+%
+Such surfaces are of particular interest in the comparison of combustion
+processes in laminar vs. turbulent flows.
+%
+Previously, such surfaces were often approximated by iso- surfaces of other
+variables, which were assumed to be close to the desired feature surface based
+on the conditions in laminar flow.
+%
+The possibility of directly comparing feature surfaces with our approach opens
+new possibilities in the investigation of the effects of turbulence on
+combustion.
+%
 
+%
 Another application proposed by the experts is the comparison of experimental
-and simulation research. In experiments, the flame surface is often determined
-by easily measurable quantities, while more precise definitions are used in
-simulation research. Our feature surfaces enable comparison of these definitions
-and deriving models to make experiments and simulations more comparable.
+and simulation research.
+%
+In experiments, the flame surface is often determined by easily measurable
+quantities, while more precise definitions are used in simulation research.
+%
+Our feature surfaces enable comparison of these definitions and deriving models
+to make experiments and simulations more comparable.
+%
 
+%
 This comparison of different flame surface definitions is also important when
-comparing different simulations. Since there is no universally agreed-upon
-definition of the flame surface, different researchers often use different
-definitions, which could be quantitatively compared with our method.
+comparing different simulations.
+%
+Since there is no universally agreed-upon definition of the flame surface,
+different researchers often use different definitions, which could be
+quantitatively compared with our method.
+%
 
+%
 The sparse data representation, apart from much-needed space savings, opens
 possibilities of statistical analysis of the relations of feature surfaces,
 which could be used to improve combustion models for \ac{RANS} or \ac{LES}
 methods.
+%
 
+%
 Our approach is currently implemented as a post-processing step. By transforming
-the original data into the sparse representation, disk space usage is
-reduced considerably. At the same time, the data is also brought into a form
-better suited for the analysis of the different feature surfaces. In the future,
-we would like incorporate the approach directly into the simulation and perform
-the transformation to the sparse representation in-situ.
+the original data into the sparse representation, disk space usage is reduced
+considerably.
+%
+At the same time, the data is also brought into a form better suited for
+flamelet analysis and feature surface visualization.
+%
+The implementation of the approach as an in-situ process brings additional
+technical problems to be solved and is left for future work.
+%
 
-We have presented a sparse data representation for \ac{DNS} of premixed combustion
-that deals with the three core problems of \ac{DNS} data analysis: Storage
-requirements, analysis and visualization. The representation accurately
-approximates the original data while consuming dramatically less storage space.
-The extraction and visualization of feature surfaces we present as a possible
-application can be performed without reconstructing the data on the original
-grid. Experts confirm that our approach opens new and important possibilities
-of investigating the process of premixed turbulent combustion.
+% We have presented a sparse data representation for \ac{DNS} of premixed combustion
+% that deals with the three core problems of \ac{DNS} data analysis: Storage
+% requirements, analysis and visualization. The representation accurately
+% approximates the original data while consuming dramatically less storage space.
+% The extraction and visualization of feature surfaces we present as a possible
+% application can be performed without reconstructing the data on the original
+% grid. Experts confirm that our approach opens new and important possibilities
+% of investigating the process of premixed turbulent combustion.
 
 % We have presented an approach for compressing and visualizing data from \ac{DNS} of
 % premixed combustion. Our approach explicitly preserves characteristics of the

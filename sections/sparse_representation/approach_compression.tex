@@ -6,7 +6,7 @@ surface.
 %
 If we extract the flame surface and store all flamelets as \ac{1D} profiles of
 the simulation variables orthogonal to this surface, we have a full
-representation of the flame.
+representation of the flame front.
 %
 Since the variation of the simulation variables is typically small tangential to
 the surface, we can store a sparse selection of flamelets and still represent
@@ -59,8 +59,7 @@ data even further.
 %
 The information that has to be stored in the sparse representation consists of
 the locations and directions of the profile lines, the model parameters for each
-variable and profile line, and the full flame surface mesh for subsequent
-visualization.
+variable and profile line, and the full flame surface mesh for visualization.
 %
 % The compression $C$ then becomes a transformation from a set
 % of simulation variables $(V_1, \dotsc, V_v)$ to a tuple consisting of the
@@ -96,7 +95,7 @@ those lines, and how these profiles are then approximated by simple models.
 		[radius=0.8mm];), inflection (\protect\tikz\protect\draw[thick,
 		fill=mycolor1] circle [radius=0.8mm];) , and maximum
 		(\protect\tikz\protect\draw[thick, fill=mycolor4] circle
-		[radius=0.8mm];) of the sigmoidal shape are indicated on the profiles. }
+		[radius=0.8mm];) of the sigmoid shape are indicated on the profiles. }
 	\label{fig:flamecrossing}
 	\tikzset{external/export=true}
 \end{figure}
@@ -186,7 +185,7 @@ quality.
 \label{sub:profile_extraction}
 %
 Once the points $\vp_i$ are seeded, profiles of all variables are sampled at
-regular intervals along lines $\vp_i(t)=\vp_i + t \cdot \vn_i$, with $||\vn_i||
+regular intervals along lines $\vp_i(t)=\vp_i + t \cdot \vn_i$, with $\Norm{\vn_i}
 = 1$ (\cref{fig:flamecrossing}).
 %
 % According to Shannon's theorem the step size is $\sfrac{1}{2}$ of the voxel
@@ -242,11 +241,11 @@ Additionally, they reduce the space needed to store the sparse representation.
 Reactants, intermediates, and products each have very similar profiles that can
 be locally approximated by simple models.
 %
-Reactants and products tend to exhibit profiles with a sigmoidal shape,
+Reactants and products tend to exhibit profiles with a sigmoid shape,
 transitioning from a constant high/low value in the unburnt region to a constant
 low/high value in the burnt region, passing an inflection point in between.
 %
-This behavior can be expressed by a model based on a sigmoidal function.
+This behavior can be expressed by a model based on a sigmoid function.
 %
 Intermediate species have a maximum near the flame surface, decreasing on both
 sides.
@@ -271,12 +270,9 @@ isolated from the others.
 \subsubsection{Model for Reactants and Products} % (fold)
 \label{ssub:model_for_reactants_products}
 %
-Sigmoidal shapes are commonly expressed with the logistic function
-$1/(1+e^{-t})$, which we extend with parameters $\gamma$, adjusting the slope at
-the inflection and $a$, determining the limits of the function at
-positive/negative infinity:
-%
-\Todo{Slope of profile is useful for determining mesh resolution for simulation (\cite{Poinsot2012}, p. 57)}
+Sigmoid shapes are commonly expressed with the logistic function $1/(1+e^{-t})$,
+which we extend with parameters $\gamma$, adjusting the slope at the inflection
+and $a$, determining the limits of the function at positive/negative infinity:
 %
 \begin{equation}
 	\mathfrak{s}(t,a,\gamma)
@@ -363,7 +359,7 @@ $y_r$ are the limits of the function approaching negative and positive infinity
 %
 We now approximate the profiles by fitting the models.
 %
-For the sigmoidal model, we need the position, value and first derivative at the
+For the sigmoid model, we need the position, value and first derivative at the
 inflection point as well as the minimum and maximum values of the profile on
 both sides of the flame front.
 %
@@ -408,10 +404,10 @@ than we need for our models.
 %
 We have to identify the ones closest to the anchor point.
 %
-For the sigmoidal model, this is the inflection nearest to the center of the
+For the sigmoid model, this is the inflection nearest to the center of the
 profile.
 %
-The position and value of this point determine $x_m$ and $y_m$ of the sigmoidal
+The position and value of this point determine $x_m$ and $y_m$ of the sigmoid
 model, while $\gamma$ is determined by the first derivative at the inflection.
 %
 The values of the first minimum and maximum left and right of the inflection
@@ -431,7 +427,7 @@ other profile lines seeded there.
 	\input{figures/models.tikz}
 	\vspace*{-2mm}
 	\caption{
-	Sigmoidal model (top) and Gaussian model (bottom) with examples of models
+	Sigmoid model (top) and Gaussian model (bottom) with examples of models
 	fitted to a profile.}
 	\label{fig:models}
 \end{figure}
@@ -444,7 +440,7 @@ other profile lines seeded there.
 % 		\input{figures/fit_gauss_3.tikz}
 % 	\end{center}
 % 	\caption{
-% 	Top: Fitting the sigmoidal model to a profile of temperature.
+% 	Top: Fitting the sigmoid model to a profile of temperature.
 % 	Bottom: Fitting the Gaussian model to a profile of \ce{H2O2}.
 % 	The non-constant data values outside the fitted range show that the profile
 % 	crosses the reaction zone multiple times.
@@ -479,7 +475,7 @@ the ends of the profiles are chosen instead.
 
 %
 While the feature points on the profile already determine all parameters for the
-sigmoidal model, the values for $\sigma_l$ and $\sigma_r$ of the Gaussian model
+sigmoid model, the values for $\sigma_l$ and $\sigma_r$ of the Gaussian model
 still have to be found.
 %
 We obtain an initial guess for $\sigma_{l/r}$ by transforming the intervals of
@@ -539,7 +535,7 @@ method to find the optimal fit.
 % positions and values of the extrema at both sides provide all necessary
 % parameters of the model. 
 
-% The parameter matrix $\Phi^V_{\text{rp}}$ of the sigmoidal model for reactants
+% The parameter matrix $\Phi^V_{\text{rp}}$ of the sigmoid model for reactants
 % and products is
 % \begin{equation}
 % \Phi^V_{\text{rp}} = 
@@ -570,11 +566,11 @@ With this, the original data is now described by the flame surface mesh, the
 $\vp_i$ and $\vn_i$ of the profile lines, and the model parameters for each
 profile line and variable.
 %
-For the sigmoidal model, this is $(a_{li}, a_{ri}, \gamma_i, x_{mi}, y_{mi},
-x_{li}, x_{ri})$ for each profile line.
+For the sigmoid model, this is $(a_{li},$ $a_{ri},$ $\gamma_i,$ $x_{mi},$ $y_{mi},$
+$x_{li},$ $x_{ri})$ for each profile line.
 %
-For the Gaussian model, the parameters are $(x_{mi}, y_{mi},
-\sigma_{li}, y_{li}, \sigma_{ri}, y_{ri}, x_{li}, x_{ri})$.
+For the Gaussian model, the parameters are $(x_{mi},$ $y_{mi},$
+$\sigma_{li},$ $y_{li},$ $\sigma_{ri},$ $y_{ri},$ $x_{li},$ $x_{ri})$.
 %
 This comprises our sparse representation of the flame, with the flame surface
 represented by the surface mesh and flamelets represented by the profile lines

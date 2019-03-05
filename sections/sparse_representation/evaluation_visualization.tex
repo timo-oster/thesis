@@ -3,28 +3,35 @@
 %\todo{better title?}
 %
 By computing the shift values $t_f$ only for some of the vertices of $M$, and
-obtaining them at the other vertices by diffusion, an error is introduced. We
-quantify this error as the normalized \ac{RMS} difference between a
-ground truth and the values at each vertex after the diffusion process. The
-ground truth is obtained by computing the model parameters $t_f$ for each vertex
-of $M$ as described in \cref{sub:fitting}. The diffusion error
-$E^{V,f}_{\text{diff}}$ for variable $V$ and feature $f$ is defined as
+obtaining them at the other vertices by diffusion we introduce an error.
+%
+We quantify this error as the normalized \ac{RMS} difference between a ground
+truth and the values at each vertex after the diffusion process.
+%
+The ground truth is obtained by computing the model parameters $t_f$ for each
+vertex of $M$ as described in \cref{sub:fitting}.
+%
+The diffusion error $E^{V,f}_{\text{diff}}$ for variable $V$ and feature $f$ is
+defined as
 %
 \begin{equation}
 	E^{V, f}_{\text{diff}} = 
 		\sum_{\vm_i \in M}
 			\left|
-				\frac{t^V_{f,i} - t'^{V}_{f,i}}{\max(t^V_f)-\min(t^V_f)}
+				\frac{t^V_{fi} - t'^{V}_{fi}}{\max(t^V_f)-\min(t^V_f)}
 			\right|
 			\text{ ,}
 \end{equation}
 %
-where $t^V_{f, i}$ is the true shift value for variable $V$ and feature $f$ at
-vertex $\vm_i$, $t'^{V}_{f,i}$ is the corresponding value obtained by
+where $t^V_{fi}$ is the true shift value for variable $V$ and feature $f$ at
+vertex $\vm_i$, $t'^{V}_{fi}$ is the corresponding value obtained by
 diffusion, and $\max(t^V_f)-\min(t^V_f)$ is the range of true shift values over
-all vertices. We computed this error metric for all variables and time steps of
+all vertices.
+%
+We computed this error metric for all variables and time steps of
 data set \textsc{Hydrogen}, using different seeding densities $q$.
-The results can be seen in \cref{fig:diffusion_quality,fig:diffusion_quality_img}.
+%
+We show the results in \cref{fig:diffusion_quality,fig:diffusion_quality_img}.
 % An appropriate seeding density $q$ for a desired diffusion quality
 % and therefore accuracy of visualization can be automatically determined by
 % successively lowering $q$ and computing $E^{V, f}_{\text{diff}}$

@@ -2,17 +2,20 @@
 \label{sec:visualization}
 %
 The flamelets extracted as profiles in the previous step can directly be used
-by combustion researchers for statistical analysis.
+by combustion researchers for statistical analysis of the whole flame front.
+%
+We will not go into detail about this here, as it is outside the scope of this
+work.
 %
 In this section, we present a novel visualization based on the feature points
-extracted on the profiles that augments this traditional approach with a
-visual analysis component.
+extracted on the profiles that augments the statistical approach with a visual
+analysis component.
 %
 
 %
-The model parameters $x_l$, $x_m$ and $x_r$ (see
-\cref{fig:models}) describe three classes of feature points on the profiles:
-\emph{minimum} (min), \emph{maximum} (max) and \emph{inflection point} (infl).
+The model parameters $x_l$, $x_m$ and $x_r$ (see \cref{fig:models}) describe
+three classes of feature points on the profiles: \emph{minimum} (min),
+\emph{maximum} (max) and \emph{inflection point} (infl).
 %
 % Using the position and direction of the profile lines, we transform those
 % feature points into points in space. These points can describe a feature surface
@@ -20,10 +23,14 @@ The model parameters $x_l$, $x_m$ and $x_r$ (see
 % depending on which feature point class is chosen, revealing more about the
 % scalar fields than a simple isosurface can.
 % 
-These feature points span feature surfaces that represent alternative
-definitions of the flame surface (such as the surface of maximum heat release),
-or inner and outer bounds of the burning region (e.g. minimum and maximum fuel
-concentration).
+These feature points span feature surfaces of the respective variables that can
+have physical or chemical significance.
+%
+For example, the surfaces of maximum heat release or maximum concentration of a
+radical are sometimes used as alternative definitions of the flame surface.
+%
+The feature surfaces of maximum and minimum temperature bound the flame front
+and indicate the flame thickness.
 %
 Investigating the shapes and local distances of these surfaces gives insight
 into the local combustion process and how it is affected by turbulent flow.
@@ -52,15 +59,19 @@ visualization.
 %
 \subsection{Feature Point Construction}
 %
-As shown in \cref{fig:featurepoints} (left), each class of feature points
-can be transformed into a point set in space. By considering all profile lines
-$\vp_i (t)= \vp_i + t \cdotp \vn_i$, which have been sent
-out from the flame surface $S$ (\cref{fig:featurepoints}, left), the
-position of a feature point $\vp(t_f)$ with $f \in \{\text{min},
-\text{max}, \text{infl}\}$ is given by
+The positions of the feature points on the profiles represent
+intersections with the corresponding feature surfaces in the original data.
+%
+By shifting the anchor points $\vp_i$ onto the intersections with a specific
+feature surface, we transform them to a feature point set sampling this surface
+(see \cref{fig:featurepoints}, left).
+%
+Considering a profile line $\vp(t)$ anchored on the flame surface $S$, the
+position of a feature point $\vp(t_f)$ with $f \in \{\text{min}, \text{max},
+\text{infl}\}$ is given by
 %
 \begin{equation*}
-	\vp(t_{f})=\vp+ t_f \cdotp \vn.
+	\vp(t_{f})=\vp + t_f \cdot \vn.
 \end{equation*}
 % with $t_{n}$ being the normalization
 % \begin{equation}
@@ -74,9 +85,14 @@ position of a feature point $\vp(t_f)$ with $f \in \{\text{min},
 % It is based on the model distance $\tau$ and the model's feature point
 % distance $t_f$, as illustrated in Figure~\ref{fig_pointcloud} (middle).
 %
-Such a feature point set is a discrete sampling of a continuous feature
-surface $S_{f}$. In the following, we discuss our approach of constructing
-this feature surface from a feature point set.
+Here, $t_f$ is the shift value for the respective feature surface given by
+$x_l$, $x_m$ or $x_r$ of the corresponding profile.
+%
+For example, the shift values $t_{\text{max}}$ for the surface of maximum heat
+release are obtained by the $x_m$ values of the heat release profiles.
+%
+Having constructed these feature points is the first step in constructing a
+feature surface, which we detail in the following section.
 %
 % \begin{figure}[t]
 %     \centering
@@ -102,11 +118,15 @@ this feature surface from a feature point set.
 \subsection{Feature Surface Construction}
 %
 Remember that during the transformation to the sparse representation, an
-isosurface mesh $M$ representing the flame surface $S$ was extracted. The
-profile lines were seeded at vertices of this mesh. For each point $\vp_i$ on
-the flame surface we therefore know the position of a point on the feature
-surface $S_f$ by the corresponding shift value $t_{f,i}$ and the direction of
-the profile line $\vn_i$ (\cref{fig:featurepoints} (left)).
+isosurface\Todo{consistently use iso-surface or isosurface} mesh $M$
+representing the flame surface $S$ was extracted.
+%
+The profile lines were seeded at vertices of this mesh.
+%
+For each vertex $\vp_i$ on the flame surface mesh we therefore know the position
+of a point on the feature surface $S_f$ by the corresponding shift value
+$t_{fi}$ and the direction of the profile line $\vn_i$
+(\cref{fig:featurepoints}, left).
 %
 % Revealing a feature surface is a non-trivial task due to reasons of ambiguity:
 % obviously, an infinite number of surfaces can be fitted to the point set. Thus,
@@ -148,8 +168,8 @@ the profile line $\vn_i$ (\cref{fig:featurepoints} (left)).
 % discretely representing the feature surface $S_f$, cannot be revealed using,
 % e.g., Marching Cubes.
 %
-Hence, the idea is to transform the flame mesh $M$ into a feature mesh $M_{f}$,
-representing the feature surface.
+The idea is to transform the flame surface mesh $M$ into a feature surface mesh
+$M_{f}$ representing the feature surface.
 %
 %This can be done by exploiting the relations between the feature points set and
 %the flame surface mesh.
@@ -158,32 +178,46 @@ representing the feature surface.
 	% \def\svgwidth{0.8\textwidth}
 	% \import{figures/}{featurepoints.pdf_tex}
 	\input{figures/featurepoints_tikz}
-	\caption{Construction of feature points and feature mesh.
-	Left: Feature points are constructed by shifting the anchor points
-	$\vp_i$ on the flame surface $S$ along their direction vectors
-	$\vn_i$ by amount $t_f$ taken from the model parameters (here, $x_m$ of
-	a gaussian model). The resulting points $\vp_i(t_{f,i})$ are located on
-	feature surface $S_f$. Right: Directions and model parameters for mesh
-	points $\vm_j$ are obtained from points $\vp_i$ by diffusion (grey
-	arrows and dots). Feature mesh $M_f$ is then constructed from flame surface
-	mesh $M$ by shifting all vertices along their corresponding directions by
-	their corresponding values of $t_f$.
+	\tikzset{external/export=false}
+	\caption{Construction of feature points and feature mesh (simplified \ac{2D}
+	representation).
+	%
+	Left: Construction of feature points (\protect\tikz\protect\draw[thick,
+	fill=black] circle [radius=0.8mm];) by shifting anchor points
+	(\protect\tikz\protect\draw[thick, fill=white] circle [radius=0.8mm];)
+	along their normals.
+	%
+	% Left: Feature points are constructed by shifting the anchor points $\vp_i$
+	% on the flame surface $S$ along their normal vectors $\vn_i$ by amount
+	% $t_f$ taken from the model parameters (here, $x_m$ of a Gaussian model).
+	% %
+	% The resulting points $\vp_i(t_{f i})$ are located on feature surface $S_f$.
+	%
+	Right: Positions for the other mesh vertices on the feature mesh
+	(\protect\tikz\protect\draw[thick, fill=gray, draw=gray] circle
+	[radius=0.8mm];) are obtained via diffusion of the known normals and shift
+	values.
+	%
+	% Right: Feature mesh $M_f$ is constructed from flame surface mesh $M$ by
+	% shifting all vertices along their corresponding directions by their
+	% corresponding values of $t_f$.
+	% %
+	% Normals and shift values for mesh points $\vm_j$ are obtained
+	% by diffusion (gray arrows and dots).
 	}
 	\label{fig:featurepoints}
-	\Todo[inline]{Explicitly state this is 2D view. Refer to points by image
-		refs/small pictures. Make caption shorter and move details to running
-		text. Add more than one mesh point in between to show diffusion can be
-		over longer distances. Use default color style. Make colors more
-		consistent with meaning (e.g. gray only for diffused values). Make it
-		clear that diffused values need not reflect reality.}
+	\tikzset{external/export=true}
 \end{figure}
 %
 
+%
 The simplest way to implement this transformation would be to move the vertices
-$\textbf{m}_j \in M$ of the flame mesh $M$ along the direction vectors $\vn$ of
-the profile lines to a related feature point, given by the shift value $t_f$.
-Unfortunately, the values for $t_f$ and $\vn$ are only known at vertices where
-profile lines have been seeded (see \cref{sub:seeding,fig:featurepoints}).
+$\textbf{m}_j$ of $M$ along the corresponding normal vectors $\vn_j$ to a
+related feature point, given by the shift value $t_{fj}$.
+%
+Unfortunately, the values for $t_f$ and $\vn$ are not known everywhere on the
+mesh, but only at vertices where profile lines have been seeded (see
+\cref{sub:seeding,fig:featurepoints}).
 %
 % Unfortunately, this is not possible, since the flame mesh $M$ and the profile
 % lines $\vp(t)=\vp+ t \cdotp \vr$ are mutually not aligned,
@@ -204,18 +238,28 @@ profile lines have been seeded (see \cref{sub:seeding,fig:featurepoints}).
 % \end{figure}
 %
 Thus, the first step of the transformation is to approximate this information
-for the other vertices. We use a diffusion-driven approach to obtain directions
-$\vn'_j$ and shift values $t'_{f,j}$ for each mesh vertex from the original
-$\vn_i$ and $t_{f,i}$. For this, we fix the original values at the vertices
-corresponding to points $\vp_i$ and diffuse them over the rest of the mesh until
-convergence. Different diffusion methods can be used to obtain results of
-varying smoothness. For simplicity, we use an explicit weighted averaging
-scheme, iteratively replacing the values at each vertex with the sum of its
-neighbors, weighted with the neighbor's inverse distance. After this process has
-finished, we have directions and shift values for each vertex $\vm_j$ (grey
-arrows and dots in \cref{fig:featurepoints} (right)). This process is a
-preprocessing step that has to be performed only once before visualization and
-does not further impede performance.
+for the other vertices.
+%
+
+%
+We use a diffusion-driven approach to obtain directions $\vn'_j$ and shift
+values $t'_{fj}$ for each mesh vertex from the original $\vn_i$ and $t_{fi}$.
+%
+For this, we fix the original values at the vertices corresponding to points
+$\vp_i$ and diffuse them over the rest of the mesh until convergence.
+%
+Different diffusion methods can be used to obtain results of varying smoothness.
+%
+For simplicity, we use an explicit weighted averaging scheme, iteratively
+replacing the values at each vertex with the sum of its immediate neighbors,
+weighted with the neighbor's inverse distance.
+%
+After this process has finished, we have directions and shift values for each
+vertex $\vm_j$ to obtain approximated feature mesh vertices $\vm'_j$ (gray
+dots in \cref{fig:featurepoints}, right).
+%
+This process is a preprocessing step that has to be performed only once before
+visualization and does not further impede performance.
 %
 % Thus, the first step of transformation has to be to map required information
 % onto the flame mesh $M$. This information are the directions of the profile line
@@ -284,12 +328,19 @@ does not further impede performance.
 %
 \begin{figure}[p]
     % \centering
-    \begin{captionbeside}
-    {Prototype of visual analysis tool for feature meshes showing dataset
-	\textsc{Hydrogen}. Top: Graphical user interface. Upper middle: Effect of
-	varying color scale parameter $u_1$. Lower middle: Morphing between the
-	different surfaces  by adjusting $u_2$. Bottom: Sliding through time to
-	observe the development of the feature meshes (circles).
+    \begin{captionbeside}{
+    Prototype of visual analysis tool for feature meshes showing dataset
+	\textsc{Hydrogen}.
+	%
+	Top: Graphical user interface.
+	%
+	Upper middle: Effect of varying color scale parameter $u_1$.
+	%
+	Lower middle: Morphing between the different surfaces by adjusting $u_2$.
+	%
+	Bottom: Sliding through time to observe the development of the feature
+	meshes (circles).
+	%
 	\Todo[inline]{Rearrange for paper format, make large enough to fill
 		page}
 	}
@@ -322,12 +373,14 @@ does not further impede performance.
 	\label{fig_contourmeshvis}
 \end{figure}
 %
-Having constructed feature meshes, we can now approach problem 3\Todo{remove
-references to problem n} of \ac{DNS} data analysis: visualization. Domain
-experts want to visually examine the feature meshes, and investigate the
-differences between feature meshes of different variables or feature point
-classes. In the following, we introduce our approach for enabling such an
-analysis task.
+With a method to construct feature surfaces from the sparse representation, we
+can now visualize these surfaces in different ways.
+%
+Domain experts want to visually examine the feature surfaces, and investigate
+the differences between feature surfaces of different variables or feature point
+classes.
+%
+In the following, we introduce our approach for enabling such an analysis task.
 %
 % Up to here, feature meshes from DNS data have been constructed. Now an
 % appropriate visualization concept is required to allow for the visual
@@ -345,24 +398,39 @@ analysis task.
 %----------------------------------------------
 \subsubsection{Pairwise Distance Visualization}
 %
+Given two different feature surfaces, a comparative visualization must highlight
+differences and similarities.
+%
+In the context of flamelet analysis, the differences between surfaces along
+the normal direction is most interesting.
+%
+We therefore propose a visualization to explore pairwise distances between
+feature surfaces.
+%
+
+%
 A visualization of distances between feature surfaces of two different variables
 must allow for quickly identifying regions of small or large distance, as well
-as the distances' orientation. We achieve this by displaying the local distance
-between two feature surfaces color-coded on the flame surface mesh $M$. This
-mesh serves as a neutral and common base for comparison, which is related to
-both feature surfaces.
+as the distances' orientation.
+%
+We achieve this by displaying the local distance
+between two feature surfaces color-coded on the flame surface mesh.
+%
+This mesh serves as a neutral and common base for comparison, which is related
+to both feature surfaces.
+%
 
+%
 As mentioned, corresponding vertices $\vm_f^V$ and $\vm_f^W$ of two
 different feature meshes can be obtained from the vertex $\vm$ by shifting
-it by two different values $t_f^V$ and $t_f^W$ along the local profile direction
-$\vn'$. Thus, the distance between the vertices is simply the difference
-between the two shift values.
-
-% \begin{equation}
-% 	d(\vm_f^{V, W}) = t_f^V - t_f^W
-% \end{equation}
+it by two different values $t_f^V$ and $t_f^W$ along the local normal direction
+$\vn'$.
+%
+Thus, the distance between the vertices is simply the difference between the two
+shift values.
 %
 This distance is computed for each vertex and linearly mapped onto a color map. 
+%
 % The mapping is given by
 % %
 % \begin{equation}
@@ -375,17 +443,28 @@ This distance is computed for each vertex and linearly mapped onto a color map.
 % %
 % This mapping ensures that $d=0$ is always mapped to the center of the color map.
 %
-We use a color map adapted to our application: black for values near zero (the
-meshes intersect), red to yellow for growing positive distances (one mesh is
-outside of the other locally), and blue to cyan for negative distances (the
-opposite applies). We introduce parameter $u_1$ as a scaling factor for
-adjusting the color contrast and controlling how much of the data is mapped
-inside the displayed color range and how much is clamped to the maximum/minimum
-color. This enables a quick visual search for both extreme difference values (by
+
+%
+We use a color map adapted to our application:
+%
+black for values near zero (the meshes intersect), red to yellow for growing
+positive distances (one mesh is outside of the other locally), and blue to cyan
+for negative distances (the opposite applies).
+%
+
+%
+We introduce parameter $u_1$ as a scaling factor for adjusting the color
+contrast and controlling how much of the data is mapped inside the displayed
+color range and how much is clamped to the maximum/minimum color.
+%
+This enables a quick visual search for both extreme difference values (by
 choosing a low value for $u_1$), or an overview of areas with positive or
-negative difference values (by choosing a high value for $u_1$). The color scale
-and the effect of varying parameter $u_1$ are shown in
+negative difference values (by choosing a high value for $u_1$).
+%
+The color scale and the effect of varying parameter $u_1$ are shown in
 \cref{fig_contourmeshvis}.
+\Todo{adjust reference after updating figure}
+%
 
 % Let $M^{v}_{f}$ and $M^{w}_{f}$ feature meshes for two variables $v$ and $w$ of
 % DNS data w.r.t. the same feature class $f$. Let $M$ the related flame mesh, and
@@ -459,12 +538,14 @@ and the effect of varying parameter $u_1$ are shown in
 %----------------------------------------------------------------------------------
 \subsubsection{Feature Mesh Visualization}
 %
-We use standard computer graphics techniques to render the feature surfaces. The
-distance values are mapped to the mesh as vertex colors, and Phong shading is
-used to enhance the perception of surface curvature. Larger specular highlights
-improve the curvature perception but obstruct the view on the mesh color. We
-therefore let the user control the specular reflectance factor to suit their
-needs.
+We use standard computer graphics techniques to render the feature surfaces.
+%
+The distance values are mapped to the mesh as vertex colors, and Phong shading
+is used to enhance the perception of surface curvature.
+%
+Larger specular highlights improve the curvature perception but obstruct the
+view on the mesh color. We therefore let the user control the specular
+reflectance factor to suit their needs.
 %
 % The feature surface meshes can be visualized by using standard computer graphics
 % illumination and shading techniques. For this, the direction vector $\vr$
@@ -480,24 +561,36 @@ needs.
 % differences anymore. Thus, the shininess can be steered in increasing as well as decreasing direction.
 %------
 
-To allow for the investigation of the feature meshes' shapes, we provide a 
+%
+To allow for the investigation of the feature meshes' shapes, we provide a
 user-controlled linear morphing between the flame surface mesh $M$ and the two
-chosen feature meshes $M^{V}_{f}$ and $M^{W}_{f}$. A parameter $u_2 \in [0, 2]$
-steers the morphing, showing the flame surface $M$ for $u_2 = 0$, the first
-feature surface $M^{V}_{f}$ for $u_2 = 1$ and $M^{W}_{f}$ for $u_2 = 2$
-(\cref{fig_contourmeshvis}). The morphing itself is trivial. Since the
-corresponding vertices between all the meshes are known and their topology is
-identical, they just have to be linearly translated as the value of $u_2$ changes.
+chosen feature meshes $M^{V}_{f}$ and $M^{W}_{f}$.
+%
+A parameter $u_2 \in [0, 2]$ steers the morphing, showing the original flame
+surface $M$ for $u_2 = 0$, the first feature surface $M^{V}_{f}$ for $u_2 = 1$
+and $M^{W}_{f}$ for $u_2 = 2$ (\cref{fig_contourmeshvis}).
+\Todo{adjust reference after updating figure}
+%
+The morphing itself is trivial.
+%
+Since the corresponding vertices between all the meshes are known
+and their topology is identical, they just have to be linearly translated as the
+value of $u_2$ changes.
+%
 % \todo{neccessary?} Letting the user continuously control the value of $u_2$ lets them control the
 % speed of the morphing and allows for reversing the direction at any time. This
 % allows for a better understanding of the relations between the meshes, compared
 % to an animation of the morphing.
 
+%
 Finally, we enable the user to quickly slide through the different time steps
 and investigate the temporal behavior of the feature surfaces and their
-relations. This allows for a quick interactive visual analysis that would have
-been impossible to achieve on the original raw simulation data, due to the
-large number and storage size of time steps.
+relations.
+%
+This allows for a quick interactive visual analysis that would have been
+impossible to achieve on the original raw simulation data, due to the large
+number and storage size of time steps.
+%
 
 % In addition, a morphing between the flame mesh $M$ and the feature meshes for
 % two variables $M^{v}_{f}$ and $M^{w}_{f}$ is defined. A vertex $\vm(u_2)$

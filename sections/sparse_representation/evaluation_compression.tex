@@ -1,13 +1,15 @@
 \section{Reconstructing Full Scalar Fields} % (fold)
 \label{sec:reconstruction}
 %
-\Todo[inline]{Move the part about reconstruction and performance to the back}
-%
 If desired, the scalar fields on the original grid can be reconstructed from the
-sparse representation by interpolation. We sample the fitted models in regular
-intervals between the respective $x_l$ and $x_r$ of each line and variable. We
-then apply standard interpolation methods to this set of points to reconstruct
-the data on the original grid.
+sparse representation by interpolation.
+%
+We sample the fitted models in regular intervals between the respective $x_l$
+and $x_r$ of each line and variable.
+%
+We then apply standard interpolation methods to this set of points to
+reconstruct the data on the original grid.
+%
 
 % Remember that when extracting the profiles, we deliberately ignored all
 % data farther away from the flame surface than half the length of the sampled
@@ -25,10 +27,12 @@ the data on the original grid.
 % are not suitable here, as they are very inefficient. For each value that is
 % interpolated, an expression involving all data points has to be evaluated. 
 
-We compared two local interpolation methods for scattered data. The first method
-is a \ac{kANN}~\cite{Arya1998} interpolation
-scheme that weighs the values of the $k$ approximate nearest neighbors using
-Shepard's inverse distance weights. 
+%
+We compared two local interpolation methods for scattered data.
+%
+The first method is a \ac{kANN}~\cite{Arya1998} interpolation scheme that weighs
+the values of the $k$ approximate nearest neighbors using Shepard's inverse
+distance weights.
 %
 % For large $k$ the result converges to the
 % global Shepard interpolation but computation time increases. For small $k$ the
@@ -46,26 +50,41 @@ Shepard's inverse distance weights.
 % tree and the Shepard weights are easily computable, this method is very fast.
 %
 The second interpolation method first generates a tetrahedral mesh from the data
-points using a Delaunay triangulation. The values inside the mesh cells are then
-linearly interpolated. This always produces a continuous solution if there are
-no degenerate mesh cells.
+points using a Delaunay triangulation.
+%
+The values inside the mesh cells are then linearly interpolated.
+%
+This always produces a continuous solution if there are no degenerate mesh
+cells.
+%
 
-Interpolation methods providing higher smoothness exist. However, these are more
-computationally expensive and it is not guaranteed that they produce results
-closer to the original data than the simpler methods.
+%
+Interpolation methods providing higher smoothness exist.
+%
+However, these are more computationally expensive and it is not guaranteed that
+they produce results closer to the original data than the simpler methods.
+%
 
 % Evaluation of compression scheme to assess compression errors
 % Used three different data sets
 % describe data sets
 %
 We evaluated the accuracy of the sparse representation on single time steps of
-three data sets. Each time-step of data sets \textsc{Syngas~I} and
-\textsc{Syngas~II} has $\text{200}^3$ voxels and 13 variables each.
-\textsc{Syngas~III} has $\text{100}^3$ voxels and 3 Variables. All data sets
-are from \ac{DNS} computations of turbulent premixed spherical syngas flames.
-\textsc{Syngas~I} contains a flame with strong wrinkles. \textsc{Syngas~II} has
-a flame with smaller wrinkles. \textsc{Syngas~III} contains a flame that has
-been torn into smaller parts by turbulence.
+three data sets.
+%
+Each time step of data sets \textsc{Syngas~I} and \textsc{Syngas~II} has $200^3$
+voxels and 13 variables each. \textsc{Syngas~III} has $100^3$ voxels and 3
+Variables.
+%
+All data sets are from \ac{DNS} computations of turbulent premixed spherical
+syngas flames.
+%
+\textsc{Syngas~I} contains a flame with strong wrinkles.
+%
+\textsc{Syngas~II} has a flame with smaller wrinkles.
+%
+\textsc{Syngas~III} contains a flame that has been torn into smaller parts by
+turbulence.
 %
 % Data sets \textsc{Syngas~I} and \textsc{Syngas~II} are from DNS
 % computations of turbulent premixed spherical syngas flames. Each time-step has
@@ -83,10 +102,15 @@ been torn into smaller parts by turbulence.
 % Shows raw error of models
 % Results show low percentual errors for all variables
 
+%
 First, we investigate the error from approximating the original data by our
-models. We computed the average \ac{RMS} error between the
-original data of the profiles and the fitted models. The data values in the
-range $x_{li}$ and $x_{ri}$ on each profile line are considered.
+models.
+%
+We computed the average \ac{RMS} error between the original data of the profiles
+and the fitted models.
+%
+The data values in the range $x_{li}$ and $x_{ri}$ on each profile line are
+considered.
 %
 %(Figure~\ref{fig:models}), because values outside of this interval were not considered when fitting the models.
 %
@@ -99,14 +123,16 @@ variables $V$ comparable:
 %
 \begin{equation}
     E^V_{\text{fit}}
-        =   \frac{(\max(V)-\min(V))^{-1}}{\sum_{i=1}^n x_{ri}-x_{li}}
-            \sum_{i=1}^n~
-            \sum_{\{j | x_{li} \leq x_{ji} \leq x_{ri}\}}
-                        \frac{|P_{ij}^V-u_{ij}^V|}
-                            {x_{ri}-x_{li}}
-    \text{ .}
+        =   \frac{1}{n \cdot (\max(V)-\min(V))}
+            \Sum{
+                \sqrt{
+                    \frac{1}{x_{ri}-x_{li}}
+                    \Sum{
+                        \left(P_{ij}^V-u_{ij}^V\right)^2}
+                        {\{j | x_{li} \leq x_{ji} \leq x_{ri}\}}}}
+            {i, 1, n}
+    ~\text{.}
 \end{equation}
-\Todo{Check if equation is correct}
 %
 Here, $u_{ij}^V$ is the value of the fitted model corresponding to the original
 profile value $P_{ij}^V$, while $\{j | x_{li} \leq x_{ji} \leq x_{ri}\}$ are the
@@ -134,7 +160,7 @@ needed by the sparse representation.
 % be stored once for all variables. Thus, with more variables in the data set, the
 % space needed for this information becomes less significant. Also, the more
 % reactants and products are contained in the data set, compared to the number of
-% intermediate species, the better the reduction ratio, since the sigmoidal
+% intermediate species, the better the reduction ratio, since the sigmoid
 % model used for representing those species needs seven parameters, while the
 % Gaussian model needs eight. 
 % Most significant for the reduction ratio, however, is the number of seeded
@@ -168,22 +194,18 @@ needed by the sparse representation.
 %The error was normalized by the range of values of the variable, to make the errors
 %for different variables comparable.
 %
-We used a normalized root mean square error metric to compute the reconstruction
-quality:
+We used a normalized error metric to compute the reconstruction quality:
 %
 \begin{equation}
     E^V_\text{reconst}
-        =   \frac{1}{|H|}
-            \int\limits_{\vx \in H}
-                \left|
-                    \frac{R(\vx) - V(\vx)}{\max(V)-\min(V)}
-                \right| ~d\vx
+        =   \frac{1}{|H|\cdot \left( \max(V)-\min(V) \right)}
+            \Int{\left| R(\vx) - V(\vx) \right|}{\vx,{\vx \in H}}
              \text{ ,}
 \end{equation}
 %
-where $V$ is the original data of the variable, $R$ is the reconstructed data,
-$H$ is the convex hull of all points used to reconstruct the data, and $|H|$ is
-the volume of H. The range of values of variable $V$ is described by
+where $V$ is the original scalar field, $R$ is the reconstructed data, $H$ is
+the convex hull of all points used to reconstruct the data, and $|H|$ is the
+volume of H. The range of values of variable $V$ is described by
 $\max(V)-\min(V)$.
 
 %
@@ -259,11 +281,15 @@ $\max(V)-\min(V)$.
 \end{figure}
 %
 
-We compared the results of linear and \ac{kANN} interpolation for reconstruction.
+%
+We compared the results of linear and \ac{kANN} interpolation for
+reconstruction.
+%
 Our experiments show that for the \ac{kANN} interpolation a combination of five
 nearest neighbors weighted with a Shepard weighting function using an exponent
-of 20 gave the lowest errors. Therefore, we illustrate the results for these
-parameters only.
+of 20 gave the lowest errors.
+%
+Therefore, we illustrate the results for these parameters only.
 %
 % Since the \ac{kANN} interpolation uses Shepard weights, we have two parameters: $k$
 % for the number of approximate nearest neighbors to consider, and $p$, which is
@@ -273,11 +299,15 @@ parameters only.
 % illustrate the results for these parameters.
 %
 We also compared our results to the error introduced by naively downsampling
-the data to the same storage size needed by the sparse representation. This is
-the currently established way of reducing the size of \ac{DNS} data. For
-comparison with a dedicated compression algorithm, we used the well-established
-\ac{3D}-\ac{SPIHT} algorithm~\cite{Kim2000} implemented in the QccPack
-library~\cite{Fowler2000} on our data.
+the data to the same storage size needed by the sparse representation.
+%
+This is the currently still the most common way of reducing the size of \ac{DNS}
+data.
+%
+For comparison with a dedicated compression algorithm, we used the
+well-established \ac{3D}-\ac{SPIHT} algorithm~\cite{Kim2000} implemented in the
+QccPack library~\cite{Fowler2000} on our data.
+%
 
 % To be able to evaluate the ability of the sparse form to accurately represent
 % the original data, we must also compare it to the method used previously to
@@ -287,19 +317,31 @@ library~\cite{Fowler2000} on our data.
 % used the same metric $E^V_\text{reconst}$ to compute the error introduced by
 % this process.
 
-\Cref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction
-error $E_\text{reconst}^V$ for all tested methods for selected variables. Please
-note that for \textsc{Syngas II}, higher reduction ratios are achieved than for
-\textsc{Syngas I}, due to the flame in the former being relatively smaller. For
-small reduction ratios, the downsampling approach performs better,
-because it does not introduce errors due to model assumptions. For higher
-reduction ratios, which are needed in practice, our sparse representation always
-performs significantly better. It is also apparent that linear interpolation
-performs better than \ac{kANN} in almost all cases. As a dedicated compression
-algorithm, \ac{3D}-\ac{SPIHT} naturally achieves better reconstruction quality than our approach. It
-is however necessary to decompress the data back to its full size before any
-analysis can be carried out, while our sparse representation directly supports
-flamelet-related analysis.
+%
+\Cref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction error
+$E_\text{reconst}^V$ for all tested methods for selected variables.
+%
+Please note that for \textsc{Syngas II}, higher reduction ratios are achieved
+than for \textsc{Syngas I}, due to the flame in the former being relatively
+smaller.
+%
+For small reduction ratios, the downsampling approach performs better, because
+it does not introduce errors due to model assumptions.
+%
+For higher reduction ratios, which are needed in practice, our sparse
+representation always performs significantly better.
+%
+It is also apparent that linear interpolation performs better than \ac{kANN} in
+almost all cases.
+%
+As a dedicated compression algorithm, \ac{3D}-\ac{SPIHT} naturally achieves
+better reconstruction quality than our approach.
+%
+It is however necessary to decompress the data back to its full size before any
+analysis can be carried out, while our sparse representation can directly be
+used for flamelet analysis and visualization of feature surfaces without prior
+reconstruction.
+%
 
 \begin{figure}[t]
     \setlength\figureheight{0.2\textheight}
@@ -324,34 +366,62 @@ flamelet-related analysis.
     \tikzset{external/export=true}
 \end{figure}
 
-To further illustrate the data reduction performance of our approach, we tested it on eight
-time steps of the data set \textsc{Hydrogen}. This data set is from a turbulent
-premixed spherical hydrogen flame and has a resolution of $\text{400}^3$ voxels
-and 11 variables. This is a typical size for our cooperation partner. One time
-step amounts to about 5 GB\Todo{Use SI units or similar to typeset memory sizes}
-of data. The whole simulation has tens of thousands of time steps. Even
-storing a fraction of them quickly results in terabytes of data. We selected
-eight time steps from a late (most complex) stage of the simulation. Choosing
-$q=\text{5}$, which retains very high accuracy for reconstruction,
-we reduced them to about 30 MB each. This means only 0.6\% of the original
-storage space is required.
+%
+To further illustrate the data reduction performance of our approach, we tested
+it on eight time steps of the data set \textsc{Hydrogen}.
+%
+This data set is from a turbulent premixed spherical hydrogen flame and has a
+resolution of $400^3$ voxels and 11 variables.
+%
+This is a typical size for our cooperation partner.
+%
+One time step amounts to about \SI{5}{\giga\byte} of data.
+%
+The whole simulation has tens of thousands of time steps.
+%
+Even storing a fraction of them quickly results in terabytes of data.
+%
+We selected eight time steps from a late (most complex) stage of the simulation.
+%
+Choosing $q=5$, which retains good accuracy for reconstruction, we reduced them
+to about \SI{30}{\mega\byte} each.
+%
+This means only 0.6\% of the original storage space is required.
+%
 
-For a scalability test, we generated a synthetic data set with $\text{900}^3$ voxels
-and 11 variables. This is a typical size for a modern large-scale \ac{DNS} run.
-We created noise based on an isotropic turbulence
-frequency spectrum~\cite{Ferrante2003}. This noise was added to a low frequency
-component to emulate larger flame structures with smaller surface pertubations.
+%
+For a scalability test, we generated a synthetic data set with $900^3$ voxels
+and 11 variables.
+%
+This is a typical size for a modern large-scale \ac{DNS} run.
+%
+We created noise based on an isotropic turbulence frequency
+spectrum~\cite{Ferrante2003}.
+%
+This noise was added to a low frequency component to emulate larger flame
+structures with smaller surface perturbations.
+%
 Thresholding produces a surface on which average profiles of the different
-variables were superimposed. Domain experts confirmed the similarity of the
-result to real simulations, making it suitable for scalability tests.
+variables were superimposed.
+%
+Domain experts confirmed the similarity of the result to real simulations,
+making it suitable for scalability tests.
+%
+
+%
 Since each profile line has to be processed separately, the run time of the
 algorithm is approximately linear in the number of seed points, and thus depends
 indirectly on the flame surface area and structure.
+%
 \Cref{fig:compression_table} shows run times and compression ratios for
-the synthetic data set and \textsc{Hydrogen}. Data set volume and flame surface
-area of the synthetic data set are one order of magnitude higher than that of
-\textsc{Hydrogen}. This results in a run time which is also one order of
-magnitude higher, confirming the scalability of our approach.
+the synthetic data set and \textsc{Hydrogen}.
+%
+Data set size and flame surface area of the synthetic data set are one order
+of magnitude higher than that of \textsc{Hydrogen}.
+%
+This results in a run time which is also one order of magnitude higher,
+confirming the scalability of our approach.
+%
 
 % We have shown that full scalar fields can be reconstructed with good agreement
 % to the original data from a sparse representation requiring a small fraction of

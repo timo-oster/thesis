@@ -55,6 +55,7 @@
         \defcoords{}
 
         \draw[surface] plot[smooth] coordinates{(p0) (p1) (m1) (m2) (p2) (m3) (p3) (p4)};
+        \draw[surface, feature] plot[smooth] coordinates{(pf0) (pf1) (pmf1) (pmf2) (pf2) (pmf3) (pf3) (pf4)};
         % \foreach \p in {pf1, pf2, pf3}{
         %     \begin{scope}
         %         \clip (\p) circle (0.5cm);
@@ -62,7 +63,7 @@
         %     \end{scope}
         % }
         \node[surface, above left] at (p0) {$S$};
-        % \node[surface, feature, above] at (pf0) {$S_f$};
+        \node[surface, feature, above] at (pf0) {$S_f$};
 
         \begin{scope}[rotate=\rone, shift=(p1)]
                 \draw[black] (-1.5, 0) -- (1.5, 0);
@@ -95,7 +96,7 @@
         \end{scope}
 
         \draw[arrow] (p1) -- ++(\rone:1cm);% node[below right] {$\vr_1$};
-        \draw[arrow] (p2) -- ++(\rtwo:1cm) node[below] {$\vn_i$};
+        \draw[arrow] (p2) -- ++(\rtwo:1cm) node[above] {$\vn_i$};
         \draw[arrow] (p3) -- ++(\rthree:1cm);% node[below] {$\vr_3$};
 
         \foreach \i in {1, 2, 3}{
@@ -111,7 +112,7 @@
         % \node[left=0.07cm of p3] {$\vp_3$};
 
         % \node[right=0.2cm of pf1] {$\vp'_1$};
-        \node[below left=0.05cm and 0.1cm of pf2] {$\vp'_i$};
+        \node[below right] at (pf2) {$\vp_i(t_{f i})$};
         % \node[below=0.15cm of pf3] {$\vp'_3$};
 
         \node[left] at (m3) {$\vm_j$};
