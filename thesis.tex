@@ -196,9 +196,13 @@
 %
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=south east, xshift=\textwidth, inner sep=0, outer sep=0]{
-        \fontsize{10cm}{10cm}\selectfont\textcolor{laccentcolor}{\adjustchkerning{\thechapter}}
+    \node[anchor=south east, yshift=1.2cm,
+          xshift=\textwidth+5mm, inner sep=0, outer sep=0]{%
+        \fontsize{10cm}{10cm}\selectfont%
+        \textcolor{laccentcolor}{\thechapter}%
     };
+    \draw[black] (current page text area.north west)
+        rectangle (current page text area.south east);
 \end{tikzpicture}%
 \tikzset{external/export=true}%
 }
