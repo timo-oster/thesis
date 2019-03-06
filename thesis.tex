@@ -5,7 +5,7 @@
     captions=tableheading,
     captions=outerbeside,
     headings=twolinechapter,
-    chapterprefix=true,
+    chapterprefix=false,
     numbers=noenddot
     % headsepline
 }
@@ -152,8 +152,7 @@
 
 \renewcommand*{\partformat}{%
 \centering
-\scshape\fontsize{6cm}{6cm}\selectfont\textcolor{laccentcolor}{\thepart}
-
+\scshape\fontsize{6cm}{6cm}\selectfont\textcolor{laccentcolor}{\thepart}\\
 \vspace*{0.5cm}}
 % \renewcommand*{\partformat}{
 % \tikzset{external/export=false}%
@@ -179,7 +178,6 @@
 \addtokomafont{chapter}{\scshape\LARGE}
 
 \renewcommand*{\chapterformat}{%
-\vspace*{6cm}%
 % \switchtoPLF{}\textcolor{\chaptercolor}{%
 % \hspace*{\fill}%
 % \fontsize{0.8cm}{0.8cm}\selectfont\scshape%
@@ -204,6 +202,8 @@
 \end{tikzpicture}%
 \tikzset{external/export=true}%
 }
+
+\renewcommand*{\chapterheadstartvskip}{\vspace*{9cm}}
 
 \tikzstyle{paperheader}=[
     anchor=south west,
