@@ -168,41 +168,30 @@
 % format chapters
 % ===============
 
-\newcommand*{\adjustchkerning}[1]{%
-    \IfEndWith{#1}{2}{2}{%
-    #1%
-    }%
-}
 
 % \let\raggedchapter\relax
 \addtokomafont{chapter}{\scshape\LARGE}
 
+\newif\ifappendix
+
+\def\chaplengths{{11mm,6mm,7mm,2.5mm,7mm,5mm,6mm,7mm,6.5mm}}
+\def\applengths{{4mm,8.5mm,6mm}}
 \renewcommand*{\chapterformat}{%
-% \switchtoPLF{}\textcolor{\chaptercolor}{%
-% \hspace*{\fill}%
-% \fontsize{0.8cm}{0.8cm}\selectfont\scshape%
-% \MakeLowercase{\chapappifchapterprefix{\nobreakspace}}%
-% % \fontsize{5cm}{5cm}\selectfont\switchtoPLF{}\textcolor{\chaptercolor}{\thechapter}}%
-% \fontsize{9cm}{9cm}\selectfont\textcolor{\chaptercolor}{\thechapter}}%
-%
-% \tikzset{external/export=false}%
-% \begin{tikzpicture}[remember picture, overlay]
-%     \node[anchor=north east, inner sep=0, outer sep=0, yshift=-3cm]
-%         at (current page text area.north east) {
-%         \fontsize{12cm}{12cm}\selectfont\textcolor{white!70!gray}{\thechapter}
-%     };
-% \end{tikzpicture}%
-% \tikzset{external/export=true}%
-%
 \tikzset{external/export=false}%
+\begin{tikzpicture}[remember picture]
+\coordinate (mychapanchor-\arabic{chapter});
+\end{tikzpicture}%
 \begin{tikzpicture}[remember picture, overlay]
-    \node[anchor=south east, yshift=1.2cm,
-          xshift=\textwidth+5mm, inner sep=0, outer sep=0]{%
+    \pgfmathsetmacro{\mylength}{\ifappendix\applengths[\arabic{chapter}-1]\else\chaplengths[\arabic{chapter}-1]\fi}
+    \node[anchor=south east,xshift=\mylength,
+          inner sep=0, outer sep=0]
+          at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
         \fontsize{10cm}{10cm}\selectfont%
         \textcolor{laccentcolor}{\thechapter}%
     };
-    \draw[black] (current page text area.north west)
-        rectangle (current page text area.south east);
+    % alignment line
+    \draw[thin] (current page text area.north east)
+        -- (current page text area.south east);
 \end{tikzpicture}%
 \tikzset{external/export=true}%
 }
@@ -211,8 +200,8 @@
 
 \tikzstyle{paperheader}=[
     anchor=base west,
-    at={(current page text area.north west)},
-    yshift=-9cm+5mm,
+    % at={(current page text area.north west)},
+    % yshift=-9cm+5mm,
     % anchor=north west,
     % at={(current page header area.north west)},
     align=left,
