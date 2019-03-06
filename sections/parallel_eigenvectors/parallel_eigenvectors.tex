@@ -4,8 +4,9 @@
 \tikzset{external/export=false}
 \begin{tikzpicture}[remember picture, overlay]
     \node[paperheader] (banner_fst) {
-            This chapter is based on\\
-            \fullcite{Oster2018b}
+            \parbox[b]{0.5\textwidth}{%
+            This chapter is based on the publication:\\
+            \fullcite{Oster2018b}}
     };
 \end{tikzpicture}
 \tikzset{external/export=true}
