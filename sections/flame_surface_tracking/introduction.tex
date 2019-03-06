@@ -1,56 +1,39 @@
+\lettrine[lines=3, findent=0.3pt, nindent=0pt, loversize=-0.015,
+lhang=0.12]{U}{nsteady effects} and their incorporation into turbulent combustion
+models are still an area of active research in the combustion community.
 %
-\lettrine[lines=3, findent=-12pt, nindent=7pt, slope=7pt]{A}{ central topic} of today's combustion research are the interactions between
-turbulent flow and chemical reactions in flames.
+In order to observe and analyze such effects, researchers need access to data
+with high temporal resolution.
 %
-In this context, the flame surface, \ie, the thin region where reaction happens,
-is of central importance.
+Storing raw \ac{DNS} data in this resolution is only practical for very short
+time intervals.
 %
-Temperature, concentrations of chemical species and other variables on the flame
-surface show the state of the reaction.
-%
-The transport and deformation of the flame surface over time show the joint
-influence of chemistry and turbulence on the combustion process.
-%
-
-%
-To study the detailed mechanisms of turbulent combustion, \acp{DNS} are used.
-%
-These simulations directly compute the fundamental physical and chemical
-equations on a high-resolution grid without any high-level modeling assumptions.
-%
-As a consequence, all physical and chemical quantities can be analyzed in detail.
-%
-However, the computational costs are very high and the data sets produced can
-easily reach into the tera- or petabyte range.
-%
-This makes them practically impossible to store completely or transfer over a
-network connection.
-%
-For this reason, only single snapshots of the simulation are commonly stored
-on disk and analyzed in post-processing.
-%
-This approach only allows investigating the state of the flame surface at single
-points in time.
-%
-The temporal distance between subsequent snapshots is generally too large to
-interpolate between them in any meaningful way or make any statement about
-the correspondence of surface points.
+To observe behavior that stretches over longer time spans, or whose occurrence
+cannot be easily predicted, in-situ processing becomes an absolute necessity.
 %
 
 %
-In this work, we introduce an algorithm for tracking the flame surface
-on-the-fly during the simulation, while the necessary data is still in memory.
+The flame surface is central to many combustion models and -studies.
+%
+Quantities such as surface speed, -stretch, -curvature, -area and their
+relation to the structure and behavior of the flame are frequently discussed in
+the literature.
+%
+In order to observe the detailed unsteady behavior of the flame surface, we need
+an algorithm to track it during the simulation.
+%
+This chapter presents an approach for such an in-situ surface tracking.
 %
 Our goal is to capture the shape of the surface, the history of individual
 surface points, and the local tangential deformation of the surface over
 extended periods of time.
 %
-This allows us to expand studies of the history of single points on the surface
-over extended time periods, such as described by Sripakagorn
-\etal~\cite{Sripakagorn2004}, to the complete flame surface.
+This also allows studies of the history of single surface points over extended
+time periods, such as described by Yeung \etal~\cite{Yeung1990} and Sripakagorn
+\etal~\cite{Sripakagorn2004}, to be extended to the complete flame surface.
 %
 Additionally, we extend the notion of instantaneous surface stretch (such as
-described by Poinsot and Veynante\cite{Poinsot2012}) to the tangential
+described by Poinsot and Veynante~\cite{Poinsot2012}) to the tangential
 deformation of the surface over arbitrary time intervals.
 %
 
@@ -75,6 +58,8 @@ Our algorithm must overcome the following challenges:
         surface that have been refined and/or coarsened multiple times over an
         arbitrary time interval.
 \end{enumerate}
+%
+
 %
 \Cref{it:parallel} precludes the use of a mesh or space partition data
 structure with neighborhood information, as the global nature of operations in
