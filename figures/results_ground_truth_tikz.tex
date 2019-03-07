@@ -1,11 +1,11 @@
 %
 %
-
 \begin{tikzpicture}[
     font=\small,
     thick,
     mydash/.style={dashed, dash phase=-1.5pt},
-    label/.style={align=left, inner sep=0},
+    label/.style={anchor=north west, align=left, inner sep=0,
+                  yshift=\baselineskip, xshift=-0.125\figurewidth},
     image/.style={inner sep=0, outer sep=0, node distance = 0 and 0}
 ]
     \input{colormap_warm}
@@ -29,7 +29,7 @@
         };
     \end{scope}
     \draw[mydash] (image2.south) -- (image2.north);
-    \node[label, anchor=east] at (image2.south east)
+    \node[label] at (image2.south east)
     {
         $
         \begin{aligned}
@@ -54,7 +54,7 @@
         };
     \end{scope}
     \draw[mydash] (image3.south) -- (image3.north);
-    \node[anchor=east] at (image3.south east)
+    \node[label] at (image3.south east)
     {
         $
         \begin{aligned}
@@ -79,7 +79,7 @@
         };
     \end{scope}
     \draw[mydash] (image4.south) -- (image4.north);
-    \node[anchor=east] at (image4.south east)
+    \node[label] at (image4.south east)
     {
         $
         \begin{aligned}
@@ -104,7 +104,7 @@
         };
     \end{scope}
     \draw[mydash] (image5.south) -- (image5.north);
-    \node[anchor=east] at (image5.south east)
+    \node[label] at (image5.south east)
     {
         $
         \begin{aligned}
