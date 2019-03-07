@@ -133,14 +133,16 @@ infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
 \section{Discretization} % (fold)
 \label{sec:fst_discretization}
 %
-Our objective is an algorithm for tracking the flame surface on-the-fly during
-a simulation run.
+Our objective is an algorithm for tracking the flame surface in-situ during a
+simulation run.
 %
 It must produce the paths of single points on the surface over time, as well as
 the tangential deformation of the surface for arbitrary time intervals.
 %
 Additionally, the algorithm needs to be highly parallelizeable in order to work
 well in the environment of a massively parallel simulation.
+%
+
 %
 A naive approach might be performing an isosurface extraction in each time step
 of the simulation.

@@ -3,7 +3,7 @@
 \section{Discussion} % (fold)
 \label{sec:fst_discussion}
 %
-Due to its nature as an algorithm designed for on-the-fly execution in a highly
+Due to its nature as an algorithm designed for in-situ execution in a highly
 parallel environment, our method has some inherent limitations.
 %
 We can not go back in time to refine micro-patches before errors due to
@@ -93,7 +93,7 @@ holes in the surface.
 
 %
 Our algorithm is the first to provide a viable way of tracking the whole flame
-surface on-the-fly over the complete simulation time.
+surface in-situ over the complete simulation time.
 %
 This opens new pathways to the investigation of flame behavior.
 %
@@ -113,7 +113,7 @@ Our novel method of measuring tangential deformation provides combustion
 researchers with a new quantity to study the effects of flame-turbulence
 interactions.
 %
-This integration-based quantity is only made possible by the on-the-fly nature
+This integration-based quantity is only made possible by the in-situ nature
 of the algorithm.
 %
 Accurate path line integration is simply not possible as a post process, if the
@@ -123,7 +123,7 @@ spatial resolution.
 
 %
 The overhead in memory and computing time caused by our method is fairly large
-compared to existing on-the-fly visualization approaches, which are generally
+compared to existing in-situ visualization approaches, which are generally
 designed to require only a small fraction of the computing time of the
 simulation \cite{Ma2009}.
 %

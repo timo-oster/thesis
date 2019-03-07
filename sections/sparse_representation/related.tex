@@ -9,7 +9,7 @@ Simulations of practically relevant reactions are complex and involve tens or
 even hundreds of chemical variables. Due to both the high resolution and the
 large number of variables, a simulation run produces terabytes of raw data.
 These amounts cannot be stored or transferred efficiently, prompting the need of
-methods for either analyzing on-the-fly or reducing them.
+methods for either analyzing in-situ or reducing them.
 
 %------
 Analysis of such raw data is usually done in a post-processing step: Bremer et
@@ -26,7 +26,7 @@ large to be stored completely, post-processing can not be performed at all.
 % standard post-processing methods become ineffective, since the data they are
 % supposed to analyze is simply discarded.
 
-To address this issue, on-the-fly visualization methods have been developed.
+To address this issue, in-situ visualization methods have been developed.
 They process and render simulation data while being produced, operating in
 parallel with the simulation on the same supercomputer. 
 %
@@ -48,7 +48,7 @@ original data sets.
 % monitoring, they are less flexible in the way the data can be analyzed.
 % Obviously, a single volume rendering can seldom replace a detailed analysis.
 % More complex analysis steps also have to operate parallel to the simulation,
-% suffering from the same problems as on-the-fly rendering.
+% suffering from the same problems as in-situ rendering.
 
 One way to achieve both flexibility and storage-efficiency is to compress the
 data before storing it. The compressed data can then be decoded and analyzed

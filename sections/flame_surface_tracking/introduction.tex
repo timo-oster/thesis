@@ -45,8 +45,8 @@ Our algorithm must overcome the following challenges:
         The massively parallel simulation, distributes its domain across a large
         number of processes. The surface tracking must be similarly
         parallelizeable.
-    \item \label{it:on-the-fly}
-        Performing analysis on-the-fly during a simulation means that at any
+    \item \label{it:in-situ}
+        Performing analysis in-situ during a simulation means that at any
         point in time, only data for the current time step is available in
         memory and there is no way of going back in time to retrieve previous
         information.
@@ -71,7 +71,7 @@ surface deformation.
 %
 This is described in \cref{sub:surface_patch_representation}.
 %
-\Cref{it:on-the-fly,it:refinement} mean that we need to refine
+\Cref{it:in-situ,it:refinement} mean that we need to refine
 the micro-patches adaptively before they are significantly distorted.
 %
 We therefore introduce a way of monitoring the distortion of a patch and split
