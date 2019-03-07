@@ -15,9 +15,12 @@
     {
         \begin{tikzpicture}
             \node[image] (base) at (0,0) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_02e-4}};%
-            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
-            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
-            \node[image] at (0,0) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_02e-4_density_factor}};%
+            \begin{scope}
+                \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+                \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
+                \node[image] at (0,0) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_02e-4_density_factor}};%
+            \end{scope}
+            \draw[thick, dashed, shorten <=2.1cm, shorten >=2.45cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
     \node[label, yshift=0.8cm] at (image1.south) {$\begin{aligned}t &= \SI{1e-4}{\second} \\ N&=\num{50}\si{\kilo}\end{aligned}$};
@@ -26,9 +29,12 @@
     {
         \begin{tikzpicture}
             \node[image] (base) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_7e-4}};%
-            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
-            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
-            \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_7e-4_density_factor}};%
+            \begin{scope}
+                \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+                \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
+                \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_1_7e-4_density_factor}};%
+            \end{scope}
+            \draw[thick, dashed, shorten <=1.7cm, shorten >=2.2cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
     \node[label, yshift=0.8cm] at (image2.south) {$\begin{aligned}t &= \SI{1.7e-4}{\second} \\ N&=\num{140}\si{\kilo}\end{aligned}$};
@@ -37,9 +43,12 @@
     {
         \begin{tikzpicture}
             \node[image] (base) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_2_4e-4}};%
-            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
-            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
-            \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_2_4e-4_density_factor}};%
+            \begin{scope}
+                \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+                \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
+                \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_2_4e-4_density_factor}};%
+            \end{scope}
+            \draw[thick, dashed, shorten <=1.4cm, shorten >=1.9cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
     \node[label] at (image3.south) {$\begin{aligned}t &= \SI{2.4e-4}{\second} \\ N&=\num{400}\si{\kilo}\end{aligned}$};
@@ -48,9 +57,12 @@
     {
         \begin{tikzpicture}
             \node[image] (base) {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_3e-4}};%
-            \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
-            \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
-            \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_3e-4_density_factor}};%
+            \begin{scope}
+                \clip (base.south west) -- (base.north west) -- (base.north east) -- (base.south east) -- cycle;
+                \clip (-2.0, -3.5) -- (2.0, 3.5) -- (4.0, 3.5) -- (4.0, -3.5)  -- cycle;
+                \node[image] {\includegraphics[height=0.45\figurewidth]{figures/spherical_time_3e-4_density_factor}};%
+            \end{scope}
+            \draw[thick, dashed, shorten <=1.05cm, shorten >=1.6cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
     \node[label] at (image4.south) {$\begin{aligned}t &= \SI{3.1e-4}{\second} \\ N&=\num{870}\si{\kilo}\end{aligned}$};
