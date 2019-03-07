@@ -6,15 +6,29 @@
 Due to its nature as an algorithm designed for in-situ execution in a highly
 parallel environment, our method has some inherent limitations.
 %
-We can not go back in time to refine micro-patches before errors due to
-insufficient resolution occur.
+The most significant problem arises from the exponential nature of stretch
+in a flow field.
 %
-This means that we have no way of correcting for the accumulation of errors in
-the estimation of the tangential deformation that will inevitably occur, except
-for splitting our micro-patches whenever the error becomes too large.
+If a constant flow field stretches a time surface by a factor of two in a
+certain time interval, the surface will quadruple its area in double the time
+and so on.
 %
-This leads to a large number of micro-patches over time, which rises faster than
-the surface area of the flame itself.
+As a consequence, errors in estimating this stretch will accumulate
+exponentially over time.
+%
+
+%
+Because we are operating in-situ and can not go back in time to fix errors after
+the fact, we must split micro-patches early enough to limit the amount of error
+accumulation we get.
+%
+This is especially critical for keeping the surface sufficiently covered in
+patches.
+%
+Even a tiny hole left at some point in time may eventually grow very large.
+%
+Splitting micro-patches early to limit error accumulation leads to very large
+numbers of patches over time.
 %
 Therefore, the error thresholds $r_\perp$ and $r_\shortparallel$ have to
 be carefully chosen, taking into account the acceptable error for the maximum
@@ -34,8 +48,7 @@ number of micro-patches over time.
 This could be handled by periodically merging or redistributing patches on the
 surface.
 %
-This is a global process that requires a common parameterization of the surface
-for micro-patches in a local neighborhood.
+This is a global process that would not be very well suited for parallelization.
 %
 
 %
@@ -135,6 +148,8 @@ It is a specialized analysis tool that can be used in situations where
 combustion researchers are specifically interested in the detailed behavior of
 the flame surface over long time periods.
 %
+
+%
 Such tools are necessary when a detailed analysis of the low-level behavior
 of the flame is required.
 %
@@ -160,6 +175,8 @@ By providing such histories for a great number of points covering the whole
 flame surface, we enable a statistical evaluation leading to new models for
 flame behavior.
 %
+
+%
 The local tangential deformation of the flame surface over extended time
 intervals has not been extensively studied in combustion literature.
 %
@@ -169,6 +186,6 @@ local conditions.
 %
 With our algorithm, our collaboration partners will be able to test this
 hypothesis and gain a deeper understanding of the effects of tangential
-deformation on turbulent combustion than previously possible.
+deformation on turbulent combustion.
 %
 % section discussion (end)

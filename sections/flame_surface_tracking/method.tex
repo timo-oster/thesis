@@ -3,8 +3,8 @@
 \section{Mathematical Basis} % (fold)
 \label{sec:fst_mathematical_basis}
 %
-In the following two sections, we give a brief introduction into the
-mathematical basis of the problems we want to solve.
+In this section, we give a brief introduction into the mathematical basis of the
+problems we want to solve.
 %
 First, we derive the equation for the movement of the flame surface over time.
 %
@@ -31,7 +31,7 @@ Therefore
 %
 This constrains the component of $\vu$ that is normal to the surface.
 %
-In tangential direction, we want $\vu$ to adhere to the fluid velocity, \ie,
+The tangential component of $\vu$ is constrained by the fluid velocity through
 %
 \begin{equation*}
     \Norm{\vu - \vv}^2 \rightarrow \text{min}\,\text{.}
@@ -46,12 +46,19 @@ the velocity of a point on the implicit surface is given by
                 \nabla s \,\text{.}
 \end{equation}
 %
-This equation is expressed as $\vu = \vv + s_d \,\vn$ in combustion literature
-\cite{Poinsot2012}.
+In combustion literature, this equation is expressed as
+%
+\begin{equation}
+\begin{gathered}
+    \vu = \vv + s_d\,\vn \,\text{,} \\
+    \text{with}\quad s_d = \frac{\partial s}{\partial t} \frac{1}{\Norm{\nabla s}}
+                       + \frac{\nabla s}{\Norm{\nabla s}} \vv \quad
+    \text{and}\quad  \vn = -\frac{\nabla s}{\Norm{\nabla s}}\,\text{.}
+\end{gathered}
+\end{equation}
 %
 Here, $s_d$ is the speed of flame propagation normal to the surface and relative
-to the fluid velocity and $\vn = - \nabla s / \Norm{\nabla s}$ is the unit
-surface normal.
+to the fluid velocity and $\vn$ is the unit surface normal.
 %
 \subsection{Tangential Deformation of an Implicit Surface in a Flow} % (fold)
 \label{ssb:tangential_surface_deformation}
@@ -78,8 +85,10 @@ then be expressed as
 %
 \begin{equation*}
     \mF\, \vx = \bchi(\vx, t)\quad
-        \text{for } \vx \rightarrow \vNull \, \text{.}
+        \text{for $\vx \rightarrow \vNull$\,.}
 \end{equation*}
+%
+
 %
 We are only interested in the tangential part of this deformation, \ie, the
 behavior in a tangential coordinate system that moves and rotates with the
@@ -105,16 +114,18 @@ Then the tangential deformation gradient $\hat\mF$ is
 %
 Note that $\mB \in \RRSet^{3\times2}$; and thus $\hat\mF \in \RRSet^{2\times2}$.
 %
-See \cref{fig:tangential_deformation} for an intuitive interpretation of this
+See \cref{fig:tangential_deformation} for a visual interpretation of this
 transformation.
 %
-Thus, $\hat\mF$ encodes the behavior of a point $\hat\vx$ in an
-infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
+$\hat\mF$ now encodes the behavior of a point $\hat\vx$ in an infinitesimally
+small neighborhood around $\hat\vNull$ in tangent space:
 %
 \begin{equation*}
     \hat\mF \cdot \hat\vx = \T\mB \, \bchi(\mB \, \hat\vx, t)\quad
-    \text{for } \vx \rightarrow \vNull \, \text{.}
+    \text{for $\vx \rightarrow \vNull$\,.}
 \end{equation*}
+%
+\Todo[inline]{closing sentence. Don't end with equation.}
 %
 \begin{figure}[tb]
     \centering
@@ -152,6 +163,8 @@ correspondence between time steps.
 %
 This correspondence is necessary if we want to provide point paths and compute
 the surface deformation.
+%
+
 %
 Alternatively, one could advect the vertices of an explicit surface mesh,
 adaptively remeshing it as the surface deforms over time.
@@ -226,10 +239,12 @@ tangent plane defined by the surface normal $\vn$ at the central point $\vx$
 In this way, they sample the shape and deformation in all directions as they
 follow the surface over time.
 %
+
+%
 We describe the configuration (\eg, the state excluding the absolute position)
-of a micro-patch at time $t$ as a matrix $\mC(t) \in \RRSet^{3\times5}$ consisting
-of the surface normal $\vn(t)$ at the central point as well as the relative
-positions of the ghost particles $\vx_i(t)$, $i \in \{1, ..., 4\}$.
+of a micro-patch at time $t$ as a matrix $\mC(t) \in \RRSet^{3\times5}$
+consisting of the surface normal $\vn(t)$ at the central point as well as the
+relative positions of the ghost particles $\vx_i(t)$, $i \in \{1, ..., 4\}$.
 %
 \begin{equation}
     \mC(t) = \begin{pmatrix}
@@ -244,12 +259,14 @@ In the following, we omit the dependence of $\mC$, $\vn$, and $\vx_i$ on the
 time $t$ and we assume that $\vx = \vNull$ wherever the meaning is clear from
 context.
 %
+
+%
 For the initial configuration at some time $t_0$, $\mC$ can be exactly
 represented by a unit base configuration $\mC_0$ being transformed by a linear
 transformation $\mT$, \ie,
 %
 \begin{equation*}
-    \mC(t_0) = \mT \, \mC_0, \quad \text{with} \quad
+    \mC(t_0) = \mT \, \mC_0 \, \text{,} \quad  \text{with} \quad
     \mC_0 = \begin{pmatrix}
         \ve_3 & \ve_1 & -\ve_1 & \ve_2 & -\ve_2
     \end{pmatrix} \, \text{,}
@@ -270,6 +287,8 @@ between $\mC_0$ and $\mC$, \ie, the solution to the least squares problem
 %
 Here, $\Frob{\cdot}$ denotes the Frobenius norm.
 %
+
+%
 The residual error $e$ measures the deviation of the real mapping between
 $\mC_0$ and $\mC$ from linear behavior.
 %
@@ -280,17 +299,21 @@ differently from the normal in the first column.
 To get a more meaningful error, we normalize these columns by their average
 magnitude and obtain a modified transformation $\mT_n$ and error $e_n$ by
 %
-\begin{gather}
+\begin{equation}
+\begin{gathered}
     \label{eqn:normalized_system}
     e_n^2 = \Frob{\T\mC_0 \, \T\mT_n
             - \T\mC_n}^2 \rightarrow \text{min} \, \text{,}\\
-    \text{with}\
+    \text{with}\quad
     \mC_n = \begin{pmatrix}
         \vn & \vx_1/c & \cdots & \vx_4/c
     \end{pmatrix}
-    \  \text{and}
-    \ c = \frac{1}{4} \sum_i^4{\Norm{\vx_i}} \text{.}
-\end{gather}
+    \quad  \text{and} \quad
+    c = \frac{1}{4} \sum_i^4{\Norm{\vx_i}} \,\text{.}
+\end{gathered}
+\end{equation}
+%
+
 %
 We separate this error into normal and tangential components
 %

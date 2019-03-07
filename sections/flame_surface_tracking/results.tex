@@ -34,8 +34,7 @@ analytic test function, and show our results for the two simulation cases.
          $r_\shortparallel$. Each micro-patch is represented by an ellipse
          scaled and aligned according to its principal axes and orthogonal to
          its surface normal. The left half of each image shows the ground
-         truth. Note that $c$ is displayed on a logarithmic color scale.
-         \Todo[inline]{display error images?}}
+         truth. Note that $c$ is displayed on a logarithmic color scale.}
     \label{fig:ground_truth_comparison}
 \end{figure}
 %
@@ -50,8 +49,10 @@ analytic test function, and show our results for the two simulation cases.
     % \end{captionbeside}
     \caption{Box plot of error distributions for the analytical test function.
              We show the minimum, lower quartile, median, upper quartile and
-             maximum errors for different values of $r_\shortparallel$.
-             \Todo[inline]{Mention that this is corrected from the paper}}
+             maximum errors for different values of $r_\shortparallel$. See
+             \cref{fig:ground_truth_comparison} for a visual comparison of the
+             results. Please note that this plot was erroneous in the original
+             publication \cite{Oster2018a} and has been corrected here.}
     \label{fig:ground_truth_errors}
 \end{figure}
 %
@@ -65,10 +66,11 @@ The test function $s$ is defined as
 \begin{align}
 	s(x, y, z, t) &=
 	\begin{cases}
-		z \cos A - (x - \frac{1}{2}) \sin A,
-			& \text{for } \sqrt{{(x - \frac{1}{2})}^2 + z^2} < \dfrac{1}{2} \\
-		z, &\text{else}
-	\end{cases}\, \text{,}\\
+		z \cos A - (x - \frac{1}{2}) \sin A
+			& \text{for } \sqrt{{(x - \frac{1}{2})}^2 + z^2} < \dfrac{1}{2} \, \text{,} \\
+		z &\text{else}\, \text{,}
+	\end{cases}\\
+    \intertext{with}
 	A(x, y, z, t) &=
 		2\pi t \sin{
 			\left({
@@ -78,6 +80,8 @@ The test function $s$ is defined as
 		}^2
 		\sin(\pi y)^2\, \text{.}
 \end{align}
+%
+
 %
 The isosurface $s = 0$ coincides with the $xy$ plane at $t=0$.
 %
@@ -96,7 +100,7 @@ ${z\in[-\sfrac{1}{2}, \sfrac{1}{2}]}$, ${t\in[0, 2]}$ resolved in a $72 \times
 72 \times 72$ regular grid and a time step of $\Delta t = \num{5e-3}$.
 %
 This means that in the investigated time span the vortex makes exactly two full
-turns, resolved in \num{4000} time steps.
+turns, resolved in 4000 time steps.
 %
 This closely resembles the lifetime of a vortex and temporal resolution observed
 in a real simulation setting.
@@ -122,7 +126,9 @@ least mention this here and explain how it is calculated from the deformation
 gradient. Ideally, recreate plots using surface area change.}
 %
 This is similar to the measure used when computing the \ac{FTLE} for measuring
-separation in flow fields\cite{Haller2002}.
+separation in flow fields \cite{Haller2002}.
+%
+
 %
 In all tests, we use a normal error threshold of $r_\perp = 0.5$, which is
 rather coarse.
@@ -162,7 +168,6 @@ accuracy of our method is strongly dependent on $r_\shortparallel$.
 %
 For large values of $r_\shortparallel$, the resulting deformation does not only
 contain unreasonably large errors, but the surface also exhibits some holes.
-\Todo{Discuss exponential nature of error here to explain distribution}
 %
 Splitting too late means that there is potentially a lot of non-uniform
 stretching across the patch that is not accounted for by the resulting child
@@ -176,7 +181,7 @@ As the error threshold decreases, the holes close and the stretching value
 approaches the ground truth solution.
 %
 For the lowest error threshold value $r_\shortparallel = 0.01$, the number of
-patches at the end is still one order of magnitude smaller than the number of
+patches at the end is still an order of magnitude smaller than the number of
 grid cells the function is resolved in.
 %
 % subsection analytic_test_function (end)
@@ -186,7 +191,7 @@ grid cells the function is resolved in.
 \label{sub:premixed_flame_in_a_box}
 %
 We applied our algorithm to the combustion of a premixed hydrogen-air mixture in
-a periodic box resolved in a 512 $\times$ 512 $\times$ 512 regular grid.
+a periodic box resolved in a $512 \times 512 \times 512$ regular grid.
 %
 A high-temperature hot spot is placed in the middle of the domain, which is
 initialized with a flow field exhibiting isotropic turbulence.
@@ -206,10 +211,8 @@ the turbulence intensity on the ignition probability of the flame is studied.
 %
 
 %
-The simulation ran for about 90 h using 1024 parallel processors
-and performing about 21000 iterations.
-\Todo{Experiment with oldstyle vs lining figures and make a choice. Using both
-intermixed in body text looks weird.}
+The simulation ran for about \SI{90}{\hour} using 1024 parallel processors and
+performing about 21000 iterations.
 %
 We chose $r_\perp = 0.1$ and $r_\shortparallel = 0.02$ as well as
 $l_\perp = l_\shortparallel = \num{1e-4}$.
@@ -257,8 +260,8 @@ flame surface remains stably around \num{3.3} for the whole simulation.
 This shows that our strategy for splitting and merging micro-patches is
 successful in maintaining a consistent and stable coverage of the surface.
 %
-The number of splits performed per iteration fluctuates around
-\SI{0.015}{\percent} of the total number of micro-patches at all times.
+The number of splits performed per iteration fluctuates around 0.015\% of the
+total number of micro-patches at all times.
 %
 The number of merge events per iteration is almost zero up until the time
 between the second and third snapshot shown in
@@ -274,7 +277,7 @@ number of splits.
 \label{sub:temporal_diffusion_jet_flame}
 %
 The second simulation is a temporal diffusion syngas jet flame resolved in a
-1024 $\times$ 1025 $\times$ 512 regular grid.
+$1024 \times 1025 \times 512$ regular grid.
 %
 In a diffusion flame, the fuel and oxidizer are not premixed before ignition,
 such that combustion only takes place where the two gases mix.
@@ -323,6 +326,8 @@ After this, the surface starts deforming rapidly.
 As a result, the number of micro-patches increases rapidly up to about 3 million
 at the end of the simulation.
 %
+
+%
 The surface deformation is characterized by lots of small fuel pockets intruding
 into the opposing air flow.
 %
@@ -333,22 +338,23 @@ Both the significant expansion of surface area at the tip of these pockets as
 well as the sharp angles towards the fuel side are handled well by our
 algorithm.
 %
+
+%
 The ratio of the total area of all micro-patches to the true surface area
 remains constant here as well, but on a slightly lower level of 3.15.
 %
 The number of splits is almost zero until the surface starts to deform
 significantly around iteration 2000.
 %
-At this point, it starts to increase from 0.002\% to about
-0.003\% of the total number of micro-patches until the end of the
-simulation.
+At this point, it starts to increase from 0.002\% to about 0.003\% of the total
+number of micro-patches until the end of the simulation.
 %
 This number is much smaller than for the premixed case, because here, the
 surface area does not change so dramatically over time.
 %
 The number of merges is initially much smaller than the number of splits, but
-increases steadily throughout the simulation until it is at about
-75\% towards the end.
+increases steadily throughout the simulation until it is at about 75\% towards
+the end.
 %
 This is due to the contracting behavior near the sharp angles in between fuel
 pockets, which causes lots of small patches to accumulate in a small area.
@@ -358,63 +364,7 @@ pockets, which causes lots of small patches to accumulate in a small area.
 \subsection{Performance} % (fold)
 \label{sub:fst_performance}
 %
-\cref{fig:performance_spherical} shows the performance over the course of the
-simulation, as well as the number of micro-patches existing at each time step.
-%
-We conducted multiple experiments with different choices for the subdivision
-treshold $\varepsilon_\shortparallel$.
-%
-For the sake of brevity, we only discuss the results for the lowest choice of
-$\varepsilon_\shortparallel$, which causes the highest overhead in computing
-time and shows the most accurate results.
-%
-
-%
-At the start of the premixed flame case, our implementation causes an overhead
-in computing time of about \SI{300}{\milli\second} per iteration, or about
-\SI{3}{\percent} of the base computing time.
-%
-As the flame surface expands, the overhead gradually increases, until it is at
-about \SI{12.5}{\second} or \SI{130}{\percent} at the end of the simulation.
-%
-For the temporal diffusion jet, the overhead starts out at about
-\SI{1200}{\milli\second} per iteration, or about \SI{10}{\percent} of the base
-computing time.
-%
-It remains fairly constant for the first \num{1500} iterations, as the surface
-does not change much during that time.
-%
-The surface then starts to wrinkle significantly, resulting in a sharp rise of
-computing time, reaching up to \SI{42}{\second}, or about \SI{350}{\percent} of
-the base time.
-%
-The overhead in computing time is proportional to the number of surface patches.
-%
-This means that it is also strongly dependent on the shape, area and deformation
-of the flame surface, which will be different for each simulation case.
-%
-For the premixed flame case, our implementation generates an overhead of about
-\SI{30}{\hour} or \SI{50}{\percent} for the whole simulation.
-%
-The memory consumption behaves very similarly, as it is also directly dependent
-on the number of micro-patches.
-%
-At the start of the simulation, we consume about \SI{90}{\giga\byte} of
-additional memory, which is an overhead of about \SI{30}{\percent} for this
-simulation case.
-%
-This rises to about \SI{400}{\giga\byte} at the end of the simulation, which
-represents an overhead of about \SI{130}{\percent}.
-%
-The total overhead in computing time caused by the temporal jet case is
-\SI{8.4}{\hour} or about \SI{67}{\percent}.
-%
-The additional memory consumption here reaches from \SI{800}{\giga\byte} to
-\SI{1800}{\giga\byte}, or \SI{44}{\percent} to \SI{150}{\percent}.
-%
-
-%
-\begin{figure}
+\begin{figure}[p]
     \centering
     \setlength\figurewidth\linewidth
     \definecolor{tlowcolor}{HTML}{BD0026}
@@ -446,11 +396,66 @@ The additional memory consumption here reaches from \SI{800}{\giga\byte} to
                 \draw[thick, nhighcolor] (0, -0.5ex) -- (0.4cm, -0.5ex);
              \end{tikzpicture}
              ). The vertical lines mark the snapshots
+    \label{fig:performance_tracking}
              shown in \cref{fig:simulation_results}.
     }
-    \label{fig:performance_spherical}
     \tikzset{external/export=true}
 \end{figure}
+%
+\cref{fig:performance_tracking} shows the performance over the course of the
+simulation, as well as the number of micro-patches existing at each time step.
+%
+We conducted multiple experiments with different choices for the subdivision
+treshold $\varepsilon_\shortparallel$.
+%
+For the sake of brevity, we only discuss the results for the lowest choice of
+$\varepsilon_\shortparallel$, which causes the highest overhead in computing
+time and shows the most accurate results.
+%
+
+%
+At the start of the premixed flame case, our implementation causes an overhead
+in computing time of about \SI{300}{\milli\second} per iteration, or about 3\%
+of the base computing time.
+%
+As the flame surface expands, the overhead gradually increases, until it is at
+about \SI{12.5}{\second} or 130\% at the end of the simulation.
+%
+For the temporal diffusion jet, the overhead starts out at about
+\SI{1200}{\milli\second} per iteration, or about 10\% of the base
+computing time.
+%
+It remains fairly constant for the first \num{1500} iterations, as the surface
+does not change much during that time.
+%
+The surface then starts to wrinkle significantly, resulting in a sharp rise of
+computing time, reaching up to \SI{42}{\second}, or about 350\% of the base
+time.
+%
+The overhead in computing time is proportional to the number of surface patches.
+%
+This means that it is also strongly dependent on the shape, area and deformation
+of the flame surface, which will be different for each simulation case.
+%
+For the premixed flame case, our implementation generates an overhead of about
+\SI{30}{\hour} or 50\% for the whole simulation.
+%
+
+%
+The memory consumption behaves very similarly, as it is also directly dependent
+on the number of micro-patches.
+%
+At the start of the simulation, we consume about \SI{90}{\giga\byte} of
+additional memory, which is an overhead of about 30\% for this simulation case.
+%
+This rises to about \SI{400}{\giga\byte} at the end of the simulation, which
+represents an overhead of about 130\%.
+%
+The total overhead in computing time caused by the temporal jet case is
+\SI{8.4}{\hour} or about 67\%.
+%
+The additional memory consumption here reaches from \SI{800}{\giga\byte} to
+\SI{1800}{\giga\byte}, or 44\% to 150\%.
 %
 
 %
