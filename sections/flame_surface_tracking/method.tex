@@ -321,7 +321,7 @@ occurs:
 \begin{itemize}
     \item The error $e_\perp$ exceeds a threshold $r_\perp$
     \item The error $e_\shortparallel$ exceeds a threshold $r_\shortparallel$
-    \item The major axis exceeds a threshold $r_\text{size}$
+    \item The major axis exceeds a threshold $r_\textnormal{size}$
 \end{itemize}
 %
 The first two are to ensure a sufficient sampling, the third is to ensure a
@@ -451,8 +451,10 @@ We consider a micro-patch for merging when
 \begin{itemize}
     \item both errors $e_\perp$ and $e_\shortparallel$ decrease below
           lower thresholds $l_\perp$ and $l_\shortparallel$, respectively,
-    \item or the minor axis decreases below a threshold $l_\text{size}$
+    \item or the minor axis decreases below a threshold $l_\textnormal{size}$
 \end{itemize}
+%
+
 %
 Because the micro-patches are completely independent, we cannot explicitly
 merge multiple patches.
@@ -474,8 +476,8 @@ which were deleted.
 %
 This assumption does not generally hold for all parts of the surface.
 %
-We therefore typically choose $l_\perp$, $l_\shortparallel$, and $l_\text{size}$
-to be very small.
+We therefore typically choose $l_\perp$, $l_\shortparallel$, and
+$l_\textnormal{size}$ to be very small.
 %
 In this case, points will only be deleted in areas of extreme tangential
 compression, where removing very small patches will only result in small errors,

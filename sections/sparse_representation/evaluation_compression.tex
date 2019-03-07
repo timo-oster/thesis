@@ -114,7 +114,7 @@ considered.
 %
 %(Figure~\ref{fig:models}), because values outside of this interval were not considered when fitting the models.
 %
-We used normalized \ac{RMS} errors $E^V_{\text{fit}}$ in order to make the
+We used normalized \ac{RMS} errors $E^V_{\textnormal{fit}}$ in order to make the
 variables $V$ comparable:
 %
 %To make the values comparable, the resulting average
@@ -122,7 +122,7 @@ variables $V$ comparable:
 %The fitting error for a variable $V$ is then:
 %
 \begin{equation}
-    E^V_{\text{fit}}
+    E^V_{\textnormal{fit}}
         =   \frac{1}{n \cdot (\max(V)-\min(V))}
             \Sum{
                 \sqrt{
@@ -197,7 +197,7 @@ needed by the sparse representation.
 We used a normalized error metric to compute the reconstruction quality:
 %
 \begin{equation}
-    E^V_\text{reconst}
+    E^V_\textnormal{reconst}
         =   \frac{1}{|H|\cdot \left( \max(V)-\min(V) \right)}
             \Int{\left| R(\vx) - V(\vx) \right|}{\vx,{\vx \in H}}
              \text{ ,}
@@ -319,7 +319,7 @@ QccPack library~\cite{Fowler2000} on our data.
 
 %
 \Cref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction error
-$E_\text{reconst}^V$ for all tested methods for selected variables.
+$E_\textnormal{reconst}^V$ for all tested methods for selected variables.
 %
 Please note that for \textsc{Syngas II}, higher reduction ratios are achieved
 than for \textsc{Syngas I}, due to the flame in the former being relatively

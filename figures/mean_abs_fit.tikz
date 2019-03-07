@@ -16,7 +16,7 @@
     % axis x line* = bottom,
     xmin=0.5,
     xmax=13.5,
-    ylabel={$E^V_{\text{fit}}$},
+    ylabel={$E^V_{\textnormal{fit}}$},
     % every axis y label/.style={at={(current axis.above origin)},anchor=south east},
     scaled y ticks = false,
     yticklabel style = {/pgf/number format/precision=3, /pgf/number format/fixed},

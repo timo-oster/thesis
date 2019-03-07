@@ -310,7 +310,7 @@
            id="tspan3376"
            sodipodi:role="line"
            x="5.4726562"
-           y="406.03583">$E^H_\text{reconst}$</tspan></text>
+           y="406.03583">$E^H_\textnormal{reconst}$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3378"
@@ -321,7 +321,7 @@
            y="406.03583"
            x="149.47266"
            sodipodi:role="line"
-           id="tspan3382">$E^H_\text{reconst}$</tspan></text>
+           id="tspan3382">$E^H_\textnormal{reconst}$</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:6px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:'Times New Roman,'"
@@ -332,7 +332,7 @@
            id="tspan3388"
            sodipodi:role="line"
            x="293.47266"
-           y="406.03583">$E^H_\text{reconst}$</tspan></text>
+           y="406.03583">$E^H_\textnormal{reconst}$</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text3428"

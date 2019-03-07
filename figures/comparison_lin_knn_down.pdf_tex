@@ -53,9 +53,9 @@
     \put(0.01329172,1.02180008){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{\small{linear interpolation}}}}%
     \put(0.34945686,1.02180008){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{\small{kANN interpolation}}}}%
     \put(0.68454072,1.02180008){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{\small{downsampling}}}}%
-    \put(0.01275678,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\text{reconst}$}}}%
-    \put(0.34842111,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\text{reconst}$}}}%
-    \put(0.68408545,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\text{reconst}$}}}%
+    \put(0.01275678,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\textnormal{reconst}$}}}%
+    \put(0.34842111,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\textnormal{reconst}$}}}%
+    \put(0.68408545,0.70968251){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$E^H_\textnormal{reconst}$}}}%
     \put(0.01316652,1.33227568){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{Original}}}%
     \put(0.01201076,0.35191534){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{Original}}}%
     \put(0.34761095,0.35191534){\color[rgb]{1,1,1}\makebox(0,0)[lb]{\smash{$q=1$, $c=7.6$}}}%
