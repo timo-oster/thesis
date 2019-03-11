@@ -28,6 +28,7 @@ analytic test function, and show our results for the two simulation cases.
     \centering
     \setlength{\figurewidth}{\textwidth}
     \input{figures/results_ground_truth_tikz}
+    \vspace*{-7mm}
     \caption{The number of patches $N$ and the stretch coefficient $c$ of the
          tangential deformation gradient $\hat\mF_{\,0}^{\,2}$ for the analytic
          test function, using $r_\perp = 0.5$ and varying values for
@@ -46,6 +47,7 @@ analytic test function, and show our results for the two simulation cases.
          % maximum errors for different values of $r_\shortparallel$.}
         \setlength\figurewidth{0.9\linewidth}
         \input{figures/ground_truth_errors_log_tikz}
+        \vspace*{-1mm}
     % \end{captionbeside}
     \caption{Box plot of error distributions for the analytical test function.
              We show the minimum, lower quartile, median, upper quartile and
@@ -150,7 +152,7 @@ $t=[0,\,2]$, which will naturally show the largest errors.
     \setlength{\figurewidth}{\textwidth}
     \input{figures/results_simulations_spherical_tikz}
     % \input{figures/results_simulations_hawkes_tikz}
-    \caption{
+    \caption{%
     Results of our algorithm for the premixed flame case. We show the stretch
     coefficient $c$ and density factor $d$ on logarithmic scales. We computed
     $c$ for an interval of $\Delta t = \SI{1.7e-4}{\second}$ and
@@ -406,6 +408,7 @@ pockets, which causes lots of small patches to accumulate in a small area.
     \definecolor{nmidcolor}{HTML}{2C7FB8}
     \definecolor{nhighcolor}{HTML}{41B6C4}
     \input{figures/performance_tikz}
+    \vspace*{-5mm}
     \tikzset{external/export=false}
     \caption[Computing times per iteration for different subdivision thresholds
              $\varepsilon_\shortparallel$.]
