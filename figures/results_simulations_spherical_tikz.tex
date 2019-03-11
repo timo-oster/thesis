@@ -3,7 +3,7 @@
 \begin{tikzpicture}[font=\small]
     \tikzstyle{image} = [anchor=center,
                          inner sep=0, outer sep=0,
-                         node distance = 0.7cm and 0,
+                         node distance = 0.3cm and 0,
                          % draw=black,
                          minimum width=0.5\figurewidth]
     \tikzstyle{label} = [anchor=north,
@@ -23,7 +23,7 @@
             \draw[thick, dashed, shorten <=2.1cm, shorten >=2.45cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
-    \node[label, yshift=0.8cm] at (image1.south) {$\begin{aligned}t &= \SI{1e-4}{\second} \\ N&=\num{50}\si{\kilo}\end{aligned}$};
+    \node[label, yshift=1.3cm] at (image1.south) {$\begin{aligned}t &= \SI{1e-4}{\second} \\ N&=\num{50}\si{\kilo}\end{aligned}$};
 
     \node[image, right=of image1] (image2)
     {
@@ -37,7 +37,7 @@
             \draw[thick, dashed, shorten <=1.7cm, shorten >=2.2cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
-    \node[label, yshift=0.8cm] at (image2.south) {$\begin{aligned}t &= \SI{1.7e-4}{\second} \\ N&=\num{140}\si{\kilo}\end{aligned}$};
+    \node[label, yshift=1.3cm] at (image2.south) {$\begin{aligned}t &= \SI{1.7e-4}{\second} \\ N&=\num{140}\si{\kilo}\end{aligned}$};
 
     \node[image, below=of image1] (image3)
     {
@@ -51,7 +51,7 @@
             \draw[thick, dashed, shorten <=1.4cm, shorten >=1.9cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
-    \node[label] at (image3.south) {$\begin{aligned}t &= \SI{2.4e-4}{\second} \\ N&=\num{400}\si{\kilo}\end{aligned}$};
+    \node[label, yshift=0.5cm] at (image3.south) {$\begin{aligned}t &= \SI{2.4e-4}{\second} \\ N&=\num{400}\si{\kilo}\end{aligned}$};
 
     \node[image, right=of image3] (image4)
     {
@@ -65,7 +65,7 @@
             \draw[thick, dashed, shorten <=1.05cm, shorten >=1.6cm] (-2.0, -3.5) -- (2.0, 3.5);
         \end{tikzpicture}
     };
-    \node[label] at (image4.south) {$\begin{aligned}t &= \SI{3.1e-4}{\second} \\ N&=\num{870}\si{\kilo}\end{aligned}$};
+    \node[label, yshift=0.5cm] at (image4.south) {$\begin{aligned}t &= \SI{3.1e-4}{\second} \\ N&=\num{870}\si{\kilo}\end{aligned}$};
 
     % \node (bbnw) at ($(image1.north west) + (-1.25, 0.4)$) {};
     % \node (bbse) at ($(image4.south east) + (1.35, -0.45)$) {};
