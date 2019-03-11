@@ -117,20 +117,18 @@ Note that $\mB \in \RRSet^{3\times2}$; and thus $\hat\mF \in \RRSet^{2\times2}$.
 See \cref{fig:tangential_deformation} for a visual interpretation of this
 transformation.
 %
-$\hat\mF$ now encodes the behavior of a point $\hat\vx$ in an infinitesimally
-small neighborhood around $\hat\vNull$ in tangent space:
+$\hat\mF$ now encodes the linear behavior of a point $\hat\vx$ in an
+infinitesimally small neighborhood around $\hat\vNull$ in tangent space:
 %
 \begin{equation*}
     \hat\mF \cdot \hat\vx = \T\mB \, \bchi(\mB \, \hat\vx, t)\quad
     \text{for $\hat\vx \rightarrow \hat\vNull$\,.}
 \end{equation*}
 %
-\Todo[inline]{closing sentence. Don't end with equation.}
-%
 \begin{figure}[t]
     \centering
     \setlength{\figurewidth}{0.8\textwidth}
-    \input{figures/tangential_deformation_tikz.tex}
+    \input{figures/tangential_deformation_tikz}
     \caption{Extracting the tangential component of the deformation
     gradient. A local neighborhood is transformed by the deformation gradient
     $\mF$. In the process, the local coordinate system is rotated by
