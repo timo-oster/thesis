@@ -100,7 +100,7 @@ ${z\in[-\sfrac{1}{2}, \sfrac{1}{2}]}$, ${t\in[0, 2]}$ resolved in a $72 \times
 72 \times 72$ regular grid and a time step of $\Delta t = \num{5e-3}$.
 %
 This means that in the investigated time span the vortex makes exactly two full
-turns, resolved in 4000 time steps.
+turns, resolved in \num{4000} time steps.
 %
 This closely resembles the lifetime of a vortex and temporal resolution observed
 in a real simulation setting.
@@ -240,8 +240,8 @@ the turbulence intensity on the ignition probability of the flame is studied.
 %
 
 %
-The simulation ran for about \SI{90}{\hour} using 1024 parallel processors and
-performing about 21000 iterations.
+The simulation ran for about \SI{90}{\hour} using \num{1024} parallel processors
+and performing about \num{21000} iterations.
 %
 We chose $r_\perp = 0.1$ and $r_\shortparallel = 0.02$ as well as
 $l_\perp = l_\shortparallel = \num{1e-4}$.
@@ -257,15 +257,15 @@ cell.
 four snapshots of the simulation.
 %
 The simulation starts with a spherical configuration represented by about
-9000 micro-patches.
+\num{9000} micro-patches.
 %
 In the first shown time step, the surface has started to expand and wrinkle from
 its initial configuration.
 %
-At this point, the surface is represented by about 50000 micro-patches.
+At this point, the surface is represented by about \num{50000} micro-patches.
 %
 Up until the last time step at $t=\SI{3.0e-4}{\second}$, the number of patches
-increases to about 870000.
+increases to about \num{870000}.
 %
 Despite the change in surface area and complexity, we are able to accurately
 track the surface without any neighbor information between micro-patches.
@@ -295,7 +295,7 @@ total number of micro-patches at all times.
 The number of merge events per iteration is almost zero up until the time
 between the second and third snapshot shown in
 \cref{fig:simulation_results_spherical}\Todo{Check if autoref works everywhere},
-at iteration 15000, where it starts to increase, stabilizing at around half the
+at iteration \num{15000}, where it starts to increase, stabilizing at around half the
 number of splits.
 %
 
@@ -323,9 +323,9 @@ results in perfect consumption of the fuel with no excess of the oxidizer.
 %
 
 %
-The simulation ran for about 23 h using 4096 parallel processors.
+The simulation ran for about \SI{23}{\hour} using \num{4096} parallel processors.
 %
-In this time, the simulation performed about 3600 iterations.
+In this time, the simulation performed about \num{3600} iterations.
 %
 For this case, we chose $r_\perp = 0.2$ and $r_\shortparallel = 0.04$ as well as
 $l_\perp = l_\shortparallel = \num{1e-4}$.
@@ -345,9 +345,9 @@ We show our results for three different snapshots in
 The case starts with a planar surface on both sides of the fuel jet, which is
 moving from left to right in the images.
 %
-It is initially seeded with about 50000 micro-patches.
+It is initially seeded with about \num{50000} micro-patches.
 %
-This number stays almost constant for the first 2000 iterations, as the surface
+This number stays almost constant for the first \num{2000} iterations, as the surface
 wrinkles only a very small amount.
 %
 After this, the surface starts deforming rapidly.
@@ -373,7 +373,7 @@ The ratio of the total area of all micro-patches to the true surface area
 remains constant here as well, but on a slightly lower level of 3.15.
 %
 The number of splits is almost zero until the surface starts to deform
-significantly around iteration 2000.
+significantly around iteration \num{2000}.
 %
 At this point, it starts to increase from 0.002\% to about 0.003\% of the total
 number of micro-patches until the end of the simulation.
