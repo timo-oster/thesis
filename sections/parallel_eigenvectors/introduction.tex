@@ -71,36 +71,47 @@ In this chapter, we establish this operator by...
     % different loads produce principal stresses aligned in the same direction.
     %
 \end{itemize}
-%}
 %
-\subsection*{Relation to the \ac{PV} operator}
-\Todo{don't use starred sectioning}
+At first glance, the \ac{PEV} operator seems to be a straightforward extension
+of the classical \ac{PV} operator:
 %
-At first glance, the \ac{PEV} operator seems to be a straightforward extension of the
-classical \ac{PV} operator:
+given a tensor field, we consider all eigenvector fields as vector fields and
+apply the \ac{PV} operator to them.
 %
-given two tensor fields $\mS, \mT$, consider the eigenvector fields as
-vector fields and apply the \ac{PV} operator to them.
-%
-However, as Oster \etal \cite{Oster2018} pointed out, using such a naive
-approach would suffer from several problems:
+Such a naive approach cannot give well-defined and stable results for the
+following reasons:
 %
 \begin{itemize}
-    \item
+    \item Undefined length and orientation of eigenvectors:\\
     %
-    Interpreting the eigenvectors of a tensor field as a vector field would
-    require a heuristic choice of the orientation and magnitude of the vectors.
+    Eigenvectors of a matrix are not unique but span linear subspaces.
     %
-    This choice can not generally be made in a globally consistent manner.
+    To express the field of eigenvectors as a vector field, heuristic
+    choices about the length and orientation of the vectors are necessary.
     %
-    \item
-    In regions with three real eigenvectors, it is not clear which one to
-    choose for a representative vector field.
+    Applying such choices globally can not always give results that are free of
+    discontinuities
     %
-    \item
-    Small changes in a tensor may result in a dramatic change in eigenvector
-    direction, or even the sudden appearance or disappearance of real
-    eigenvectors.
+    \item Existence of multiple eigenvectors:\\
+    %
+    Regions with three real eigenvectors require a decision on which of them to
+    use for the \ac{PV} operator -- a decision that is particularly non-unique
+    in near-isotropic regions
+    %
+    (\ie, where the difference between two real eigenvalues is small).
+    %
+    \item Discontinuities in eigenvectors:\\
+    %
+    A small change of a tensor does not necessarily result in a small change of
+    the eigenvectors.
+    %
+    In fact, in near-isotropic regions, a small change of the tensor may result
+    in a very large change of the eigenvector.
+    %
+    Moreover, in regions of transition between real and imaginary eigenvalues
+    (\ie, in neighborhoods containing both tensors with all real eigenvalues and
+    tensors with complex eigenvalues), a small change of the tensor can result
+    in a sudden appearance or disappearance of real eigenvectors.
     %
 \end{itemize}
 %
