@@ -52,11 +52,11 @@
 	ymax=15.4,
 	% xlabel=$M$,
 	ylabel={run time [\si{\second}]},
-	symbolic x coords = {$10$, $10^2$, $10^3$, $10^4$},
+	symbolic x coords = {$10^1$, $10^2$, $10^3$, $10^4$},
 	hide y axis
 ]
 \addplot[mycolor1, fill=mycolor1]
-	coordinates {($10$,5) ($10^2$,6) ($10^3$,8.4) ($10^4$,15.4)};
+	coordinates {($10^1$,5) ($10^2$,6) ($10^3$,8.4) ($10^4$,15.4)};
 \label{plt:runtime}
 \end{axis}
 %
@@ -122,14 +122,14 @@
 	ylabel = {\# lines},
 	restrict y to domain*={0:1300},
 	xlabel=$M$,
-	symbolic x coords = {$10$, $10^{2}$, $10^{3}$, $10^{4}$},
+	symbolic x coords = {$10^{1}$, $10^{2}$, $10^{3}$, $10^{4}$},
 	hide y axis
 ]
 \addplot[yellowdraw,fill=yellowdraw]
-	coordinates {($10$,0) ($10^{2}$,186) ($10^{3}$,440) ($10^{4}$,693)};
+	coordinates {($10^{1}$,0) ($10^{2}$,186) ($10^{3}$,440) ($10^{4}$,693)};
 \label{plt:total_lines}
 \addplot[mycolor4, fill=mycolor4]
-	coordinates {($10$,0) ($10^{2}$,159) ($10^{3}$,153) ($10^{4}$,153)};
+	coordinates {($10^{1}$,0) ($10^{2}$,159) ($10^{3}$,153) ($10^{4}$,153)};
 \label{plt:filtered_lines}
 \end{axis}
 %

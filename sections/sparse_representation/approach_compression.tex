@@ -101,7 +101,8 @@ those lines, and how these profiles are then approximated by simple models.
 \end{figure}
 %
 Commonly, the flame surface in premixed combustion is defined as the
-0.5-isosurface of a \emph{combustion progress variable}~\cite{Poinsot2012}.
+\num{0.5}-isosurface of a \emph{combustion progress
+variable}~\cite{Poinsot2012}.
 %
 This variable is defined as $({T-T_u})/({T_b-T_u})$, where $T_u$ and $T_b$ are
 the temperature of the burnt and unburnt gases, and varies between 0 and 1.
@@ -109,8 +110,8 @@ the temperature of the burnt and unburnt gases, and varies between 0 and 1.
 The choice of the iso-value is very robust for premixed combustion in the
 flamelet regime.
 %
-Our experiments show that variations of $\pm 0.1$ lead to isosurfaces with
-Hausdorff distances less than 2\% of the domain size.
+Our experiments show that variations of $\pm \num{0.1}$ lead to isosurfaces with
+Hausdorff distances less than \SI{2}{\percent} of the domain size.
 %
 
 %
@@ -146,7 +147,7 @@ function:
 %
 Here, $q > 1$ steers the seeding density.
 %
-For each initial vertex, a uniformly distributed random number $r \in (0, 1)$ is
+For each initial vertex, a uniformly distributed random number $r \in [0, 1]$ is
 now generated, and the point is selected if $\rho < r$.
 %
 This results in few seed points in areas without curvature, and all vertices
@@ -271,6 +272,7 @@ isolated from the others.
 \label{ssub:model_for_reactants_products}
 %
 Sigmoid shapes are commonly expressed with the logistic function $1/(1+e^{-t})$,
+\Todo{avoid line break in math here}
 which we extend with parameters $\gamma$, adjusting the slope at the inflection
 and $a$, determining the limits of the function at positive/negative infinity:
 %
@@ -378,8 +380,8 @@ To eliminate small fluctuations, we filter the profiles with a Gaussian kernel
 The kernel size depends on the size of the fluctuations but can be chosen quite
 small.
 %
-For the test data (see \cref{sec:reconstruction}) we used a size of $6$ voxels,
-which translates to $\sigma = 1$.
+For the test data (see \cref{sec:reconstruction}) we used a size of \num{6}
+voxels, which translates to $\sigma = 1$.
 %
 
 %

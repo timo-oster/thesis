@@ -123,9 +123,9 @@ Using the tensor core line extractor, they can be identified at a glance.
     \setlength\figurewidth\textwidth
     \input{figures/truck_bumper_results_tikz}
     \caption{Tensor core lines in a truck bumper with a load applied to one end.
-             The deformation shown on the top left is scaled by a factor of 500
-             for illustrative purposes. The right shows detail views of two
-             interesting lines.}
+             The deformation shown on the top left is scaled by a factor of
+             \num{500} for illustrative purposes. The right shows detail views
+             of two interesting lines.}
     \label{fig:truck_bumper}
 \end{figure}
 %
@@ -153,9 +153,9 @@ radial behavior.
     \input{figures/crane_results_tikz}
     \caption{Tensor core lines in a crane arm with a load applied to the end.
              The resulting deformation on the left is scaled by a factor of
-             1500. Significant tensor core lines are only found in the lower
-             diagonal rods. The detail image on the right shows the tensors are
-             indeed aligned around a common core.}
+             \num{1500}. Significant tensor core lines are only found in the
+             lower diagonal rods. The detail image on the right shows the
+             tensors are indeed aligned around a common core.}
     \label{fig:crane}
 \end{figure}
 %
@@ -207,8 +207,8 @@ The performance of our algorithm is dependent on the dataset.
 If we find a large number of tensor core lines in the dataset, computation
 will be slower as fewer cells can be discarded early.
 %
-We tested our algorithm using a consumer PC with a 4-core Intel Core i7 CPU at
-\SI{3.4}{\giga\hertz}.
+We tested our algorithm using a consumer PC with a 4-core Intel Core i7 \ac{CPU}
+at \SI{3.4}{\giga\hertz}.
 %
 Our implementation is parallelized over the faces of the dataset using
 OpenMP~\cite{OMP2013}.
@@ -267,26 +267,25 @@ which belong to different eigenvectors are clustered together.
 %
 Stability tests on our other datasets all produced very similar results.
 %
-We recommend choosing $M = 10^2$, $\varepsilon_{\mathrm{t}} = \num{1e-3}$ and
-$\varepsilon_{\mathrm{c}} =
-\num{1e-2}$ if performance is important.
+We recommend choosing $M = \num{e2}$, $\varepsilon_{\mathrm{t}} = \num{e-3}$ and
+$\varepsilon_{\mathrm{c}} = \num{e-2}$ if performance is important.
 %
 If accuracy is important, we found that choosing stricter tolerances than $M =
-10^3$, $\varepsilon_{\mathrm{t}} = \num{1e-6}$ and $\varepsilon_{\mathrm{c}} =
-\num{1e-3}$ does not produce noticeably better results.
+\num{e3}$, $\varepsilon_{\mathrm{t}} = \num{e-6}$ and $\varepsilon_{\mathrm{c}}
+= \num{e-3}$ does not produce noticeably better results.
 %
 \begin{table}
     \centering
     \caption{Performance of the algorithm for the datasets presented in this paper.}
-    \begin{tabular}{lrrr}
+    \begin{tabular}{lSSS}
         \toprule
-        Dataset & \# of cells & time [s] & avg. time/face [ms] \\% & avg. time/face (single core) [ms] \\
+        Dataset & {\# of cells/\num{e3}} & {time/\si{\second}} & {avg. time per face/\si{\milli\second}} \\% & avg. time/face (single core) [ms] \\
         \midrule
-        Cylinder & 65 k & 8.4 & 0.034 \\% & 0.14 \\
-        Handle & 235 k & 36 & 0.038 \\% & 0.16 \\
-        Bumper & 97 k & 32 & 0.081 \\% & 0.36 \\
-        Crane & 108 k & 63 & 0.146 \\% & 0.59 \\
-        Spring & 181 k & 82 & 0.114 \\
+        Cylinder & 65 & 8 & 0.034 \\% & 0.14 \\
+        Handle & 235 & 36 & 0.038 \\% & 0.16 \\
+        Bumper & 97 & 32 & 0.081 \\% & 0.36 \\
+        Crane & 108 & 63 & 0.146 \\% & 0.59 \\
+        Spring & 181 & 82 & 0.114 \\
         \bottomrule
     \end{tabular}\label{tab:performance}
 \end{table}

@@ -25,10 +25,10 @@ applied to a flange.
 %
 We used the same parameters for all datasets:
 %
-$\epsilon_s = \num{1.d-3}$, $\epsilon_c = 5 \times \epsilon_s$, $\epsilon_d =
-\num{1.d-9}$, $\epsilon_p = \num{1.d-3}$.
+$\epsilon_s = \num{1.e-3}$, $\epsilon_c = 5 \times \epsilon_s$, $\epsilon_d =
+\num{1.e-9}$, $\epsilon_p = \num{1.e-3}$.
 %
-Our results were computed on a 4-core Intel Core i7 CPU at
+Our results were computed on a 4-core Intel Core i7 \ac{CPU} at
 \SI{3.4}{\giga\hertz}.
 %
 \subsection{Point Loads} % (fold)
@@ -52,11 +52,12 @@ the second load (blue arrow) is a tensile force of equal magnitude.
 We compute the \ac{PEV} operator for the two resulting stress tensor fields.
 %
 The Point Load case has a closed analytic solution~\cite{Saada2013}, which we
-sampled on a regular grid with $100 \times 50 \times 50$ points using the
-\texttt{vtkPointLoad} source from the Visualization Toolkit~\cite{Schroeder2006}.
+sampled on a regular grid with $\num{100} \times \num{50} \times \num{50}$
+points using the \texttt{vtkPointLoad} source from the Visualization
+Toolkit~\cite{Schroeder2006}.
 %
-We then tetrahedralized the data, resulting in 1.1 million cells and 4.8 million
-faces.
+We then tetrahedralized the data, resulting in \num{1.1} million cells and
+\num{4.8} million faces.
 %
 The computing time for this dataset was \SI{4.2}{\hour}, which means that \ac{PEV}
 intersections on each face were found in \SI{3.2}{\milli\second} on average.
@@ -113,7 +114,8 @@ Next, we extracted \ac{PEV} lines for a beam that is fixed on one side.
 We applied two different traction forces on the free end of the beam, whose
 directions are shown in~\cref{fig:beam_full}.
 %
-The Clamped Beam dataset consists of 150k cells and 600k faces.
+The Clamped Beam dataset consists of \num{150}\si{\kilo} cells and
+\num{600}\si{\kilo} faces.
 %
 The computing time was \SI{26}{\minute}, which means \SI{2.6}{\milli\second}
 per face on average.
@@ -136,8 +138,8 @@ The first is near the middle of the beam, where a curved structure has high
 eigenvalues in both tensor fields (visible in red and blue
 in~\cref{fig:beam_full}).
 %
-This is where the beam experiences a lot of stress, and therefore the
-tensor fields have a high magnitude.
+This is where the beam experiences a lot of stress, and therefore the tensor
+fields have a high magnitude.
 %
 The second is near the fixed end.
 %
@@ -322,7 +324,7 @@ We subjected the flange to two different loads, applied on the back wall and the
 outlet tube (see red and blue arrows in \cref{fig:flange_filtered}).
 %
 The original mesh uses polygonal cells, which is why we resampled the data,
-resulting in 1.2 million cells and 5 million faces.
+resulting in \num{1.2} million cells and \num{5} million faces.
 %
 The computing time was \SI{36}{\minute}, \ie, \SI{0.5}{\milli\second} per face.
 %
@@ -331,19 +333,20 @@ The computing time was \SI{36}{\minute}, \ie, \SI{0.5}{\milli\second} per face.
 The dataset exhibits a lot of \ac{PEV} lines, which can be seen
 in~\cref{fig:flange_filtered} on the left.
 %
-Most of the \ac{PEV} lines correspond to eigenvectors with small eigenvalues in both
-tensor fields.
+Most of the \ac{PEV} lines correspond to eigenvectors with small eigenvalues in
+both tensor fields.
 %
-We therefore filtered out all \ac{PEV} lines where both eigenvalues are very small
-in the center and right images in~\cref{fig:flange_filtered}.
+We therefore filtered out all \ac{PEV} lines where both eigenvalues are very
+small in the center and right images in~\cref{fig:flange_filtered}.
 %
 Especially prominent are two bifurcation points with high eigenvalues between
 the two outer screw holes and the central tube.
 %
-There are also \ac{PEV} lines leading outwards both above and below the screw holes.
+There are also \ac{PEV} lines leading outwards both above and below the screw
+holes.
 %
-In general, the most similar directions of significant stress are near the
-screw holes and in the area where the large outlet tube meets the central block.
+In general, the most similar directions of significant stress are near the screw
+holes and in the area where the large outlet tube meets the central block.
 %
 % subsubsection flange (end)
 %

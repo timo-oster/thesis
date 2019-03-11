@@ -254,17 +254,17 @@ We can now express $\hat{w}_i$ in Bernstein-Bézier basis:
         \, \text{.}
 \end{equation}
 %
-Here, $\alpha_{jkl}$ are the 10 coefficients needed to express a trivariate
-polynomial of degree 3.
+Here, $\alpha_{jkl}$ are the \num{10} coefficients needed to express a trivariate
+polynomial of degree \num{3}.
 %
-We use the property that a polynomial in Bernstein-Bézier form is bounded in its
-domain by the convex hull of its coefficients \cite{Farin1997}.
+We use the property that a polynomial in Bernstein-B\'ezier form is bounded in
+its domain by the convex hull of its coefficients \cite{Farin1997}.
 %
 This means that $\hat{w}_i$ is positive over the whole triangle if all
-$\alpha_{jkl} > 0$, and negative over the whole triangle if all $\alpha_{jkl} <
-0$.
+$\alpha_{jkl} > \num{0}$, and negative over the whole triangle if all $\alpha_{jkl} <
+\num{0}$.
 %
-If the $\alpha_{jkl}$ have different signs, $\hat{w}_i$ might become 0 somewhere
+If the $\alpha_{jkl}$ have different signs, $\hat{w}_i$ might become \num{0} somewhere
 inside the triangle.
 %
 
@@ -272,7 +272,7 @@ inside the triangle.
 We use this when recursively subdividing the triangle $\vr_\triangle$.
 %
 If any $\hat{w}_i$ might have roots within the triangle according to the
-Bernstein-Bézier coefficients, then we can not make a decision.
+Bernstein-B\'ezier coefficients, then we can not make a decision.
 %
 We need to subdivide the triangle and check the different parts again.
 %
@@ -486,8 +486,8 @@ $\mS(\vw)$ and $\mT(\vw)$.
 In order to address \cref{i:false_positives}, we discard all candidate points
 for which $e_p$ is greater than some parallelism threshold $\epsilon_p$.
 %
-This threshold can be chosen quite coarse (\eg~0.01), as $e_p$ is typically
-quite large for false positive candidate points.
+This threshold can be chosen quite coarse (\eg~\num{0.01}), as $e_p$ is
+typically quite large for false positive candidate points.
 %
 
 
@@ -496,8 +496,8 @@ In certain cases, the \ac{PEV} line might not intersect the triangle at a single
 point.
 %
 This happens in the structurally unstable cases where eigenvectors are parallel
-on a structure with a dimension larger than 1, or where the \ac{PEV} line is
-completely in the plane of the triangle.
+on a structure with a dimension larger than \num{1}, or where the \ac{PEV} line
+is completely in the plane of the triangle.
 %
 In these cases, a recursive subdivision will not converge on isolated points and
 slow down the algorithm considerably.
@@ -512,9 +512,9 @@ have a number of final \ac{PEV} points for each face of the mesh.
 %
 These \ac{PEV} points are now connected to lines on a cell-by-cell basis.
 %
-This problem is also faced when computing the \ac{PV} operator, where it has been
-solved in a variety of ways using different heuristics, which can be employed
-here as well.
+This problem is also faced when computing the \ac{PV} operator, where it has
+been solved in a variety of ways using different heuristics, which can be
+employed here as well.
 %
 In our implementation, we simply connect two points if they are the only
 two intersections of a \ac{PEV} line with a grid cell.

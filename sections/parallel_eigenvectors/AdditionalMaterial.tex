@@ -17,8 +17,8 @@ $\mM_x, \vv_y,...$ & Partial derivatives of a Matrix/vector in $x, y, \dots$ \\
 
 \pevstablelines*
 %
-The main idea to prove \cref{thm:pev_stable_lines} is to search for \ac{PEV} lines
-not in \ac{3D} $(x,y,z)$ space but in a \ac{6D} $(x,y,z,u,v,w)$ space:
+The main idea to prove \cref{thm:pev_stable_lines} is to search for \ac{PEV}
+lines not in \ac{3D} $(x,y,z)$ space but in a \ac{6D} $(x,y,z,u,v,w)$ space:
 %
 at every point $\vx=\T{(x,y,z)}$, all vector directions $\vr=\T{(u,v,w)}$ are
 checked for being an eigenvector of $\mS$ and $\mT$.
@@ -51,25 +51,26 @@ In other words: we have to explore the null space of $\nabla \overline{\vh}$.
 %
 Applying elementary differentiation rules gives
 %
-\begin{equation}
-    \label{eq:theory_2}
+\begin{equation} \label{eq:theory_2}
     \nabla \overline{\vh} =
         \begin{pmatrix}
             \mG_1 &   \mG_3 \\
             \mG_2 &   \mG_4
         \end{pmatrix}
+        \,\text{,}
 \end{equation}
 %
 with
 %
-\begin{align}
-    \label{eq:theory_3}
+\begin{equation} \label{eq:theory_3}
+\begin{aligned}
     \mG_1 & =
         \begin{pmatrix}
             \mS_x \, \vr \times \vr &
             \mS_y \, \vr \times \vr &
             \mS_z \, \vr \times \vr
         \end{pmatrix}
+        \,\text{,}
     \\
     \mG_2 & =
         \begin{pmatrix}
@@ -77,6 +78,7 @@ with
             \mT_y \, \vr \times \vr  &
             \mT_z \, \vr \times \vr
         \end{pmatrix}
+        \,\text{,}
     \\
     \mG_3 & =
         \begin{pmatrix}
@@ -84,6 +86,7 @@ with
         \mS \, \vj_2 \times \vr +  \mS \, \vr \times \vj_2 &
         \mS \, \vj_3 \times \vr +  \mS \, \vr \times \vj_3
         \end{pmatrix}
+        \,\text{,}
     \\
     \mG_4 & =
         \begin{pmatrix}
@@ -92,31 +95,28 @@ with
         \mT \, \vj_3 \times \vr +  \mT \, \vr \times \vj_3
         \end{pmatrix}
     \, \text{.}
-\end{align}
+\end{aligned}
+\end{equation}
 %
 Then
 %
-\begin{equation}
-   \label{eq:theory_4}
-   \T{\mG_1} \, \vr \; =\;  \T{\mG_2} \, \vr\; =\; 0
+\begin{equation} \label{eq:theory_4}
+   \T{\mG_1} \, \vr \; =\;  \T{\mG_2} \, \vr\; =\; 0 \,\text{,}
 \end{equation}
 %
 and from \cref{eq:theory_1} follows
 %
-\begin{equation}
-   \label{eq:theory_5}
-   \T{\mG_3} \, \vr \;=\; \T{\mG_4} \, \vr \;=\;  0 \, \text{.}
+\begin{equation} \label{eq:theory_5}
+   \T{\mG_3} \, \vr \;=\; \T{\mG_4} \, \vr \;=\;  0 \, \text{,}
 \end{equation}
 and
-\begin{equation}
-   \label{eq:theory_5a}
+\begin{equation} \label{eq:theory_5a}
    \mG_3 \, \vr \;=\; \mG_4 \, \vr \;=\; 0 \, \text{.}
 \end{equation}
 %
 \Cref{eq:theory_4,eq:theory_5} give that
 %
-\begin{equation}
-   \label{eq:theory_6}
+\begin{equation} \label{eq:theory_6}
    \Rank{\nabla \overline{\vh}} = 4
 \end{equation}
 %
@@ -125,17 +125,17 @@ in the structurally stable case.
 This means that for $\Rank{\nabla \overline{\vh}} < 4$, adding noise to $\mS,
 \mT$ brings $\Rank{\nabla \overline{\vh}}$ to $4$.
 %
-\Cref{eq:theory_6} means that the \ac{PEV} structure around
-$\T{(\vx_0,\vr_0)}$ is a 2-manifold in \ac{6D}.
+\Cref{eq:theory_6} means that the \ac{PEV} structure around $\T{(\vx_0,\vr_0)}$
+is a 2-manifold in \ac{6D}.
 %
-To see \cref{eq:theory_6}, we consider a rotation of the underlying
-coordinate system such that $\vr=(0,0,r_z)$.
+To see \cref{eq:theory_6}, we consider a rotation of the underlying coordinate
+system such that $\vr=(0,0,r_z)$.
 %
-Then \cref{eq:theory_4,eq:theory_5} give
-that the rotated tensors $\mG_1,\mG_2,\mG_3,\mG_4$ have vanishing third columns.
+Then \cref{eq:theory_4,eq:theory_5} give that the rotated tensors
+$\mG_1,\mG_2,\mG_3,\mG_4$ have vanishing third columns.
 %
-This and \cref{eq:theory_1} gives that $\nabla \overline{\vh}$ has
-two colums, which proves \cref{eq:theory_6}.
+This and \cref{eq:theory_1} gives that $\nabla \overline{\vh}$ has two colums,
+which proves \cref{eq:theory_6}.
 %
 
 %
@@ -160,8 +160,8 @@ closed.
 %
 
 %
-Note that the proof did not make any assumptions on
-the behavior of $\mS, \mT$ around $\T{(\vx_0,\vr_0)}$.
+Note that the proof did not make any assumptions on the behavior of $\mS, \mT$
+around $\T{(\vx_0,\vr_0)}$.
 %
 This means that it holds also in case of a transition from real to imaginary
 eigenvectors of $\mS$ or $\mT$ as well as in regions of isotropic tensors.

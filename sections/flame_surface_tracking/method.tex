@@ -484,16 +484,16 @@ We consider a micro-patch for merging when
 Because the micro-patches are completely independent, we cannot explicitly
 merge multiple patches.
 %
-We therefore give every patch a counter, which is set to $0$ when it is first
+We therefore give every patch a counter, which is set to \num{0} when it is first
 initialized and incremented each time it is split.
 %
 When the conditions for a merge are met, the behavior of a patch depends on its
 counter.
 %
-If the counter is $0$, the patch is simply deleted.
+If the counter is \num{0}, the patch is simply deleted.
 %
 Otherwise, the counter is decremented and the patch is extended by a factor of
-$3$ along its minor axis.
+\num{3} along its minor axis.
 %
 Assuming the behavior of neighboring patches is similar, this effectively means
 that the new extended patch now covers the area of the neighboring patches,

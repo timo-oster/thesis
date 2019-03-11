@@ -72,9 +72,10 @@ they produce results closer to the original data than the simpler methods.
 We evaluated the accuracy of the sparse representation on single time steps of
 three data sets.
 %
-Each time step of data sets \textsc{Syngas~I} and \textsc{Syngas~II} has $200^3$
-voxels and 13 variables each. \textsc{Syngas~III} has $100^3$ voxels and 3
-Variables.
+Each time step of data sets \textsc{Syngas~I} and \textsc{Syngas~II} has
+$\num{200}^3$ voxels and \num{13} variables each.
+%
+\textsc{Syngas~III} has $\num{100}^3$ voxels and \num{3} variables.
 %
 All data sets are from \ac{DNS} computations of turbulent premixed spherical
 syngas flames.
@@ -142,8 +143,8 @@ this error for all possible profile lines in all data sets.
 % For smoothing the profiles before finding the feature points, we used a
 % Gaussian kernel with $\sigma = 1 \text{ voxel}$.
 %
-As \cref{fig:fitting_rms_error} shows, the errors are quite low, ranging
-from 0.1\% to 6.3\% of the respective variable's range.
+As \cref{fig:fitting_rms_error} shows, the errors are quite low, ranging from
+\SI{0.1}{\percent} to \SI{6.3}{\percent} of the respective variable's range.
 
 For investigating the overall error after reconstruction, We computed the
 reduction ratio $c$ for different $q$ and compared it to the
@@ -273,10 +274,10 @@ $\max(V)-\min(V)$.
     \input{figures/comparison_lin_knn_down_tikz.tex}
     \vspace*{-5mm}
     \caption{
-        Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas II}
-        with $q=\text{36}$ (ca. 2500 profile lines, $c=\text{321}$).
-        Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using linear
-        interpolation with different sample densities (detail view).}
+        Top: Comparison of reconstruction results for \ce{H} of \textsc{Syngas
+        II} with $q=\num{36}$ (ca. \num{2500} profile lines, $c=\num{321}$).
+        Bottom: Reconstruction results for \ce{O2} of \textsc{Syngas I} using
+        linear interpolation with different sample densities (detail view).}
     \label{fig:comp}
 \end{figure}
 %
@@ -287,7 +288,7 @@ reconstruction.
 %
 Our experiments show that for the \ac{kANN} interpolation a combination of five
 nearest neighbors weighted with a Shepard weighting function using an exponent
-of 20 gave the lowest errors.
+of \num{20} gave the lowest errors.
 %
 Therefore, we illustrate the results for these parameters only.
 %
@@ -371,7 +372,7 @@ To further illustrate the data reduction performance of our approach, we tested
 it on eight time steps of the data set \textsc{Hydrogen}.
 %
 This data set is from a turbulent premixed spherical hydrogen flame and has a
-resolution of $400^3$ voxels and 11 variables.
+resolution of $\num{400}^3$ voxels and \num{11} variables.
 %
 This is a typical size for our cooperation partner.
 %
@@ -386,12 +387,12 @@ We selected eight time steps from a late (most complex) stage of the simulation.
 Choosing $q=5$, which retains good accuracy for reconstruction, we reduced them
 to about \SI{30}{\mega\byte} each.
 %
-This means only 0.6\% of the original storage space is required.
+This means only \SI{0.6}{\percent} of the original storage space is required.
 %
 
 %
-For a scalability test, we generated a synthetic data set with $900^3$ voxels
-and 11 variables.
+For a scalability test, we generated a synthetic data set with $\num{900}^3$
+voxels and \num{11} variables.
 %
 This is a typical size for a modern large-scale \ac{DNS} run.
 %

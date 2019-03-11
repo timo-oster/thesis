@@ -121,31 +121,29 @@ a_1+a_2+a_3 = 1
 %%
 
 %
-The Bernstein-B\'ezier representation has a number of remarkable
-properties.
+The Bernstein-B\'ezier representation has a number of remarkable properties.
 %%
 Important to our setting is the \emph{convex hull property}\/:
 %%
-For any $\vu\in\Delta$ -- or equivalently all barycentric coordinates
-are nonnegative -- the value $p(\vu)$ is bounded by the convex hull
-of the control points $b_{ijk}$.
+For any $\vu\in\Delta$ -- or equivalently all barycentric coordinates are
+nonnegative -- the value $p(\vu)$ is bounded by the convex hull of the control
+points $b_{ijk}$.
 %%
-For scalar coefficients $b_{ijk}\in\RRSet$ this means that if either
-all $b_{ijk}>0$ or all $b_{ijk}<0$ for $i+j+k=n$ then $p$
+For scalar coefficients $b_{ijk}\in\RRSet$ this means that if either all
+$b_{ijk} > \num{0}$ or all $b_{ijk} < \num{0}$ for $i+j+k=n$ then $p$
 \emph{cannot} have a zero crossing (or real root) on $\Delta$.
 %%
-We use this criterion for an iterative subdivision of a triangle
-$\Delta$ into smaller and smaller triangles that either may contain or
-cannot contain a root.
+We use this criterion for an iterative subdivision of a triangle $\Delta$ into
+smaller and smaller triangles that either may contain or cannot contain a root.
 %%
 \subsection{Parameterization of the Search Space}
 \label{sec:searchspace}
 %%
-The equations in the system~\eqref{eq:system} are polynomials in $\vx$
-and $\vr$.
+The equations in the system~\eqref{eq:system} are polynomials in $\vx$ and
+$\vr$.
 %%
-This means the search space consists of two independent domains:
-position and direction.
+This means the search space consists of two independent domains: position and
+direction.
 %%
 
 %
@@ -165,8 +163,8 @@ evaluation and subdivision, are independent of the supporting triangle.
 %
 We represent a direction vector $\vr$ as a point on a hemisphere.
 %%
-As not only its orientation (and thus sign) is irrelevant for
-the system~\eqref{eq:system} but also its scale (as long as $\vr\neq{}0$), we
+As not only its orientation (and thus sign) is irrelevant for the
+system~\eqref{eq:system} but also its scale (as long as $\vr\neq{}\num{0}$), we
 approximate the hemisphere by a triangulation.
 %%
 This way, we use the same parameterization and the same representation
@@ -215,18 +213,19 @@ Each of these six polynomials can be written in the form
 %%
 This is the tensor product of the interpolation in $\vx$ and $\vr$.
 %%
-It gives $3\times{}10=30$ coefficients $b_{ijk\,\alpha\beta\gamma}$.
+It gives $\num{3}\times{}\num{10} = \num{30}$ coefficients
+$b_{ijk\,\alpha\beta\gamma}$.
 %%
 (All indices are nonnegative. Latin indices indicate position space,
 Greek indices denote direction space.)
 %
-This form has degree 4 and can represent all polynomials in
+This form has degree \num{4} and can represent all polynomials in
 system~\eqref{eq:system}.
 %
 We use this unified representation for didactic purposes.
 %
 Using the real number of degrees in $\vx$ and $\vr$ for each polynomial gives a
-smaller number of coefficients (18 or 10).
+smaller number of coefficients (\num{18} or \num{10}).
 %%
 Note that position and direction are expressed in \emph{local coordinates}\/ (or
 barycentric coordinates) of the triangles, such that $p$ depends on only four
@@ -265,13 +264,13 @@ in \eqref{eq:polynomial}, for each of these polynomials.
 %%
 This can be done easily by sampling and interpolation:
 %%
-There are $3\times{}10$ coefficients and two triangular parameter
+There are $\num{3}\times{}\num{10}$ coefficients and two triangular parameter
 domains.
 %%
 As \eqref{eq:polynomial} lives in a tensor-product space,
 interpolation of position and direction can be separated.
 %%
-Chose $3$ or $10$ distinct sampling positions in $\Delta_{\vx}$ or
+Chose \num{3} or \num{10} distinct sampling positions in $\Delta_{\vx}$ or
 $\Delta_{\vr}$, respectively, and evaluate the values for the given
 polynomial.
 %%
@@ -490,7 +489,7 @@ represented by this cluster.
 This algorithm has a complexity of $\mathrm{O}(n^3)$ in the number of solution
 candidates.
 %%
-Typically $n$ is small: less than $200$ candidates are found in the vast
+Typically $n$ is small: less than \num{200} candidates are found in the vast
 majority of cases.
 %%
 At this scale, the performance impact of the clustering algorithm is negligible.
