@@ -1,0 +1,30 @@
+\begin{tikzpicture}[
+        every node/.style={inner sep=0, outer sep=0,
+            node distance=0 and 8mm}
+    ]
+        \node (img1gen) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_general_1.png}
+        };
+        \node[right=of img1gen] (img2gen) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_general_3.png}
+        };
+        \node[right=of img2gen] (img3gen) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_general_4.png}
+        };
+
+        \node[below=of img1gen] (img1symm) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_symm_2.png}
+        };
+        \node[right=of img1symm] (img2symm) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_symm_3.png}
+        };
+        \node[right=of img2symm] (img3symm) {
+            \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
+                {figures/Rand_symm_4.png}
+        };
+    \end{tikzpicture}

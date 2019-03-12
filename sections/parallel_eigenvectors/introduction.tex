@@ -1,42 +1,52 @@
-
+\vspace*{-2\baselineskip}\lettrine[lhang=0.05, loversize=0.047,
+findent=-0.9pt]{F}{eature extraction} is one of the most successful classes of
+techniques for scientific visualization.
 %
-\section{Introduction} % (fold)
-\label{sec:pev_introduction}
+In this context, a feature is a geometric structure where the data fulfills
+certain interesting criteria.
 %
-The \ac{PV} operator \cite{Peikert1999} is a generic and
-widely spread concept in visualization.
+\Cref{cha:sci_vis} introduced several generic features, such as ridges in scalar
+fields, critical points and vortex core lines in vector fields, and degenerate
+structures in tensor fields.
 %
-Given two \ac{3D} vector fields $ \vv_1, \vv_2$, the \ac{PV} operator delivers all points
-in the \ac{3D} domain where $ \vv_1$ and $\vv_2$ are linearly dependent.
-%
-It is known that the \ac{PV} operator delivers structurally stable lines which we
-call \ac{PV} lines.
-%
-Applying it to different concrete vector fields, the \ac{PV} operator has been
-proven to be a generic tool to extract vortex core lines or bifurcation lines.
-%
-Several numerical methods to extract \ac{PV} lines have been developed.
-%
-\Todo[inline]{Make chronological connection to tensor core lines (first PEV then
-TCL). This algorithm devised first.}
+Extracting and representing such features is an effective approach to
+understanding even complex scientific datasets.
 %
 
 %
-Recently, Oster \etal \cite{Oster2018} introduced the concept of
-{\em tensor core lines}, which represent cores of swirling hyperstreamlines
-in tensor fields.
+A number of line-type features for scalar- and vector fields can be expressed in
+terms of a common operation: the \ac{PV} operator~\cite{Peikert1999}.
 %
-These lines are defined as the locations where a (real) eigenvector of the
-tensor field is parallel to a (real) eigenvector of the tensor field's
-directional derivative in the direction of this eigenvector.
+This operator yields all locations where two vector fields defined on the same
+domain are parallel.
 %
-In this paper we extend this concept to a more generic formulation: the \ac{PEV}
-operator of two (not necessarily symmetric) \ac{3D} second order tensor fields.
+It delivers structurally stable lines which we call \ac{PV} lines.
+%
+Depending on the concrete vector fields it is applied to, the \ac{PV} operator
+can be used to extract ridge and valley lines, extremum lines, vortex core
+lines and separation- and attachment lines from scalar or vector data.
+%
+
+%
+Some of these features are originally defined as the locations where a vector
+is parallel to an eigenvector of a tensor field.
+%
+Such cases can be broken down to an application of the regular \ac{PV} operator.
+%
+However, this is not possible if a feature is defined as the locations where
+two tensor fields have parallel eigenvectors.
+%
+
+%
+In this chapter, we extend the concept of the \ac{PV} operator to tensor fields.
+%
+We define the \ac{PEV} operator on two (not necessarily symmetric) \ac{3D}
+second-order tensor fields.
 %
 Let $\mS(\vx)$ and $\mT(\vx)$ be two such tensor fields.
 %
-Then the \ac{PEV} operator collects all points where $\mS$ and $\mT$ have parallel
-real eigenvectors.
+Then the \ac{PEV} operator yields all locations $\vx$ where $\mS$ and $\mT$ have
+parallel real eigenvectors.
 %
 This can be concisely expressed as
 %
@@ -47,39 +57,39 @@ This can be concisely expressed as
 %
 
 %
-In this chapter, we establish this operator by...
+In this chapter, we establish this operator by \ldots
 %
 \begin{itemize}
     \item
-    ... studying its properties.
+    \ldots{}\,studying its properties.
     %
-    In particular, we show that the \ac{PEV} operator produces structurally stable
-    line structures.
+    In particular, we show that the \ac{PEV} operator produces structurally
+    stable line structures.
     %
     \item
-    ... presenting a numerical algorithm to extract \ac{PEV} lines in piecewise
-    linear tensor fields.
+    \ldots{}\,presenting a numerical algorithm to extract \ac{PEV} lines in
+    piecewise linear tensor fields.
     %
     The main idea is to do a recursive search not only in \ac{3D} space but
     simultaneously in \ac{3D} space and the space of all possible eigenvectors.
     %
     \item
-    ... applying it to compare pairs of stress tensor fields defined on the same
-    domain.
+    \ldots{}\,applying it to compare pairs of stress tensor fields defined on
+    the same domain.
     %
     % In this way, we are able to find locations where two
     % different loads produce principal stresses aligned in the same direction.
     %
 \end{itemize}
 %
-At first glance, the \ac{PEV} operator seems to be a straightforward extension
-of the classical \ac{PV} operator:
+At first glance, the extension of the \ac{PV} operator to eigenvectors seems
+trivial:
 %
-given a tensor field, we consider all eigenvector fields as vector fields and
-apply the \ac{PV} operator to them.
+given a tensor field, consider all eigenvector fields as vector fields and apply
+the \ac{PV} operator to them.
 %
-Such a naive approach cannot give well-defined and stable results for the
-following reasons:
+However, this naive approach cannot give well-defined and stable results for
+the following reasons:
 %
 \begin{itemize}
     \item Undefined length and orientation of eigenvectors:\\
@@ -118,27 +128,16 @@ following reasons:
 All of these problems show that eigenvector fields are fundamentally different
 from vector fields, for which the \ac{PV} operator is designed.
 %
-Extracting \ac{PEV} lines requires new algorithms that are explicitly designed for
-tensor fields.
+Extracting \ac{PEV} lines requires new algorithms that are explicitly designed
+for tensor fields.
 %
 
 %
-There are a number of approaches in vortex extraction where a vector field $\vv$
-is compared to the eigenvectors of a tensor field $\mS$.
-%
-This ``mixed case'' (eigenvector parallel to a vector) can be easily reduced to
-the classical \ac{PV} operator by comparing $\vv$ and $\mS\,\vv$.
-%
-The challenging case considered in this paper is the comparison of the
-eigenvectors of two tensor fields.
-
-%
-In the following, we first give an overview of related work and introduce the
-notation used throughout the paper.
+In the following, we first give an overview of related work.
 %
 We then give some theoretical properties of the \ac{PEV} operator in
-\cref{sec:pev_theory}, before detailing our algorithm for finding \ac{PEV} lines in
-piecewise linear tensor fields in \cref{sec:extracting_pev_lines}.
+\cref{sec:pev_theory}, before detailing our algorithm for finding \ac{PEV} lines
+in piecewise linear tensor fields in \cref{sec:extracting_pev_lines}.
 %
 In \cref{sec:pev_results}, we present our results for mechanical stress tensor
 data.
@@ -148,34 +147,9 @@ We close with a discussion and future work in \cref{sec:pev_discussion} and
 %
 \begin{figure}[t]
     \centering
-    \begin{tikzpicture}
-        \node (img1gen) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_general_1.png}
-        };
-        \node[right=0pt of img1gen] (img2gen) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_general_3.png}
-        };
-        \node[right=0pt of img2gen] (img3gen) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_general_4.png}
-        };
-
-        \node[below=0pt of img1gen] (img1symm) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_symm_2.png}
-        };
-        \node[right=0pt of img1symm] (img2symm) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_symm_3.png}
-        };
-        \node[right=0pt of img2symm] (img3symm) {
-            \includegraphics[width=0.3\columnwidth]{figures/Rand_symm_4.png}
-        };
-    \end{tikzpicture}
-    \caption{\ac{PEV} lines in pairs of random linear tensor fields. Top: General
-             tensors. Bottom: Symmetric tensors. Symmetric tensors generally
-             produce more lines, as they always have three real eigenvectors.
-             General tensor \ac{PEV} lines generally do not intersect, while it is
-             common for symmetric tensor \ac{PEV} lines to do so. If they do,
-             three \ac{PEV} lines always intersect at once, as their eigenvectors
-             are orthogonal.}
+    \input{figures/pev_rand_examples_tikz}
+    \caption{\ac{PEV} lines in pairs of random linear tensor fields. Top:
+             General tensors. Bottom: Symmetric tensors.}
     \label{fig:rand_lines}
 \end{figure}
 %
