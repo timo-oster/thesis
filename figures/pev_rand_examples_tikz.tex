@@ -1,11 +1,13 @@
 \begin{tikzpicture}[
         every node/.style={inner sep=0, outer sep=0,
-            node distance=0 and 8mm}
+            node distance=2mm and 4mm},
+        label/.style={font=\small, anchor=north, rotate=90, yshift=8mm}
     ]
         \node (img1gen) {
             \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
                 {figures/Rand_general_1.png}
         };
+        \node[label] at (img1gen.west) {general tensors};
         \node[right=of img1gen] (img2gen) {
             \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
                 {figures/Rand_general_3.png}
@@ -19,6 +21,7 @@
             \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
                 {figures/Rand_symm_2.png}
         };
+        \node[label] at (img1symm.west) {symmetric tensors};
         \node[right=of img1symm] (img2symm) {
             \includegraphics[width=0.33\textwidth-8mm*2/3,trim=90 0 55 0,clip]%
                 {figures/Rand_symm_3.png}
