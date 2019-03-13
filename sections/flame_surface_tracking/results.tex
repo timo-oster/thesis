@@ -153,9 +153,9 @@ $t=[0,\,2]$, which will naturally show the largest errors.
     \input{figures/results_simulations_spherical_tikz}
     % \input{figures/results_simulations_hawkes_tikz}
     \caption{%
-    Results of our algorithm for the premixed flame case. We show the stretch
-    coefficient $c$ and density factor $d$ on logarithmic scales. We computed
-    $c$ for an interval of $\Delta t = \SI{1.7e-4}{\second}$ and
+    Results of our algorithm for the \textsc{Premixed Flame} case. We show the
+    stretch coefficient $c$ and density factor $d$ on logarithmic scales. We
+    computed $c$ for an interval of $\Delta t = \SI{1.7e-4}{\second}$ and
     $\varepsilon_\shortparallel = \num{0.02}$. }
     \label{fig:simulation_results_spherical}
 \end{figure}
@@ -166,10 +166,10 @@ $t=[0,\,2]$, which will naturally show the largest errors.
     % \input{figures/results_simulations_spherical_tikz}
     \input{figures/results_simulations_hawkes_tikz}
     \caption{
-    Results of our algorithm for the temporal diffusion jet case. We show the
-    stretch coefficient $c$ and density factor $d$ on logarithmic scales. We
-    computed the stretch coefficient since the start of the simulation using
-    $\varepsilon_\shortparallel = \num{0.04}$.}
+    Results of our algorithm for the \textsc{Temporal Diffusion Jet} case. We
+    show the stretch coefficient $c$ and density factor $d$ on logarithmic
+    scales. We computed the stretch coefficient since the start of the
+    simulation using $\varepsilon_\shortparallel = \num{0.04}$.}
     \label{fig:simulation_results_hawkes}
 \end{figure}
 
@@ -449,14 +449,14 @@ time and shows the most accurate results.
 %
 
 %
-At the start of the premixed flame case, our implementation causes an overhead
-in computing time of about \SI{300}{\milli\second} per iteration, or about
-\SI{3}{\percent} of the base computing time.
+At the start of the \textsc{Premixed Flame} case, our implementation causes an
+overhead in computing time of about \SI{300}{\milli\second} per iteration, or
+about \SI{3}{\percent} of the base computing time.
 %
 As the flame surface expands, the overhead gradually increases, until it is at
 about \SI{12.5}{\second} or \SI{130}{\percent} at the end of the simulation.
 %
-For the temporal diffusion jet, the overhead starts out at about
+For the \textsc{Temporal Diffusion Jet}, the overhead starts out at about
 \SI{1200}{\milli\second} per iteration, or about \SI{10}{\percent} of the base
 computing time.
 %
@@ -467,15 +467,15 @@ The surface then starts to wrinkle significantly, resulting in a sharp rise of
 computing time, reaching up to \SI{42}{\second}, or about \SI{350}{\percent} of
 the base time.
 %
+
+%
 The overhead in computing time is proportional to the number of surface patches.
 %
 This means that it is also strongly dependent on the shape, area and deformation
 of the flame surface, which will be different for each simulation case.
 %
-For the premixed flame case, our implementation generates an overhead of about
-\SI{30}{\hour} or \SI{50}{\percent} for the whole simulation.
-%
-
+For the \textsc{Premixed Flame} case, our implementation generates an overhead
+of about \SI{30}{\hour} or \SI{50}{\percent} for the whole simulation.
 %
 The memory consumption behaves very similarly, as it is also directly dependent
 on the number of micro-patches.
@@ -487,8 +487,8 @@ simulation case.
 This rises to about \SI{400}{\giga\byte} at the end of the simulation, which
 represents an overhead of about \SI{130}{\percent}.
 %
-The total overhead in computing time caused by the temporal jet case is
-\SI{8.4}{\hour} or about \SI{67}{\percent}.
+The total overhead in computing time in the \textsc{Temporal Diffusion
+Jet} case is \SI{8.4}{\hour} or about \SI{67}{\percent}.
 %
 The additional memory consumption here reaches from \SI{800}{\giga\byte} to
 \SI{1800}{\giga\byte}, or \SI{44}{\percent} to \SI{150}{\percent}.
@@ -501,15 +501,16 @@ read it again for each time step.
 %
 If we only store the simulation variables that are directly needed for tracking
 the flame surface (flow velocity and one scalar variable), we would already need
-\SI{100}{\tera\byte} of storage space for the whole premixed flame case, and
-\SI{60}{\tera\byte} for the temporal jet case.
+\SI{100}{\tera\byte} of storage space for the whole \textsc{Premixed Flame}
+case, and \SI{60}{\tera\byte} for the \textsc{Temporal Diffusion Jet} case.
 %
 This is more than is typically available for a user or project on a current high
 performance computing cluster.
 %
 Additionally, writing this data to disk for every simulation time step alone
 would incur about \SI{21}{\hour} of run time on our computing cluster for the
-premixed case and about \SI{13}{\hour} for the temporal jet case.
+\textsc{Premixed Flame} case and about \SI{13}{\hour} for the \textsc{Temporal
+Diffusion Jet} case.
 %
 If we write all simulation variables, this increases to \SI{420}{\tera\byte}
 (\SI{90}{\hour}) and \SI{320}{\tera\byte} (\SI{70}{\hour}), respectively.

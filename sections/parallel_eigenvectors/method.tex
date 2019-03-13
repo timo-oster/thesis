@@ -65,8 +65,8 @@ w_3)}$:
     \text{with}\quad \sum_i{w_i} = 1 \, \text{.}
 \end{equation*}
 %
-The position (in barycentric coordinates) at which an arbitrary direction $\vr$
-becomes an eigenvector in $\mS$ is given by the solution to
+The position (in barycentric coordinates $\vw$) at which an arbitrary direction
+$\vr$ becomes an eigenvector in $\mS$ is given by the solution to
 %
 \begin{equation*}
     \mS(\vw)\vr = \sum_i{w_i \mS_i \vr} = \lambda \vr \, \text{.}
@@ -75,8 +75,7 @@ becomes an eigenvector in $\mS$ is given by the solution to
 
 %
 Rather than needing the exact position, we want to know if the position is
-inside the triangle or not, \ie, if $\vr$ is a valid eigenvector direction for
-$\mS$.
+inside the triangle, \ie, if $\vr$ is a valid eigenvector direction for $\mS$.
 %
 In barycentric coordinates, a point is inside the triangle if all $w_i > 0$.
 %
@@ -93,11 +92,10 @@ Since the scaling factor $\lambda$ is arbitrary, we eliminate it:
 %
 and only require that all $\tilde{w}_i$ have the same sign.
 %
-Using Cramer's rule, we can give an analytic solution for the components of
-$\tilde\vw$:
+Using Cramer's rule, the components of $\tilde\vw$ are
 % 
 \begin{equation*}
-    \tilde{w}_i = \frac{\det \mA_i(\vr)}{\det \mA(\vr)}
+    \tilde{w}_i = \frac{\det \mA_i(\vr)}{\det \mA(\vr)}\,\text{.}
 \end{equation*}
 % 
 Here, $\mA_i$ denotes the matrix $\mA$ with its $i$-th column replaced by $\vr$.
@@ -112,9 +110,9 @@ leading to
     \hat{w}_i(\vr) = \det \mA_i(\vr) \, \text{.}
 \end{equation}
 %
-The equations for $\mT$ are analogous.
-%
 
+%
+The equations for $\mT$ are analogous.
 % 
 In the following, we show all equations for $\mS$ only.
 % 
@@ -131,10 +129,10 @@ respectively, whenever it is necessary to discriminate them.
 %
 The core of the algorithm is to find a direction $\vr$ for which all components
 of $\hat\vw_S(\vr)$ have the same sign, and all components of $\hat\vw_T(\vr)$
-also have the same (but possibly different) sign.
+also have the same sign (that possibly differs from $\hat\vw_S$).
 %
-This means that the direction $\vr$ becomes an eigenvector somewhere inside the
-triangle for both $\mS$ and $\mT$.
+If this is fulfilled, $\vr$ becomes an eigenvector somewhere inside the triangle
+for both $\mS$ and $\mT$.
 %
 
 %
@@ -146,9 +144,8 @@ intersections of the roots of $\hat{w}_i(\vr)$, which is impossible.
 Instead, we solve the problem numerically by applying another recursive search
 in the space of all possible eigenvector directions.
 %
-
-%
-The magnitude and orientation of $\vr$ is not significant.
+Since we are looking for eigenvectors, the magnitude and orientation of $\vr$
+are not significant.
 %
 We can therefore represent this space by some triangulation of a hemisphere
 centered at the origin (\cref{fig:algorithm}, right).
@@ -161,7 +158,7 @@ vectors:
     \vr(\vu) = \sum_j{u_j\vr_j} \, \text{.}
 \end{equation*}
 %
-Substituting this in \eqref{eq:coordinate_functions}, the barycentric coordinate
+Substituting this in \cref{eq:coordinate_functions}, the barycentric coordinate
 functions now become
 % 
 \begin{equation}
@@ -190,7 +187,7 @@ functions now become
 % Computing $s_i$ means deciding if there are roots of $\hat{w}_i$ anywhere inside
 % the triangle.
 %
-We can now express $\hat{w}_i$ in Bernstein-Bézier basis:
+We can now express the polynomials $\hat{w}_i$ in Bernstein-B\'ezier basis as
 %
 \begin{equation}
     \hat{w}_i(\vu) = \sum_{\substack{j,\, k,\, l \geqslant 0 \, \text{,} \\ j+k+l=3}}{
@@ -387,8 +384,8 @@ recursively.
 If no direction is found, discard the triangle.
 %
 When a spatial sub-triangle becomes smaller than a subdivision threshold
-$\varepsilon_{\mathrm{s}}$, we accept the center of the triangle as a solution
-candidate.
+$\varepsilon_{\mathrm{s}}$, we accept the center of the triangle and the
+accompanying direction $\vr$ as a solution candidate.
 %
 \Cref{alg:find_pev_line} shows the procedure in pseudo code.
 %
@@ -432,11 +429,13 @@ This list of points has to be post-processed for two reasons:
 %
 
 % 
-We deal with \cref{i:clustering} by employing a simple single-linkage
-hierarchical clustering algorithm~\cite{Everitt2011}.
+We deal with \cref{i:clustering} by clustering nearby solution candidates.
 %
-Given two representatives, we define the distance as the maximum of their
-distances in position- and in direction space.
+We employ a simple single-linkage hierarchical clustering
+algorithm~\cite{Everitt2011}.
+%
+Given two candidate position-direction pairs $(\vx, \vr)$, we define the
+distance as the maximum of their distances in position- and in direction space.
 %
 We start with each parameter region as a single cluster.
 %

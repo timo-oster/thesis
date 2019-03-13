@@ -1,0 +1,38 @@
+\begin{tikzpicture}[
+    every node/.style={node distance=2mm, inner sep=0, outer sep=0},
+    image/.style={}
+]
+    \node[image] (img1) {
+        \includegraphics[width=\figurewidth]{figures/flange_full_total}
+    };
+
+    \node[image, below=of img1.south west, anchor=north west] (img2) {
+        \includegraphics[width=0.5\figurewidth-2mm/2]{figures/flange_detail1_sq}
+    };
+    \begin{scope}[
+        shift=(img2.south west), % origin is lower left corner
+        x={($(img2.south east)-(img2.south west)$)}, % x axis is lower side
+        y={($(img2.north west)-(img2.south west)$)}] % y axis is left side
+        % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+        % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+        % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+        % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+        \draw[mycolor4, thick] (0.58, 0.68) circle[radius=5pt];
+        \draw[mycolor4, thick] (0.47, 0.5) circle[radius=5pt];
+    \end{scope}
+
+    \node[image, right=of img2] (img3) {
+        \includegraphics[width=0.5\figurewidth-2mm/2]{figures/flange_detail2_sq}
+    };
+    \begin{scope}[
+        shift=(img3.south west), % origin is lower left corner
+        x={($(img3.south east)-(img3.south west)$)}, % x axis is lower side
+        y={($(img3.north west)-(img3.south west)$)}] % y axis is left side
+        % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+        % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+        % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+        % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+        \draw[mycolor4, thick] (0.75, 0.6) circle[radius=10pt];
+        \draw[mycolor4, thick] (0.75, 0.4) circle[radius=10pt];
+    \end{scope}
+\end{tikzpicture}
