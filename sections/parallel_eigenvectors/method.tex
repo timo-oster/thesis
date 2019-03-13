@@ -275,7 +275,7 @@ eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
 % If none of the above is the case, we have to subdivide $\triangle_{\vr}$ and
 % investigate the parts again.
 %
-When the triangle becomes smaller than some subdivision threshold $\epsilon_r$,
+When the triangle becomes smaller than some subdivision threshold $\varepsilon_{\mathrm{r}}$,
 and we still can not say for sure that there are no possible eigenvector
 directions inside, we accept the central direction as a candidate.
 %
@@ -297,82 +297,83 @@ directions inside, we accept the central direction as a candidate.
 \subsection{Final Numerical Algorithm} % (fold)
 \label{sub:final_numerical_algorithm}
 %
-\begin{algorithm}
-    \caption{Find intersections of \ac{PEV} lines with a triangle
-    $\triangle_{\vx}$}
+\begin{algorithm}[p]
+    \SetKwProg{Fn}{Function}{}{end}
+    \SetKwFunction{FindPEV}{FindPEV}
+    \SetKwFunction{FindEigenDir}{FindEigenDir}
+    \SetKwFunction{FindEigenDirRecursive}{FindEigenDirRecursive}
+    \SetKwFunction{Split}{Split}
+    \SetKw{KwNull}{null}
+    \SetKw{KwOr}{or}
+
+    \Fn{\FindPEV{$\triangle_{\mS}$, $\triangle_{\mT}$, $\triangle_{\vx}$}}{
+        $\vr \gets$ \FindEigenDir{$\triangle_{\mS}$, $\triangle_{\mT}$}\;
+        \uIf{$\vr$ is \KwNull}{
+            \Return{$\{\}$}
+            \tcp*{Discard triangle}
+        }
+        \ElseIf{size of $\triangle_{\vx} < \varepsilon_{\mathrm{s}}$}{
+            \Return{$\{(\sfrac{1}{3}\sum{\vx_i}, \ \vr)\}$}
+            \tcp*{Accept solution}
+        }
+        $l$ = \{\}\;
+        \ForEach{$(\triangle'_{\mS}, \triangle'_{\mT}, \triangle'_{\vx}) \in (\text{%
+               \Split{$\triangle_{\mS}$},
+                \Split{$\triangle_{\mT}$},
+                \Split{$\triangle_{\vx}$}})$}{
+            $l \gets l \ \cup$
+                \FindPEV{$\triangle'_{\mS}$,
+                         $\triangle'_{\mT}$,
+                         $\triangle'_{\vx}$}
+            \tcp*{Recursive subdivision}
+        }
+        \Return{$l$}\;
+    }
+    % \BlankLine
+    \Fn{\FindEigenDir{$\triangle_{\mS}$, $\triangle_{\mT}$}}{
+        $R \gets$ set of triangles covering a hemisphere\;
+        \ForEach{$\triangle_{\vr} \in R$}{
+            $\vr \gets$ \FindEigenDirRecursive{$\triangle_{\mS}$,
+                                               $\triangle_{\mT}$,
+                                               $\triangle_{\vr}$}\;
+            \If{$\vr$ is not \KwNull}{
+                \Return{$\vr$}\;
+            }
+        }
+        \Return{\KwNull}\;
+    }
+    % \BlankLine
+    \Fn{\FindEigenDirRecursive{$\triangle_{\mS}$,
+                               $\triangle_{\mT}$,
+                               $\triangle_{\vr}$}}{
+        Compute Bernstein-B\'ezier coefficients for $\hat{w}_i$\;
+        \uIf{any $\hat{w}_i$ might have roots within $\triangle_{\vr}$}{
+            \ForEach{$\triangle'_{\vr} \in$ \Split{$\triangle_{\vr}$}}{
+               $\vr \gets$ %
+                    \FindEigenDirRecursive{$\triangle_{\mS}$,
+                                           $\triangle_{\mT}$,
+                                           $\triangle'_{\vr}$}\;
+                \If{$\vr$ is not \KwNull}{
+                    \Return{$\vr$}\;
+                }
+            }
+        }
+        \uElseIf{all $\hat{w}_i$ have the same sign %
+                \KwOr size of $\triangle_{\vr} < \varepsilon_{\mathrm{r}}$}{
+            \Return{$\sfrac{1}{3}\sum{\vr_i}$}
+            \tcp*{Accept solution}
+        }
+        \Else{
+            \Return{\KwNull}
+            \tcp*{Discard triangle}
+        }
+    }
+    \caption{Find intersections of \ac{PEV} lines with a triangle}
     \label{alg:find_pev_line}
-    \begin{algorithmic}[0]
-        \Function{FindPEV}{$\triangle_{\mS}$, $\triangle_{\mT}$, $\triangle_{\vx}$}
-            \State $\vr \gets $ \Call{FindEigenDir}{$\triangle_{\mS}$,
-                                                    $\triangle_{\mT}$}
-            \If{$\vr$ is \Null}
-                \State \Return{\{\}}
-            \EndIf
-
-            \If{size of $\triangle_{\vx} < \epsilon_s$}
-                \State \Return{$\{(\sfrac{1}{3}\sum{\vx_i}, \ \vr)\}$}
-                \Comment{Location and eigenvector direction}
-            \EndIf
-
-            \State $l \gets \{\}$
-
-            \ForAll{$(\triangle'_{\mS}, \triangle'_{\mT}, \triangle'_{\vx}) \in \text{%
-                   (\Call{Split}{$\triangle_{\mS}$},
-                    \Call{Split}{$\triangle_{\mT}$},
-                    \Call{Split}{$\triangle_{\vx}$})}$}
-                \State $l \gets l \ \cup$
-                    \Call{FindPEV}{$\triangle'_{\mS}$,
-                                   $\triangle'_{\mT}$,
-                                   $\triangle'_{\vx}$}
-                \Comment{Recursive subdivision}
-            \EndFor
-            \State \Return{$l$}
-        \EndFunction
-
-        \Statex
-
-        \Function{FindEigenDir}{$\triangle_{\mS}$, $\triangle_{\mT}$}
-            \State $R \gets $ set of triangles covering a hemisphere
-            \ForAll{$\triangle_{\vr} \in R$}
-                \State $\vr \gets$ \Call{FindEigenDirRecursive}{$\triangle_{\mS}$,
-                                                                $\triangle_{\mT}$,
-                                                                $\triangle_{\vr}$}
-                \If{$\vr$ is \KwNot \Null}
-                    \State \Return $\vr$
-                \EndIf
-            \EndFor
-            \State \Return \Null
-        \EndFunction
-
-        \Statex
-
-        \Function{FindEigenDirRecursive}{$\triangle_{\mS}$,
-                                         $\triangle_{\mT}$,
-                                         $\triangle_{\vr}$}
-            \State Compute $s_{S, i}$ and $s_{T, i}$
-            \If{$\max s_{S, i} \cdot \min s_{S, i} < 0$
-                    \KwOr $\max_i s_{T, i} \cdot \min s_{T, i} < 0$}
-                \State \Return \Null
-            \ElsIf{($|\sum{s_{S, i}}| = 3$ \KwAnd $|\sum{s_{T, i}}| = 3$)
-                    \KwOr size of $\triangle_{\vr} < \epsilon_r$}
-                \State \Return $\sfrac{1}{3}\sum{\vr_i}$
-            \Else
-                \ForAll{$\triangle'_{\vr} \in$ \Call{Split}{$\triangle_{\vr}$}}
-                    \State $\vr \gets$ \Call{FindEigenDirRecursive}{$\triangle_{\mS}$,
-                                                                    $\triangle_{\mT}$,
-                                                                    $\triangle'_{\vr}$}
-                    \If{$\vr$ is \KwNot \Null}
-                        \State \Return $\vr$
-                    \EndIf
-                \EndFor
-            \EndIf
-            \State \Return \Null
-        \EndFunction
-    \end{algorithmic}
 \end{algorithm}
 %
-The complete algorithm for finding intersections of \ac{PEV} lines with a triangle
-of the dataset now works as follows:
+The complete algorithm for finding intersections of \ac{PEV} lines with a
+triangle of the dataset now works as follows:
 %
 Start with the complete triangle as $\triangle_{\vx}$.
 %
@@ -386,14 +387,15 @@ recursively.
 If no direction is found, discard the triangle.
 %
 When a spatial sub-triangle becomes smaller than a subdivision threshold
-$\epsilon_s$, we accept the center of the triangle as a solution candidate.
+$\varepsilon_{\mathrm{s}}$, we accept the center of the triangle as a solution
+candidate.
 %
 \Cref{alg:find_pev_line} shows the procedure in pseudo code.
 %
 
 %
 The result of the algorithm is a list of points on $\triangle_{\vx}$ with
-corresponding eigenvector directions.
+corresponding eigenvector directions $\vr$.
 %
 This list of points has to be post-processed for two reasons:
 %
@@ -404,20 +406,22 @@ This list of points has to be post-processed for two reasons:
           adjacent candidate points may be found.
           %
           This happens if eigenvectors of $\mS$ and $\mT$ are closer than
-          $\epsilon_r$ in a region larger than $\epsilon_s$, \eg, because the
-          gradient of the tensor fields is very small, or because the \ac{PEV} line
-          intersects the face at a very steep angle.
+          $\varepsilon_{\mathrm{r}}$ in a region larger than
+          $\varepsilon_{\mathrm{s}}$, \eg, because the gradient of the tensor
+          fields is very small, or because the \ac{PEV} line intersects the face
+          at a very steep angle.
           %
-          Choosing $\epsilon_r$ very small helps with this, but it can not be
-          avoided in the presence of limited numerical precision on a computer.
+          Choosing $\varepsilon_{\mathrm{r}}$ very small helps with this, but it
+          can not be avoided in the presence of limited numerical precision on a
+          computer.
           %
     \item \label{i:false_positives}
           %
           A candidate point might not be a \ac{PEV} point at all.
           %
           These false positives occur if there are directions $\vr$ that become
-          eigenvectors of one of the tensor fields inside $\triangle_{\vx}$, while
-          $\mA(\vr)$ has rank 1 for the other tensor field.
+          eigenvectors of one of the tensor fields inside $\triangle_{\vx}$,
+          while $\mA(\vr)$ has rank 1 for the other tensor field.
           %
           For this case, $\hat{\vw} = \vNull$, which means that a consistent
           sign of all components can never be determined, and subdivision can
@@ -425,22 +429,23 @@ This list of points has to be post-processed for two reasons:
           valid eigenvector directions inside $\triangle_{\vx}$.
           %
 \end{enumerate}
+%
+
 % 
-We deal with \cref{i:clustering} by clustering candidate points that are
-closer than a certain distance threshold $\epsilon_c$.
+We deal with \cref{i:clustering} by employing a simple single-linkage
+hierarchical clustering algorithm~\cite{Everitt2011}.
 %
-We employ a simple single-linkage hierachical clustering
-algorithm~\cite{Everitt2011}.
+Given two representatives, we define the distance as the maximum of their
+distances in position- and in direction space.
 %
-Each candidate point starts as a separate cluster.
+We start with each parameter region as a single cluster.
 %
-Clusters are merged if the smallest distance between them is smaller than
-$\epsilon_c$.
+Two clusters are merged if the distance between any two elements from both
+clusters is smaller than a clustering threshold $\varepsilon_{\mathrm{c}}$.
 %
-This is repeated until the number of clusters converges.
+We repeat this process until the number of clusters no longer changes.
 %
-The clustering algorithm is the same as the one used by Oster
-\etal~\cite{Oster2018} for a similar purpose.
+
 %
 We then select the point in each cluster where the corresponding eigenvectors
 are most parallel as the representative and discard the others.
@@ -451,7 +456,7 @@ explicitly compute them again.
 Instead, we use the parallelism error
 %
 \begin{equation}
-e_p = {\left\| \frac{\mS(\vw) \vr}{\| \mS(\vw) \vr \|}
+e_\mathrm{p} = {\left\| \frac{\mS(\vw) \vr}{\| \mS(\vw) \vr \|}
             \times \frac{\vr}{\| \vr \|} \right\|}
       + {\left\| \frac{\mT(\vw) \vr}{\| \mT(\vw) \vr \|}
             \times \frac{\vr}{\| \vr \|} \right\|} \, \text{,}
@@ -461,11 +466,21 @@ which measures the deviation of $\vr$ from the true eigenvectors of both
 $\mS(\vw)$ and $\mT(\vw)$.
 %
 
+This algorithm has a complexity of $\mathrm{O}(n^3)$ in the number of solution
+candidates.
+%%
+Typically $n$ is small: less than \num{200} candidates are found in the vast
+majority of cases.
+%%
+At this scale, the performance impact of the clustering algorithm is negligible.
+%
+
 %
 In order to address \cref{i:false_positives}, we discard all candidate points
-for which $e_p$ is greater than some parallelism threshold $\epsilon_p$.
+for which $e_\mathrm{p}$ is greater than some parallelism threshold
+$\varepsilon_\mathrm{p}$.
 %
-This threshold can be chosen quite coarse (\eg~\num{0.01}), as $e_p$ is
+This threshold can be chosen quite coarse (\eg~\num{0.01}), as $e_\mathrm{p}$ is
 typically quite large for false positive candidate points.
 %
 
