@@ -5,19 +5,19 @@
     \node[image] (img1) {
         \includegraphics[width=\figurewidth]{figures/PointLoad_total}
     };
-    \begin{scope}[
-        shift=(img1.south west), % origin is lower left corner
-        x={($(img1.south east)-(img1.south west)$)}, % x axis is lower side
-        y={($(img1.north west)-(img1.south west)$)}] % y axis is left side
-        % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
-        % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
-        % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
-        % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-        \draw[mycolor4, thick, rotate around={10:(0.24, 0.81)}]
-            (0.24, 0.81) ellipse (0.09 and 0.02);
-        \draw[mycolor4, thick] (0.45, 0.825) circle[radius=5pt];
-        \draw[mycolor4, thick] (0.51, 0.795) circle[radius=5pt];
-    \end{scope}
+    % \begin{scope}[
+    %     shift=(img1.south west), % origin is lower left corner
+    %     x={($(img1.south east)-(img1.south west)$)}, % x axis is lower side
+    %     y={($(img1.north west)-(img1.south west)$)}] % y axis is left side
+    %     % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+    %     % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+    %     % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+    %     % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+    %     \draw[mycolor4, thick, rotate around={10:(0.24, 0.81)}]
+    %         (0.24, 0.81) ellipse (0.09 and 0.02);
+    %     \draw[mycolor4, thick] (0.45, 0.825) circle[radius=5pt];
+    %     \draw[mycolor4, thick] (0.51, 0.795) circle[radius=5pt];
+    % \end{scope}
     % \node[image, below=of img1.south west, anchor=north west] (img2) {
     %     \includegraphics[width=0.5\figurewidth-2mm/2]{figures/PointLoad_detail1_sq}
     % };
@@ -41,20 +41,23 @@
     %     % \draw[red, thick] (0.5, 0.54) circle[radius=5pt];
     %     % \draw[red, thick] (0.55, 0.53) circle[radius=5pt];
     % \end{scope}
-    % \node[image, right=of img2] (img3) {
-    %     \includegraphics[width=0.5\figurewidth-2mm/2]{figures/PointLoad_detail2_sq}
-    % };
-    % \begin{scope}[
-    %     shift=(img3.south west), % origin is lower left corner
-    %     x={($(img3.south east)-(img3.south west)$)}, % x axis is lower side
-    %     y={($(img3.north west)-(img3.south west)$)}] % y axis is left side
-    %     % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
-    %     % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
-    %     % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
-    %     % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
-    %     \draw[mycolor4, thick, rotate around={5:(0.1, 0.56)}]
-    %         (0.1, 0.56) ellipse (0.12 and 0.03);
-    %     \draw[mycolor4, thick] (0.71, 0.57) circle[radius=5pt];
-    %     \draw[mycolor4, thick] (0.91, 0.56) circle[radius=5pt];
-    % \end{scope}
+    \node[image, anchor=south west] (img3)
+        at (img1.south west) {
+        \includegraphics[width=0.5\figurewidth]{figures/PointLoad_detail2}
+    };
+    \draw[draw=white, line width=3pt]
+        (img3.north west) -- (img3.north east) -- (img3.south east);
+    \begin{scope}[
+        shift=(img3.south west), % origin is lower left corner
+        x={($(img3.south east)-(img3.south west)$)}, % x axis is lower side
+        y={($(img3.north west)-(img3.south west)$)}] % y axis is left side
+        % \draw[help lines, opacity=0.5, xstep=.01,ystep=.01] (0,0) grid (1,1);
+        % \draw[thin, xstep=.1,ystep=.1] (0,0) grid (1,1);
+        % \foreach \x in {0,...,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+        % \foreach \y in {0,...,9} { \node [anchor=east] at (0,\y/10) {0.\y}; }
+        \draw[mycolor4, thick, rotate around={-2:(0.16, 0.54)}]
+            (0.16, 0.54) ellipse (0.15 and 0.02);
+        \draw[mycolor4, thick] (0.74, 0.43) circle[radius=5pt];
+        \draw[mycolor4, thick] (0.91, 0.35) circle[radius=5pt];
+    \end{scope}
 \end{tikzpicture}

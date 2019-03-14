@@ -1,5 +1,3 @@
-
-
 \section{Results} % (fold)
 \label{sec:pev_results}
 %
@@ -12,8 +10,8 @@ in a material under acting force.
 Its eigenvectors are real and orthogonal and are aligned with the principal
 stress directions acting on the point.
 %
-When comparing two different stress tensor fields, \ac{PEV} lines occur where two
-principal stress directions align.
+When comparing two different stress tensor fields, \ac{PEV} lines occur where
+two principal stress directions align.
 %
 We show \ac{PEV} lines for three different stress tensor datasets:
 %
@@ -61,8 +59,9 @@ Toolkit~\cite{Schroeder2006}.
 We then tetrahedralized the data, resulting in \num{1.1} million cells and
 \num{4.8} million faces.
 %
-The computing time for this dataset was \SI{4.2}{\hour}, which means that \ac{PEV}
-intersections on each face were found in \SI{3.2}{\milli\second} on average.
+The computing time for this dataset was \SI{4.2}{\hour}, which means that
+\ac{PEV} intersections on each face were found in \SI{3.2}{\milli\second} on
+average.
 %
 
 %
@@ -71,8 +70,8 @@ shows the rare case where eigenvectors are parallel on a plane instead of a
 line.
 %
 This degenerate case also accounts for the long computing time, as for each face
-intersected by the \ac{PEV} plane, the recursive subdivision can not be terminated
-early.
+intersected by the \ac{PEV} plane, the recursive subdivision can not be
+terminated early.
 %
 Even though this structurally unstable case produces visual artifacts when
 using our method, interesting \ac{PEV} line structures are still visible.
@@ -83,8 +82,8 @@ curved ring slightly below the surface.
 At the second intersection of this ring with the central plane, another closed
 \ac{PEV} structure embedded into the plane becomes visible.
 %
-Within a \ac{PEV} plane, structures where all three eigenvectors are parallel become
-lines, instead of points.
+Within a \ac{PEV} plane, structures where all three eigenvectors are parallel
+become lines, instead of points.
 %
 A similar structure can be observed starting at the load points and leading
 outwards.
@@ -92,8 +91,8 @@ outwards.
 In the center of the dataset, there is another \ac{PEV} line, orthogonal to the
 plane and slightly curved downwards, separating the two load points.
 %
-For this dataset, we colored the \ac{PEV} lines by the absolute eigenvalue ratio of
-the parallel eigenvectors.
+For this dataset, we colored the \ac{PEV} lines by the absolute eigenvalue ratio
+of the parallel eigenvectors.
 %
 Since both tensor fields result from forces of equal magnitude, this ratio makes
 visible the directions in which forces propagate outwards from the load points.
