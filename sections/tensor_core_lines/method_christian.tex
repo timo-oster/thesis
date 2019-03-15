@@ -447,7 +447,6 @@ because they may still contain isolated solutions.
 \subsection{Clustering and Line Connection}
 \label{sec:cluster}
 %
-\Todo{This algorithm has already been described in \cref{sub:final_numerical_algorithm}}
 The root finding returns a list of small parameter regions
 $(\Delta_{\vx},\Delta_{\vr})$, which are assumed to contain a solution to
 \eqref{eq:system}.
@@ -455,9 +454,9 @@ $(\Delta_{\vx},\Delta_{\vr})$, which are assumed to contain a solution to
 The size of these triangles is steered by the threshold
 $\varepsilon_{\mathrm{t}}$.
 %
-Like for the \ac{PEV} algorithm described in \cref{sec:extracting_pev_lines},
-the algorithm typically returns multiple regions that all refer to the same
-solution due to numerical noise.
+Like for the \ac{PEV} algorithm described in
+\cref{sub:final_numerical_algorithm}, the algorithm typically returns multiple
+regions that all refer to the same solution due to numerical noise.
 %
 We apply the same post-process here for clustering such regions and selecting a
 unique representative $(\vx,\vr)$ for each solution.
