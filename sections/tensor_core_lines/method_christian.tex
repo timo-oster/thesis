@@ -25,53 +25,53 @@ The intersections of tensor core lines with these triangles are again isolated
 points, which we extract using a root finding algorithm.
 %
 
-%%
+%
 \subsection{General Algorithm}
-%%
+%
 A tensor core line consists of all locations $\vx$ where
 $\mT(\vx)\, \vr \parallel \vr$ and $\nabla_{\vr}\mT(\vx)\, \vr \parallel \vr$,
 see \eqref{eq:tensor_line}.
-%%
+%
 If two vectors are parallel, their outer product is zero.
 %
 We can therefore express the criterion as solutions to the system of equations
-%%
+%
 \begin{equation}\label{eq:system}
 \begin{aligned}
   (\mT(\vx)\,\vr) \times \vr &= \vNull\\
   (\nabla_{\vr} \mT(\vx)\, \vr) \times \vr &= \vNull~.
 \end{aligned}
 \end{equation}
-%%
+%
 This system consists of six polynomial equations in the unknown variables $\vx$
 and $\vr\neq{}\vNull$.
-%%
+%
 
 %
 The polynomials are of maximum degree 1 in $\vx$ and 3 in $\vr$.
-%%
+%
 Note that for a linear tensor field, $\nabla_{\vr}\mT(\vx)=\nabla_{\vr}\mT$ is
 constant and thus independent of $\vx$.
-%%
+%
 Like for the \ac{PEV} algorithm, we parameterize the space of possible
 eigenvector directions $\vr$ such that they are defined \wrt triangles covering
 a hemisphere.
-%%
+%
 With the restriction of the local search space to triangles that bound
 tetrahedra, the solution of the polynomial system is equivalent to finding
 isolated (real) roots, \ie, points where all six polynomials simultaneously
 become zero.
-%%
+%
 
 %
 We again construct a bisection algorithm that uses the Bernstein-B\'ezier form
 (\cref{sec:bb}) of the polynomials to exclude the presence of roots within
 subtriangles.
-%%
+%
 Within the search space (\cref{sec:searchspace}) a recursive
 subdivision (\cref{sec:subdiv}) approximates the locations of roots in
 $\vx$-$\vr$-space with an arbitrary user-defined precision.
-%%
+%
 The local feature extraction is followed by a stage that clusters solutions and
 then connects feature points to lines within cells (\cref{sec:cluster})
 %
@@ -80,95 +80,95 @@ Finally, we use a filtering criterion for removing unstable solutions
 %
 \subsection{Polynomial System in Bernstein-B\'ezier Form}
 \label{sec:bb}
-%%
+%
 We consider bivariate polynomials $p:\,\RRSet^2\rightarrow\RRSet$ of degree
 $n$, which are evaluated in a triangular domain $\Delta\subset\RRSet^2$.
-%%
+%
 Let indices $i,j,k\geq{}0$.
-%%
+%
 We write $p(\vu)$ in Bernstein-B\'ezier form as
-%%
+%
 \begin{equation}\label{eq:bb}
   p(\vu)=\Sum{B^n_{ijk}(\vu)\,b_{ijk}}{i+j+k=n}~,\quad%
   B^n_{ijk}(\vu)=\frac{n!}{i!j!k!}\,a_1^i\,a_2^j\,a_3^k
 \end{equation}
-%%
+%
 with the bivariate Bernstein polynomials $B^n_{ijk}$ as basis and coefficients
 (or B\'ezier control points) $b_{ijk}$.
-%%
+%
 The basis is defined w.r.t. the barycentric coordinates $a_\ell:=a_\ell(\vu)$,
 the linear polynomials that satisfy
-%%
+%
 % \begin{equation}\label{eq:bc}
 % \begin{aligned}
 %   \sum _{\ell=1}^3 a_{\ell}(\vu)\,\vu_{\ell} = \vu\quad\text{and}\quad
 %   \sum _{\ell=1}^3 a_{\ell}(\vu) = 1~.
 % \end{aligned}
 % \end{equation}
-%%
+%
 \begin{equation*}
 a_1\vu_1+a_2\vu_2+a_3\vu_3 = \vu\quad\text{and}\quad
 a_1+a_2+a_3 = 1
 \end{equation*}
 \wrt triangle $\Delta$ spanned by vertices $\vu_1,\vu_2,\vu_3$
 \cite{Hoschek1993}.
-%%
+%
 
 %
 The Bernstein-B\'ezier representation has a number of remarkable properties.
-%%
+%
 Important to our setting is the \emph{convex hull property}\/:
-%%
+%
 For any $\vu\in\Delta$ -- or equivalently all barycentric coordinates are
 nonnegative -- the value $p(\vu)$ is bounded by the convex hull of the control
 points $b_{ijk}$.
-%%
+%
 For scalar coefficients $b_{ijk}\in\RRSet$ this means that if either all
 $b_{ijk} > \num{0}$ or all $b_{ijk} < \num{0}$ for $i+j+k=n$ then $p$
 \emph{cannot} have a zero crossing (or real root) on $\Delta$.
-%%
+%
 We use this criterion for an iterative subdivision of a triangle $\Delta$ into
 smaller and smaller triangles that either may contain or cannot contain a root.
-%%
+%
 \subsection{Parameterization of the Search Space}
 \label{sec:searchspace}
-%%
+%
 The equations in the system~\eqref{eq:system} are polynomials in $\vx$ and
 $\vr$.
-%%
+%
 This means the search space consists of two independent domains: position and
 direction.
-%%
+%
 
 %
 As pointed out before, positions $\vx$ are restricted to points on
 triangles bounding tetrahedral cells.
-%%
+%
 For each triangle of a tetrahedron we represent positions $\vx$ in
 barycentric coordinates \wrt this triangle.
-%%
+%
 Barycentric coordinates are defined in \emph{local coordinates} of the triangle
 and therefore have two degrees of freedom.
-%%
+%
 After switching to barycentric coordinates the further steps, polynomial
 evaluation and subdivision, are independent of the supporting triangle.
-%%
+%
 
 %
 We represent a direction vector $\vr$ as a point on a hemisphere.
-%%
+%
 As not only its orientation (and thus sign) is irrelevant for the
 system~\eqref{eq:system} but also its scale (as long as $\vr\neq{}\num{0}$), we
 approximate the hemisphere by a triangulation.
-%%
+%
 This way, we use the same parameterization and the same representation
 for $\vx$ and $\vr$.
-%%
+%
 We remark that there is no need for an ``accurate'' approximation of
 the hemisphere.
-%%
+%
 We simply use a four-sided open pyramid (see \cref{fig:subdivision_scheme}).
-%%
+%
 
 %
 \begin{figure}[t]
@@ -186,16 +186,16 @@ We simply use a four-sided open pyramid (see \cref{fig:subdivision_scheme}).
 For a given triangle, we have to consider a tensor field $\mT$ that is linear in
 $\vx$ and a direction vector $\vr$ that is linearly interpolated on a triangle
 of the ``hemisphere''.
-%%
+%
 Then the left-hand-sides of the system~\eqref{eq:system} give three
 polynomials that are linear in $\vx$ and quadratic in $\vr$ and three
 polynomials that are cubic in $\vr$ as they don't depend on $\vx$
 because $\nabla_{\vr}\mT$ is constant.
-%%
+%
 
 %
 Each of these six polynomials can be written in the form
-%%
+%
 \begin{equation}\label{eq:polynomial}
   \begin{aligned}
     p(\vx,\vr)=%
@@ -204,12 +204,12 @@ Each of these six polynomials can be written in the form
     b_{ijk\,\alpha\beta\gamma}~.
   \end{aligned}
 \end{equation}
-%%
+%
 This is the tensor product of the interpolation in $\vx$ and $\vr$.
-%%
+%
 It gives $\num{3}\times{}\num{10} = \num{30}$ coefficients
 $b_{ijk\,\alpha\beta\gamma}$.
-%%
+%
 (All indices are nonnegative. Latin indices indicate position space,
 Greek indices denote direction space.)
 %
@@ -220,266 +220,266 @@ We use this unified representation for didactic purposes.
 %
 Using the real number of degrees in $\vx$ and $\vr$ for each polynomial gives a
 smaller number of coefficients (\num{18} or \num{10}).
-%%
+%
 Note that position and direction are expressed in \emph{local coordinates}\/ (or
 barycentric coordinates) of the triangles, such that $p$ depends on only four
 coordinates in total.
-%%
+%
 For the sake of a concise notation we write $p(\vx,\vr)$, $B^1_{ijk}(\vx)$
 and $B^3_{\alpha\beta\gamma}(\vr)$.
 %
 \subsection{Root Finding by Subdivision}
 \label{sec:subdiv}
-%%
+%
 Algorithms for finding roots of B\'ezier curves and surfaces are
 typically based on the convex hull property and use a recursive
 bisection~\cite{Rockwood1989,Hoschek1993}.
-%%
+%
 We adopt this technique.
-%%
+%
 % We adopt the standard bisection algorithm
 % \cite{Rockwood:1989:RRT,Hoschek1993} for finding roots of
 % polynomial functions $\RRSet\rightarrow\RRSet$ that is based on the
 % convex hull property of the Bernstein-B\'ezier representation of
 % polynomials.
-%%
+%
 The main differences in our setting are the fact that all six
 equations in \eqref{eq:system} must be satisfied simultaneously and
 that this is checked in two different two-dimensional domains:
 position and space.
-%%
+%
 \subsubsection{Roots of One Single Polynomial}
-%%
+%
 The system \eqref{eq:system} defines six polynomials.
-%%
+%
 For the initialization of the algorithm, we need to determine the
 Bernstein-B\'ezier form, \ie, the coefficients $b_{ijk\,\alpha\beta\gamma}$
 in \eqref{eq:polynomial}, for each of these polynomials.
-%%
+%
 This can be done easily by sampling and interpolation:
-%%
+%
 There are $\num{3}\times{}\num{10}$ coefficients and two triangular parameter
 domains.
-%%
+%
 As \eqref{eq:polynomial} lives in a tensor-product space,
 interpolation of position and direction can be separated.
-%%
+%
 Chose \num{3} or \num{10} distinct sampling positions in $\Delta_{\vx}$ or
 $\Delta_{\vr}$, respectively, and evaluate the values for the given
 polynomial.
-%%
+%
 Then interpolate these values using the Bernstein-B\'ezier basis.
-%%
+%
 The interpolation conditions define a linear system that has a unique
 solution.
-%%
+%
 We remark that the choice of sampling positions can be arbitrary as
 long as they are distinct.
-%%
+%
 For polynomial degree $n$, we use the domain points
 $\tfrac{1}{3}(i,j,k)$ with $i+j+k=n$ in barycentric coordinates.
-%%
+%
 This ensures a well-conditioned system matrix.
-%%
+%
 As the sampling positions are fixed, the system matrix is constant,
 \ie, interpolation requires only inversion or factoring.
-%%
+%
 So after sampling, the conversion to Bernstein-B\'ezier form reduces
 to a linear transform than can be expressed as a matrix-multiplication.
-%%
+%
 
 The outline of the subdivision algorithm is as follows.
-%%
+%
 We are given a pair $(\Delta_{\vx},\Delta_{\vr})$
 of position-direction parameter triangles and a polynomial in
 Bernstein-B\'ezier form.
-%%
+%
 The coefficients $b_{ijk\,\alpha\beta\gamma}$ indicate the absence of zero
 crossing if they are either all positive or all negative.
-%%
+%
 In this case, no root is found and processing of
 $(\Delta_{\vx},\Delta_{\vr})$ stops.
-%%
+%
 If there is any sign change or zeros in the coefficients, there
 \emph{may} exist roots within the parameter space
 $(\Delta_{\vx},\Delta_{\vr})$.
-%%
+%
 In this case we \emph{subdivide}\/ one of the parameter triangles.
-%%
+%
 We alternate between subdividing $\Delta_{\vx}$ in position-space and
 $\Delta_{\vr}$ in direction-space.
-%%
+%
 For both, we use a regular 1:4-split (see \cref{fig:subdivision_scheme}).
-%%
+%
 Each of the four new subtriangles is processed recursively in the same
 way.
-%%
+%
 
 %
 \subsubsection{System of Polynomials}
-%%
+%
 We explained the basic algorithm for a single polynomial.
-%%
+%
 Solving system~\eqref{eq:system} means finding solutions $\vx,\vr$ where all six
 polynomials become zero simultaneously.
 %
 We test each polynomial \emph{individually}.
-%%
+%
 Only if there is a sign change in the coefficients for \emph{all}
 polynomials, a simultaneous root can exist.
-%%
+%
 
 %
 Every level of subdivision restricts the parameter domain and thus
 puts tighter bounds on the region that (potentially) contains a root.
-%%
+%
 The subdivision stops either if there cannot be any root in
 $(\Delta_{\vx},\Delta_{\vr})$ or when the magnitude of all polynomials
 drops below a threshold (see below).
-%%
+%
 In the latter case, we have found a root, and the barycenters of the
 triangles define its location in parameter space.
-%%
+%
 
 Similar to the initial interpolation, the Bernstein-B\'ezier form of
 the subdivided polynomial can be evaluated by a linear transformation:
-%%
+%
 Evaluate the polynomial at domain points in the new, smaller triangle
 and apply interpolation.
-%%
+%
 Evaluation and interpolation can be combined to one transformation for each
 of the four new triangles.
-%%
+%
 
 \subsubsection{Solution and Stopping Criterion}
-%%
+%
 All computations involving Bernstein-B\'ezier polynomials are done in
 barycentric coordinates, which yields a concise implementation of the
 algorithm.
-%%
+%
 However, the barycentric coordinates are relative to the current
 triangle, and we still need to keep track of the absolute positions of
 its vertices in parameter space for bounding the regions of roots.
-%%
+%
 This can be done with a small amount of bookkeeping by tracking the
 subdivision steps such that any ``child'' triangle can be
 reconstructed from its ``parent'' and ultimately from the initial
 parameter triangle.
-%%
+%
 
 %
 We stop the subdivision when we are close enough to a root.
-%%
+%
 We require the magnitude of all polynomials to drop below a threshold
 simultaneously.
-%%
+%
 For each polynomial its magnitude is bounded in
 $(\Delta_{\vx},\Delta_{\vr})$, and we test
-%%
+%
 \begin{equation}
   \begin{aligned}
     |p|~<~%
     \varepsilon_{\mathrm{t}}\,\cdot\,\invn{\mT}_{\infty}~,
   \end{aligned}
 \end{equation}
-%%
+%
 where $|p|:=\max \{\, |b_{ijk\,\alpha\beta\gamma}| \,\}$ is an upper bound for
 the magnitude of p in $(\Delta_{\vx},\Delta_{\vr})$.
-%%
+%
 The magnitude of the tensor field in $\Delta_{\vx}$ is given as
-%%
+%
 \begin{equation}
   \begin{aligned}
     \invn{\mT}_{\infty}=\sup_{\vx\in\Delta_{\vx}} \{\,\invn{\mT(\vx)}\,\}
     = \max_i\{\, \invn{\mT_i} \,\}~,
   \end{aligned}
 \end{equation}
-%%
+%
 where $\mT_i$ denote the constant tensors at the triangle vertices
 $i=1,2,3$, and $\invn{\mT_i}$ denotes their spectral norm.
-%%
+%
 
 %
 The parameter $\varepsilon_{\mathrm{t}}$ defines a \emph{relative}\/ threshold,
 which is independent of the local magnitude $\invn{\mT}_{\infty}$ of the tensor
 field within $\Delta_{\vx}$.
-%%
+%
 
 \subsubsection{Breadth-First Search Modification}
-%%
-%%
+%
+%
 As we hinted at in \cref{sec:tcl_theory}, the symmetries and regular shapes
 inherent to data such as stress simulations of mechanical parts often lead to
 \eqref{eq:tensor_line} being fulfilled or almost fulfilled on surface- or
 volume-type structures.
-%%
+%
 Also there may be tensor core lines which do not intersect but which
 are part of the domain triangle.
-%%
+%
 In these cases the roots are no longer isolated points but algebraic
 structures.
-%%
+%
 As a consequence, the presented algorithm would not be efficient, as it would do
 an exhaustive search for all ``points'' on the structure.
-%%
+%
 In cases where the higher-order structures are disturbed by noise and break down
 to lines, the algorithm still has to do a large number of subdivisions before
 reaching a termination criterion.
-%%
+%
 
 %
 A simple modification of the algorithm enables detecting such cases:
-%%
+%
 we apply a breadth-first search when looking for roots.
-%%
+%
 In the implementation, we use a queue of pairs $(\Delta_{\vx},\Delta_{\vr})$ of
 parameter regions with potential roots.
-%%
+%
 If the number of elements in the queue exceeds a threshold $M$, we
 assume that the solution to \eqref{eq:system} forms an algebraic
 structure and terminate the local search.
-%%
+%
 If the search is terminated for one of the initial triangles $\Delta_{\vr}$ that
 tessellate the hemisphere, we still need to consider the other triangles,
 because they may still contain isolated solutions.
-%%
+%
 
 \subsection{Clustering and Line Connection}
 \label{sec:cluster}
-%%
+%
 \Todo{This algorithm has already been described in \cref{sub:final_numerical_algorithm}}
 The root finding returns a list of small parameter regions
 $(\Delta_{\vx},\Delta_{\vr})$, which are assumed to contain a solution to
 \eqref{eq:system}.
-%%
+%
 The size of these triangles is steered by the threshold
 $\varepsilon_{\mathrm{t}}$.
-%%
+%
 Like for the \ac{PEV} algorithm described in \cref{sec:extracting_pev_lines},
 the algorithm typically returns multiple regions that all refer to the same
 solution due to numerical noise.
-%%
+%
 We apply the same post-process here for clustering such regions and selecting a
 unique representative $(\vx,\vr)$ for each solution.
-%%
+%
 For each cluster, we select the triangle pair as a representative where $\max \{
 |p_i| \}$ is smallest for all polynomials $i=1,\dots,6$.
-%%
+%
 We select the center points of both triangles in this pair as the solution
 represented by this cluster.
-%%
+%
 
-%%
+%
 For each tetrahedral cell of the dataset, we now connect the root points found
 on its faces by a line segment.
-%%
+%
 Since in piecewise linear fields, tensor lines are always straight within a cell
 (see \cref{sec:tcl_theory}), we greedily connect the two points with the
 smallest difference in eigenvector direction until no more pairs are left.
-%%
+%
 Similar to the vortex core lines by Sujudi and Haimes \cite{Sujudi1995}, this
 gives a set of discontinuous line segments.
-%%
+%
 %
 \subsection{Filtering}
 \label{sec:filt}
@@ -492,7 +492,7 @@ These occur if the unstable structures are disturbed by noise.
 %
 To filter these spurious points, we measure the numeric stability of a solution
 given its representative $(\vx, \vr)$ with
-%%
+%
 %
 \begin{equation}
   s(\vx, \vr) = \left|\det
@@ -504,32 +504,28 @@ given its representative $(\vx, \vr)$ with
 \end{equation}
 %
 where $\vr, \vr_1, \vr_2$ are orthonormal.
-%%
+%
 
 %
 The stability $s(\vx, \vr)$ measures the directional change that the eigenvector
 $\vr$ of the tensor $\mT(\vx)$ experiences when moving orthogonal to the tensor
 core line.
-%%
+%
 If this change is small, the magnitude of the determinant in $s$ will be small.
-%%
+%
 This is an indicator that the line is numerically unstable.
-%%
+%
 The normalization by $\|\mT(\vx)\|_{\infty}$ ensures the independence from the
 scale of the tensor field.
-%%
+%
 
 %
 Filtering out lines with small numeric stability $s$ is a post-process that must
 be done manually by a user.
-%%
+%
 In practice, the distribution of $s$ over all found solutions shows an
 exponential behavior.
-%%
+%
 In order to facilitate choosing a threshold, we visualize $s$ on a logarithmic
 scale.
-%%
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../TensorCoreLines"
-%%% End:
+%
