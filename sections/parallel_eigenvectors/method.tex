@@ -52,9 +52,9 @@ In the following, we describe the details of this algorithm.
 A linear tensor field on a triangle is defined by the tensors at its three
 corners.
 %
-We denote the set of corner points as $\triangle_{\vx} = \{\vx_1, \vx_2,
-\vx_3\}$, and the set of corner tensors as $\triangle_{\mS} = \{\mS_1, \mS_2,
-\mS_3\}$ and $\triangle_{\mT} = \{\mT_1, \mT_2, \mT_3\}$.
+We denote the set of corner points as $\Delta_{\vx} = \{\vx_1, \vx_2,
+\vx_3\}$, and the set of corner tensors as $\Delta_{\mS} = \{\mS_1, \mS_2,
+\mS_3\}$ and $\Delta_{\mT} = \{\mT_1, \mT_2, \mT_3\}$.
 %
 We express the tensor fields in barycentric coordinates $\vw = \T{(w_1, w_2,
 w_3)}$:
@@ -150,7 +150,7 @@ are not significant.
 We can therefore represent this space by some triangulation of a hemisphere
 centered at the origin (\cref{fig:algorithm}, right).
 %
-We again express a direction in a triangle $\triangle_{\vr} = \{\vr_1, \vr_2,
+We again express a direction in a triangle $\Delta_{\vr} = \{\vr_1, \vr_2,
 \vr_3\}$ on this hemisphere in barycentric coordinates $u_j$ of its corner
 vectors:
 %
@@ -182,7 +182,7 @@ functions now become
 % \end{equation}
 % %
 % This indicator tells us if the sign of $\hat{w}_i$ is consistent everywhere
-% inside $\triangle_{\vr}$, and if it is positive or negative.
+% inside $\Delta_{\vr}$, and if it is positive or negative.
 % %
 % Computing $s_i$ means deciding if there are roots of $\hat{w}_i$ anywhere inside
 % the triangle.
@@ -191,11 +191,11 @@ We can now express the polynomials $\hat{w}_i$ in Bernstein-B\'ezier basis as
 %
 \begin{equation}
     \hat{w}_i(\vu) = \sum_{\substack{j,\, k,\, l \geqslant 0 \, \text{,} \\ j+k+l=3}}{
-        \frac{3!}{j! \, k! \, l!} \, u_1^j \, u_2^k \, u_3^l \cdot \alpha_{jkl}}
+        \frac{3!}{j! \, k! \, l!} \, u_1^j \, u_2^k \, u_3^l \cdot b_{jkl}}
         \, \text{.}
 \end{equation}
 %
-Here, $\alpha_{jkl}$ are the \num{10} coefficients needed to express a trivariate
+Here, $b_{jkl}$ are the \num{10} coefficients needed to express a trivariate
 polynomial of degree \num{3}.
 %
 
@@ -203,16 +203,15 @@ polynomial of degree \num{3}.
 We use the property that a polynomial in Bernstein-B\'ezier form is bounded in
 its domain by the convex hull of its coefficients \cite{Farin1997}.
 %
-This means that $\hat{w}_i$ is positive over the whole triangle if all
-$\alpha_{jkl} > \num{0}$, and negative over the whole triangle if all
-$\alpha_{jkl} < \num{0}$.
+This means that $\hat{w}_i$ is positive over the whole triangle if all $b_{jkl}
+> \num{0}$, and negative over the whole triangle if all $b_{jkl} < \num{0}$.
 %
-If the $\alpha_{jkl}$ have different signs, $\hat{w}_i$ might become \num{0}
+If the $b_{jkl}$ have different signs, $\hat{w}_i$ might become \num{0}
 somewhere inside the triangle.
 %
 
 %
-We use this when recursively subdividing the triangle $\triangle_{\vr}$.
+We use this when recursively subdividing the triangle $\Delta_{\vr}$.
 %
 If any $\hat{w}_i$ might have roots within the triangle according to the
 Bernstein-B\'ezier coefficients, then we can not make a decision.
@@ -230,7 +229,7 @@ coefficients, then there are two possibilities:
 \end{enumerate}
 %
 In case~\ref{i:accept}, all directions within the triangle become
-eigenvector directions somewhere in $\triangle_{\vx}$ for both $\mS$ and $\mT$.
+eigenvector directions somewhere in $\Delta_{\vx}$ for both $\mS$ and $\mT$.
 %
 If this happens, we can accept any direction within the current triangle as a
 possible solution.
@@ -240,16 +239,16 @@ eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
 %
 % %
 % This results in an indicator functions $s_i$, which tells us if the sign of
-% $\hat{w}_i$ is consistent everywhere inside $\triangle_{\vr}$, and if it is
+% $\hat{w}_i$ is consistent everywhere inside $\Delta_{\vr}$, and if it is
 % positive or negative.:
 % %
 % \begin{equation}
 %     s_i =
 %     \begin{cases}
 %         \hfill 1 \text{,} &
-%         \text{if} \quad  \alpha_{jkl}(\hat{w}_i) > 0 \quad  \forall \ j+k+l=3 \\
+%         \text{if} \quad  b_{jkl}(\hat{w}_i) > 0 \quad  \forall \ j+k+l=3 \\
 %         \hfill -1 \text{,} &
-%         \text{if} \quad  \alpha_{jkl}(\hat{w}_i) < 0 \quad  \forall \ j+k+l=3 \\
+%         \text{if} \quad  b_{jkl}(\hat{w}_i) < 0 \quad  \forall \ j+k+l=3 \\
 %         \hfill 0 \text{,} & \text{else.}
 %     \end{cases}
 % \end{equation}
@@ -257,19 +256,19 @@ eigenvector of both $\mS$ and $\mT$, and the triangle is discarded.
 % %
 % If there are $i, j$ such that $s_i \neq 0$ and $s_j \neq 0$ with $s_i \neq s_j$,
 % then the coordinate functions $\hat{w}_i(\vr)$ do not all have the same sign for
-% any direction in $\triangle_{\vr}$.
+% any direction in $\Delta_{\vr}$.
 % %
-% This means that no direction in $\triangle_{\vr}$ will become an eigenvector in
-% $\triangle_{\vx}$, and therefore $\triangle_{\vr}$ can be discarded.
+% This means that no direction in $\Delta_{\vr}$ will become an eigenvector in
+% $\Delta_{\vx}$, and therefore $\Delta_{\vr}$ can be discarded.
 % %
 % If there are $i, j, k$ such that $s_i \neq 0$ and $s_i = s_j = s_k$ for both
-% $\mS$ and $\mT$, then all directions in $\triangle_{\vr}$ will become eigenvectors
-% somewhere in $\triangle_{\vx}$ for $\mS$ and $\mT$.
+% $\mS$ and $\mT$, then all directions in $\Delta_{\vr}$ will become eigenvectors
+% somewhere in $\Delta_{\vx}$ for $\mS$ and $\mT$.
 % %
 % In this case, we have found valid eigenvector directions and can terminate the
 % recursion.
 % %
-% If none of the above is the case, we have to subdivide $\triangle_{\vr}$ and
+% If none of the above is the case, we have to subdivide $\Delta_{\vr}$ and
 % investigate the parts again.
 %
 When the triangle becomes smaller than some subdivision threshold $\varepsilon_{\mathrm{r}}$,
@@ -282,10 +281,10 @@ directions inside, we accept the central direction as a candidate.
     \input{figures/algorithm_pev_tikz}
     \caption{Two-level recursion scheme for finding intersections of \ac{PEV} lines
              with the faces of piecewise linear tensor fields. For each
-             sub-triangle $\triangle_{\vx}$, a recursive search in the space of
+             sub-triangle $\Delta_{\vx}$, a recursive search in the space of
              possible eigenvector directions is performed to find a direction
              $\vr$ that becomes an eigenvector of both $\mS$ and $\mT$ within
-             $\triangle_{\vx}$.}
+             $\Delta_{\vx}$.}
     \label{fig:algorithm}
 \end{figure}
 %
@@ -303,37 +302,37 @@ directions inside, we accept the central direction as a candidate.
     \SetKw{KwNull}{null}
     \SetKw{KwOr}{or}
 
-    \Fn{\FindPEV{$\triangle_{\mS}$, $\triangle_{\mT}$, $\triangle_{\vx}$}}{
-        $\vr \gets$ \FindEigenDir{$\triangle_{\mS}$, $\triangle_{\mT}$}\;
+    \Fn{\FindPEV{$\Delta_{\mS}$, $\Delta_{\mT}$, $\Delta_{\vx}$}}{
+        $\vr \gets$ \FindEigenDir{$\Delta_{\mS}$, $\Delta_{\mT}$}\;
         \uIf{$\vr$ is \KwNull}{
             \Return{$\{\}$}
             \tcp*{Discard triangle}
         }
-        \ElseIf{size of $\triangle_{\vx} < \varepsilon_{\mathrm{s}}$}{
+        \ElseIf{size of $\Delta_{\vx} < \varepsilon_{\mathrm{s}}$}{
             \Return{$\{(\sfrac{1}{3}\sum{\vx_i}, \ \vr)\}$}
             \tcp*{Accept solution}
         }
         $l$ = \{\}\;
-        \ForEach{$(\triangle'_{\mS}, \triangle'_{\mT}, \triangle'_{\vx}) \in
+        \ForEach{$(\Delta'_{\mS}, \Delta'_{\mT}, \Delta'_{\vx}) \in
             (\text{%
-                \Split{$\triangle_{\mS}$},
-                \Split{$\triangle_{\mT}$},
-                \Split{$\triangle_{\vx}$}})$}{
+                \Split{$\Delta_{\mS}$},
+                \Split{$\Delta_{\mT}$},
+                \Split{$\Delta_{\vx}$}})$}{
             $l \gets l \ \cup$
-                \FindPEV{$\triangle'_{\mS}$,
-                         $\triangle'_{\mT}$,
-                         $\triangle'_{\vx}$}
+                \FindPEV{$\Delta'_{\mS}$,
+                         $\Delta'_{\mT}$,
+                         $\Delta'_{\vx}$}
             \tcp*{Recursive subdivision}
         }
         \Return{$l$}\;
     }
     % \BlankLine
-    \Fn{\FindEigenDir{$\triangle_{\mS}$, $\triangle_{\mT}$}}{
+    \Fn{\FindEigenDir{$\Delta_{\mS}$, $\Delta_{\mT}$}}{
         $R \gets$ set of triangles covering a hemisphere\;
-        \ForEach{$\triangle_{\vr} \in R$}{
-            $\vr \gets$ \FindEigenDirRecursive{$\triangle_{\mS}$,
-                                               $\triangle_{\mT}$,
-                                               $\triangle_{\vr}$}\;
+        \ForEach{$\Delta_{\vr} \in R$}{
+            $\vr \gets$ \FindEigenDirRecursive{$\Delta_{\mS}$,
+                                               $\Delta_{\mT}$,
+                                               $\Delta_{\vr}$}\;
             \If{$\vr$ is not \KwNull}{
                 \Return{$\vr$}\;
             }
@@ -341,23 +340,23 @@ directions inside, we accept the central direction as a candidate.
         \Return{\KwNull}\;
     }
     % \BlankLine
-    \Fn{\FindEigenDirRecursive{$\triangle_{\mS}$,
-                               $\triangle_{\mT}$,
-                               $\triangle_{\vr}$}}{
+    \Fn{\FindEigenDirRecursive{$\Delta_{\mS}$,
+                               $\Delta_{\mT}$,
+                               $\Delta_{\vr}$}}{
         Compute Bernstein-B\'ezier coefficients for $\hat{w}_i$\;
-        \uIf{any $\hat{w}_i$ might have roots within $\triangle_{\vr}$}{
-            \ForEach{$\triangle'_{\vr} \in$ \Split{$\triangle_{\vr}$}}{
+        \uIf{any $\hat{w}_i$ might have roots within $\Delta_{\vr}$}{
+            \ForEach{$\Delta'_{\vr} \in$ \Split{$\Delta_{\vr}$}}{
                $\vr \gets$ %
-                    \FindEigenDirRecursive{$\triangle_{\mS}$,
-                                           $\triangle_{\mT}$,
-                                           $\triangle'_{\vr}$}\;
+                    \FindEigenDirRecursive{$\Delta_{\mS}$,
+                                           $\Delta_{\mT}$,
+                                           $\Delta'_{\vr}$}\;
                 \If{$\vr$ is not \KwNull}{
                     \Return{$\vr$}\;
                 }
             }
         }
         \uElseIf{all $\hat{w}_i$ have the same sign %
-                \KwOr size of $\triangle_{\vr} < \varepsilon_{\mathrm{r}}$}{
+                \KwOr size of $\Delta_{\vr} < \varepsilon_{\mathrm{r}}$}{
             \Return{$\sfrac{1}{3}\sum{\vr_i}$}
             \tcp*{Accept solution}
         }
@@ -373,7 +372,7 @@ directions inside, we accept the central direction as a candidate.
 The complete algorithm for finding intersections of \ac{PEV} lines with a
 triangle of the dataset now works as follows:
 %
-Start with the complete triangle as $\triangle_{\vx}$.
+Start with the complete triangle as $\Delta_{\vx}$.
 %
 Then, search for a direction that becomes an eigenvector of both $\mS$ and $\mT$
 somewhere inside the triangle by using the algorithm described in
@@ -392,7 +391,7 @@ accompanying direction $\vr$ as a solution candidate.
 %
 
 %
-The result of the algorithm is a list of points on $\triangle_{\vx}$ with
+The result of the algorithm is a list of points on $\Delta_{\vx}$ with
 corresponding eigenvector directions $\vr$.
 %
 This list of points has to be post-processed for two reasons:
@@ -418,13 +417,13 @@ This list of points has to be post-processed for two reasons:
           A candidate point might not be a \ac{PEV} point at all.
           %
           These false positives occur if there are directions $\vr$ that become
-          eigenvectors of one of the tensor fields inside $\triangle_{\vx}$,
+          eigenvectors of one of the tensor fields inside $\Delta_{\vx}$,
           while $\mA(\vr)$ has rank 1 for the other tensor field.
           %
           For this case, $\hat{\vw} = \vNull$, which means that a consistent
           sign of all components can never be determined, and subdivision can
           not be terminated early, even if the tensor field does not have any
-          valid eigenvector directions inside $\triangle_{\vx}$.
+          valid eigenvector directions inside $\Delta_{\vx}$.
           %
 \end{enumerate}
 %

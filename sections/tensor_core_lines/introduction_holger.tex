@@ -1,10 +1,10 @@
 Vortex core lines describe the centers of swirling behavior in vector fields.
 %
-They are an important tool in vector field visualization because they provide
-an explicit geometrical representation of an important flow feature.
+They are a useful tool in vector field visualization because they provide an
+explicit geometrical representation of an important flow feature.
 %
-Different strategies for extracting vortex core lines have been presented in
-\cref{sub:vortex_extraction}.
+Different definitions and strategies for extracting vortex core lines have been
+presented in \cref{sub:vortex_extraction}.
 %
 One of the simplest and most popular methods is the one proposed by Sujudi and
 Haimes~\cite{Sujudi1995}, which can be computed using the \ac{PV}
@@ -13,26 +13,26 @@ operator~\cite{Peikert1999}.
 
 %
 Tensor field lines, \ie, lines that are everywhere tangential to an eigenvector
-of a tensor fields (see \cref{sub:tensor_line_surface_based}), can also exhibit
+of a tensor field (see \cref{sub:tensor_line_surface_based}), can also exhibit
 ``swirling'' behavior similar to vortices in vector fields.
 %
 For example, stress tensor fields show stress trajectories winding around a
 common core in regions of twist.
 %
-Various visualization methods for tensor fields exist, but to date there has
-been no approach to extract core lines of such vortex-like structures.
+Various visualization methods for tensor fields exist, but to date no approach
+has been proposed to extract core lines of such vortex-like structures.
 %
 
 %
-As we have already explained in \cref{cha:parallel_eigenvectors}, simply
-applying the \ac{PV} operator to the ``eigenvector fields'' of the data cannot
-give consistent results.
+As we have already explained in \cref{cha:parallel_eigenvectors}, simply using
+the Sujudi/Haimes criterion and applying the \ac{PV} operator to the
+``eigenvector fields'' of the data cannot give consistent results.
 %
 We therefore introduce \emph{tensor core lines} as an equivalent to vortex
 core lines in vector fields.
 %
-Their definition is analogous to the Sujudi/Haimes criterion for vector fields,
-but their extraction is based on the \ac{PEV} operator.
+Their definition is a direct extension of the Sujudi/Haimes criterion to tensor
+fields and their extraction is based on the \ac{PEV} operator.
 %
 \begin{figure}[t]
     \centering
@@ -49,11 +49,11 @@ but their extraction is based on the \ac{PEV} operator.
 In particular, we make the following contributions:
 %
 \begin{itemize}
-    \item  We give a rigorous definition of tensor core lines and show that the
-    definition gives indeed structurally stable line structures.
+    \item  We give a rigorous definition of tensor core lines and show that
+    indeed the definition gives structurally stable line structures.
     %
     \item We provide a numerical algorithm for the extraction of tensor core
-    lines in piecewise linear tensor fields.
+    lines from piecewise linear tensor fields.
     %
     \item We introduce a filter criterion based on numerical stability to
     separate significant and insignificant tensor core lines.
@@ -63,10 +63,16 @@ In particular, we make the following contributions:
     are equal.
 \end{itemize}
 %
+We introduce tensor core lines in \cref{sec:tcl_theory} and study their
+properties.
 %
-\Todo[inline]{Make connection with PEV. This algorithm simpler variant. PEV
-also implementable in terms of this algorithm.}
+We then present our algorithm for extracting tensor core lines in
+\cref{sec:extracting_tensor_lines}.
 %
-\Todo[inline]{summarize sections}
+We show our results on several stress tensor fields in \cref{sec:tcl_results}
+and close with a discussion in \cref{sec:tcl_discussion}.
+%
+\Todo[inline]{Adjust summary when section about computing PEV and degenerate
+lines is added.}
 %
 % section introduction (end)

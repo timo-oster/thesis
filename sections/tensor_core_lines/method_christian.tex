@@ -1,36 +1,30 @@
-
-%
 \section{Extracting Tensor Core Lines from Piecewise Linear Data} % (fold)
 \label{sec:extracting_tensor_lines}
 %
+As we have mentioned in \cref{sub:tcl_definition}, the definition of tensor core
+lines is almost a straightforward application of the \ac{PEV} operator, except
+for the unknown $\vr$ in the second tensor field.
+%
+We can therefore not directly use the algorithm for extracting \ac{PEV} lines
+we presented in \cref{sec:extracting_pev_lines}.
+%
+Instead we derive a different, more generic, algorithm that is based on the same
+principles.
+%
+\Todo[inline]{As it turns out, PEV lines can also be extracted in the framework
+of this new algorithm, as well as degenerate lines}
+%
 \Todo[inline]{Discuss with Christian about which parts he needs for his habil.}
-We assume tetrahedral partition of the three-dimensional domain.
-%%
-Each tetrahedron supports a linear piece if the given tensor field has a
-constant tensor for each vertex.
-%%
-The gradient field $\nabla\mT$ consists of constant pieces per
-tetrahedron.
-%%
 
 %
-In general, tensor core structures are line features (see \cref{sec:tcl_theory}).
-%%
-We extract them by first bounding the search space to individual
-tetrahedral cells and then to the cell boundary.
-%%
-The two-dimensional search on triangles reduces the extraction
-generally to finding point features: the intersection of core lines
-with the cell boundary.
-%%
-We will apply a root finding algorithm for feature extraction.
-%%
-
+Analogous to our \ac{PEV} extractor, we assume tetrahedral partition of the
+three-dimensional domain and restrict our search to the boundaries between
+tetrahedral cells.
 %
-This discretization of the field and also the restriction to a local
-two-dimensional search space is applied similarly by other methods,
-\eg, the Sujudi and Haimes extractor~\cite{Sujudi1995} or the extractor for
-degenerate lines in tensor fields by Zheng and Pang~\cite{Zheng2004}.
+The intersections of tensor core lines with these triangles are again isolated
+points, which we extract using a root finding algorithm.
+%
+
 %%
 \subsection{General Algorithm}
 %%
@@ -38,7 +32,9 @@ A tensor core line consists of all locations $\vx$ where
 $\mT(\vx)\, \vr \parallel \vr$ and $\nabla_{\vr}\mT(\vx)\, \vr \parallel \vr$,
 see \eqref{eq:tensor_line}.
 %%
-This can be expressed as solutions to
+If two vectors are parallel, their outer product is zero.
+%
+We can therefore express the criterion as solutions to the system of equations
 %%
 \begin{equation}\label{eq:system}
 \begin{aligned}
@@ -47,25 +43,28 @@ This can be expressed as solutions to
 \end{aligned}
 \end{equation}
 %%
-This system consists of six polynomial equations in the unknown
-variables $\vx$ and $\vr\neq{}\vNull$.
+This system consists of six polynomial equations in the unknown variables $\vx$
+and $\vr\neq{}\vNull$.
 %%
 
+%
 The polynomials are of maximum degree 1 in $\vx$ and 3 in $\vr$.
 %%
 Note that for a linear tensor field, $\nabla_{\vr}\mT(\vx)=\nabla_{\vr}\mT$ is
 constant and thus independent of $\vx$.
 %%
-We parameterize directions $\vr$ such that they can be defined \wrt triangles.
+Like for the \ac{PEV} algorithm, we parameterize the space of possible
+eigenvector directions $\vr$ such that they are defined \wrt triangles covering
+a hemisphere.
 %%
 With the restriction of the local search space to triangles that bound
-tetrahedra, the solution of the polynomial system is equivalent to
-finding isolated (real) roots, \ie, points where all six polynomials
-simultaneously become zero.
+tetrahedra, the solution of the polynomial system is equivalent to finding
+isolated (real) roots, \ie, points where all six polynomials simultaneously
+become zero.
 %%
 
 %
-We construct a bisection algorithm that uses the Bernstein-B\'ezier form
+We again construct a bisection algorithm that uses the Bernstein-B\'ezier form
 (\cref{sec:bb}) of the polynomials to exclude the presence of roots within
 subtriangles.
 %%
@@ -82,26 +81,23 @@ Finally, we use a filtering criterion for removing unstable solutions
 \subsection{Polynomial System in Bernstein-B\'ezier Form}
 \label{sec:bb}
 %%
-We consider bivariate polynomials $p\,:\,\RRSet^2\rightarrow\RRSet$ of
-degree $n$, which are evaluated in a triangular domain
-$\Delta\subset\RRSet^2$.
+We consider bivariate polynomials $p:\,\RRSet^2\rightarrow\RRSet$ of degree
+$n$, which are evaluated in a triangular domain $\Delta\subset\RRSet^2$.
 %%
 Let indices $i,j,k\geq{}0$.
 %%
 We write $p(\vu)$ in Bernstein-B\'ezier form as
 %%
 \begin{equation}\label{eq:bb}
-\begin{aligned}
-  p(\vu)~=\sum _{i+j+k=n} B^n_{ijk}(\vu)\,b_{ijk}~,\quad%
-  B^n_{ijk}(\vu)~=~\frac{n!}{i!j!k!}\,a_1^i\,a_2^j\,a_3^k
-\end{aligned}
+  p(\vu)=\Sum{B^n_{ijk}(\vu)\,b_{ijk}}{i+j+k=n}~,\quad%
+  B^n_{ijk}(\vu)=\frac{n!}{i!j!k!}\,a_1^i\,a_2^j\,a_3^k
 \end{equation}
 %%
-with the bivariate Bernstein polynomials $B^n_{ijk}$ as basis and
-coefficients (or B\'ezier control points) $b_{ijk}$.
+with the bivariate Bernstein polynomials $B^n_{ijk}$ as basis and coefficients
+(or B\'ezier control points) $b_{ijk}$.
 %%
-The basis is defined w.r.t. the barycentric coordinates
-$a_\ell:=a_\ell(\vu)$, the linear polynomials that satisfy
+The basis is defined w.r.t. the barycentric coordinates $a_\ell:=a_\ell(\vu)$,
+the linear polynomials that satisfy
 %%
 % \begin{equation}\label{eq:bc}
 % \begin{aligned}
@@ -111,10 +107,8 @@ $a_\ell:=a_\ell(\vu)$, the linear polynomials that satisfy
 % \end{equation}
 %%
 \begin{equation*}
-\begin{aligned}
 a_1\vu_1+a_2\vu_2+a_3\vu_3 = \vu\quad\text{and}\quad
 a_1+a_2+a_3 = 1
-\end{aligned}
 \end{equation*}
 \wrt triangle $\Delta$ spanned by vertices $\vu_1,\vu_2,\vu_3$
 \cite{Hoschek1993}.
@@ -204,8 +198,8 @@ Each of these six polynomials can be written in the form
 %%
 \begin{equation}\label{eq:polynomial}
   \begin{aligned}
-    p(\vx,\vr)~=~%
-    \sum _{\substack{i+j+k=1\\ \alpha+\beta+\gamma=3}}%
+    p(\vx,\vr)=%
+    \sum_{\substack{i+j+k=1\\ \alpha+\beta+\gamma=3}}%
     B^1_{ijk}(\vx)\,B^3_{\alpha\beta\gamma}(\vr)\,%
     b_{ijk\,\alpha\beta\gamma}~.
   \end{aligned}
@@ -461,24 +455,12 @@ $(\Delta_{\vx},\Delta_{\vr})$, which are assumed to contain a solution to
 The size of these triangles is steered by the threshold
 $\varepsilon_{\mathrm{t}}$.
 %%
-Typically, the algorithm returns multiple regions that all refer to the same
+Like for the \ac{PEV} algorithm described in \cref{sec:extracting_pev_lines},
+the algorithm typically returns multiple regions that all refer to the same
 solution due to numerical noise.
 %%
-For this reason, we apply a post-process that clusters such regions and selects
-a unique representative $(\vx,\vr)$ for each solution.
-%%
-
-Given two representatives, we define the distance as the maximum of their
-distances in position- and in direction space.
-%%
-We employ a simple single-linkage hierarchical clustering algorithm:
-%%
-We start with each parameter region as a single cluster.
-%%
-Two clusters are merged if the distance between any two elements from both
-clusters is smaller than a clustering threshold $\varepsilon_{\mathrm{c}}$.
-%%
-We repeat this process until the number of clusters no longer changes.
+We apply the same post-process here for clustering such regions and selecting a
+unique representative $(\vx,\vr)$ for each solution.
 %%
 For each cluster, we select the triangle pair as a representative where $\max \{
 |p_i| \}$ is smallest for all polynomials $i=1,\dots,6$.
@@ -487,22 +469,13 @@ We select the center points of both triangles in this pair as the solution
 represented by this cluster.
 %%
 
-This algorithm has a complexity of $\mathrm{O}(n^3)$ in the number of solution
-candidates.
-%%
-Typically $n$ is small: less than \num{200} candidates are found in the vast
-majority of cases.
-%%
-At this scale, the performance impact of the clustering algorithm is negligible.
-%
-
 %%
 For each tetrahedral cell of the dataset, we now connect the root points found
 on its faces by a line segment.
 %%
 Since in piecewise linear fields, tensor lines are always straight within a cell
-(see \cref{sec:tcl_theory}), we greedily connect the two points with the smallest
-difference in eigenvector direction until no more pairs are left.
+(see \cref{sec:tcl_theory}), we greedily connect the two points with the
+smallest difference in eigenvector direction until no more pairs are left.
 %%
 Similar to the vortex core lines by Sujudi and Haimes \cite{Sujudi1995}, this
 gives a set of discontinuous line segments.
@@ -542,13 +515,13 @@ If this change is small, the magnitude of the determinant in $s$ will be small.
 %%
 This is an indicator that the line is numerically unstable.
 %%
-The normalization by $\|\mT(\vx)\|_{\infty}$ ensures the independence from the scale
-of the tensor field.
+The normalization by $\|\mT(\vx)\|_{\infty}$ ensures the independence from the
+scale of the tensor field.
 %%
 
 %
 Filtering out lines with small numeric stability $s$ is a post-process that must
-be done by a user.
+be done manually by a user.
 %%
 In practice, the distribution of $s$ over all found solutions shows an
 exponential behavior.

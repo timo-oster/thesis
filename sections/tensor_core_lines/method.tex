@@ -1,4 +1,3 @@
-
 %
 \section{Extracting Tensor Core Lines from Piecewise Linear Data} % (fold)
 \label{sec:extracting_tensor_lines}
@@ -101,7 +100,7 @@ We discuss the details of the algorithm in the following.
 \label{sub:expressing_the_target_functions}
 \todo{better title}
 %
-We express the position on a triangular face $\vx_\triangle = \{\vx_1, \vx_2,
+We express the position on a triangular face $\vx_\Delta = \{\vx_1, \vx_2,
 \vx_3\}$ in barycentric coordinates $\vw = \T{(w_1, w_2, w_3)}$:
 %
 \begin{equation}
@@ -111,7 +110,7 @@ We express the position on a triangular face $\vx_\triangle = \{\vx_1, \vx_2,
 with $w_1+w_2+w_3=1$ and $w_i > 0$.
 %
 The value of the tensor field $\mT$ on the triangle is similarly obtained
-by linear interpolation between its three corner tensors $\mT_\triangle =
+by linear interpolation between its three corner tensors $\mT_\Delta =
 \{\mT_1, \mT_2, \mT_3\}$:
 %
 \begin{equation}
@@ -126,7 +125,7 @@ direction.
 We can therefore safely restrict the search space for $\vr$ to a hemisphere
 discretized by a number of triangles (see~\cref{fig:subdivision_scheme}).
 %
-In each triangle $\vr_\triangle = \{\vr_1, \vr_2, \vr_3\}$, $\vr$ is then also
+In each triangle $\vr_\Delta = \{\vr_1, \vr_2, \vr_3\}$, $\vr$ is then also
 expressed in barycentric coordinates $\vu = \T{(u_1, u_2, u_3)}$:
 %
 \begin{equation}
@@ -136,7 +135,7 @@ expressed in barycentric coordinates $\vu = \T{(u_1, u_2, u_3)}$:
 If we substitute $\mT(\vx) = \mT(\vw)$ and $\vr = \vr(\vu)$ in
 \eqref{eq:targetfunctions}, we get six polynomials $h_i(\vw, \vu)$
 that are defined on the cartesian product of a pair of triangles
-$(\vx_\triangle, \vr_\triangle)$.
+$(\vx_\Delta, \vr_\Delta)$.
 %
 The scale of these functions is dependent on the scale of $\mT$, which might
 vary strongly within the same dataset.
@@ -151,7 +150,7 @@ This gives us our final functions
 %
 \begin{equation}
   \hat{h}_i(\vw, \vu) = \frac{h_i(\vw, \vu)}
-      {\max(\{\|\mT_i\|_{\mathrm{op}} : \mT_i \in \mT_\triangle\})}
+      {\max(\{\|\mT_i\|_{\mathrm{op}} : \mT_i \in \mT_\Delta\})}
 \end{equation}
 %
 Finding $\vw$ and $\vu$ that solve $\hat{h}_i(\vw, \vu) = 0$ gives us the
@@ -189,9 +188,9 @@ next section.
 \subsection{Recursive Subdivision Scheme} % (fold)
 \label{sub:recursive_subdivision_scheme}
 %
-When we start our recursive search on a triangular face $\vx_\triangle$ of the
+When we start our recursive search on a triangular face $\vx_\Delta$ of the
 dataset, we first map it to a standard triangle
-$\hat\vx_\triangle = \{\T{(1, 0, 0)}, \T{(0,1,0)}, \T{(0, 0, 1)}\}$.
+$\hat\vx_\Delta = \{\T{(1, 0, 0)}, \T{(0,1,0)}, \T{(0, 0, 1)}\}$.
 %
 In this way, we avoid accumulating numerical errors during subdivision for long
 and thin triangles and we have a comparable scale of the starting configuration
@@ -206,7 +205,7 @@ Our algorithm starts on a set of multiple triangle pairs in position and
 direction space.
 %
 Each of these initial pairs consists of the standard triangle
-$\hat\vx_\triangle$ and a triangle covering a portion of the hemisphere of
+$\hat\vx_\Delta$ and a triangle covering a portion of the hemisphere of
 possible eigenvector directions.
 % 
 The choice of triangulation of the hemisphere is rather arbitrary.
@@ -216,7 +215,7 @@ covers less than an angle of 90 degrees in any direction.
 % 
 
 % 
-For a given pair $(\vx_\triangle, \vr_\triangle)$, we inspect the coefficients
+For a given pair $(\vx_\Delta, \vr_\Delta)$, we inspect the coefficients
 of all six polynomials $\hat{h}_i(\vw, \vu)$.
 %
 If any one of them has coefficients that are all positive or all negative, the
@@ -226,7 +225,7 @@ Otherwise, a solution might be present.
 %
 In this case they are subdivided into four new pairs of triangles.
 %
-We alternate between subdividing $\vx_\triangle$ and $\vr_\triangle$ to limit
+We alternate between subdividing $\vx_\Delta$ and $\vr_\Delta$ to limit
 the number of new candidate pairs that have to be checked in each step.
 %
 Subdividing a triangle pair means computing the coefficients of $\hat{h}_i$ on
@@ -281,7 +280,7 @@ on an iterative Newton-Rhapson method that might get stuck in local minima.}
 \label{sub:clustering_and_filtering}
 % 
 The result of \cref{sub:recursive_subdivision_scheme} is a list of triangle
-pairs $(\vx_{\triangle i}, \vr_{\triangle i})$ where $\hat{h}_i(\vw, \vu) <
+pairs $(\vx_{\Delta i}, \vr_{\Delta i})$ where $\hat{h}_i(\vw, \vu) <
 \epsilon_{\mathrm{t}}$.
 %
 Since $\epsilon_{\mathrm{t}}$ is a small but finite number, it is possible that
@@ -290,8 +289,8 @@ multiple such solution candidates are found in close vicinity to a real solution
 Because of this, we employ a simple clustering to group similar triangle pairs
 and select a representative as the solution.
 %
-We define the distance $d$ between two triangle pairs $\vp_1 = (\vx_{\triangle 1},
-\vr_{\triangle 1})$ and $\vp_2 = (\vx_{\triangle 2}, \vr_{\triangle 2})$ as the
+We define the distance $d$ between two triangle pairs $\vp_1 = (\vx_{\Delta 1},
+\vr_{\Delta 1})$ and $\vp_2 = (\vx_{\Delta 2}, \vr_{\Delta 2})$ as the
 maximum Euclidean distance between the center points of the triangles in
 position and direction space, \ie,
 %

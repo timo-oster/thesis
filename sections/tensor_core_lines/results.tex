@@ -224,7 +224,7 @@ parameters $M$, $\varepsilon_{\mathrm{t}}$ and $\varepsilon_{\mathrm{c}}$, we
 conducted a parameter study.
 %
 We selected baseline parameters $M = 10^3$, $\varepsilon_{\mathrm{t}} =
-\num{1e-6}$ and $\varepsilon_{\mathrm{c}} = \num{1e-3}$.
+\num{e-6}$ and $\varepsilon_{\mathrm{c}} = \num{e-3}$.
 %
 We then varied each parameter separately and applied our algorithm to the
 cylinder dataset.
@@ -248,7 +248,7 @@ almost no noticeable impact on runtime or solutions, unless we choose
 unreasonable numbers.
 %
 In case of $\varepsilon_{\mathrm{t}}$, choosing a value that is larger than
-\num{1e-3} causes an explosion of the number of found solutions, as the
+\num{e-3} causes an explosion of the number of found solutions, as the
 tolerance is not tight enough.
 %
 Choosing $\varepsilon_{\mathrm{c}}$ smaller than $\varepsilon_{\mathrm{t}}$
@@ -298,11 +298,11 @@ If accuracy is important, we found that choosing stricter tolerances than $M =
     \tikzset{external/export=false}
     \input{figures/parameters_cylinder_tikz}
     \caption{
-        Run times and number of found lines in the cylinder dataset for
-        various different parameters. We show the total number of lines
-        found (\protect\tikz{\ref{plt:total_lines}}) and the number of
-        lines remaining after filtering out numerically unstable lines
-        (\protect\tikz{\ref{plt:filtered_lines}}). }
+        Run times (\protect\tikz{\ref{plt:runtime}}) and number of found lines
+        in the cylinder dataset for various different parameters. We show the
+        total number of lines found (\protect\tikz{\ref{plt:total_lines}}) and
+        the number of lines remaining after filtering out numerically unstable
+        lines (\protect\tikz{\ref{plt:filtered_lines}}). }
     \label{fig:parameter_study}
     \tikzset{external/export=true}
 \end{figure}
