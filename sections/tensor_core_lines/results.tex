@@ -59,14 +59,13 @@ After filtering them out, the clear central line visible in
     \centering
     \setlength\figurewidth\textwidth
     \input{figures/hook_results_tikz}
-    \caption{Tensor core lines for two different deformations induced in a
-             handle-like object by applying a displacement to an end surface. On
-             the top, we show the resulting deformations. The von Mises
-             stress $\sigma_{\textnormal{vM}}$ is color-coded on the surface. We
-             represent the tensor core line as tubes in the undeformed
-             coordinate system. Their color indicates the numerical stability
-             $s$. The tensor field is shown for context using elliptical
-             glyphs.}
+    \caption{Tensor core lines for two different deformations in the
+             \textsc{Handle} dataset. On the top, we show the resulting
+             deformations. The von Mises stress $\sigma_{\textnormal{vM}}$ is
+             color-coded on the surface. We represent the tensor core line as
+             tubes in the undeformed coordinate system. Their color indicates
+             the numerical stability $s$. The tensor field is shown for context
+             using elliptical glyphs.}
     \label{fig:hooks}
 \end{figure}
 %
@@ -118,15 +117,15 @@ be a tedious task.
 %
 Using the tensor core line extractor, they can be identified at a glance.
 %
-\begin{figure}[t]
+\begin{figure}[p]
     \centering
     \setlength\figurewidth\textwidth
     \input{figures/truck_bumper_results_tikz}
     \vspace*{-5mm}
-    \caption{Tensor core lines in a truck bumper with a load applied to one end.
-             The deformation shown on the top left is scaled by a factor of
-             \num{500} for illustrative purposes. The right shows detail views
-             of two interesting lines.}
+    \caption{Tensor core lines in the \textsc{truck bumper} dataset. The
+             deformation shown on the top left is scaled by a factor of
+             \num{500} for illustrative purposes. The bottom shows detail views
+             of two interesting lines with tensor glyphs for context.}
     \label{fig:truck_bumper}
 \end{figure}
 %
@@ -148,16 +147,14 @@ lower side.
 Again, looking closely at the tensors around the core lines, we can see the
 radial behavior.
 %
-\begin{figure}
+\begin{figure}[p]
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/crane_results_tikz}
     \vspace*{-7mm}
-    \caption{Tensor core lines in a crane arm with a load applied to the end.
-             The resulting deformation on the left is scaled by a factor of
-             \num{1500}. Significant tensor core lines are only found in the
-             lower diagonal rods. The detail image on the right shows the
-             tensors are indeed aligned around a common core.}
+    \caption{Tensor core lines in the \textsc{Crane} dataset. The resulting
+             deformation on the left is scaled by a factor of
+             \num{1500}.}
     \label{fig:crane}
 \end{figure}
 %
@@ -188,15 +185,15 @@ the diameter of the cross-section.
 %
 This is exactly where we find a tensor core line.
 %
-\begin{figure}[t]
+\begin{figure}[p]
     \centering
     \setlength\figurewidth\linewidth
     \input{figures/spring_results_tikz}
     \vspace*{-5mm}
-    \caption{A coil spring being compressed and slightly bent between two
-             plates. We visualize the tensors near the core line with box glyphs
-             in this case. They make it easier to see the hyperbolic behavior of
-             the eigenvectors that occurs in the coil's cross-section. }
+    \caption{Tensor core lines in the \textsc{Spring} dataset. We visualize the
+             tensors near the core line with box glyphs in this case. They make
+             it easier to see the hyperbolic behavior of the eigenvectors that
+             occurs in the coil's cross-section. }
     \label{fig:spring}
 \end{figure}
 %
@@ -204,6 +201,22 @@ This is exactly where we find a tensor core line.
 %
 \subsection{Performance and Parameter Study} % (fold)
 \label{sub:performance}
+%
+\begin{table}[p]
+    \centering
+    \caption{Performance of the algorithm for the datasets presented in this paper.}
+    \begin{tabular}{lSSS}
+        \toprule
+        Dataset & {\# of cells/\num{e3}} & {time/\si{\second}} & {avg. time per face/\si{\milli\second}} \\% & avg. time/face (single core) [ms] \\
+        \midrule
+        \textsc{Cylinder} & 65 & 8 & 0.034 \\% & 0.14 \\
+        \textsc{Handle} & 235 & 36 & 0.038 \\% & 0.16 \\
+        \textsc{Truck Bumper} & 97 & 32 & 0.081 \\% & 0.36 \\
+        \textsc{Crane} & 108 & 63 & 0.146 \\% & 0.59 \\
+        \textsc{Spring} & 181 & 82 & 0.114 \\
+        \bottomrule
+    \end{tabular}\label{tab:performance}
+\end{table}
 %
 The performance of our algorithm is dependent on the dataset.
 %
@@ -277,44 +290,30 @@ If accuracy is important, we found that choosing stricter tolerances than $M =
 \num{e3}$, $\varepsilon_{\mathrm{t}} = \num{e-6}$ and $\varepsilon_{\mathrm{c}}
 = \num{e-3}$ does not produce noticeably better results.
 %
-\begin{table}
-    \centering
-    \caption{Performance of the algorithm for the datasets presented in this paper.}
-    \begin{tabular}{lSSS}
-        \toprule
-        Dataset & {\# of cells/\num{e3}} & {time/\si{\second}} & {avg. time per face/\si{\milli\second}} \\% & avg. time/face (single core) [ms] \\
-        \midrule
-        Cylinder & 65 & 8 & 0.034 \\% & 0.14 \\
-        Handle & 235 & 36 & 0.038 \\% & 0.16 \\
-        Bumper & 97 & 32 & 0.081 \\% & 0.36 \\
-        Crane & 108 & 63 & 0.146 \\% & 0.59 \\
-        Spring & 181 & 82 & 0.114 \\
-        \bottomrule
-    \end{tabular}\label{tab:performance}
-\end{table}
-%
 \begin{figure}[t]
     \centering
     \tikzset{external/export=false}
     \input{figures/parameters_cylinder_tikz}
     \caption{
         Run times (\protect\tikz{\ref{plt:runtime}}) and number of found lines
-        in the cylinder dataset for various different parameters. We show the
-        total number of lines found (\protect\tikz{\ref{plt:total_lines}}) and
-        the number of lines remaining after filtering out numerically unstable
-        lines (\protect\tikz{\ref{plt:filtered_lines}}). }
+        in the \textsc{Cylinder} dataset for various different parameters. We
+        show the total number of lines found
+        (\protect\tikz{\ref{plt:total_lines}}) and the number of lines remaining
+        after filtering out numerically unstable lines
+        (\protect\tikz{\ref{plt:filtered_lines}}). }
     \label{fig:parameter_study}
     \tikzset{external/export=true}
 \end{figure}
 %
-\begin{figure}[t]
+\begin{figure}[p]
     \centering
     \setlength\figurewidth\columnwidth
     \input{figures/unfiltered_lines_tikz}
-    \caption{Results of our algorithm on the Cylinder dataset for different
-             choices of $M$. Increasing $M$ results in more numerically unstable
-             lines being found. If we filter them out, the result is virtually
-             identical.}
+    \vspace*{-5mm}
+    \caption{Results of our algorithm on the \textsc{Cylinder} dataset for
+             different choices of $M$. Increasing $M$ results in more
+             numerically unstable lines being found. If we filter them out, the
+             result is virtually identical.}
     \label{fig:unfiltered_lines}
 \end{figure}
 %
@@ -341,29 +340,29 @@ principal directions of stress can be established.
 We found that tensor core lines and degenerate lines sometimes coincide, but
 neither is a subset of the other.
 %
-In the Crane dataset, degenerate lines are found near the center of the lower
-diagonal rods, where we also find tensor core lines.
+In the \textsc{Crane} dataset, degenerate lines are found near the center of the
+lower diagonal rods, where we also find tensor core lines.
 %
 However, a lot of degenerate lines are also found in regions where no tensor
 core lines are located.
 %
-In the Truck Bumper dataset, a degenerate line coincides with one of the two
-most significant tensor core lines we find, but not the other one.
+In the \textsc{Truck Bumper} dataset, a degenerate line coincides with one of
+the two most significant tensor core lines we find, but not the other one.
 %
 Closeups of both datasets are shown in~\cref{fig:topo_comparison}.
 %
-In several datasets, such as the Cylinder and Handle, Zheng and Pang's method
-fails to locate any degenerate lines at all.
+In several datasets, such as the \textsc{Cylinder} and \textsc{Handle}, Zheng
+and Pang's method fails to locate any degenerate lines at all.
 %
-\begin{figure}[t]
-    \centering
-    \setlength{\figurewidth}{0.8\textwidth}
-    \input{figures/topo_comparison_tikz}
-    \caption{Comparison of unfiltered tensor core lines (red/yellow) and
-    degenerate tensor lines (blue) for the Truck Bumper (top) and Crane dataset
-    (bottom). The red box marks the coincidence of a numerically stable tensor
-    core line with a degenerate tensor line.}
-    \label{fig:topo_comparison}
+\begin{figure}[p]
+    \begin{captionbeside}{Comparison of unfiltered tensor core lines
+    (red/yellow) and degenerate tensor lines (blue) for the \textsc{Truck
+    Bumper} (top) and \textsc{Crane} dataset (bottom). The red box marks the
+    coincidence of a numerically stable tensor core line with a degenerate
+    tensor line.\label{fig:topo_comparison}}
+        \setlength{\figurewidth}{0.7\textwidth}
+        \input{figures/topo_comparison_tikz}
+    \end{captionbeside}
 \end{figure}
 %
 % subsection comparison_with_degenerate_lines (end)
