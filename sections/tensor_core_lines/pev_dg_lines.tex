@@ -1,0 +1,113 @@
+\section[Computing PEV and Degenerate Lines]%
+{Computing \ac{PEV} and Degenerate Lines} % (fold)
+\label{sec:computing_pev_and_degenerate_lines}
+%
+The algorithm we have presented for extracting tensor core lines is a generic
+root finding algorithm adapted to find simultaneous roots of multiple
+polynomials.
+%
+Because of its genericity, we can also use it to extract \ac{PEV} lines and
+degenerate lines, which can be expressed as root finding problems of the same
+type.
+%
+This makes it possible to extract several different feature lines from tensor
+fields using the same algorithmic framework.
+%
+
+%
+We remember the criterion for \ac{PEV} lines of two tensor fields $\mS$ and
+$\mT$. A \ac{PEV} line passes through every point $\vx$ that satisfies
+%
+\begin{equation*}
+    \vr \parallel \mS(\vx)\,\vr \parallel \mT(\vx)\,\vr \,\text{.}
+\end{equation*}
+%
+Again using the fact that the outer product of two parallel vectors is zero, we
+translate this to the system of polynomials
+%
+\begin{equation}
+    \begin{aligned}
+        (\mS(\vx)\,\vr) \times \vr &= \vNull\\
+        (\mT(\vx)\,\vr) \times \vr &= \vNull \,\text{.}\\
+    \end{aligned}
+\end{equation}
+%
+This system has six polynomials that are quadratic in $\vr$ and linear in $\vx$,
+which need to become zero at the same time.
+%
+We can use the same recursive subdivision algorithm based on the
+Bernstein-B\'ezier forms of these polynomials to find solutions.
+%
+
+%
+Computing \ac{PEV} lines using this scheme has several advantages.
+%
+The algorithm is somewhat simpler than the one we presented in
+\cref{sec:extracting_pev_lines}, as no two separate nested recursive processes
+are required.
+%
+This means that is is simpler to explain and implement.
+%
+More importantly, using this algorithm does not result in false-positive
+solution candidates that need to be filtered out.
+%
+Computing times using this algorithm are however somewhat longer.
+%
+This is because the separate recursion in $\vr$-space that is used in the
+original \ac{PEV} algorithm can frequently be terminated early while the
+subdivision level in $\vx$-space is still low.
+%
+This is not possible in the root finding algorithm we presented here, as it
+considers both spaces simultaneously.
+%
+
+%
+The extraction of degenerate lines in tensor fields can be expressed as a root
+finding problem as well.
+%
+A degenerate line is located where two eigenvalues of a tensor field are equal.
+%
+Zheng \etal~\cite{Zheng2004} showed that these locations can be expressed as the
+simultaneous roots of the seven \emph{discriminant constraint functions}
+%
+\begin{equation}
+    \begin{aligned}
+        f_x(\mT) &= T_{00}(T^2_{11} - T^2_{22}) + T_{00}(T^2_{01} - T^2_{02}) +
+                    T_{11}(T^2_{22} - T^2_{00}) + T_{11}(T^2_{12} - T^2_{01})\\
+                    &\phantom{{}={}}  + T_{22}(T^2_{00} - T^2_{11})
+                    + T_{22}(T^2_{02} - T^2_{12})\\
+        f_{y1}(\mT) &= T_{12}\left(2(T^2_{12} - T^2_{00}) - (T^2_{02} + T^2_{01}) +
+                    2(T_{11}T_{00} + T_{22}T_{00} - T_{11}T_{22})\right)\\
+                    &\phantom{{}={}}+ T_{01}T_{02}(2 T_{00} - T_{22} - T_{11})\\
+        f_{y2}(\mT) &= T_{02}\left(2(T^2_{02} - T^2_{11}) - (T^2_{01} + T^2_{12})
+                    + 2(T_{22}T_{11} + T_{00}T_{11} -T_{22}T_{00})\right) \\
+                    &\phantom{{}={}}+ T_{12}T_{01}(2T_{11} - T_{00} - T_{22})\\
+        f_{y3}(\mT) &= T_{01}\left(2(T^2_{01} - T^2_{22}) - (T^2_{12} + T^2_{02})
+                    + 2(T_{00}T_{22} + T_{11}T_{22} -T_{00}T_{11})\right) \\
+                    &\phantom{{}={}}+ T_{02}T_{12}(2T_{22} - T_{11} - T_{00})\\
+        f_{z1}(\mT) &= T_{12}(T^2_{02} - T^2_{01}) + T_{01}T_{02}(T_{11} - T_{22})\\
+        f_{z2}(\mT) &= T_{02}(T^2_{01} - T^2_{12}) + T_{12}T_{01}(T_{22} - T_{00})\\
+        f_{z3}(\mT) &= T_{01}(T^2_{12} - T^2_{02}) + T_{02}T_{12}(T_{00} - T_{11})\,\text{,}
+    \end{aligned}
+\end{equation}
+%
+where $\mT = \mT(\vx)$ is the tensor field and $T_{ij}$ are the components of
+the (symmetric) tensor.
+%
+The advantage of using these functions is that it does not require the explicit
+computation of eigenvalues.
+%
+We can find the simultaneous roots of these seven polynomials that are maximum
+cubic in $\vx$ using the same scheme we used to extract tensor core lines.
+%
+Since these equations do not depend on a direction $\vr$, we only need to
+subdivide in $\vx$-space.
+%
+The degenerate lines shown in \cref{fig:topo_comparison} were computed in this
+way.
+%
+
+%
+
+%
+% section computing_pev_and_degenerate_lines (end)
