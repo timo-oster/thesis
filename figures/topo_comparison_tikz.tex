@@ -1,11 +1,10 @@
 %
-%
 \begin{tikzpicture}
     \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0 and 0]
 
     \node[image, anchor=south west] (image1)
     {
-        \includegraphics[width=1.0\figurewidth]{figures/truck_bumper_topo_lines_detail2_slim}%
+        \includegraphics[width=\figurewidth]{figures/truck_bumper_topo_lines_detail2_slim}%
     };
     \begin{scope}[x={(image1.south east)},y={(image1.north west)}]
         % \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
@@ -13,9 +12,8 @@
         % \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\scriptsize 0.\y}; }
         \draw[red,very thick,rounded corners] (0.3,0.57) rectangle (0.47,0.68);
     \end{scope}
-
     \node[image, below=of image1, yshift=-0.25cm] (image2)
     {
-        \includegraphics[width=1.0\figurewidth]{figures/crane_topo_lines_detail1_slim}%
+        \includegraphics[width=\figurewidth]{figures/crane_topo_lines_detail1_slim}%
     };
 \end{tikzpicture}
