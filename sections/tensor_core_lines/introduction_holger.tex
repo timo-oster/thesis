@@ -1,4 +1,5 @@
-Vortex core lines describe the centers of swirling behavior in vector fields.
+\lettrine[lhang=0.03, loversize=-0.015]{V}{ortex core lines} describe the centers of swirling behavior in
+vector fields.
 %
 They are a useful tool in vector field visualization because they provide an
 explicit geometrical representation of an important flow feature.
@@ -36,12 +37,13 @@ fields and their extraction is based on the \ac{PEV} operator.
 %
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figures/torque_tube_lines.png}
-    \caption{Eigenvector trajectories in a stress tensor field induced by
-             applying a torque to a cylindrical shaft. Trajectories of both
-             major (blue) and minor (red) eigenvectors show a swirling behavior
-             around a common core line (yellow).
-             \Todo[inline]{Add arrows to indicate twist}}
+    \setlength\figurewidth\textwidth
+    \input{figures/tcl_cylinder_tikz}
+    \vspace*{-9mm}
+    \caption{Tensor field lines in a stress tensor field induced by
+             applying a torque to a cylindrical shaft. Field lines of both major
+             (blue) and minor (red) eigenvectors show a swirling behavior around
+             a common core line (yellow).}
     \label{fig:tube_lines}
 \end{figure}
 %
