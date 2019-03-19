@@ -1,11 +1,8 @@
 \documentclass[BCOR=15mm, DIV=8]{scrbook}
-\usepackage{typearea}
 
 \KOMAoptions{
     captions=tableheading,
     captions=outerbeside,
-    headings=twolinechapter,
-    chapterprefix=false,
     numbers=noenddot
     % headsepline
 }
@@ -182,12 +179,19 @@
 \def\chaplengths{{11mm,6mm,7mm,2.5mm,7mm,5mm,6mm,7mm,6.5mm}}
 \def\applengths{{4mm,8.5mm,6mm}}
 \renewcommand*{\chapterformat}{%
+% \vspace*{9cm}%
+\rule{0pt}{9cm}%
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture]
 \coordinate (mychapanchor-\arabic{chapter});
 \end{tikzpicture}%
 \begin{tikzpicture}[remember picture, overlay]
-    \pgfmathsetmacro{\mylength}{\ifappendix\applengths[\arabic{chapter}-1]\else\chaplengths[\arabic{chapter}-1]\fi}
+    \pgfmathsetmacro{\mylength}{%
+        \ifappendix%
+            \applengths[\arabic{chapter}-1]%
+        \else%
+            \chaplengths[\arabic{chapter}-1]%
+        \fi}
     \node[anchor=south east,xshift=\mylength,
           inner sep=0, outer sep=0]
           at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
@@ -201,7 +205,7 @@
 \tikzset{external/export=true}%
 }
 
-\renewcommand*{\chapterheadstartvskip}{\vspace*{9cm}}
+% \renewcommand*{\chapterheadstartvskip}{\vspace*{9cm}}
 
 \tikzstyle{paperheader}=[
     anchor=base west,
