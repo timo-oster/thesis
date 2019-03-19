@@ -183,9 +183,9 @@
 \rule{0pt}{9cm}%
 \tikzset{external/export=false}%
 \begin{tikzpicture}[remember picture]
-\coordinate (mychapanchor-\arabic{chapter});
+    \coordinate (mychapanchor-\arabic{chapter});
 \end{tikzpicture}%
-\begin{tikzpicture}[remember picture, overlay]
+\begin{tikzpicture}[overlay]
     \pgfmathsetmacro{\mylength}{%
         \ifappendix%
             \applengths[\arabic{chapter}-1]%
@@ -194,7 +194,8 @@
         \fi}
     \node[anchor=south east,xshift=\mylength,
           inner sep=0, outer sep=0]
-          at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
+          at ([yshift=1.2cm]mychapanchor-\arabic{chapter} -|
+              current page text area.east){%
         \fontsize{10cm}{10cm}\selectfont%
         \textcolor{laccentcolor}{\thechapter}%
     };
@@ -204,6 +205,7 @@
 \end{tikzpicture}%
 \tikzset{external/export=true}%
 }
+
 
 % \renewcommand*{\chapterheadstartvskip}{\vspace*{9cm}}
 
@@ -232,13 +234,16 @@
 
 % Section numbers in margin
 \renewcommand*{\sectionlinesformat}[4]{%
-  \makebox[0pt][r]{#3}#4%
+\makebox[0pt][r]{#3}#4%
 }
+
 \renewcommand*{\sectionformat}{%
-\textcolor{accentcolor}{\thesection\autodot\enskip}}
+\textcolor{accentcolor}{\thesection\autodot\enskip}%
+}
 
 \renewcommand*{\subsectionformat}{%
-\textcolor{accentcolor}{\thesubsection\autodot\enskip}}
+\textcolor{accentcolor}{\thesubsection\autodot\enskip}%
+}
 
 % Page header
 % \addtokomafont{pagehead}{\otherscshape}
@@ -288,7 +293,6 @@
 \author{ Timo Oster }
 
 \begin{document}
-% TODO: extract chapters into their own files
 
 \frontmatter
 
