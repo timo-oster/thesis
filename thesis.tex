@@ -223,6 +223,14 @@
     inner sep=0,
     outer sep=0]
 
+\newenvironment{imgscope}[1]
+{\begin{scope}[
+    shift=(#1.south west), % origin is lower left corner
+    x={($(#1.south east)-(#1.south west)$)}, % x axis is lower side
+    y={($(#1.north west)-(#1.south west)$)} % y axis is left side
+]}
+{\end{scope}}
+
 % lettrine defaults
 \setcounter{DefaultLines}{3}
 \LettrineOnGridtrue

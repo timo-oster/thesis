@@ -1,8 +1,10 @@
+\input{figures/colormap_bluereddiff}
 \begin{tikzpicture}[
     every node/.style={node distance=0,
                        font=\small},
     label/.style={yshift=1mm},
-    row label/.style={anchor=base west, xshift=-1cm, font=\normalsize}
+    row label/.style={anchor=base west, xshift=-1cm, font=\normalsize},
+    highlight/.style={white, very thick}
 ]
     % \node (gui) {
     %     \includegraphics[width=0.5\figurewidth]{figures/sr_gui.png}
@@ -24,7 +26,7 @@
                        vs. $t^\textnormal{HEATR}_\textnormal{max}$}
     };
 
-    \matrix[matrix of nodes, below=1cm of cs] (morph) {
+    \matrix[matrix of nodes, below=0.8cm of cs] (morph) {
         \includegraphics[width=0.22\figurewidth]{figures/sr_morphing_1.png} &
         \includegraphics[width=0.22\figurewidth]{figures/sr_morphing_2.png} &
         \includegraphics[width=0.22\figurewidth]{figures/sr_morphing_3.png} \\
@@ -40,7 +42,7 @@
                        vs. $t^{\ce{H2O2}}_\textnormal{max}$}
     };
 
-    \matrix[matrix of nodes, below=1cm of morph] (time) {
+    \matrix[matrix of nodes, below=0.8cm of morph] (time) {
         \includegraphics[width=0.22\figurewidth]{figures/sr_time_1_1.png} &
         \includegraphics[width=0.22\figurewidth]{figures/sr_time_1_2.png} &
         \includegraphics[width=0.22\figurewidth]{figures/sr_time_1_3.png} \\
@@ -68,5 +70,54 @@
     \node[left=of time-3-1] {
         \rotatebox{90}{$t^\textnormal{TEMP}_\textnormal{infl}$
                        vs. $t^{\ce{O}}_\textnormal{max}$}
+    };
+    \begin{imgscope}{time-1-1}
+        \draw[highlight] (0.63, 0.63) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-1-2}
+        \draw[highlight] (0.63, 0.63) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-1-3}
+        \draw[highlight] (0.63, 0.63) circle (0.3cm);
+    \end{imgscope}
+
+    \begin{imgscope}{time-2-1}
+        \draw[highlight] (0.32, 0.52) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-2-2}
+        \draw[highlight] (0.31, 0.53) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-2-3}
+        \draw[highlight] (0.29, 0.54) circle (0.3cm);
+    \end{imgscope}
+
+    \begin{imgscope}{time-3-1}
+        \draw[highlight] (0.65, 0.47) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-3-2}
+        \draw[highlight] (0.65, 0.47) circle (0.3cm);
+    \end{imgscope}
+    \begin{imgscope}{time-3-3}
+        \draw[highlight] (0.65, 0.47) circle (0.3cm);
+    \end{imgscope}
+
+    % color bar
+    \node[anchor=west, xshift=-0.7cm, yshift=-1mm] (cbar) at (time-3-3.east){
+        \begin{axis}[
+            scale only axis,
+            height=2.8cm,
+            hide axis,
+            domain=-1:1,
+            colorbar,
+            colorbar/width=0.25cm,
+            colormap name={bluereddiff},
+            point meta min=-1, point meta max=1,
+            colorbar style={
+                title=distance,
+                scaled ticks=false,
+                ytick={-1, 0, 1},
+                yticklabels={$-$, $0$, $+$}
+            }]
+        \end{axis}
     };
 \end{tikzpicture}
