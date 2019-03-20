@@ -1,6 +1,62 @@
 \chapter{Conclusions} % (fold)
 \label{cha:flame_vis_conclusions}
 %
+We have presented two approaches for the visualization and analysis of the flame
+front in large-scale \ac{DNS}, where the volume of raw data has become the major
+bottleneck.
+%
 
+%
+The sparse representation for premixed flames presented in
+\cref{cha:sparse_representation} focuses on the analysis of flamelets, \ie, the
+behavior orthogonal to the surface.
+%
+We sample the profiles of simulation variables at many points distributed over
+the surface and approximate them with simple models to get a space-saving
+representation of the flame.
+%
+This representation can directly be used for flamelet-related analysis and
+visualization, or the full scalar fields can be reconstructed for regular
+post-processing.
+%
+
+%
+The flame surface tracking algorithm presented in
+\cref{cha:flame_surface_tracking} focuses on the tangential behavior of the
+flame.
+%
+We track the surface using independent micro-patches that refine and coarsen
+without using any neighbor information.
+%
+This gives us a complete picture of the behavior of the surface over time,
+particularly about the history and relative movement of points attached to the
+surface.
+%
+
+%
+Both approaches are contributions towards a visualization/analysis toolbox for
+in-depth quantitative analysis of \ac{DNS} for the purpose of combustion
+modeling.
+%
+In contrast to the many important contributions towards fast and effective
+general-purpose visualization for large-scale visualizations that have been
+developed in recent years, these approaches represent a more targeted class
+of visualization tools that may be afforded more computational resources and
+time in order to answer specific research questions.
+%
+More work is necessary to continue bridging the gap between the two and
+develop a range of tools from general to specific that support the full analysis
+process of combustion researchers.
+%
+An important area of research in this regard are visualization techniques that
+support the analysis of unsteady behavior, such as transport and mixing.
+%
+The flame surface tracking algorithm we propose belongs to this category.
+%
+Compared to the numerous methods for visualizing single snapshots of the data,
+these techniques are more challenging technically and conceptually.
+%
+As the frameworks for in-situ processing are improving, we will hopefully see
+increased activity in this area.
 %
 % chapter flame_vis_conclusions (end)
