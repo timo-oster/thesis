@@ -355,15 +355,13 @@ directions inside, we accept the central direction as a candidate.
                 }
             }
         }
-        \uElseIf{all $\hat{w}_i$ have the same sign %
+        \ElseIf{all $\hat{w}_i$ have the same sign %
                 \KwOr size of $\Delta_{\vr} < \varepsilon_{\mathrm{r}}$}{
             \Return{$\sfrac{1}{3}\sum{\vr_i}$}
             \tcp*{Accept solution}
         }
-        \Else{
-            \Return{\KwNull}
-            \tcp*{Discard triangle}
-        }
+        \Return{\KwNull}
+        \tcp*{Discard triangle}
     }
     \caption{Find intersections of \ac{PEV} lines with a triangle}
     \label{alg:find_pev_line}
