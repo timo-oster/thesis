@@ -116,9 +116,7 @@ a_1+a_2+a_3 = 1
 %
 
 %
-The Bernstein-B\'ezier representation has a number of remarkable properties.
-%
-Important to our setting is the \emph{convex hull property}\/:
+We again use the \emph{convex hull property} of Bernstein-B\'ezier polynomials:
 %
 For any $\vu\in\Delta$ -- or equivalently all barycentric coordinates are
 nonnegative -- the value $p(\vu)$ is bounded by the convex hull of the control
@@ -128,8 +126,9 @@ For scalar coefficients $b_{ijk}\in\RRSet$ this means that if either all
 $b_{ijk} > \num{0}$ or all $b_{ijk} < \num{0}$ for $i+j+k=n$ then $p$
 \emph{cannot} have a zero crossing (or real root) on $\Delta$.
 %
-We use this criterion for an iterative subdivision of a triangle $\Delta$ into
-smaller and smaller triangles that either may contain or cannot contain a root.
+Similar to our \ac{PEV} algorithm, we use this criterion for an iterative
+subdivision of a triangle $\Delta$ into smaller and smaller triangles that
+either may contain or cannot contain a root.
 %
 \subsection{Parameterization of the Search Space}
 \label{sec:searchspace}
@@ -156,19 +155,17 @@ evaluation and subdivision, are independent of the supporting triangle.
 %
 
 %
-We represent a direction vector $\vr$ as a point on a hemisphere.
+We again represent the space of possible eigenvector directions $\vr$ as a
+triangulation of a hemisphere.
 %
-As not only its orientation (and thus sign) is irrelevant for the
-system~\eqref{eq:system} but also its scale (as long as $\vr\neq{}\num{0}$), we
-approximate the hemisphere by a triangulation.
+Just like for the \ac{PEV} algorithm, the orientation and magnitude of $\vr$ is
+irrelevant for the solution and can be approximated by any triangulation that
+covers all relevant directions.
+%
+We simply use a four-sided open pyramid (see \cref{fig:subdivision_scheme}).
 %
 This way, we use the same parameterization and the same representation
 for $\vx$ and $\vr$.
-%
-We remark that there is no need for an ``accurate'' approximation of
-the hemisphere.
-%
-We simply use a four-sided open pyramid (see \cref{fig:subdivision_scheme}).
 %
 
 %
@@ -188,10 +185,10 @@ For a given triangle, we have to consider a tensor field $\mT$ that is linear in
 $\vx$ and a direction vector $\vr$ that is linearly interpolated on a triangle
 of the ``hemisphere''.
 %
-Then the left-hand-sides of the system~\eqref{eq:system} give three
-polynomials that are linear in $\vx$ and quadratic in $\vr$ and three
-polynomials that are cubic in $\vr$ as they don't depend on $\vx$
-because $\nabla_{\vr}\mT$ is constant.
+Then the left-hand-sides of the system~\eqref{eq:system} give three polynomials
+that are linear in $\vx$ and quadratic in $\vr$ and three polynomials that are
+cubic in $\vr$ as they don't depend on $\vx$ because $\nabla_{\vr}\mT$ is
+constant.
 %
 
 %
@@ -222,9 +219,12 @@ We use this unified representation for didactic purposes.
 Using the real number of degrees in $\vx$ and $\vr$ for each polynomial gives a
 smaller number of coefficients (\num{18} or \num{10}).
 %
+It is advisable to use these real degrees in an implementation to avoid
+superfluous computations.
+%
 Note that position and direction are expressed in \emph{local coordinates}\/ (or
-barycentric coordinates) of the triangles, such that $p$ depends on only four
-coordinates in total.
+barycentric coordinates) of the triangles, such that $p$ has only four degrees
+of freedom in total.
 %
 For the sake of a concise notation we write $p(\vx,\vr)$, $B^1_{ijk}(\vx)$
 and $B^3_{\alpha\beta\gamma}(\vr)$.
@@ -348,8 +348,8 @@ the subdivided polynomial can be evaluated by a linear transformation:
 Evaluate the polynomial at domain points in the new, smaller triangle
 and apply interpolation.
 %
-Evaluation and interpolation can be combined to one transformation for each
-of the four new triangles.
+Evaluation and interpolation can be combined to one linear transformation of the
+Bernstein-B\'ezier coefficients for each of the four new triangles.
 %
 
 \subsubsection{Solution and Stopping Criterion}
@@ -375,7 +375,7 @@ We require the magnitude of all polynomials to drop below a threshold
 simultaneously.
 %
 For each polynomial its magnitude is bounded in
-$(\Delta_{\vx},\Delta_{\vr})$, and we test
+$(\Delta_{\vx}, \Delta_{\vr})$, and we test
 %
 \begin{equation}
   \begin{aligned}

@@ -128,8 +128,8 @@ respectively, whenever it is necessary to discriminate them.
 \label{sub:subdivision_in_direction_space}
 %
 The core of the algorithm is to find a direction $\vr$ for which all components
-of $\hat\vw_S(\vr)$ have the same sign, and all components of $\hat\vw_T(\vr)$
-also have the same sign (that possibly differs from $\hat\vw_S$).
+of $\hat\vw_S(\vr)$ have a common sign, and all components of $\hat\vw_T(\vr)$
+also have a common sign (that possibly differs from $\hat\vw_S$).
 %
 If this is fulfilled, $\vr$ becomes an eigenvector somewhere inside the triangle
 for both $\mS$ and $\mT$.
@@ -197,6 +197,9 @@ We can now express the polynomials $\hat{w}_i$ in Bernstein-B\'ezier basis as
 %
 Here, $b_{jkl}$ are the \num{10} coefficients needed to express a trivariate
 polynomial of degree \num{3}.
+%
+Note that because the barycentric coordinates $\vu$ are restricted to the
+triangle $\Delta_\vr$, they really have only two degrees of freedom.
 %
 
 %
