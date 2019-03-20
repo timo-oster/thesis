@@ -4,9 +4,10 @@
 \input{figures/colormap_rdoryl}
 %
 \begin{tikzpicture}[
-    font=\small
+    font=\small,
+    image/.style={inner sep=0, outer sep=0, node distance = 0.25cm and 0.25cm},
+    label/.style={fill=white, anchor=south west, xshift=1mm, yshift=1mm}
 ]
-    \tikzstyle{image} = [inner sep=0, outer sep=0, node distance = 0.25cm and 0.25cm]
 
     % place image in node
     \node[image] (image1)
@@ -40,13 +41,13 @@
         \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_detail2}%
     };
     % place a text on the lower left corner of image3
-    \node [anchor=south west] at (image3.south west) {\large \textbf{$1$}};
+    \node [label] at (image3.south west) {\large \textbf{$1$}};
 
     \node[image, right=of image3] (image4)
     {
         \includegraphics[width=0.5\figurewidth - 0.125cm - 1cm]{figures/truck_bumper_detail1}%
     };
-    \node [anchor=south west] at (image4.south west) {\large \textbf{$2$}};
+    \node [label] at (image4.south west) {\large \textbf{$2$}};
 
 
     \clip (image1.north west) -- ($(image2.north east) + (2.25cm, 0)$) --
