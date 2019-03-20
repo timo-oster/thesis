@@ -182,22 +182,22 @@
 % \vspace*{9cm}%
 \rule{0pt}{9cm}%
 \tikzset{external/export=false}%
-\begin{tikzpicture}[remember picture]
-    \coordinate (mychapanchor-\arabic{chapter});
-\end{tikzpicture}
-\begin{tikzpicture}[remember picture, overlay]
-    \pgfmathsetmacro{\mylength}{\ifappendix\applengths[\arabic{chapter}-1]\else\chaplengths[\arabic{chapter}-1]\fi}
-    \node[anchor=south east,xshift=\mylength,
-          inner sep=0, outer sep=0]
-          at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
-        \fontsize{10cm}{10cm}\selectfont%
-        \textcolor{laccentcolor}{\thechapter}%
-    };
-    % alignment line
-    % \draw[thin] (current page text area.north east)
-    %     -- (current page text area.south east);
+\begin{tikzpicture}[remember picture]%
+\coordinate (mychapanchor-\arabic{chapter});%
 \end{tikzpicture}%
-\tikzset{external/export=true}
+\begin{tikzpicture}[remember picture, overlay]%
+\pgfmathsetmacro{\mylength}{\ifappendix\applengths[\arabic{chapter}-1]\else\chaplengths[\arabic{chapter}-1]\fi}%
+\node[anchor=south east,xshift=\mylength,%
+inner sep=0, outer sep=0]%
+at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
+\fontsize{10cm}{10cm}\selectfont%
+\textcolor{laccentcolor}{\thechapter}%
+};%
+% alignment line
+% \draw[thin] (current page text area.north east)
+%     -- (current page text area.south east);
+\end{tikzpicture}%
+\tikzset{external/export=true}%
 }
 % \renewcommand*{\chapterheadstartvskip}{\vspace*{9cm}}
 
