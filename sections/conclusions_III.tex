@@ -1,6 +1,52 @@
-\chapter{Conclusions} % (fold)
+\chapter{Conclusion} % (fold)
 \label{cha:tensor_vis_conclusions}
 %
+\lettrine[lhang=0.06, loversize=-0.015, findent=-1pt]{I}{n the previous} two
+chapters, we extended the idea of a class of feature-based visualization
+techniques for vector- and scalar fields to the realm of tensor fields.
+%
+In chapter \cref{cha:parallel_eigenvectors}, we established the \ac{PEV}
+operator as a direct extension of the generic \ac{PV} operator.
+%
+It finds all locations where two tensor fields have parallel real eigenvectors.
+%
+Using this, we translated the concept of vortex core lines to their counterpart
+in tensor fields in \cref{cha:tensor_core_lines}.
+%
+These tensor core lines mark the centers of twisting behavior of tensor field
+lines.
+%
+Feature lines of this type can be extracted from piecewise linear data by
+determining their intersections with the boundaries of tetrahedral cells.
+%
+The search for such intersections is a search for roots of higher-order
+polynomials, which we solve using a recursive subdivision algorithm based on
+their Bernstein-B\'ezier form.
+%
+Intersections we find in this way are then connected to lines afterwards.
+%
 
+%
+The work presented in this part of the thesis is basic research into
+higher-order features in tensor fields.
+%
+As an application area, we focus on the visualization of stress tensor fields
+from structural mechanics simulations.
+%
+In-detail analysis of the topology and structure of stress tensor fields still
+is not well established within the structural mechanics community.
+%
+One reason for this might be that tensor fields are even more complex than
+vector fields, which are already challenging to visualize and understand.
+%
+The \ac{PEV} operator and tensor core lines are additions to the visualization
+toolbox that help to better understand the complex ways in which forces act in
+solid materials.
+%
+Such feature-based techniques break down complex behavior into simple geometric
+primitives that are more easily parsed and understood.
+%
+Maybe the development of more such techniques can help to better establish
+tensor field visualization with structural mechanics researchers.
 %
 % chapter tensor_vis_conclusions (end)
