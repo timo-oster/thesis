@@ -49,7 +49,7 @@
 \draw [fill=black] (vx) circle [radius=0.08]
 		node [right, xshift=0.05cm] {$\vx'$};
 
-\begin{scope}[shift={(3.5, 0)}]
+\begin{scope}[shift={(4.2, 0)}]
 	\coordinate (center2) at (0, 0);
 	\coordinate (x1) at (2, -1);
 	\coordinate (x2) at (-1, 0.5);
@@ -85,7 +85,7 @@
 \end{scope}
 
 \draw [very thick, ellipse1style, shorten <=0.6cm, shorten >=0.6cm, arrows=-latex]
-		(center1) to[out=-45, in=225]
+		(center1) to[out=-40, in=220]
 			node [below, midway, text=black, yshift=-0.1cm] {$\mE$}
 		(center2);
 
@@ -93,5 +93,8 @@
 		(vx) to[out=25, in=145]
 			node [above, midway, text=black, yshift=0.1cm] {$\mE'$}
 		(vx2);
+
+\node[yshift=-2.3cm, xshift=0.5cm] at (center1) {$t_{k-1}$};
+\node[yshift=-2.3cm, xshift=1cm] at (center2) {$t_{k}$};
 
 \end{tikzpicture}
