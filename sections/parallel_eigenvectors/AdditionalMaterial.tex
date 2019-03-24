@@ -34,8 +34,12 @@ We formulate this to search for all \ac{6D} points $\T{(\vx,\vr)}$ where a
             \mS(\vx) \, \vr \times \vr \\
             \mT(\vx) \, \vr \times \vr
         \end{pmatrix}
-    = \overline{\vNull}.
+    = \overline{\vNull}\,\text{,}
 \end{equation}
+%
+where $\overline{\vNull}$ is the zero vector in \ac{6D}.
+%
+
 %
 Suppose a point $\T{(\vx_0,\vr_0)}$ is on a \ac{PEV} structure, \ie, fulfills
 \cref{eq:theory_1}.
@@ -80,23 +84,24 @@ with
     \\
     \mG_3 & =
         \begin{pmatrix}
-        \mS \, \vj_1 \times \vr +  \mS \, \vr \times \vj_1 &
-        \mS \, \vj_2 \times \vr +  \mS \, \vr \times \vj_2 &
-        \mS \, \vj_3 \times \vr +  \mS \, \vr \times \vj_3
+        \mS \, \ve_1 \times \vr +  \mS \, \vr \times \ve_1 &
+        \mS \, \ve_2 \times \vr +  \mS \, \vr \times \ve_2 &
+        \mS \, \ve_3 \times \vr +  \mS \, \vr \times \ve_3
         \end{pmatrix}
         \,\text{,}
     \\
     \mG_4 & =
         \begin{pmatrix}
-        \mT \, \vj_1 \times \vr +  \mT \, \vr \times \vj_1 &
-        \mT \, \vj_2 \times \vr +  \mT \, \vr \times \vj_2 &
-        \mT \, \vj_3 \times \vr +  \mT \, \vr \times \vj_3
+        \mT \, \ve_1 \times \vr +  \mT \, \vr \times \ve_1 &
+        \mT \, \ve_2 \times \vr +  \mT \, \vr \times \ve_2 &
+        \mT \, \ve_3 \times \vr +  \mT \, \vr \times \ve_3
         \end{pmatrix}
-    \, \text{.}
+    \, \text{,}
 \end{aligned}
 \end{equation}
 %
-Then
+where $\mS_{x, y, z}$ and $\mT_{x, y, z}$ are partial derivatives of the tensor
+fields and $\ve_i$ are unit vectors along the coordinates. Then
 %
 \begin{equation} \label{eq:theory_4}
    \T{\mG_1} \, \vr \; =\;  \T{\mG_2} \, \vr\; =\; 0 \,\text{,}
