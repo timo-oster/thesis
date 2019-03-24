@@ -50,8 +50,8 @@ In combustion literature, this equation is expressed as
 %
 \begin{equation}
 \begin{gathered}
-    \vu = \vv + s_d\,\vn \,\text{,} \\
-    \text{with}\quad s_d = \frac{\partial s}{\partial t} \frac{1}{\Norm{\nabla s}}
+    \vu = \vv + s_\mathrm{d}\,\vn \,\text{,} \\
+    \text{with}\quad s_\mathrm{d} = \frac{\partial s}{\partial t} \frac{1}{\Norm{\nabla s}}
                        + \frac{\nabla s}{\Norm{\nabla s}} \vv \quad
     \text{and}\quad  \vn = -\frac{\nabla s}{\Norm{\nabla s}}\,\text{.}
 \end{gathered}
@@ -295,13 +295,14 @@ magnitude of the last four columns of $\mC$, and it weights those columns
 differently from the normal in the first column.
 %
 To get a more meaningful error, we normalize these columns by their average
-magnitude and obtain a modified transformation $\mT_n$ and error $e_n$ by
+magnitude and obtain a modified transformation $\mT_\mathrm{n}$ and error
+$e_\mathrm{n}$ by
 %
 \begin{equation}
 \begin{gathered}
     \label{eqn:normalized_system}
-    e_n^2 = \Frob{\T\mC_0 \, \T\mT_n
-            - \T\mC_n}^2 \rightarrow \text{min} \, \text{,}\\
+    e_\mathrm{n}^2 = \Frob{\T\mC_0 \, \T\mT_\mathrm{n}
+            - \T\mC_\mathrm{n}}^2 \rightarrow \text{min} \, \text{,}\\
     \text{with}\quad
     \mC_n = \begin{pmatrix}
         \vn & \vx_1/c & \cdots & \vx_4/c
@@ -316,9 +317,9 @@ magnitude and obtain a modified transformation $\mT_n$ and error $e_n$ by
 We separate this error into normal and tangential components
 %
 \begin{align}
-    e_\perp =& \Frob{\vn \, \T\vn (\mT_n \, \mC_0 - \mC_n)} \\
+    e_\perp =& \Frob{\vn \, \T\vn (\mT_\mathrm{n} \, \mC_0 - \mC_\mathrm{n})} \\
     e_\shortparallel = & \Frob{(\mI - \vn \, \T\vn )
-                                  (\mT_n \, \mC_0 - \mC_n)} \, \text{.}
+                                  (\mT_\mathrm{n} \, \mC_0 - \mC_\mathrm{n})} \, \text{.}
 \end{align}
 %
 $e_\perp$ is a measure for the deviation of the ghost particles $\vx_i$ from the
@@ -530,12 +531,14 @@ in practice.
 \subsection{Reconstructing Tangential Surface Deformation} % (fold)
 \label{sub:reconstructing_tangential_surface_deformation}
 %
-Let $\hat\mF_{\,t_s}^{\,t_e}$ be the tangential deformation gradient for a time
-interval $[t_s,\,t_e]$ at the central point $\vx(t_e)$.
+Let $\hat\mF_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ be the tangential deformation
+gradient for a time interval $[t_\mathrm{s}, t_\mathrm{e}]$ at the central
+point $\vx(t_\mathrm{e})$.
 %
 To reconstruct it we need the corresponding deformation gradient
-$\mF_{\,t_s}^{\,t_e}$, which describes the relative change in position of points in
-a small neighborhood between times $t_s$ and $t_e$.
+$\mF_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$, which describes the relative change in
+position of points in a small neighborhood between times $t_\mathrm{s}$ and
+$t_\mathrm{e}$.
 %
 The behavior of the ghost particles of a micro-patch over time contains exactly
 this information.
@@ -548,49 +551,55 @@ reconstruct $\hat\mF$, as any other information is discarded when projecting
 into the tangent plane.
 %
 It is therefore sufficient to determine a proxy transformation
-$\mE_{\,t_s}^{\,t_e}$, which maps the micro-patch configuration $\mC(t_s)$ to
-$\mC(t_e)$, and reconstruct $\hat\mF$ via
+$\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$, which maps the micro-patch
+configuration $\mC(t_\mathrm{s})$ to $\mC(t_\mathrm{e})$, and reconstruct
+$\hat\mF$ via
 %
 \begin{equation}
-    \hat\mF_{\,t_s}^{\,t_e} = \T\mB \, \T\mU \, \mE_{\,t_s}^{\,t_e} \, \mB \, \text{,}
+    \hat\mF_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}
+    = \T{\mB} \, \T{\mU} \, \mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}} \, \mB \, \text{,}
 \end{equation}
 %
-with $\mB$ the basis vectors of the tangent plane at $t_s$ and $\mU$ the
-rotation matrix from the polar decomposition of $\mE$.
+with $\mB$ the basis vectors of the tangent plane at $t_\mathrm{s}$ and $\mU$
+the rotation matrix from the polar decomposition of $\mE$.
 %
 
 %
 Let us first assume the micro-patch was not split or merged in the time
 interval, \ie, its ghost particles were not reset.
 %
-Because the real mapping between $\mC(t_s)$ and $\mC(t_e)$ will generally not be
-linear, $\mE_{\,t_s}^{\,t_e}$ is the solution to a least squares problem very
-similar to \eqref{eqn:normalized_system}.
+Because the real mapping between $\mC(t_\mathrm{s})$ and $\mC(t_\mathrm{e})$
+will generally not be linear, $\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ is the
+solution to a least squares problem very similar to
+\eqref{eqn:normalized_system}.
 %
 To make the solution independent of the scale of the micro-patch, we scale the
-last four columns of both $\mC(t_s)$ and $\mC(t_e)$ by the average norm of these
-columns in $\mC(t_e)$.
+last four columns of both $\mC(t_\mathrm{s})$ and $\mC(t_\mathrm{e})$ by the
+average norm of these columns in $\mC(t_\mathrm{e})$.
 %
-The system for reconstructing $\mE_{\,t_s}^{\,t_e}$ is then
+The system for reconstructing $\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ is then
 %
 \begin{equation}
     \label{eqn:deformation_reconstruction}
-    \Frob{\T\mC_n(t_s) \, \T{\mE_{\,t_s}^{\,t_e}} - \T\mC_n(t_e)}^2
-        \rightarrow \text{min} \, \text{,}
+    \Frob{\T\mC_n(t_\mathrm{s}) \, \T{\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}}
+          - \T\mC_\mathrm{n}(t_\mathrm{e})}^2
+    \rightarrow \text{min} \, \text{,}
 \end{equation}
 %
-with $\mC_n(t_s)$ and $\mC_n(t_e)$ being the configurations with their last
-columns scaled.
+with $\mC_\mathrm{n}(t_\mathrm{s})$ and $\mC_\mathrm{n}(t_\mathrm{e})$ being the
+configurations with their last columns scaled.
 %
 
 %
 If the ghost particles were reset one or more times during the time interval,
-$\mE_{\,t_s}^{\,t_e}$ is the concatenation of multiple transformations:
+$\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ is the concatenation of multiple
+transformations:
 %
 \begin{equation}
-    \mE_{\,t_s}^{\,t_e} = \mE_{\,t_n}^{\,t_e} \cdot \mE_{\,t_{n-1}}^{\,t_n}
-                      \cdot \; \cdots \; \cdot
-                      \mE_{\,t_1}^{\,t_2} \cdot \mE_{\,t_s}^{\,t_1} \, \text{,}
+    \mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}
+        = \mE_{\,t_n}^{\,t_\mathrm{e}} \, \mE_{\,t_{n-1}}^{\,t_n}
+        \; \cdots \;
+        \mE_{\,t_1}^{\,t_2} \, \mE_{\,t_\mathrm{s}}^{\,t_1} \, \text{,}
 \end{equation}
 %
 \begin{figure}[t]
@@ -603,8 +612,8 @@ $\mE_{\,t_s}^{\,t_e}$ is the concatenation of multiple transformations:
 \label{fig:transformation_concatenation}
 \end{figure}
 %
-where $t_i$ are the discrete times between $t_s$ and $t_e$ when the ghost
-particles were reset in the course of a split or merge operation.
+where $t_i$ are the discrete times between $t_\mathrm{s}$ and $t_\mathrm{e}$
+when the ghost particles were reset in the course of a split or merge operation.
 %
 Each sub-interval transformation is reconstructed from the new configuration of
 the micro-patch just after a split/merge and the old configuration just before
@@ -612,18 +621,17 @@ the next one (see \cref{fig:transformation_concatenation}).
 %
 
 %
-If we want to compute the tangential deformation a micro-patch at time $t_e$
-has experienced since the start time $t_s$, it is possible that this patch has
-not existed for the complete time interval, \ie, it was created at some time
-$t_k > t_s$ during a split operation.
+If we want to compute the tangential deformation a micro-patch at time
+$t_\mathrm{e}$ has experienced since the start time $t_\mathrm{s}$, it is
+possible that this patch has not existed for the complete time interval, \ie, it
+was created at some time $t_k > t_\mathrm{s}$ during a split operation.
 %
-In this case, we estimate the transformation between $t_s$ and $t_k$ from its
-parent patch by weighting the contributions of each ghost particle differently
-depending on their distance from the center of the new patch.
+In this case, we estimate the transformation between $t_\mathrm{s}$ and $t_k$
+from its parent patch by weighting the contributions of each ghost particle
+differently depending on their distance from the center of the new patch.
 %
 The details of this algorithm are presented in
-\cref{sec:transform_interpolation}. \Todo{move appendix into regular
-chapter?}
+\cref{sec:transform_interpolation}.
 %
 With this, we can reconstruct the tangential deformation gradient of any
 micro-patch for an arbitrary time interval.

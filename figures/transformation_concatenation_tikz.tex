@@ -140,21 +140,21 @@
 
 \draw [trarrow, intv1color]
 		($(center1) + (arrowoffset) + (arrowshorten)$) to[out=30, in=150]
-			node [above, midway] {$\color{intv1color}\mE_{\,t_s}^{\,t_1}$}
+			node [above, midway] {$\color{intv1color}\mE_{\,t_\mathrm{s}}^{\,t_1}$}
 		($(center2) + (arrowoffset) - (arrowshorten)$);
 
 \draw [trarrow, intv2color]
 		($(center3) + (arrowoffset) + (arrowshorten)$) to[out=30, in=150]
-			node [above, midway] {\color{intv2color}$\mE_{\,t_n}^{\,t_e}$}
+			node [above, midway] {\color{intv2color}$\mE_{\,t_n}^{\,t_\mathrm{e}}$}
 		($(center4) + (arrowoffset) - (arrowshorten)$);
 
 \draw [trarrow]
 		($(center1) - (arrowoffset) + (arrowshorten)$) to[out=-10, in=-170]
 			node [above, midway] {
-			$\mE_{\,t_s}^{\,t_e} =
-				\textcolor{intv1color}{\mE_{\,t_n}^{\,t_e}} \cdot \;
+			$\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}} =
+				\textcolor{intv1color}{\mE_{\,t_n}^{\,t_\mathrm{e}}} \cdot \;
 				\cdots \;
-				\cdot \textcolor{intv2color}{\mE_{\,t_s}^{\,t_1}}$
+				\cdot \textcolor{intv2color}{\mE_{\,t_\mathrm{s}}^{\,t_1}}$
 			}
 		($(center4) - (arrowoffset) - (arrowshorten)$);
 
