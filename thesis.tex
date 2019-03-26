@@ -4,7 +4,6 @@
     captions=tableheading,
     captions=outerbeside,
     numbers=noenddot
-    % headsepline
 }
 
 % allow using UTF-8 characters in input
@@ -287,16 +286,24 @@ at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
 
 \addbibresource{bib_master.bib}
 
-\title{ Dissertation }
-\subtitle{ New Visualization Techniques for Engineering Simulations }
 
-\author{ Timo Oster }
+\title{New Visualization Techni\othertailscq{}ues\\for Engineering Simulations}
+
+\author{Timo Oster}
+
+\date{29.04.2019}
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
 
 \begin{document}
 
 \frontmatter
 
-\maketitle
+\input{titlepage_submission}
 
 \cleardoublepage
 \pdfbookmark{\contentsname}{toc}
