@@ -2,19 +2,159 @@
 \chapter{Introduction} % (fold)
 \label{cha:introduction}
 %
-\section{Motivation} % (fold)
-\label{sec:motivation}
+\vspace{-\baselineskip}%
+\lettrine[findent=-3.5pt, nindent=4pt, loversize=0.015,
+lhang=0.08]{S}{imulations} are an integral part of modern engineering.
+%
+They use a set of models to make predictions about the behavior of a system
+under given boundary conditions.
+%
+Compared to experiments, simulations are cheaper and quicker to set up, run, and
+evaluate, and they often provide access to data that is hard or impossible to
+measure in an experiment.
+%
 
-% section motivation (end)
+%
+Simulation data -- just like data from experiments -- is often very large and
+complex.
+%
+It is evaluated to validate the simulation and/or to derive new insight from
+the data.
+%
+Visualization plays an important role in these tasks.
+%
+It translates the wealth of data into visual representations that are more
+easily parsed by humans.
+%
+
+%
+Visualization, and in particular scientific visualization, is a large field of
+research that has produced numerous techniques to display and analyze the data
+from engineering simulations and other sources.
+%
+For many applications, existing simple visualization techniques are sufficient
+to derive the desired information from the data.
+%
+However, for more complex problems or technical requirements, more advanced
+solutions are necessary.
+%
+
+%
+Two active areas of research in visualization are concerned with large data and
+data of some kind of higher order.
+%
+Large amounts of data mostly originate from large or very high-resolution
+experiments or simulations.
+%
+Examples for higher-order data are tensor fields, time-dependent vector fields,
+and ensemble or uncertain data.
+%
+The contributions of this thesis belong to these two areas of research.
+%
+We present visualization and analysis techniques for the flame surface in
+large-scale turbulent combustion simulations, and we develop novel features
+that help to understand the complexities of second-order tensor fields using
+examples from solid mechanics simulations.
 %
 \section{Contributions} % (fold)
 \label{sec:contributions}
+%
+The contributions of this thesis are separated into two main parts that at first
+glance seem to be quite different.
+%
+The first is concerned with time-dependent scalar and vector fields, the second
+with static tensor fields.
+%
+The first deals with very large data sizes while the second mostly handles
+small- to medium-sized datasets.
+%
+The first focuses on a concrete application area while the second proposes more
+general ideas.
+%
+However, both parts have in common that they propose techniques for the
+extraction of interesting features from data produced by engineering
+simulations.
+%
+In the following, we will give a short summary of our contributions and their
+motivation.
+%
+\subsection{Analysis and Visualization of the Flame Front in Turbulent
+Combustion Simulations} % (fold)
+\label{sub:contr_flame_vis}
+%
+Direct numerical simulations (\acs{DNS}\acused{DNS}) are the most accurate tool
+for the simulation of turbulent combustion.
+%
+They are used as ``numerical experiments'' to gain data for development or
+validation of new combustion models.
+%
+Because of their high spatial and temporal resolution, \ac{DNS} are run on
+large, massively parallel supercomputers and produce huge amounts of data.
+%
+This raw data can not be stored completely in a reasonable amount of time and
+has become a bottleneck for the analysis of simulation results.
+%
 
+%
+A major focus of interest in the modeling of combustion processes is the flame
+surface.
+%
+It is the area of the flame where most chemical reactions take place and most
+heat is produced.
+%
+We present two approaches for the visualization and analysis of different
+aspects of the flame surface in large-scale \ac{DNS} of turbulent combustion,
+where raw data storage has become the bottleneck.
+%
+
+%
+The first is a space-saving sparse representation for a certain type of flame.
+%
+Due to its smaller size, it allows storing and therefore analyzing a larger
+number of simulation time steps.
+%
+This representation can directly be used for a statistical analysis of the flame
+structure, and it is the basis for a new visualization technique that highlights
+local differences in relation to the shape of the flame.
+%
+If required, the full data can be reconstructed on the original grid with some
+loss of accuracy for the full flexibility of conventional post-processing.
+%
+
+%
+The second approach we present is an algorithm for tracking the flame surface
+in-situ during the simulation.
+%
+This circumvents the storage bottleneck by processing the data while it is still
+in memory and only writing to disk the much smaller results.
+%
+We propose a massively parallel algorithm using independent micro-patches that
+refine and coarsen independently to track the surface.
+%
+This allows tracking the surface over long time intervals and provides data
+about the history of individual points attached to the surface as well as their
+relative movement.
+%
+Using this data, which is impossible to obtain via traditional post-processing
+for large simulation runs, combustion researchers can derive new combustion
+models, especially incorporating unsteady phenomena.
+%
+% subsection contr_flame_vis
+%
+\subsection{Line Features in \ac{3D} Second-Order Tensor Fields} % (fold)
+\label{sub:contr_tensor_fields}
+%
+
+%
+% subsection line_features_in_ac (end)
+%
 % section contributions (end)
 %
 \section{Thesis Structure} % (fold)
 \label{sec:thesis_structure}
+%
 
+%
 % section thesis_structure (end)
 %
 \clearpage
