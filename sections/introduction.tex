@@ -143,16 +143,105 @@ models, especially incorporating unsteady phenomena.
 \subsection{Line Features in \ac{3D} Second-Order Tensor Fields} % (fold)
 \label{sub:contr_tensor_fields}
 %
+Tensor fields occur in different scientific disciplines.
+%
+One important example are stress tensor fields, which are often the result of
+solid mechanics simulations.
+%
+They describe the state and distribution of stresses in a solid object.
+%
 
 %
-% subsection line_features_in_ac (end)
+Tensor fields have more degrees of freedom than vector fields and are therefore
+more challenging to visualize.
+%
+Almost all techniques for tensor field visualization have in common that they
+represent tensors using their eigenvectors and eigenvalues.
+%
+Visualization techniques for vector fields can sometimes be applied to the
+eigenvectors of a tensor field with some modifications.
+%
+Just as they help make sense of the structure of vector fields, they can make
+sense of the structure of eigenvectors in tensor fields.
+%
+
+%
+We make steps to translate a class of features from vector- to tensor fields
+that has not been considered to date:
+%
+line features obtained by the \ac{PV} operator.
+%
+This operator yields all locations where two vector fields are parallel.
+%
+It can be used to compute ridge- and valley lines in scalar fields as well as
+separation-, attachment-, and vortex core lines in vector fields.
+%
+We establish the \ac{PEV} operator as the equivalent of the \ac{PV} operator
+for vector fields.
+%
+We then use it to translate the concept of vortex core lines to tensor fields by
+defining \emph{tensor core lines} that mark the centers of ``swirling'' behavior
+of the eigenvectors.
+%
+Using these new features, we demonstrate how to find locations of aligned
+principal stress directions in objects under two different loads and how to find
+areas in an object that are under twist.
+%
+% subsection contr_tensor_fields (end)
 %
 % section contributions (end)
 %
 \section{Thesis Structure} % (fold)
 \label{sec:thesis_structure}
 %
-
+This thesis is separated into three main parts.
+%
+\Cref{part:background} provides background information that is relevant to
+understand the context of this work.
+%
+\begin{itemize}
+    \item \Cref{cha:sci_vis} gives an overview of the field of scientific
+    visualization.
+    %
+    \item \Cref{cha:turbulent_combustion} introduces the field of turbulent
+    combustion research that is relevant to the second part of this thesis.
+    %
+    It gives a phenomenological overview of combustion processes, outlines the
+    methods involved in its modeling and simulation and discusses the state of
+    the art in visualization of turbulent combustion.
+\end{itemize}
+%
+%
+\Cref{part:flame_vis} presents the contributions in visualization of the flame
+surface in \ac{DNS} of turbulent combustion.
+%
+\begin{itemize}
+    \item \Cref{cha:sparse_representation} presents a sparse representation
+    for premixed flames that saves storage space and is the basis for a new
+    flame visualization technique.
+    %
+    \item \Cref{cha:flame_surface_tracking} introduces an in-situ algorithm for
+    tracking the flame surface during a massively parallel simulation run.
+    %
+    \item \Cref{cha:flame_vis_conclusions} concludes this part of the thesis.
+\end{itemize}
+%
+%
+\Cref{part:tensor_vis} presents new line features for second-order tensor
+fields.
+%
+\begin{itemize}
+    \item \Cref{cha:parallel_eigenvectors} introduces the \ac{PEV} operator,
+    which yields all locations where two tensor fields have parallel real
+    eigenvectors.
+    %
+    \item \Cref{cha:tensor_core_lines} applies the \ac{PEV} operator -- with
+    some modifications -- to translate the concept of vortex core lines to the
+    eigenvectors of a tensor field.
+    %
+    \item \Cref{cha:tensor_vis_conclusions} concludes the last part of the
+    thesis.
+\end{itemize}
 %
 % section thesis_structure (end)
 %
