@@ -1,0 +1,16 @@
+\begin{titlepage}%
+\setlength{\parindent}{0cm}%
+\begin{centering}%
+\vspace*{1cm}
+{\scshape\bfseries\huge \thetitle}\\
+\vspace*{2\baselineskip}
+{\LARGE \theauthor}\\
+\end{centering}%
+\tikzset{external/export=false}
+\begin{tikzpicture}[overlay, remember picture]
+    \node[anchor=south] at (current page footer area.south) {
+        \includegraphics[width=4cm]{figures/OvGU-Logo_grau.jpg}
+    };
+\end{tikzpicture}%
+\tikzset{external/export=true}
+\end{titlepage}%

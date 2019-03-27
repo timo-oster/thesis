@@ -1,3 +1,6 @@
+\newif\ifprint
+\printfalse
+
 \documentclass[BCOR=15mm, DIV=8]{scrbook}
 
 \KOMAoptions{
@@ -49,8 +52,7 @@
     parsep=0pt,
     listparindent=\parindent}
 
-\usepackage[nolist
-            ]{acronym}
+\usepackage[nolist]{acronym}
 
 \usepackage{lettrine}
 
@@ -111,10 +113,13 @@
 \definecolor{accentcolor}{HTML}{888888}
 \definecolor{laccentcolor}{HTML}{d3d3d3}
 
-\usepackage{hyperref}
+\ifprint
+    \usepackage[hidelinks]{hyperref}
+\else
+    \usepackage[colorlinks]{hyperref}
+\fi
 
 \hypersetup{
-    colorlinks,
     linkcolor={mycolor4!70!black},
     citecolor={mycolor1!70!black},
     urlcolor={mycolor1!70!black},
@@ -300,6 +305,10 @@ at ([yshift=1.2cm]mychapanchor-\arabic{chapter}-| current page text area.east){%
 \makeatother
 
 \begin{document}
+
+\ifprint
+\input{halftitle}
+\fi
 
 \frontmatter
 
