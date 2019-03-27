@@ -1,9 +1,8 @@
 \addchap*{Abstract}
 \pdfbookmark{Abstract}{abstract}
 %
-This thesis presents new visualization techniques geared towards two different
-applications of engineering simulations: Turbulent combustion and solid
-mechanics.
+This thesis presents new visualization techniques for engineering simulations in
+two different disciplines: Turbulent combustion and solid mechanics.
 %
 
 %
@@ -13,14 +12,14 @@ develop and validate higher-level combustion models.
 A focus of interest in the analysis of such simulations is the flame surface,
 where most of the chemical reactions take place.
 %
-In recent years, the computational power of supercomputers has increased much
-faster than the performance of storage infrastructures.
+The computational power of supercomputers is increasing much faster than the
+performance of storage infrastructures.
 %
 This has caused the output and storage of simulation data to become the
-bottleneck in modern large-scale simulation runs.
+bottleneck in large-scale simulation runs.
 %
 We introduce two new techniques for the visualization and analysis of the flame
-surface in large-scale combustion simulations, before the background of this
+surface in large-scale combustion simulations before the background of this
 storage bottleneck.
 %
 The first is a space-saving sparse representation for certain types of flames
@@ -36,25 +35,25 @@ the data produced by their increasingly large simulations.
 %
 
 %
-Tensor fields belong to some of the most challenging types of data to
-visualize, due to their many degrees of freedom.
+Due to their many degrees of freedom, Tensor fields are some of the most
+challenging types of data to visualize.
 %
-One possibility to break down this complexity is feature-based visualization,
+One possibility to break down their complexity is feature-based visualization,
 which reduces the data to a set of geometric primitives that represent the
 occurrence of some kind of interesting behavior.
 %
-In scalar and vector fields, a number of line-type features can be extracted
-using the parallel vectors operator, which yields locations where two vector
-fields are parallel.
+The parallel vectors operator, which yields locations where two vector fields
+are parallel, is the basis of a number of line-type features in scalar and
+vector fields.
 %
 We translate this operator to tensor fields by introducing the parallel
 eigenvectors operator, which yields locations where two tensor fields have
 parallel real eigenvectors.
 %
 We then use this idea to introduce tensor core lines, which mark the centers of
-'swirling' behavior of the eigenvectors and are based on vortex core lines in
+``swirling'' behavior of the eigenvectors, and are based on vortex core lines in
 vector fields.
 %
-Using this new feature, we can detect twist in the stress tensor fields
-produced by solid mechanics simulations.
+Using this new feature, we can detect twist in stress tensor fields from solid
+mechanics simulations.
 %

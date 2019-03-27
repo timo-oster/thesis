@@ -343,14 +343,6 @@ effect of the flow.
 As the end time $t$ advances, the line is transported and warped by the flow and
 visualizes the way the flow mixes and perturbs a region of the fluid.
 %
-\begin{figure}[t]
-    \centering
-    \MissingFigure{Image illustrating relationship between pathlines,
-    streaklines and timelines}
-    \caption{Pathlines, streaklines and timelines of a \ac{2D} vector field.}
-    \label{fig:path_streak_timelines}
-\end{figure}
-%
 % subsubsection timelines (end)
 
 \subsubsection{Integral Surfaces} % (fold)
@@ -697,6 +689,17 @@ stream lines have locally vanishing curvature.
 \subsubsection{Cores of Swirling Particle Motion} % (fold)
 \label{ssub:cores_of_swirling_particle_motion}
 %
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figures/pathline_streamline_core.png}
+    \caption{Streamlines and pathlines swirl around different cores. The red
+    tube shows the core of pathlines of a \ac{2D} vector field (rendered in
+    \ac{3D} spacetime). The blue tube shows the path of the vortex core
+    extracted from the individual time slices. Source: Weinkauf
+    \etal~\cite{Weinkauf2007}.}
+    \label{fig:cores_of_swirling_particle_motion}
+\end{figure}%
+%
 The method of Sujudi/Haimes only considers steady flow fields, or instantaneous
 snapshots of unsteady flows.
 %
@@ -717,17 +720,6 @@ For \ac{3D} unsteady flows, the pathlines are streamlines in \ac{4D} space-time.
 They derive a criterion similar to Sujudi/Haimes for \ac{4D} vector fields that
 can be reduced to a parallel vectors operation on two derived \ac{3D} vector
 fields.
-%
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\textwidth]{figures/pathline_streamline_core.png}
-    \caption{Streamlines and pathlines swirl around different cores. The red
-    tube shows the core of pathlines of a \ac{2D} vector field (rendered in
-    \ac{3D} spacetime). The blue tube shows the path of the vortex core
-    extracted from the individual time slices. Source: Weinkauf
-    \etal~\cite{Weinkauf2007}.}
-    \label{fig:cores_of_swirling_particle_motion}
-\end{figure}
 %
 % subsubsection cores_of_swirling_particle_motion (end)
 %
@@ -894,8 +886,7 @@ is estimated based on central differences~\cite{Peikert2014}.
 \ac{FTLE} and \ac{FSLE} yield similar results, given the right parameters (see
 \cref{fig:ftle_fsle}).
 %
-However, their semantic differences might make one or the other more appropriate
-depending on the application.
+However, one or the other might be more appropriate depending on the application.
 %
 While \ac{FTLE} operates on a finite integration time $\tau$, which must be
 estimated a-priori, it shows the behavior of the flow for all scales of spatial
