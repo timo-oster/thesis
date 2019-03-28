@@ -1,5 +1,3 @@
-
-%
 \section{Related Work} % (fold)
 \label{sec:tcl_related_work}
 %
@@ -10,7 +8,7 @@ In their original paper, they examine the Jacobian $\nabla \vv$ of a vector
 field $\vv$.
 %
 They search for vortex core lines only in areas where $\nabla \vv$ has two
-complex eigenvalues, \ie, where the flow shows locally swirling behavior.
+complex eigenvalues, \ie{}, where the flow shows locally swirling behavior.
 %
 The location of a vortex core line is then defined as the set of points where
 the velocity is parallel to the single real eigenvector.
@@ -152,19 +150,19 @@ aligned with the eigenvector directions.
 By explicitly encoding eigenvalue signs in geometry, Schultz and
 Kindlmann~\cite{Schultz2010a} extended this to indefinite tensors.
 %
-Gerrits \etal~\cite{Gerrits2017} additionally incorporated complex eigenvalue
+Gerrits \etal{}~\cite{Gerrits2017} additionally incorporated complex eigenvalue
 information into the glyph design to visualize general second-order tensors
 in \ac{2D} and \ac{3D}.
 %
 A specialized glyph for stress and strain tensors was introduced by Hashash
-\etal~\cite{Hashash2003}.
+\etal{}~\cite{Hashash2003}.
 %
 Kindlmann and Westin~\cite{Kindlmann2006} addressed the problem of clutter by
 optimizing glyph placement to increase information density while minimizing
 occlusion.
 %
 Glyphs for comparative visualization of two different diffusion tensors were
-used on medical data by Zhang \etal~\cite{Zhang2016}.
+used on medical data by Zhang \etal{}~\cite{Zhang2016}.
 %
 
 %
@@ -177,13 +175,13 @@ their cross-section is a cross shape or ellipse aligned with the other two
 eigenvectors and scaled by the corresponding eigenvalues.
 %
 The problem of undefined integration direction in near-isotropic areas was
-adressed by Weinstein \etal with a new concept called
+adressed by Weinstein \etal{} with a new concept called
 tensorlines~\cite{Weinstein1999}.
 %
 These lines behave like hyperstreamlines, but try to preserve direction in areas
 of equal eigenvalues by incorporating local context information.
 %
-As an extension to this concept, Jeremi{\'c} \etal introduced
+As an extension to this concept, Jeremi{\'c} \etal{} introduced
 hyperstreamsurfaces~\cite{Jeremic2002}, which are formed analogous to
 hyperstreamlines by using a line instead of a point as the seed structure.
 %
@@ -203,22 +201,22 @@ algorithm is based on finding the roots of a number of discriminant functions on
 the cell faces of a dataset using a bisection algorithm, and then connecting
 them to lines.
 %
-Zheng \etal later introduced alternative approaches that are based on solving
+Zheng \etal{} later introduced alternative approaches that are based on solving
 a system of equations on each face, and on tracing the degenerate lines using
 their analytical tangent~\cite{Zheng2005}.
 %
-As Schulz \etal~\cite{Schultz2007} showed, these features are very sensitive to
+As Schulz \etal{}~\cite{Schultz2007} showed, these features are very sensitive to
 noise.
 %
 A more stable approach suitable to noisy data such as obtained from \ac{DTI}
-scans was therefore proposed by Tricoche \etal~\cite{Tricoche2008}.
+scans was therefore proposed by Tricoche \etal{}~\cite{Tricoche2008}.
 %
 The notion of tensor topology was recently extended to surfaces of neutral and
-traceless tensors by Palacios \etal~\cite{Palacios2016}, who also propose an
+traceless tensors by Palacios \etal{}~\cite{Palacios2016}, who also propose an
 improved algorithm for extracting degenerate lines.
 %
 Assymetric tensors were studied in \ac{2D} by Zheng and Pang~\cite{Zheng2005a}
-and in the context of flow visualization by Zhang \etal~\cite{Zhang2009}.
+and in the context of flow visualization by Zhang \etal{}~\cite{Zhang2009}.
 %
 % - Gordon on derivatives of eigenvectors
 % section related_work (end)

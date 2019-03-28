@@ -183,7 +183,7 @@ specifically for turbulent combustion applications.
 %
 
 %
-Zistl \etal~\cite{Zistl2009} developed a toolbox focused on the analysis of
+Zistl \etal{}~\cite{Zistl2009} developed a toolbox focused on the analysis of
 \ac{DNS} data.
 %
 It combines steps such as geometrical analysis of the flame surface and flame
@@ -198,7 +198,7 @@ tasks on the data.
 Another group of visualization tools focus on the identification and tracking of
 volumetric features.
 %
-Bremer \etal precompute a merge-tree representation and accompanying
+Bremer \etal{} precompute a merge-tree representation and accompanying
 segmentation of volumetric \cite{Bremer2009,Bremer2011} and surface features
 \cite{Bremer2010} defined by thresholding.
 %
@@ -206,11 +206,11 @@ This allows an interactive post-hoc exploration of the threshold parameter
 space and resulting tracking graph representing the evolution of features over
 time.
 %
-Wang \etal~\cite{Wang2013} focuses on an efficient parallel algorithm to
+Wang \etal{}~\cite{Wang2013} focuses on an efficient parallel algorithm to
 identify and track volumetric features in a distributed memory environment
 where features may span several processors.
 %
-Schnorr \etal~\cite{Schnorr2018} track cells in a space-filling topological
+Schnorr \etal{}~\cite{Schnorr2018} track cells in a space-filling topological
 segmentation defined by the Morse-Smale decomposition of a scalar variable (see
 \cref{sub:scalar_geometry_based}) by solving two graph optimization problems.
 %
@@ -225,12 +225,12 @@ accompanying time series of simulation variables in addition to snapshots of the
 (Eulerian) state of the simulation.
 %
 These pathlines allow tracking of volumetric features even in snapshots with
-large temporal gaps, as shown by Sauer \etal~\cite{Sauer2014}.
+large temporal gaps, as shown by Sauer \etal{}~\cite{Sauer2014}.
 %
 They can also be visualized by themselves, to get an idea about the dynamic
 behavior of the system.
 %
-Wei \etal~\cite{Wei2011} developed a visualization that combines a visualization
+Wei \etal{}~\cite{Wei2011} developed a visualization that combines a visualization
 of particles in physical space with a visualization in the temperature --
 mixture fraction phase space.
 %
@@ -243,7 +243,7 @@ analysis (see \cref{fig:wei_particle_clusters}).
     \includegraphics[width=\textwidth]{figures/wei_particle_clusters.png}
     \caption{Hybrid visualization of particle trajectories in phase space (left)
     and physical space (right) of an ethylene/air jet flame. Image source:
-    Wei \etal~\cite{Wei2011}.}
+    Wei \etal{}~\cite{Wei2011}.}
     \label{fig:wei_particle_clusters}
 \end{figure}
 %
@@ -365,7 +365,7 @@ are executed regularly and produce images or data files.
 %
 
 %
-Larsen \etal presented a simpler and more flexible system that only supports
+Larsen \etal{} presented a simpler and more flexible system that only supports
 batch visualization with Strawman~\cite{Larsen2015}.
 %
 It is based on EAVL~\cite{Meredith2012}, a visualization library that is
@@ -435,7 +435,7 @@ to a lesser extent.
 %
 Maybe that is because it is much harder to solve.
 %
-The challenge is to enable an exploratory analysis of the simulation data, \ie,
+The challenge is to enable an exploratory analysis of the simulation data, \ie{},
 with little to no prior knowledge of what one is looking for.
 %
 This stands in direct conflict with the goal of in-situ approaches to reduce the
@@ -450,7 +450,7 @@ A small number of works has tried to address this issue.
 One obvious possibility is to compress the data using some generic concept of
 ``importance'' that is not dependent on a particular application.
 %
-Lakshminarasimhan \etal~\cite{Lakshminarasimhan2011} developed such an algorithm
+Lakshminarasimhan \etal{}~\cite{Lakshminarasimhan2011} developed such an algorithm
 whose core idea is to sort the data before compression to take advantage of the
 special characteristics of scientific data.
 %
@@ -461,7 +461,7 @@ analysis of the data.
 
 %
 Another approach has been proposed by Kageyama and Yamada~\cite{Kageyama2014}
-and Ahrens \etal~\cite{Ahrens2014}:
+and Ahrens \etal{}~\cite{Ahrens2014}:
 %
 Produce a database of visualizations that the user can explore later.
 %
@@ -500,14 +500,14 @@ combustion.
 The first in-situ visualization methods focused on rendering images for
 monitoring the simulation.
 %
-Yu \etal~\cite{Yu2010} used their parallel direct volume rendering and image
+Yu \etal{}~\cite{Yu2010} used their parallel direct volume rendering and image
 compositing algorithm \cite{Yu2008} to display scalar variables in combustion
 simulations together with particles advected with the flow.
 %
 This gives an idea about the evolution of the simulation but does not allow for
 quantitative analysis of the data.
 %
-Tikhonova \etal~\cite{Tikhonova2011} developed a more flexible approach by
+Tikhonova \etal{}~\cite{Tikhonova2011} developed a more flexible approach by
 rendering the data into an intermediate representation that stores an
 attenuation function instead of color values.
 %
@@ -522,7 +522,7 @@ section \cite{Kageyama2014,Ahrens2014}.
         Retroactive adjustment of the transfer function in direct volume
         renderings of a turbulent jet flame. Left: original transfer function.
         Middle: Opacity modulation. Right: Opacity modulation and
-        re-colorization. Image source: Tikhonova \etal~\cite{Tikhonova2011}.
+        re-colorization. Image source: Tikhonova \etal{}~\cite{Tikhonova2011}.
         \label{fig:tikhonova_tf}
     }[o]
         \includegraphics[width=0.6\textwidth]{figures/tikhonova_transfer_function.png}
@@ -534,10 +534,10 @@ section \cite{Kageyama2014,Ahrens2014}.
 Moving to more analytic approaches, several works have addressed the extraction
 and tracking of volumetric features.
 %
-Chen \etal~\cite{Chen2003} presented an in-situ system for tracking volumetric
+Chen \etal{}~\cite{Chen2003} presented an in-situ system for tracking volumetric
 features defined by thresholding.
 %
-Zhang \etal~\cite{Zhang2012} used the \ac{DOC} algorithm \cite{Quiroz2008} to
+Zhang \etal{}~\cite{Zhang2012} used the \ac{DOC} algorithm \cite{Quiroz2008} to
 identify and track features defined by clusters in state space during a
 simulation run.
 %
@@ -553,7 +553,7 @@ features picked by the user based on their visual properties.
 This is intended to be more robust than detection based on thresholds which
 might not be applicable over long time periods.
 %
-Ye \etal~\cite{Ye2015} combined image-based visualization with feature tracking
+Ye \etal{}~\cite{Ye2015} combined image-based visualization with feature tracking
 by storing rendered depth maps of multiple isosurfaces.
 %
 These are later used to create visualizations and to track features in image
@@ -569,13 +569,13 @@ The idea of precomputing an intermediate representation of the data in-situ and
 then exploring it post-hoc has also been applied in some more specialized
 visualization systems.
 %
-Landge \etal~\cite{Landge2014} adapted the computation of segmented merge trees
+Landge \etal{}~\cite{Landge2014} adapted the computation of segmented merge trees
 \cite{Bremer2009,Bremer2011} for in-situ applications.
 %
 This allows for an interactive exploration of the space of possible thresholds
 or iso-levels for scalar variables.
 %
-Ye \etal~\cite{Ye2016} proposed a system for exploring joint field/particle
+Ye \etal{}~\cite{Ye2016} proposed a system for exploring joint field/particle
 datasets as are for example produced by some combustion \ac{DNS} codes.
 %
 They compute \acp{PDF} to represent the field data and reorganize the particle

@@ -53,12 +53,12 @@ Note that for a linear tensor field, $\nabla_{\vr}\mT(\vx)=\nabla_{\vr}\mT$ is
 constant and thus independent of $\vx$.
 %
 Like for the \ac{PEV} algorithm, we parameterize the space of possible
-eigenvector directions $\vr$ such that they are defined \wrt triangles covering
+eigenvector directions $\vr$ such that they are defined \wrt{} triangles covering
 a hemisphere.
 %
 With the restriction of the local search space to triangles that bound
 tetrahedra, the solution of the polynomial system is equivalent to finding
-isolated (real) roots, \ie, points where all six polynomials simultaneously
+isolated (real) roots, \ie{}, points where all six polynomials simultaneously
 become zero.
 %
 
@@ -109,7 +109,7 @@ the linear polynomials that satisfy
 a_1\vu_1+a_2\vu_2+a_3\vu_3 = \vu\quad\text{and}\quad
 a_1+a_2+a_3 = 1
 \end{equation*}
-\wrt triangle $\Delta$ spanned by vertices $\vu_1,\vu_2,\vu_3$
+\wrt{} triangle $\Delta$ spanned by vertices $\vu_1,\vu_2,\vu_3$
 \cite{Hoschek1993}.
 %
 
@@ -143,7 +143,7 @@ As pointed out before, positions $\vx$ are restricted to points on triangles
 bounding tetrahedral cells.
 %
 For each triangle of a tetrahedron we represent positions $\vx$ in barycentric
-coordinates \wrt this triangle.
+coordinates \wrt{} this triangle.
 %
 Barycentric coordinates are defined in \emph{local coordinates} of the triangle
 and therefore have two degrees of freedom.
@@ -251,7 +251,7 @@ two different two-dimensional domains: position and space.
 The system \eqref{eq:system} defines six polynomials.
 %
 For the initialization of the algorithm, we need to determine the
-Bernstein-B\'ezier form, \ie, the coefficients $b_{ijk\,\alpha\beta\gamma}$ in
+Bernstein-B\'ezier form, \ie{}, the coefficients $b_{ijk\,\alpha\beta\gamma}$ in
 \eqref{eq:polynomial}, for each of these polynomials.
 %
 This can be done easily by sampling and interpolation:
@@ -278,7 +278,7 @@ $i+j+k=n$ in barycentric coordinates.
 This ensures a well-conditioned system matrix.
 %
 As the sampling positions are fixed, the system matrix is constant,
-\ie, interpolation requires only inversion or factoring.
+\ie{}, interpolation requires only inversion or factoring.
 %
 So after sampling, the conversion to Bernstein-B\'ezier form reduces to a linear
 transform than can be expressed as a matrix-multiplication.

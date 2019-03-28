@@ -1,5 +1,3 @@
-
-%
 \section{Mathematical Basis} % (fold)
 \label{sec:fst_mathematical_basis}
 %
@@ -21,7 +19,7 @@ This scalar function is transported by the fluid velocity $\vv(\vx, t)$ and
 influenced by diffusion and chemical reaction processes.
 %
 A point $\vx$ with velocity $\vu$ tracking the surface has a zero Lagrangian
-derivative, \ie, the value of $s$ at the point does not change over time.
+derivative, \ie{}, the value of $s$ at the point does not change over time.
 Therefore
 %
 \begin{equation*}
@@ -72,12 +70,12 @@ linear movement of surface points in an infinitesimal neighborhood.
 %
 We consider the starting position of a point on the surface at some time $t_0$.
 %
-\Wlog we assume that this point is at the origin $\vNull$.
+\Wlog{} we assume that this point is at the origin $\vNull$.
 %
 Let $\bchi(\vx,t)$ be the mapping function that maps a point $\vx$ at $t_0$ to
 its position at time $t > t_0$ after moving with the surface.
 %
-\Wlog we assume that $\bchi(\vNull,t) = \vNull$.
+\Wlog{} we assume that $\bchi(\vNull,t) = \vNull$.
 %
 The spatial deformation gradient $\mF = \nabla \bchi$, which encodes the behavior
 of a point $\vx$ in an infinitesimally small neighborhood around $\vNull$, can
@@ -90,7 +88,7 @@ then be expressed as
 %
 
 %
-We are only interested in the tangential part of this deformation, \ie, the
+We are only interested in the tangential part of this deformation, \ie{}, the
 behavior in a tangential coordinate system that moves and rotates with the
 surface.
 %
@@ -261,7 +259,7 @@ context.
 %
 For the initial configuration at some time $t_0$, $\mC$ can be exactly
 represented by a unit base configuration $\mC_0$ being transformed by a linear
-transformation $\mT$, \ie,
+transformation $\mT$, \ie{},
 %
 \begin{equation*}
     \mC(t_0) = \mT \, \mC_0 \, \text{,} \quad  \text{with} \quad
@@ -277,7 +275,7 @@ As the points track the surface over time, their relative position will change.
 Their relation to $\mC_0$ might no longer be linear.
 %
 Now, $\mT$ is the linear transformation that best approximates the mapping
-between $\mC_0$ and $\mC$, \ie, the solution to the least squares problem
+between $\mC_0$ and $\mC$, \ie{}, the solution to the least squares problem
 %
 \begin{equation*}
     e^2 = \Frob{\T\mC_0 \, \T\mT - \T\mC}^2 \rightarrow \text{min} \, \text{.}
@@ -290,7 +288,7 @@ Here, $\Frob{\cdot}$ denotes the Frobenius norm.
 The residual error $e$ measures the deviation of the real mapping between
 $\mC_0$ and $\mC$ from linear behavior.
 %
-However, its scale is dependent on the size of the micro-patch, \ie, the
+However, its scale is dependent on the size of the micro-patch, \ie{}, the
 magnitude of the last four columns of $\mC$, and it weights those columns
 differently from the normal in the first column.
 %
@@ -566,7 +564,7 @@ the rotation matrix from the polar decomposition of $\mE$.
 
 %
 Let us first assume the micro-patch was not split or merged in the time
-interval, \ie, its ghost particles were not reset.
+interval, \ie{}, its ghost particles were not reset.
 %
 Because the real mapping between $\mC(t_\mathrm{s})$ and $\mC(t_\mathrm{e})$
 will generally not be linear, $\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ is the
@@ -623,7 +621,7 @@ the next one (see \cref{fig:transformation_concatenation}).
 %
 If we want to compute the tangential deformation a micro-patch at time
 $t_\mathrm{e}$ has experienced since the start time $t_\mathrm{s}$, it is
-possible that this patch has not existed for the complete time interval, \ie, it
+possible that this patch has not existed for the complete time interval, \ie{}, it
 was created at some time $t_k > t_\mathrm{s}$ during a split operation.
 %
 In this case, we estimate the transformation between $t_\mathrm{s}$ and $t_k$
