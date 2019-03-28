@@ -333,7 +333,7 @@ visualization and does not further impede performance.
     \caption{Parameters for the visual exploration of feature surfaces.
     		We show dataset \textsc{Hydrogen}. White circles highlight
 	    	interesting features changing over time. }
-    \label{fig_contourmeshvis}
+    \label{fig:contourmeshvis}
 \end{figure}
 %
 With a method to construct feature surfaces from the sparse representation, we
@@ -425,7 +425,7 @@ choosing a low value for $u_1$), or an overview of areas with positive or
 negative difference values (by choosing a high value for $u_1$).
 %
 The color scale and the effect of varying parameter $u_1$ are shown in
-\cref{fig_contourmeshvis} (top).
+\cref{fig:contourmeshvis} (top).
 %
 
 % Let $M^{v}_{f}$ and $M^{w}_{f}$ feature meshes for two variables $v$ and $w$ of
@@ -488,7 +488,7 @@ The color scale and the effect of varying parameter $u_1$ are shown in
 % feature surface meshes $M^{v}_{f}$ and $M^{w}_{f}$ by color coding the
 % differences $d(\vm_f^{v,w})$ as vertex colors for the related vertices
 % $\vm$ of the flame mesh $M$. The color-coding and the use of parameter
-% $u_1$ is illustrated by Figure~\ref{fig_contourmeshvis}(b).
+% $u_1$ is illustrated by Figure~\ref{fig:contourmeshvis}(b).
 
 % Using the flame mesh for color coding differences of the feature surface meshes
 % w.r.t. two data set variables is reasonable because: (i) feature meshes and
@@ -512,7 +512,7 @@ reflectance factor to suit their needs.
 % The feature surface meshes can be visualized by using standard computer graphics
 % illumination and shading techniques. For this, the direction vector $\vr$
 % is interpreted as surface normal and vertex normal, respectively, and a Phong
-% shading is applied. Figure~\ref{fig_contourmeshvis} shows a couple of examples
+% shading is applied. Figure~\ref{fig:contourmeshvis} shows a couple of examples
 % w.r.t. the color-coded mesh shading.
 % %Address review comment
 % %------
@@ -530,7 +530,7 @@ chosen feature meshes $M^{V}_{f}$ and $M^{W}_{f}$.
 %
 A parameter $u_2 \in [0, 2]$ steers the morphing, showing the original flame
 surface $M$ for $u_2 = \num{0}$, the first feature surface $M^{V}_{f}$ for $u_2
-= \num{1}$ and $M^{W}_{f}$ for $u_2 = \num{2}$ (\cref{fig_contourmeshvis},
+= \num{1}$ and $M^{W}_{f}$ for $u_2 = \num{2}$ (\cref{fig:contourmeshvis},
 middle).
 %
 The morphing itself is trivial.
@@ -571,11 +571,11 @@ number and storage size of time steps.
 % By steering the parameter $u_2$, the user is able to visually investigate the
 % differences of the shape between all three meshes: $u_2=0$ gives $M$, $u_2=1$
 % gives $M^{v}_{f}$, and $u_2=2$ gives $M^{w}_{f}$.
-% Figure~\ref{fig_contourmeshvis}(c) depicts this.
+% Figure~\ref{fig:contourmeshvis}(c) depicts this.
 %------------------
 
 % As proof of concept, a prototype has been implemented using MatLab for
 % performing the transformation to the sparse representation, and using Python
 % with Tkinter, PyGame, and Python-OpenGL for the visual analysis tool. The user
-% interface can be seen in Figure~\ref{fig_contourmeshvis} (top).
+% interface can be seen in Figure~\ref{fig:contourmeshvis} (top).
 %
