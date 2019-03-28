@@ -1,3 +1,60 @@
+\begin{otherlanguage}{german}%
 \addchap*{Zusammenfassung}
+%
+Diese Arbeit präsentiert neue Visualisierungsmethoden für Simulationen aus zwei
+verschiedenen Ingenieurwissenschaften: Turbulente Verbrennung und
+Festkörpermechanik.
+%
 
-Diese Arbeit enthält bla bla bla
+%
+Der Flaschenhals in großen Simulationen turbulenter Verbrennungsvorgänge ist
+inzwischen nicht mehr die Berechnungszeit, sondern das Speichern der
+Ausgabedaten.
+%
+Wir präsentieren zwei neue Techniken für die Visualisierung und Analyse der
+Flammenobefläche in solchen Simulationen vor dem Hintergrund dieses
+Flaschenhalses.
+%
+Die erste ist eine platzsparende, ausgedünnte Darstellung für einen bestimmten
+Typ von Flammen.
+%
+Diese ermöglicht die Analyse einer größeren Anzahl von Zeitschritten der
+Simulation und ist die Basis für eine neue Art von Flammenvisualisierung.
+%
+Die zweite ist ein Algorithmus zur Verfolgung der Flammenoberfläche
+\emph{in-situ} während der Simulation selbst.
+%
+Dadurch wird der Flaschenhals des Speichervorganges umgangen und nur die
+wesentlich kleineren Ergebnisse müssen geschrieben werden.
+%
+Beide Verfahren tragen dazu bei, dass Verbrennungswissenschaftler auch in
+Zukunft die Daten Analysieren können, die ihre immer größer werdenden
+Simulationen produzieren.
+%
+
+%
+Tensorfelder gehören wegen ihrer vielen Freiheitsgrade zu den herausforderndsten
+Daten für die Visualisierung.
+%
+Eine Möglichkeit, diese Komplexität zu reduzieren ist Feature-basierte
+Visualisierung.
+%
+Diese reduziert die Daten zu einer Menge von geometrischen Primitiven die
+interessantes Verhalten markieren.
+%
+Der \emph{parallel vectors operator}, der alle Orte bestimmt an denen zwei
+Vektorfelder parallel sind, ist die Basis für eine Menge von Linien- Features
+für Skalar- und Vektorfelder.
+%
+Wir übertragen diesen Operator auf Tensorfelder und definieren dort den
+\emph{parallel eigenvectors operator}, der alle Orte bestimmt, an denen zwei
+Tensorfelder parallele reelle Eigenvektoren haben.
+%
+Diese Idee nutzen wir anschließend zur Definition von \emph{tensor core lines},
+die die Zentren von ``wirbelndem'' Verhalten der Eigenvektoren markieren und
+auf Wirbelkernlinien in Vektorfeldern basieren.
+%
+Mit diesem neuen Feature können wir Verwindungen in Stresstensorfeldern aus
+Strukturmeachaniksimulationen erkennen.
+%
+\end{otherlanguage}%
