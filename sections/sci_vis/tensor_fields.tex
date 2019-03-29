@@ -76,7 +76,7 @@ This means an intelligent mapping of the tensor to color, opacity and shading
 needs to be performed to retain the most important aspects of the data.
 %
 For diffusion tensors, different possibilities for such mappings have been
-explored by Kindlmann \etal~\cite{Kindlmann2000}.
+explored by Kindlmann \etal{}~\cite{Kindlmann2000}.
 %
 They base their mappings on the different kinds of anisotropies indicated by the
 ratio of the tensor's eigenvalues that can be found in diffusion tensor data
@@ -98,7 +98,7 @@ derived from the underlying tensor data.
 Techniques in this category have yet to be adopted into mainstream visualization
 tools, so we will only discuss two notable examples: \emph{HyperLIC} by Zheng
 and Pang~\cite{Zheng2003} and \emph{LIC with variable input textures} by Hotz
-\etal~\cite{Hotz2004}.
+\etal{}~\cite{Hotz2004}.
 %
 Both techniques are modified versions of \ac{LIC} based on the eigenvectors of
 the tensor fields.
@@ -131,7 +131,7 @@ suited for the visualization of indefinite tensors.
 \label{ssub:lic_with_variable_input_textures}
 %
 A technique which is better suited for symmetric indefinite tensors, which can
-have negative eigenvalues, was presented by Hotz \etal~\cite{Hotz2004}.
+have negative eigenvalues, was presented by Hotz \etal{}~\cite{Hotz2004}.
 %
 As opposed to HyperLIC, which accumulates the values of the input texture in a
 volume instead of along a curve, this method uses a standard \ac{LIC} on the
@@ -151,7 +151,7 @@ pulling force.
 \begin{figure}[t]
     % \centering
     \begin{captionbeside}{LIC with variable input textures. Image source: Hotz
-    \etal~\cite{Hotz2004}.\label{fig:lic_var_tex}}
+    \etal{}~\cite{Hotz2004}.\label{fig:lic_var_tex}}
         \includegraphics[width=0.6\textwidth]{figures/tensor_lic_variable_texture.png}
     \end{captionbeside}
     % \caption{LIC with variable input textures showing a stress tensor field of a
@@ -159,7 +159,7 @@ pulling force.
     % eigenvectors (compressive stress), green shows positive eigenvectors
     % (tensile stress). Density, spot size, color intensity and convolution length
     % are varied according to the local eigenvalues. Image source: Hotz
-    % \etal~\cite{Hotz2004}.}
+    % \etal{}~\cite{Hotz2004}.}
 \end{figure}
 %
 % subsubsection lic_with_variable_input_textures (end)
@@ -269,7 +269,7 @@ eigenvalue sign by a combination of color and concave shape (see
 %     \centering
 %     \includegraphics[width=0.5\textwidth]{figures/symmetric_tensor_glyphs.png}
 %     \caption{Superquadric glyphs for symmetric tensors. Image source: Schultz
-%     \etal~\cite{Schultz2010a}.}
+%     \etal{}~\cite{Schultz2010a}.}
 %     \label{fig:tensor_glyphs}
 % \end{figure}
 %
@@ -277,7 +277,7 @@ eigenvalue sign by a combination of color and concave shape (see
     \begin{captionbeside}
         {Superquadric glyphs for symmetric tensors. Includes glyphs for positive
          definite tensors as a subset (top triangle). Image source: Schultz
-         \etal~\cite{Schultz2010a}.\label{fig:tensor_glyphs}}
+         \etal{}~\cite{Schultz2010a}.\label{fig:tensor_glyphs}}
         \includegraphics[width=0.4\textwidth]{figures/symmetric_tensor_glyphs.png}
     \end{captionbeside}
 \end{figure}
@@ -287,8 +287,8 @@ eigenvalue sign by a combination of color and concave shape (see
 Apart from different eigenvalue signs, the eigenvectors of general (asymmetric)
 second-order tensors need not be orthogonal, and they can be complex.
 %
-Gerrits \etal~\cite{Gerrits2017} built on top of the work of Kindlmann, Schultz
-\etal to design a set of glyphs for general tensors in \ac{2D} and \ac{3D} that
+Gerrits \etal{}~\cite{Gerrits2017} built on top of the work of Kindlmann, Schultz
+\etal{} to design a set of glyphs for general tensors in \ac{2D} and \ac{3D} that
 can represent non-orthogonal eigenvectors and additionally incorporates
 information about complex eigenvalues via color.
 %
@@ -385,7 +385,7 @@ dominated by noise.
 Just following the vector field obtained from a single eigenvector will result
 in random paths that do not represent the paths of actual brain fibers.
 %
-To counteract this problem, Weinstein \etal~\cite{Weinstein1999} introduced
+To counteract this problem, Weinstein \etal{}~\cite{Weinstein1999} introduced
 tensorlines.
 %
 The core of the algorithm is a modified streamline integration that not only
@@ -396,7 +396,7 @@ by the direction of the previous step in near-isotropic regions.
 \subsubsection{Hyperstreamsurfaces} % (fold)
 %
 The concept of hyperstreamlines was extended to hyperstreamsurfaces by Jeremi\'c
-\etal~\cite{Jeremic2002}.
+\etal{}~\cite{Jeremic2002}.
 %
 They are formed analogous to streamsurfaces by using a curve instead of a point
 as a seed structure for integration.
@@ -442,18 +442,18 @@ vicinity.
 %
 In \ac{3D}, degenerate features form lines.
 %
-Zheng \etal~\cite{Zheng2005b} showed that the type of degenerate point can
+Zheng \etal{}~\cite{Zheng2005b} showed that the type of degenerate point can
 switch at isolated points along these lines.
 %
 These are the points where the degenerate line is parallel to the plane spanned
 by the valid eigenvectors corresponding to the dual eigenvalue.
 %
 Degenerate lines in symmetric tensor fields were first studied by Delmarcelle,
-Hesselink \etal~\cite{Delmarcelle1994,Hesselink1997}.
+Hesselink \etal{}~\cite{Delmarcelle1994,Hesselink1997}.
 %
 Numerical algorithms for their robust extraction were developed by Zheng
-\etal~\cite{Zheng2004,Zheng2005} and later adapted for noisy \ac{DTI} data by
-Tricoche \etal~\cite{Tricoche2008}.
+\etal{}~\cite{Zheng2004,Zheng2005} and later adapted for noisy \ac{DTI} data by
+Tricoche \etal{}~\cite{Tricoche2008}.
 %
 \Cref{fig:tensor_topology} shows the topology of a common test case in
 structural mechanics where two point loads are applied to the surface of a solid
@@ -479,13 +479,13 @@ the area around a saddle point.
 In \ac{2D}, these separatrices are lines, in \ac{3D}, they form surfaces.
 %
 An algorithm for extracting such surfaces from \ac{3D} tensor fields was
-proposed by Zheng \etal~\cite{Zheng2005b}
+proposed by Zheng \etal{}~\cite{Zheng2005b}
 %
 
 \subsubsection{Neutral and Traceless Tensors} % (fold)
 %
 A different kind of topological feature are neutral and traceless tensors,
-which were first investigated bu Palacios \etal~\cite{Palacios2016}.
+which were first investigated bu Palacios \etal{}~\cite{Palacios2016}.
 %
 A neutral tensor is a tensor where the middle eigenvalue is the average of the
 major and minor eigenvalue.
@@ -512,7 +512,7 @@ They mark the transition between areas of positive and negative trace.
 In stress and strain tensors, these are equivalent to regions of expansion and
 compression.
 %
-Recently, Roy \etal~\cite{Roy2019} proposed a more robust extraction method for
+Recently, Roy \etal{}~\cite{Roy2019} proposed a more robust extraction method for
 these surfaces as well as degenerate lines.
 %
 
@@ -535,7 +535,7 @@ complex eigenvectors.
 This means that they form lines instead of points in \ac{2D}, and their meaning
 is very different.
 %
-Zhang \etal~\cite{Zhang2009} later extended the study of \ac{2D} general tensor
+Zhang \etal{}~\cite{Zhang2009} later extended the study of \ac{2D} general tensor
 fields by defining eigenvector and eigenvalue manifolds to classify general
 tensors and distinguish different types of circular points.
 %
