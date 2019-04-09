@@ -154,7 +154,8 @@ $t \in [0, 2]$, which will naturally show the largest errors.
     Results of our algorithm for the \textsc{Premixed Flame} case. We show the
     stretch coefficient $c$ and density factor $d$ on logarithmic scales. We
     computed $c$ for an interval of $\Delta t = \SI{1.7e-4}{\second}$ and
-    $\varepsilon_\shortparallel = \num{0.02}$. }
+    $\varepsilon_\shortparallel = \num{0.02}$. We also show the number of
+    patches $N$ in each time step.}
     \label{fig:simulation_results_spherical}
 \end{figure}
 
@@ -167,7 +168,8 @@ $t \in [0, 2]$, which will naturally show the largest errors.
     Results of our algorithm for the \textsc{Temporal Diffusion Jet} case. We
     show the stretch coefficient $c$ and density factor $d$ on logarithmic
     scales. We computed the stretch coefficient since the start of the
-    simulation using $\varepsilon_\shortparallel = \num{0.04}$.}
+    simulation using $\varepsilon_\shortparallel = \num{0.04}$. The number of
+    patches $N$ is also shown for each time step.}
     \label{fig:simulation_results_hawkes}
 \end{figure}
 
@@ -310,9 +312,6 @@ starts to increase, stabilizing at around half the number of splits.
 %
 The second simulation is a temporal diffusion syngas jet flame resolved in a
 $\num{1024} \times \num{1025} \times \num{512}$ regular grid.
-%
-In a diffusion flame, the fuel and oxidizer are not premixed before ignition,
-such that combustion only takes place where the two gases mix.
 %
 The domain is initialized with a turbulent fuel layer in the center, surrounded
 by a quiescent air co-flow.

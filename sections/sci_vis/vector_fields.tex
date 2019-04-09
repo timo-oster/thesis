@@ -410,8 +410,9 @@ Critical points in vector fields can be sorted into different categories.
 Which category a critical point belongs to depends on the behavior of the vector
 field in its vicinity, which is encoded in its derivative.
 %
-The Jacobian matrix $\mJ(\vv) = \vv \T{\nabla}$ gathers the partial derivatives
-of all components of the vector field.
+The Jacobian matrix $\mJ(\vv) = \nabla \vv$ (or, more correctly, $\vv
+\T{\nabla}$) gathers the partial derivatives of all components of the vector
+field.
 %
 The signs of the real parts of its eigenvalues indicate if the vector field is
 attracting or repelling in the vicinity of the critical point.
@@ -801,15 +802,15 @@ where $\mF$ is the deformation gradient obtained from the derivative of the
 flow map
 %
 \begin{equation*}
-    \mF(\vx, t_0, t) = \bPhi(\vx, t_0, t)\T{\nabla}\text{.}
+    \mF(\vx, t_0, t) = \nabla\bPhi(\vx, t_0, t)\text{.}
 \end{equation*}
 %
 The Cauchy-Green tensor describes the deformation the infinitesimal neighborhood
 of a point $\vx$ at time $t_0$ experiences when advecting with the flow until
 time $t$.
 %
-The maximum eigenvalue $\lambda_{\textnormal{max}}$ of this tensor is a measure for
-the maximum separation of two particles starting in this infinitesimal
+The maximum eigenvalue $\lambda_{\textnormal{max}}$ of this tensor is a measure
+for the maximum separation of two particles starting in this infinitesimal
 neighborhood.
 %
 \subsubsection{Finite-Time Lyapunov Exponent} % (fold)

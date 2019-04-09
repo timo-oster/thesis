@@ -4,11 +4,15 @@
 We applied our method to different stress tensor fields from structural
 mechanics simulations.
 %
-Stress tensors are symmetric tensors that describe the local stress at a point
-in a material under acting force.
+The Cauchy stress tensor (often referred to as $\mathbf{\sigma}$ in mechanics
+literature) is a symmetric tensor that describes the local stress state of an
+object experiencing small elastic deformations.
 %
-Its eigenvectors are real and orthogonal and are aligned with the principal
-stress directions acting on the point.
+Its eigenvectors are real and orthogonal and point in the directions of the
+principal stresses.
+%
+The sign of the eigenvalues indicate if the stress is compressive or tensile in
+the corresponding direction.
 %
 When comparing two different stress tensor fields, \ac{PEV} lines occur where
 two principal stress directions align.
@@ -46,8 +50,10 @@ Our results were computed on a 4-core Intel Core i7 \ac{CPU} at
 In this example, we compare two different point loads applied to a uniform
 material with infinite extent.
 %
-The first load (red arrow in \cref{fig:point_load}) is a compressive force,
-the second load (blue arrow) is a tensile force of equal magnitude.
+We show our results in \cref{fig:point_load}.
+%
+The first load (red arrow ) is a compressive force, the second load (blue arrow)
+is a tensile force of equal magnitude.
 %
 We compute the \ac{PEV} operator for the two resulting stress tensor fields.
 %

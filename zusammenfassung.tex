@@ -26,9 +26,6 @@ vor dem Hintergrund dieses Flaschenhalses.
 Die erste ist eine platzsparende, ausged\"unnte Darstellung f\"ur einen
 bestimmten Typ von Flammen.
 %
-Die erste ist eine platzsparende, ausged\"unnte Darstellung f\"ur einen
-bestimmten Typ von Flammen.
-%
 Die zweite ist ein Algorithmus zur Verfolgung der Flammenoberfl\"ache
 \emph{in-situ} w\"ahrend der Simulation selbst.
 %
@@ -41,8 +38,8 @@ Simulationen produzieren.
 %
 
 %
-Dadurch wird der Flaschenhals des Speichervorganges umgangen und nur die
-wesentlich kleineren Ergebnisse m\"ussen geschrieben werden.
+Tensorfelder geh\"oren wegen ihrer vielen Freiheitsgrade zu den
+herausforderndsten Daten f\"ur die Visualisierung.
 %
 Eine M\"oglichkeit, diese Komplexit\"at zu reduzieren ist die Extraktion von
 Features.
@@ -50,16 +47,17 @@ Features.
 Diese reduziert die Daten auf geometrische Primitive, die interessantes
 Verhalten markieren.
 %
-Tensorfelder geh\"oren wegen ihrer vielen Freiheitsgrade zu den
-herausforderndsten Daten f\"ur die Visualisierung.
-%
 Der \emph{parallel vectors operator}, der alle Orte bestimmt an denen zwei
 Vektorfelder parallel sind, ist die Basis f\"ur eine Menge von Linien- Features
 f\"ur Skalar- und Vektorfelder.
 %
-Diese Idee nutzen wir anschlie\ss{}end zur Definition von \emph{tensor core lines},
-die die Zentren von ``wirbelndem'' Verhalten der Eigenvektoren markieren und
-auf Wirbelkernlinien in Vektorfeldern basieren.
+Wir übertragen diesen Operator auf Tensorfelder und definieren dort den
+\emph{parallel eigenvectors operator}, der alle Orte bestimmt, an denen zwei
+Tensorfelder parallele reelle Eigenvektoren haben.
+%
+Diese Idee nutzen wir anschlie\ss{}end zur Definition von \emph{tensor core
+lines}, die die Zentren von ``wirbelndem'' Verhalten der Eigenvektoren markieren
+und auf Wirbelkernlinien in Vektorfeldern basieren.
 %
 Mit diesem neuen Feature k\"onnen wir Verwindungen in Stresstensorfeldern aus
 Strukturmeachaniksimulationen erkennen.

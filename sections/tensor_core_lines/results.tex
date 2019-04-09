@@ -4,14 +4,6 @@
 We applied our algorithm to stress tensor fields obtained from structural
 mechanics simulations of varying complexity.
 %
-The Cauchy stress tensor (often referred to as $\mathbf{\sigma}$ in mechanics
-literature) is a symmetric tensor that describes the local stress state of an
-object experiencing small elastic deformations.
-%
-Its eigenvectors point in the directions of the principal stresses.
-%
-The sign of the eigenvalues indicate if the stress is compressive or tensile.
-%
 Swirling structures in stress tensor fields can result from torque induced in
 part of a structure.
 %
@@ -216,11 +208,6 @@ This is exactly where we find a tensor core line.
     \end{tabular}\label{tab:performance}
 \end{table}
 %
-The performance of our algorithm is dependent on the dataset.
-%
-If we find a large number of tensor core lines in the dataset, computation
-will be slower as fewer cells can be discarded early.
-%
 We tested our algorithm using a consumer PC with a 4-core Intel Core i7 \ac{CPU}
 at \SI{3.4}{\giga\hertz}.
 %
@@ -229,6 +216,13 @@ OpenMP~\cite{OMP2013}.
 %
 Performance numbers for the different datasets shown in this paper are presented
 in \cref{tab:performance}.
+%
+
+%
+The performance of our algorithm is dependent on the dataset.
+%
+If we find a large number of tensor core lines in the dataset, computation
+will be slower as fewer cells can be discarded early.
 %
 To examine the dependence of the performance and results of our algorithm on the
 parameters $M$, $\varepsilon_{\mathrm{t}}$ and $\varepsilon_{\mathrm{c}}$, we

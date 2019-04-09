@@ -5,7 +5,7 @@
 By computing the shift values $t_f$ only for some of the vertices of $M$, and
 obtaining them at the other vertices by diffusion we introduce an error.
 %
-We quantify this error as the normalized \ac{RMS} difference between a ground
+We quantify this error as the normalized absolute difference between a ground
 truth and the values at each vertex after the diffusion process.
 %
 The ground truth is obtained by computing the model parameters $t_f$ for each
@@ -15,11 +15,11 @@ The diffusion error $E^{V,f}_{\textnormal{diff}}$ for variable $V$ and feature $
 defined as
 %
 \begin{equation}
-	E^{V, f}_{\textnormal{diff}} =
-		\sum_{\vm_i \in M}
+	E^{V, f}_{\textnormal{diff}} = \frac{1}{\max(t^V_f)-\min(t^V_f)}
+		\Sum{
 			\left|
-				\frac{t^V_{fi} - t'^{V}_{fi}}{\max(t^V_f)-\min(t^V_f)}
-			\right|
+				{t^V_{fi} - t'^{V}_{fi}}
+			\right|}{\vm_i \in M}
 			\text{ ,}
 \end{equation}
 %

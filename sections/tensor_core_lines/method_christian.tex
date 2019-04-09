@@ -310,6 +310,17 @@ Each of the four new sub-triangles is processed recursively in the same way.
 %
 
 %
+Similar to the initial interpolation, the Bernstein-B\'ezier form of
+the subdivided polynomial can be obtained by a linear transformation:
+%
+Evaluate the polynomial at domain points in the new, smaller triangle and apply
+interpolation.
+%
+Evaluation and interpolation can be combined to one linear transformation of the
+Bernstein-B\'ezier coefficients for each of the four new triangles.
+%
+
+%
 \subsubsection{System of Polynomials}
 %
 We explained the basic algorithm for a single polynomial.
@@ -333,17 +344,6 @@ below a threshold (see below).
 %
 In the latter case, we have found a root, and the barycenters of the triangles
 define its location in parameter space.
-%
-
-%
-Similar to the initial interpolation, the Bernstein-B\'ezier form of
-the subdivided polynomial can be evaluated by a linear transformation:
-%
-Evaluate the polynomial at domain points in the new, smaller triangle and apply
-interpolation.
-%
-Evaluation and interpolation can be combined to one linear transformation of the
-Bernstein-B\'ezier coefficients for each of the four new triangles.
 %
 
 \subsubsection{Solution and Stopping Criterion}
@@ -401,9 +401,9 @@ field within $\Delta_{\vx}$.
 \subsubsection{Breadth-First Search Modification}
 %
 As we hinted at in \cref{sec:tcl_theory}, the symmetries and regular shapes
-inherent to data such as stress simulations of mechanical parts often lead to
-\eqref{eq:tensor_line} being fulfilled or almost fulfilled on surface- or
-volume-type structures.
+inherent to data for man-made objects such as stress simulations of mechanical
+parts often lead to \eqref{eq:tensor_line} being fulfilled or almost fulfilled
+on surface- or volume-type structures.
 %
 Also there may be tensor core lines which do not intersect but which are part of
 the domain triangle.

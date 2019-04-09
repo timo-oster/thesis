@@ -66,12 +66,12 @@ By shifting the anchor points $\vp_i$ onto the intersections with a specific
 feature surface, we transform them to a feature point set sampling this surface
 (see \cref{fig:featurepoints}, left).
 %
-Considering a profile line $\vp(t)$ anchored on the flame surface $S$, the
-position of a feature point $\vp(t_f)$ with $f \in \{\text{min}, \text{max},
+Considering a profile line $\vp_i(t)$ anchored on the flame surface $S$, the
+position of a feature point $\vp_i(t_f)$ with $f \in \{\text{min}, \text{max},
 \text{infl}\}$ is given by
 %
 \begin{equation*}
-	\vp(t_{f})=\vp + t_f \cdot \vn.
+	\vp_i(t_{f})=\vp_i + t_f \cdot \vn_i.
 \end{equation*}
 % with $t_{n}$ being the normalization
 % \begin{equation}
@@ -373,8 +373,8 @@ feature surfaces.
 
 %
 A visualization of distances between feature surfaces of two different variables
-must allow for quickly identifying regions of small or large distance, as well
-as the distances' orientation.
+$V$ and $W$ must allow for quickly identifying regions of small or large
+distance, as well as the distances' orientation.
 %
 We achieve this by displaying the local distance
 between two feature surfaces color-coded on the flame surface mesh.

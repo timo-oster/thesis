@@ -80,7 +80,7 @@ sophisticated approach might be necessary, which is a subject for future work.
 %
 If we wanted to measure the tangential deformation of the surface only at single
 points, we could simply compute the product integral of the instantaneous
-Jacobian $\nabla \vu$ along the path of each point.
+Jacobian $\mJ(\vu)$ along the path of each point.
 %
 This would not require the tracking of ghost particles and would be cheaper in
 terms of communication and memory overhead.
@@ -97,7 +97,7 @@ More importantly though, we need the information gained from tracking a group
 of points to compute the error measures $e_\shortparallel$ and $e_\perp$, which
 are based on the deviation from linear behavior.
 %
-Without this information, which is not included in $\nabla \vu$, we could only
+Without this information, which is not included in $\mJ(\vu)$, we could only
 use more inaccurate criteria for splitting and merging patches.
 %
 This would lead to larger errors in the measurement of deformation and larger
@@ -110,9 +110,10 @@ surface in-situ over the complete simulation time.
 %
 This opens new pathways to the investigation of flame behavior.
 %
-The single snapshots that were routinely observed before did not show detailed
-changes in surface shape over time, and the correspondence between points on the
-surface in two different snapshots could not be reconstructed.
+Single snapshots, which are still often the basis for the analysis of a
+simulation, do not show detailed changes in surface shape over time, and the
+correspondence between points on the surface in two different snapshots can not
+be reconstructed.
 %
 Because we explicitly track single points on the surface over extended periods
 of time, the evolution of simulation variables at the point positions over time
@@ -171,20 +172,7 @@ Existing combustion literature, such as works by Sripakagorn
 release at single points on the surface that are tracked over time.
 %
 By providing such histories for a great number of points covering the whole
-flame surface, we enable a statistical evaluation leading to new models for
-flame behavior.
-%
-
-%
-The local tangential deformation of the flame surface over extended time
-intervals has not been extensively studied in combustion literature.
-%
-We believe it has a significant impact on flame behavior, as rapid tangential
-stretching or compression of the gases in the combustion zone will change the
-local conditions.
-%
-With our algorithm, our collaboration partners will be able to test this
-hypothesis and gain a deeper understanding of the effects of tangential
-deformation on turbulent combustion.
+flame surface, we enable a statistical evaluation that could be the basis for
+new models of unsteady flame behavior.
 %
 % section discussion (end)

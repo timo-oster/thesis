@@ -159,15 +159,25 @@ efficiency to keep simulation times and memory usage in a reasonable range.
 \subsection{The Flamelet Assumption} % (fold)
 \label{sub:the_flamelet_assumption}
 %
-Moving from reactions to turbulent flames, we need a model for the structure
-of the flame.
+Moving from the modeling of reactions in an idealized uniform mixture to
+turbulent flames, we need a model for the structure of the flame.
 %
 The most common assumption is that the flame front is thin compared to the
 scales of the turbulent eddies.
 %
-This means that the flame front can be approximated by an isosurface of the
-reaction progress variable in the case of premixed flames or the mixture
-fraction for diffusion flames.
+This means that the flame front can be approximated by an isosurface.
+%
+In the case of premixed flames, it is an isosurface of the \emph{combustion
+progress variable}, which describes the progress of the reaction from reactants
+to products as a number between 0 and 1.
+%
+This variable is commonly defined as $({T-T_u})/({T_b-T_u})$, where $T_u$ and
+$T_b$ are the temperature of the burnt and unburnt gases.
+%
+In the case of diffusion flames, the flame front is approximated by an
+isosurface of the fuel-oxidizer mixture fraction.
+%
+
 %
 Assuming a thin flame front allows to treat the turbulent flame like a set of
 locally laminar flames, so-called \emph{flamelets}, that are wrinkled but not
@@ -246,8 +256,8 @@ They are, in decreasing order of abstraction, \acf{RANS}, \acf{LES} and
 For simulating turbulent combustion, these are extended by combustion models
 according to their character.
 %
-The first part of this thesis focuses heavily on \ac{DNS}, which is discussed in
-detail in the next section.
+\Cref{part:flame_vis} of this thesis focuses heavily on \ac{DNS}, which is
+discussed in detail in the next section.
 %
 Since \ac{DNS} is one of the main tools for validating and building \ac{RANS}
 and \ac{LES} models, we will briefly discuss the ideas behind both here.

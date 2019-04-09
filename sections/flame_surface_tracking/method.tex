@@ -482,8 +482,11 @@ We consider a micro-patch for merging when
 Because the micro-patches are completely independent, we cannot explicitly
 merge multiple patches.
 %
-We therefore give every patch a counter, which is set to \num{0} when it is first
-initialized and incremented each time it is split.
+We therefore give every patch a counter, which is set to \num{0} when it is
+first initialized.
+%
+When a patch is split, the counter of the central patch is incremented while the
+new outer patches get a counter of \num{0}.
 %
 When the conditions for a merge are met, the behavior of a patch depends on its
 counter.
