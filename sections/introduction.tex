@@ -9,16 +9,15 @@ They use a set of models to make predictions about the behavior of a system
 under given boundary conditions.
 %
 Compared to experiments, simulations are cheaper and quicker to set up, run, and
-evaluate, and they often provide access to data that is hard or impossible to
-measure in an experiment.
+evaluate, and they often provide access to variables that are hard or impossible
+to measure in an experiment.
 %
 
 %
 Simulation data -- just like data from experiments -- is often very large and
 complex.
 %
-It is evaluated to validate the simulation and/or to derive new insight from
-the data.
+It is evaluated to validate the simulation and/or to derive new insight.
 %
 Visualization plays an important role in these tasks.
 %
@@ -51,7 +50,7 @@ and ensemble or uncertain data.
 The contributions of this thesis belong to these two areas of research.
 %
 We present visualization and analysis techniques for the flame surface in
-large-scale turbulent combustion simulations, and we develop novel features
+large-scale turbulent combustion simulations, and we introduce novel features
 that help to understand the complexities of second-order tensor fields using
 examples from solid mechanics simulations.
 %
@@ -113,14 +112,15 @@ where raw data storage has become the bottleneck.
 %
 
 %
-The first is a space-saving sparse representation for a certain type of flame.
+The first is a space-saving sparse representation for premixed flames.
 %
 Due to its smaller size, it allows storing and therefore analyzing a larger
 number of simulation time steps.
 %
 This representation can directly be used for a statistical analysis of the flame
 structure, and it is the basis for a new visualization technique that highlights
-local differences in relation to the shape of the flame.
+local differences of the flame structure in relation to the global shape of the
+flame.
 %
 If required, the full data can be reconstructed on the original grid with some
 loss of accuracy for the full flexibility of conventional post-processing.
@@ -134,7 +134,7 @@ This circumvents the storage bottleneck by processing the data while it is still
 in memory and only writing to disk the much smaller results.
 %
 We propose a massively parallel algorithm using independent micro-patches that
-refine and coarsen independently to track the surface.
+refine and coarsen independently.
 %
 This allows tracking the surface over long time intervals and provides data
 about the history of individual points attached to the surface as well as their
@@ -172,8 +172,8 @@ sense of the structure of eigenvectors in tensor fields.
 %
 
 %
-We make steps to translate a class of features from vector- to tensor fields
-that has not been considered to date:
+We take first steps towards translating a class of features from vector- to
+tensor fields that has not been considered to date:
 %
 line features obtained by the \ac{PV} operator.
 %
@@ -190,8 +190,8 @@ defining \emph{tensor core lines} that mark the centers of ``swirling'' behavior
 of the eigenvectors.
 %
 Using these new features, we demonstrate how to find locations of aligned
-principal stress directions in objects under two different loads and how to find
-areas in an object that are under twist.
+principal stress directions in objects under two different loads, and how to
+find areas of twist in an object under stress.
 %
 % subsection contr_tensor_fields (end)
 %
@@ -306,7 +306,7 @@ conferences as results of this thesis:
 %
 We will use the following mathematical notation throughout the thesis.
 %
-Additional notation is introduced wherever it is needed.
+Additional notation is introduced whenever it is needed.
 %
 
 \vspace*{\baselineskip}
@@ -324,7 +324,7 @@ $\begin{pmatrix}\va & \vb & \vc\end{pmatrix}$ & Block matrix composed of several
 $\vv \cdot \vw$ & Inner (dot-) product of two vectors \\
 $\vv \times \vw$ & Outer (cross-) product of two vectors \\
 $\nabla$ & Nabla-Operator
-    $\T{\left({\partial}/{\partial x_1}, \dots, {\partial}/{\partial x_n}\right)}$
+    $\T{\left(\frac{\partial}{\partial x_1}, \dots, \frac{\partial}{\partial x_n}\right)}$
 \end{tabularx}
 %
 % section notation (end)

@@ -2,7 +2,7 @@
 \addchap*{Zusammenfassung}
 %
 Diese Arbeit pr\"asentiert neue Visualisierungsmethoden f\"ur Simulationen aus
-zwei verschiedenen Ingenieurwissenschaften: Turbulente Verbrennung und
+zwei verschiedenen Ingenieurdisziplinen: Turbulente Verbrennung und
 Festk\"orpermechanik.
 %
 
@@ -11,10 +11,11 @@ Direkte numerische Simulationen turbulenter Verbrennung sind eine Basis f\"ur
 die Entwicklung und Validierung h\"oherer Verbrenungsmodelle.
 %
 Ein besonderes Augenmerk bei der Analyse solcher Simulationen liegt auf der
-Flammenoberfl\"ache, wo der Gro\ss{}teil aller chemischen Reaktionen stattfindet.
+Flammenoberfl\"ache, wo der Gro\ss{}teil aller chemischen Reaktionen
+stattfindet.
 %
-Die Rechenleistung von Supercomputern w\"achst inzwischen wesentlich schneller als
-die Leistung ihrer Speicherinfrastruktur.
+Die Rechenleistung von Supercomputern w\"achst inzwischen wesentlich schneller
+als die Leistung ihrer Speicherinfrastruktur.
 %
 Infolgedessen ist heute das Speichern der Ausgabedaten der Flaschenhals in
 gro\ss{}en Simulationen.
@@ -26,11 +27,14 @@ vor dem Hintergrund dieses Flaschenhalses.
 Die erste ist eine platzsparende, ausged\"unnte Darstellung f\"ur einen
 bestimmten Typ von Flammen.
 %
+Diese erm\"oglicht die Analyse einer gr\"o\ss{}eren Anzahl von Zeitschritten der
+Simulation und ist die Basis f\"ur eine neue Art von Flammenvisualisierung.
+%
 Die zweite ist ein Algorithmus zur Verfolgung der Flammenoberfl\"ache
 \emph{in-situ} w\"ahrend der Simulation selbst.
 %
-Diese erm\"oglicht die Analyse einer gr\"o\ss{}eren Anzahl von Zeitschritten der
-Simulation und ist die Basis f\"ur eine neue Art von Flammenvisualisierung.
+Der Flaschenhals des Speichervorganges wird umgangen indem nur die wesentlich
+kleineren Ergebnisse geschrieben werden.
 %
 Beide Verfahren tragen dazu bei, dass Verbrennungswissenschaftler auch in
 Zukunft die Daten Analysieren k\"onnen, die ihre immer gr\"o\ss{}er werdenden
@@ -48,7 +52,7 @@ Diese reduziert die Daten auf geometrische Primitive, die interessantes
 Verhalten markieren.
 %
 Der \emph{parallel vectors operator}, der alle Orte bestimmt an denen zwei
-Vektorfelder parallel sind, ist die Basis f\"ur eine Menge von Linien- Features
+Vektorfelder parallel sind, ist die Basis f\"ur eine Menge von Linien-Features
 f\"ur Skalar- und Vektorfelder.
 %
 Wir übertragen diesen Operator auf Tensorfelder und definieren dort den
@@ -60,6 +64,6 @@ lines}, die die Zentren von ``wirbelndem'' Verhalten der Eigenvektoren markieren
 und auf Wirbelkernlinien in Vektorfeldern basieren.
 %
 Mit diesem neuen Feature k\"onnen wir Verwindungen in Stresstensorfeldern aus
-Strukturmeachaniksimulationen erkennen.
+Strukturmechaniksimulationen erkennen.
 %
 \end{otherlanguage}%

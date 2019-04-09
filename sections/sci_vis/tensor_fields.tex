@@ -4,8 +4,8 @@
 Although tensors are a very general concept in mathematics, when we talk about
 tensor fields in scientific visualization, we generally mean a map $\mT(\vx, t):
 D \times T \mapsto \RRSet^{m \times m}$ from spatial domain $D \in \EESet^n$ and
-temporal domain $T \in \RRSet$ to the space of second-order tensors which can be
-represented by matrices from $\RRSet^{m \times m}$.
+temporal domain $T \in \RRSet$ to the space of second-order tensors, which can
+be represented by matrices from $\RRSet^{m \times m}$.
 %
 While a vector describes an effect acting on a point, a second-order tensor
 describes an effect on a vector.
@@ -15,9 +15,9 @@ that acts on the infinitesimal neighborhood of a point.
 %
 Second-order tensor fields occur in a variety of different scientific contexts.
 %
-Some examples are stress and strain tensors in mechanical engineering
-applications, and diffusion tensors occurring in \ac{DTI}, a special \ac{MRI}
-modality used to visualize fiber tracts, \eg, in the human brain.
+Some examples are stress and strain tensors in solid mechanics, and diffusion
+tensors occurring in \ac{DTI}, a special \ac{MRI} modality used to visualize
+fiber tracts, \eg, in the human brain.
 %
 In reality, these tensor fields vary in time.
 %
@@ -30,7 +30,8 @@ tensor fields $\mT(\vx)$.
 The most important tensor field visualization methods can be roughly classified
 into five different categories:
 %
-direct, image-based, glyph-based, line-/surface-based and topology-based.
+\emph{direct}, \emph{image-based}, \emph{glyph-based},
+\emph{line-/surface-based} and \emph{topology-based}.
 %
 
 \subsection{Direct Methods} % (fold)
@@ -48,13 +49,13 @@ volume rendering}.
 %
 \subsubsection{Color-Mapping} % (fold)
 %
-Just like scalar and vector fields, \ac{2D} or slices of \ac{3D} tensor fields
-can be displayed by color-mapping some scalar properties of the tensor.
+Just like scalar and vector fields, \ac{2D} tensor fields or slices of \ac{3D}
+datasets can be displayed by color-mapping some scalar properties of the tensor.
 %
 When investigating mechanical stress tensors, some norm of the tensor is often
 displayed.
 %
-When viewing diffusion tensors from \ac{DTI} data, the \ac{3D} direction of the
+When visualizing diffusion tensors from \ac{DTI} data, the \ac{3D} direction of the
 major eigenvector is often encoded using a radial or spherical color
 map~\cite{Pajevic1999}.
 %
@@ -141,7 +142,7 @@ The remaining information in the tensor is visualized by carefully varying the
 spot size, spot density and color of the input noise texture as well as the
 convolution length based on the local eigenvalues.
 %
-Images from major and minor eigenvector are overlaid to visualize both at the
+Images from major and minor eigenvectors are overlaid to visualize both at the
 same time.
 %
 \Cref{fig:lic_var_tex} shows an example of this technique applied to a slice
@@ -446,7 +447,7 @@ Zheng \etal{}~\cite{Zheng2005b} showed that the type of degenerate point can
 switch at isolated points along these lines.
 %
 These are the points where the degenerate line is parallel to the plane spanned
-by the valid eigenvectors corresponding to the dual eigenvalue.
+by the eigenvectors corresponding to the dual eigenvalue.
 %
 Degenerate lines in symmetric tensor fields were first studied by Delmarcelle,
 Hesselink \etal{}~\cite{Delmarcelle1994,Hesselink1997}.

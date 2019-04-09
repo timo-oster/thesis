@@ -37,7 +37,7 @@ single instant, we often just write $s(\vx)$ and omit the time parameter.
 % \end{itemize}
 %
 Methods for visualizing scalar fields can be roughly separated into two groups:
-image-based and geometry-based.
+\emph{image-based} and \emph{geometry-based}.
 %
 We will briefly cover the most important methods in the following.
 %
@@ -61,9 +61,9 @@ predefined color map and displaying the result as an image or texture.
 %
 Due to its simplicity, it is probably the most widespread method presented here.
 %
-This technique is only applicable to \ac{2D} scalar fields, but is commonly used
-on \ac{3D} data by selecting slices or surfaces in a volume, or by displaying
-the scalar value on the outside surface of the volume.
+This technique is only directly applicable to \ac{2D} scalar fields, but is
+commonly used on \ac{3D} data by selecting slices or surfaces in a volume, or by
+displaying the scalar value on the outside surface of the volume.
 %
 \begin{figure}[t]
     % \centering
@@ -120,7 +120,7 @@ shading parameters of a point along the viewing ray~\cite{Kindlmann1998}.
 Geometry-based methods extract some geometrical structures from the data and
 display these structures.
 %
-\emph{Isocontours and -surfaces} belong in this category together with
+\emph{Isocontours and -surfaces} belong to this category together with
 topological features such as \emph{extremal- and saddle points}, as well as
 \emph{ridge- and valley lines and -surfaces}.
 %
@@ -128,7 +128,7 @@ topological features such as \emph{extremal- and saddle points}, as well as
 %
 \subsubsection{Isocontours and -surfaces}
 %
-Isocontours and -surfaces are subsets of the scalar field where the
+Isocontours and -surfaces are manifolds in the scalar field where the
 scalar is equal to a constant (iso-) value.
 %
 In the literature these are also often referred to as \emph{level sets}.
@@ -207,7 +207,7 @@ most significant lines (see \cref{fig:ridge_valley_lines}).
 \subsubsection{Morse-Smale Decomposition} % (fold)
 \label{ssub:morse_smale_decomposition}
 %
-The Morse-Smale Decomposition forms the topological skeleton of a scalar field.
+The Morse-Smale decomposition forms the topological skeleton of a scalar field.
 %
 It is based on the idea of integral lines of the scalar field.
 %

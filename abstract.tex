@@ -22,20 +22,23 @@ We introduce two new techniques for the visualization and analysis of the flame
 surface in large-scale simulations of turbulent combustion before the background
 of this storage bottleneck.
 %
-The first is a space-saving sparse representation for certain types of flames
-that allows for the analysis of a larger number of simulation time steps and is
+The first is a space-saving sparse representation for certain types of flames.
+%
+It allows for the analysis of a larger number of simulation time steps and is
 the basis for a new flame visualization technique.
 %
 The second is an algorithm for tracking the flame surface in-situ during the
-simulation in order to circumvent the storage bottleneck and only write to disk
-the much smaller results.
+simulation.
+%
+The storage bottleneck is circumvented by only writing to disk the much smaller
+results.
 %
 Both contribute to the continued ability of combustion researchers to analyze
 the data produced by their increasingly large simulations.
 %
 
 %
-Due to their many degrees of freedom, Tensor fields are some of the most
+Due to their many degrees of freedom, tensor fields are some of the most
 challenging types of data to visualize.
 %
 One possibility to break down their complexity is feature-based visualization,

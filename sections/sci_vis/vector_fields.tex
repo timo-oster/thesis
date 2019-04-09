@@ -24,10 +24,11 @@ flow, we sometimes call it a (steady or unsteady) \emph{flow field}.
 
 %
 Vector field visualization methods can be sorted into roughly six different
-classes: Basic methods, image-based methods, integral curves and -surfaces,
-topological features, vortex extraction and \acl{LCS}.
+classes: \emph{Basic methods}, \emph{image-based methods}, \emph{integral curves
+and -surfaces}, \emph{topological features}, \emph{vortex extraction} and
+\emph{\acl{LCS}}.
 %
-We will again visit the most important methods in the following sections.
+We will visit the most important methods in the following sections.
 %
 
 %
@@ -56,6 +57,12 @@ Such plots can very accurately show the vectors at a limited number of
 locations, but they quickly become cluttered once too many arrows are plotted,
 or the arrows become too long and occlude each other.
 %
+If the magnitudes in a vector field range over many different scales, finding an
+appropriate scaling factor for arrow length can be challenging.
+%
+In such cases, it is often better to plot normalized arrows and represent the
+magnitude only via color.
+%
 
 %
 \subsubsection{Color-Mapping}
@@ -76,7 +83,7 @@ without information loss by directly mapping the vector values to colors.
 The most naive way is to simply interpret the three components of a \ac{3D}
 vector as RGB values.
 %
-Such images theoretically contain they full information of the original vector
+Such images theoretically contain the full information of the original vector
 field.
 %
 However, they are very hard to interpret, as there is no inherent meaningful
@@ -101,7 +108,7 @@ and \emph{texture advection}.
 \subsubsection{Line Integral Convolution}
 %
 Line integral convolution (\acs{LIC}\acused{LIC})\cite{Cabral1993} is the most
-popular image-based vector field visualization method.
+popular image-based vector field visualization technique.
 %
 It is based on ``smearing'' a random noise texture along stream lines of a
 \ac{2D} vector field.
@@ -121,11 +128,11 @@ unsteady~\cite{Shen1997} datasets.
 %
 \subsubsection{Spot Noise}
 %
-Spot noise is also a method designed for \ac{2D} data and produces results
+Spot noise is also a technique designed for \ac{2D} data and produces results
 similar to \ac{LIC}~\cite{Wijk1991,Leeuw1995}.
 %
 It works by blending noise sprites that have been stretched and rotated
-according to the local vector direction.
+according to the local vector magnitude and direction.
 %
 In contrast to \ac{LIC}, spot noise better represents the local vector
 magnitude, but in regions with low magnitude, the vector direction is not well
@@ -137,11 +144,11 @@ visible.
 %
 Texture advection works on \ac{2D} steady and unsteady vector fields.
 %
-It is best suited for vector fields representing a flow, as it simulates the
-transport(advection) of a texture with the flow.
+It is best suited for flow fields, as it simulates the transport (advection) of
+a texture.
 %
-A texture is placed in the flow at some point in time, and each point on the
-texture is moved with the flow over time.
+The texture is initialized at some point in time, and each point of the texture
+then moves with the flow.
 %
 As time progresses, the texture is warped, and the viewer can follow where each
 part of the texture is transported.
@@ -172,7 +179,7 @@ thesis, we will cover them here in more detail.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/pathlines_aneurysm.png}
-    \caption{Streamlines in the simulated flow through a cranial aneurysm.
+    \caption{Streamlines in a simulated flow through a cranial aneurysm.
              Image courtesy of Tim Gerrits~\cite{Gerrits2018}.}
     \label{fig:streamlines}
 \end{figure}
@@ -192,7 +199,7 @@ A streamline is a curve that is tangent to the vector field everywhere along its
 path.
 %
 Given a streamline $\vc(s)$ of the steady vector field $\vv(\vx)$, this means
-that $\vc(s) \times \vv(\vc(s))$ is $\vNull$ for all $s$.
+that $\dot{\vc}(s) \times \vv(\vc(s))$ is $\vNull$ for all $s$.
 %
 This criterion is valid for any parameterization of the curve, but we can only
 use it to check if a given curve is a streamline.
@@ -201,7 +208,7 @@ To compute streamlines, we typically solve the ordinary differential equation
 %
 \begin{equation*}
     \frac{\partial \vc(s)}{\partial s} = \vv(\vc(s))
-    \text{, with } \vc(0) = \vx_0 \, \text{.}
+    \text{,} \quad \text{with} \quad \vc(0) = \vx_0 \, \text{.}
 \end{equation*}
 %
 This yields a streamline with a particular parameterization: an integral curve
@@ -224,9 +231,8 @@ an unsteady flow field.
 %
 The connected lines mistakenly suggest paths of fluid elements.
 %
-However, if the flow field changes significantly with time, the actual paths of
-fluid elements can deviate significantly from the streamlines in a single time
-slice.
+However, if the flow field changes with time, the actual paths of fluid elements
+can deviate significantly from the streamlines of a single time slice.
 %
 In this case, the more appropriate visualization tools are pathlines,
 streaklines, and timelines, which incorporate the temporal information of the
@@ -244,7 +250,7 @@ They are defined as the solution to the ordinary differential equation
 %
 \begin{equation*}
     \frac{\partial \vc(t)}{\partial t} = \vv(\vc(t), t)
-    \text{, with } \vc(t_0) = \vx_0 \, \text{,}
+    \text{,} \quad \text{with} \quad \vc(t_0) = \vx_0 \, \text{,}
 \end{equation*}
 %
 where $\vc(t)$ is the curve of the pathline, $t$ is time, and $\vv(\vx, t)$ is
@@ -256,11 +262,11 @@ which does not change with time, streamlines and pathlines are identical.
 
 %
 The set of all pathlines for all possible combinations of start position
-$\vx$, start time $t_0$ and end time $t$ forms the \emph{flow map}.
+$\vx$, start time $t_0$ and end time $t_\mathrm{e}$ forms the \emph{flow map}.
 %
-This function, which we write as $\bPhi(\vx, t_0, t)$, determines where a
-massless particle starting at position $\vx$ and time $t_0$ ends up after
-advecting with the flow until time $t$.
+This function, which we write as $\bPhi(\vx, t_0, t_\mathrm{e})$, determines
+where a massless particle starting at position $\vx$ and time $t_0$ ends up
+after advecting with the flow until time $t_\mathrm{e}$.
 %
 
 %
@@ -302,7 +308,7 @@ where $t$ is the current time, $\vx$ is the injection point, and $s$ is the
 continuously increasing start time that runs along the curve.
 %
 Like pathlines, streaklines also become identical to streamlines if the flow
-does not change with time.
+is steady.
 %
 
 %
@@ -327,10 +333,10 @@ A timeline is formed by placing a line somewhere in the flow, treating it as a
 set of massless particles, and letting the whole line advect with the flow at
 once.
 %
-Formally, a time line is formed by the connected endpoints of a set of pathlines
+Formally, a timeline is formed by the connected endpoints of a set of pathlines
 with the same start and end time, but continuously changing start position.
 %
-Given a seed curve $\vs(s)$ and start and end times $t_0$ and $t$, we can
+Given a seed curve $\vs(s)$, start time $t_0$ and current time $t$, we can
 formally define a timeline in terms of the flow map as
 %
 \begin{equation*}
@@ -340,7 +346,7 @@ formally define a timeline in terms of the flow map as
 Much like streaklines, timelines are often animated to show the progressive
 effect of the flow.
 %
-As the end time $t$ advances, the line is transported and warped by the flow and
+As the time $t$ advances, the line is transported and warped by the flow and
 visualizes the way the flow mixes and perturbs a region of the fluid.
 %
 % subsubsection timelines (end)
@@ -417,15 +423,14 @@ field.
 The signs of the real parts of its eigenvalues indicate if the vector field is
 attracting or repelling in the vicinity of the critical point.
 %
-Depending on these signs, the critical point can be categorized into
-\emph{sinks} (negative), \emph{sources} (positive), and \emph{saddles} (mixed
-signs).
+Depending on these signs, the critical point can be categorized as a \emph{sink}
+(negative), \emph{source} (positive), or \emph{saddle} (mixed signs).
 %
 The presence of an imaginary part of the eigenvalues/eigenvectors indicates
 swirling behavior.
 %
-A more in-depth discussion of critical points in vector fields has been provided
-by Helman and Hesselink~\cite{Helman1991}.
+A more in-depth discussion of critical points in vector fields is provided by
+Helman and Hesselink~\cite{Helman1991}.
 %
 % subsubsection critical_points (end)
 
@@ -443,7 +448,7 @@ Separation- and attachment lines/surfaces occur on no-slip boundaries.
 %
 They are locations where the flow separates from/attaches to a surface.
 %
-In a \ac{2D} flow, these are points.
+In a \ac{2D} flow, these are isolated points.
 %
 In \ac{3D}, they can be point or line structures.
 %
@@ -482,7 +487,7 @@ field), this does not imply that pathlines will never leave these regions in
 unsteady flow.
 %
 For unsteady flows, the equivalent of separatrices are \acl{LCS}, which we will
-cover in the next section.
+cover in \cref{sub:lagrangian_coherent_structures}.
 %
 % subsubsection separatrices (end)
 %
@@ -555,7 +560,7 @@ of the swirling behavior.
 %
 The \emph{reduced velocity} approach for extracting vortex core lines in steady
 flows was proposed by Sujudi and Haimes~\cite{Sujudi1995} and later identified
-as an application of the \emph{parallel vectors} operator by Peikert and
+as an application of the \ac{PV} operator by Peikert and
 Roth~\cite{Peikert1999}.
 %
 This approach is only Galilean invariant when applying it to \ac{2D} vector
@@ -573,8 +578,8 @@ the flow.
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/DeltaWingStreamlines.png}
-    \caption{Vortex core lines (yellow) and streamlines (blue) in the steady
-    flow around a delta wing.}
+    \caption{Vortex core lines (yellow) and streamlines (blue/green) in the
+    steady flow around a delta wing.}
     \label{fig:delta_wing_vortex_cores}
 \end{figure}
 %
@@ -618,7 +623,7 @@ region belongs to a vortex if the vorticity tensor is stronger than the strain
 rate tensor, \ie{},
 %
 \begin{equation*}
-    (\Norm{\bOmega}^2 - \Norm{\mS}^2) > 0 \, \text{.}
+    Q = (\Norm{\bOmega}^2 - \Norm{\mS}^2) > 0 \, \text{.}
 \end{equation*}
 %
 The resulting regions are not as sensitive to the scaling of the data as the
@@ -677,7 +682,7 @@ The reduced velocity or Sujudi/Haimes criterion therefore states that a vortex
 core line is located where the projection of the local velocity onto a plane
 orthogonal to the single real eigenvector is zero.
 %
-Peikert and Roth~\cite{Peikert1999} later discovered that this is equivalent to
+Peikert and Roth~\cite{Peikert1999} later showed that this is equivalent to
 locations where the velocity vector $\vv$ is parallel to its acceleration
 $\mJ\vv$, and so is an application of the \ac{PV} operator, which does not
 require the explicit computation of eigenvectors.
@@ -775,7 +780,7 @@ in~\cite{Hadjighasem2017}.
 %
 
 %
-One popular approach to detecting \ac{LCS} is the investigation of the local
+One popular approach for detecting \ac{LCS} is the investigation of the local
 Lyapunov exponent~\cite{Ott2002}.
 %
 The Lyapunov exponent describes the rate of separation of infinitesimally close
@@ -783,7 +788,7 @@ trajectories over an infinite time interval.
 %
 Since real-world data is usually finite in time and space, two approximations of
 the Lyapunov exponent are commonly used in practice: the
-\emph{\acl{FTLE}\acused{FTLE}} (\acs{FTLE})~\cite{Haller2001} and
+\emph{\acl{FTLE}\acused{FTLE}} (\acs{FTLE})~\cite{Haller2001} and the
 \emph{\acl{FSLE}\acused{FSLE}} (\acs{FSLE})~\cite{Aurell1997}.
 %
 It has been shown that ridges of the \ac{FTLE} or \ac{FSLE} field correspond
@@ -795,19 +800,19 @@ The basis for the computation of both \ac{FTLE} and \ac{FSLE} is the right
 Cauchy-Green deformation tensor
 %
 \begin{equation*}
-    \mC(\vx, t_0, t) = \T{\mF(\vx, t_0, t)}\, \mF(\vx, t_0, t) \,\text{,}
+    \mC(\vx, t_0, t_\mathrm{e}) = \T{\mF(\vx, t_0, t_\mathrm{e})}\, \mF(\vx, t_0, t_\mathrm{e}) \,\text{,}
 \end{equation*}
 %
 where $\mF$ is the deformation gradient obtained from the derivative of the
 flow map
 %
 \begin{equation*}
-    \mF(\vx, t_0, t) = \nabla\bPhi(\vx, t_0, t)\text{.}
+    \mF(\vx, t_0, t_\mathrm{e}) = \nabla\bPhi(\vx, t_0, t_\mathrm{e})\text{.}
 \end{equation*}
 %
 The Cauchy-Green tensor describes the deformation the infinitesimal neighborhood
 of a point $\vx$ at time $t_0$ experiences when advecting with the flow until
-time $t$.
+time $t_\mathrm{e}$.
 %
 The maximum eigenvalue $\lambda_{\textnormal{max}}$ of this tensor is a measure
 for the maximum separation of two particles starting in this infinitesimal
