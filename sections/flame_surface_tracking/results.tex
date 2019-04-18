@@ -96,7 +96,7 @@ We therefore assume a fluid velocity of $\vv = \vNull$ for our tests.
 
 %
 We observe the function in the domain ${x\in[0, 1]}$, ${y\in[0, 1]}$,
-${z\in[-\sfrac{1}{2}, \sfrac{1}{2}]}$, ${t\in[0, 2]}$ resolved in a $\num{72}
+${z\in[-\sfrac{1}{2}, \sfrac{1}{2}]}$, ${t\in[0, 2]}$ resolved on a $\num{72}
 \times \num{72} \times \num{72}$ regular grid and a time step of $\Delta t =
 \num{5e-3}$.
 %
@@ -223,7 +223,7 @@ grid cells the function is resolved in.
 \label{sub:premixed_flame_in_a_box}
 %
 We applied our algorithm to the combustion of a premixed hydrogen-air mixture in
-a periodic box resolved in a $\num{512} \times \num{512} \times \num{512}$
+a periodic box resolved on a $\num{512} \times \num{512} \times \num{512}$
 regular grid.
 %
 A high-temperature hot spot is placed in the middle of the domain, which is
@@ -248,7 +248,7 @@ The simulation ran for about \SI{90}{\hour} using \num{1024} parallel processors
 and performing about \num{21000} iterations.
 %
 We chose $r_\perp = \num{0.1}$ and $r_\shortparallel = \num{0.02}$ as well as
-$l_\perp = l_\shortparallel = \num{1e-4}$.
+$l_\perp = l_\shortparallel = \num{e-4}$.
 %
 The thresholds $r_{\textnormal{size}}$ and $l_{\textnormal{size}}$ were chosen
 such that a surface patch is always smaller than the smallest extent of a block
@@ -290,7 +290,7 @@ well as in areas where the surface deformation has a large nonlinear component.
 
 %
 The ratio of the total surface area of all micro-patches to the true area of the
-flame surface remains stably around \num{3.3} for the whole simulation.
+flame surface remains stable around \num{3.3} for the whole simulation.
 %
 This shows that our strategy for splitting and merging micro-patches is
 successful in maintaining a consistent and stable coverage of the surface.
@@ -310,7 +310,7 @@ starts to increase, stabilizing at around half the number of splits.
 \subsection{Temporal Diffusion Jet Flame} % (fold)
 \label{sub:temporal_diffusion_jet_flame}
 %
-The second simulation is a temporal diffusion syngas jet flame resolved in a
+The second simulation is a temporal diffusion syngas jet flame resolved on a
 $\num{1024} \times \num{1025} \times \num{512}$ regular grid.
 %
 The domain is initialized with a turbulent fuel layer in the center, surrounded
@@ -330,9 +330,9 @@ The simulation ran for about \SI{23}{\hour} using \num{4096} parallel processors
 In this time, the simulation performed about \num{3600} iterations.
 %
 For this case, we chose $r_\perp = \num{0.2}$ and $r_\shortparallel =
-\num{0.04}$ as well as $l_\perp = l_\shortparallel = \num{1e-4}$.
+\num{0.04}$ as well as $l_\perp = l_\shortparallel = \num{e-4}$.
 %
-The thresholds are chosen higher than in the premixed case, because here, we are
+The thresholds are chosen higher than in the premixed case, because here we are
 interested in the deformation of the surface over a smaller time interval of
 $\SI{4e-5}{\second}$.
 %
@@ -520,7 +520,7 @@ If we write all simulation variables, this increases to \SI{420}{\tera\byte}
 %
 Considering that this is just part of the overhead inherent to a post-processing
 approach makes it clear that an in-situ solution is the only way of obtaining
-results with reasonable effort.
+results with reasonable cost.
 %
 
 % subsection performance (end)

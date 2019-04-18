@@ -34,7 +34,7 @@ where the curvature of tensor field lines locally vanishes.
 We define tensor core lines as the locations where tensor field lines have a
 locally vanishing curvature.
 %
-Note that like vortex core lines, tensor core lines are generally not field
+Note that like vortex core lines, tensor core lines are not generally field
 lines of the tensor field.
 %
 In this section, we provide a formal definition of tensor core lines and
@@ -44,15 +44,15 @@ examine their mathematical properties.
 \subsection{Definition} % (fold)
 \label{sub:tcl_definition}
 %
-Let $\mT: \RRSet^3 \to \RRSet^{3 \times 3}$ be a \ac{3D} second-order tensor
+Let $\mT(\vx)$ be a \ac{3D} second-order tensor
 field that may or may not be symmetric.
 %
 We want to find locations where the direction of a real eigenvector of $\mT$
 does not change when moving along the eigenvector direction, \ie{}, where the
 curvature of a tensor field line vanishes.
 %
-A vector $\vr \in \RRSet^3$ is an eigenvector of $\mT$ if $\mT\,\vr = \lambda
-\vr$ for eigenvalue $\lambda \in \RRSet$ and $\vr \neq \vNull$.
+A vector $\vr \neq \vNull$ is a real eigenvector of $\mT$ if $\mT\,\vr = \lambda
+\vr$ for eigenvalue $\lambda \in \RRSet$.
 %
 To observe the change of eigenvector direction when moving along $\vr$,
 we need to consider the derivative of $\mT$ in this direction.
@@ -76,10 +76,9 @@ $\vr$ as
 %
 \begin{equation}
 \label{eq:lin_approx}
-\mT(\vx + h\vr) = \mT(\vx) + h \nabla_{\vr}\mT(\vx) \,\text{,}
+    \mT(\vx + h\vr) = \mT(\vx) + h \nabla_{\vr}\mT(\vx) \,\text{,}
+        \quad \text{with} \quad h \in \RRSet \,\text{.}
 \end{equation}
-%
-with $h \in \RRSet$.
 %
 For our zero-curvature requirement to be fulfilled, the eigenvector direction
 must not change when moving along $\vr$, \ie{},
@@ -88,11 +87,11 @@ must not change when moving along $\vr$, \ie{},
 \label{eq:lin_cond}
     \mT(\vx + h\vr)\,\vr
         = \mT(\vx)\,\vr + h \nabla_{\vr}\mT(\vx)\,\vr
-        = \mu \vr\, \text{,}
+        = \mu \vr\, \text{,} \quad \text{with} \quad \mu \in \RRSet \,\text{.}
 \end{equation}
 %
-with $\mu \in \RRSet$. This means that $\vr$ is still an eigenvector of $\mT$
-(with eigenvalue $\mu$) at the slightly offset position $\vx + h\vr$.
+This means that $\vr$ is still an eigenvector of $\mT$ (with eigenvalue $\mu$)
+at the slightly offset position $\vx + h\vr$.
 %
 If we substitute $\mT(\vx)\,\vr = \lambda \vr$, we get
 %
@@ -116,8 +115,9 @@ In terms of the \ac{PV} operator, tensor core lines can then be expressed as
 \begin{equation}
 \label{eq:tensor_line}
     \operatorname{TCL}(\mT) =
-        \{\vx\;|\: \exists \;\vr,\,
-        \vr \parallel \mT(\vx)\,\vr \parallel \nabla_{\vr}\mT(\vx)\,\vr\} \,\text{.}
+        \{\vx\;|\: \exists \;\vr \in \RRSet,\,
+        \vr \parallel \mT(\vx)\,\vr \parallel \nabla_{\vr}\mT(\vx)\,\vr
+        \land \vr \neq \vNull\} \,\text{.}
 \end{equation}
 %
 In words: a tensor core line is located where an eigenvector $\vr$ of $\mT$ is
@@ -126,7 +126,7 @@ parallel to an eigenvector of the directional derivative of $\mT$ along $\vr$.
 Note the similarity of this criterion to Sujudi/Haimes, which states that a
 vortex core lines is located where a vector $\vv$ of the vector field is
 parallel to the directional derivative of the field along $\vv$, which is
-defined by the acceleration $\mJ\,\vv$.
+defined by the acceleration $\mJ(\vv)\,\vv$.
 %
 In fact, the criterion is almost a straightforward application of the \ac{PEV}
 operator we presented in \cref{cha:parallel_eigenvectors}.
@@ -160,13 +160,14 @@ In a $C^1$-continuous tensor field, tensor core lines are structurally stable
 line structures that are either closed or end at the domain boundary.
 \end{theorem}
 %
-To show \cref{thm:tcl_stable_lines}, we consider a local approximation of a real
-eigenvector field in the neighborhood of a point as a normalized vector field.
+To show \cref{thm:tcl_stable_lines}, we consider a local representation of a
+real eigenvector field in the neighborhood of a point as a normalized vector
+field.
 %
 Then the fact that the \ac{PV} operator gives such line
 structures~\cite{Peikert1999} shows the theorem.
 %
-Note that although such a consideration of an eigenvector field as a normalized
+Note that although such a representation of an eigenvector field as a normalized
 vector field is locally possible, it does not apply globally in a consistent
 way, and therefore does not provide a strategy to extract tensor core lines.
 %

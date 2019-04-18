@@ -11,11 +11,11 @@ truth and the values at each vertex after the diffusion process.
 The ground truth is obtained by computing the model parameters $t_f$ for each
 vertex of $M$ as described in \cref{sub:fitting}.
 %
-The diffusion error $E^{V,f}_{\textnormal{diff}}$ for variable $V$ and feature $f$ is
-defined as
+The diffusion error $e^{V,f}_{\textnormal{diff}}$ for variable $V$ and feature
+$f$ is defined as
 %
 \begin{equation}
-	E^{V, f}_{\textnormal{diff}} = \frac{1}{\max(t^V_f)-\min(t^V_f)}
+	e^{V, f}_{\textnormal{diff}} = \frac{1}{\max(t^V_f)-\min(t^V_f)}
 		\Sum{
 			\left|
 				{t^V_{fi} - t'^{V}_{fi}}
@@ -34,7 +34,7 @@ data set \textsc{Hydrogen}, using different seeding densities $q$.
 We show the results in \cref{fig:diffusion_quality,fig:diffusion_quality_img}.
 % An appropriate seeding density $q$ for a desired diffusion quality
 % and therefore accuracy of visualization can be automatically determined by
-% successively lowering $q$ and computing $E^{V, f}_{\textnormal{diff}}$
+% successively lowering $q$ and computing $e^{V, f}_{\textnormal{diff}}$
 % until a satisfactory error level is reached.
 % \todo{captain obvious?}
 

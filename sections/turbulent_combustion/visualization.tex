@@ -6,8 +6,8 @@ employed by turbulent combustion researchers, visualization has become an
 important tool for gaining understanding from simulation data.
 %
 Simple visualization techniques such as slicing, isosurface rendering and
-scatter plots are routinely used by combustion researchers to gain an overview of
-the data.
+scatter plots are routinely used by combustion researchers to gain an overview
+of the data.
 %
 Special techniques for visualization-supported analysis have been developed to
 answer more complex research questions.
@@ -174,10 +174,8 @@ and split the work of processing and rendering datasets over many processes.
 Basic visualization techniques can go a long way towards assisting researchers
 in analyzing their simulation data.
 %
-However, specialized methods are sometimes needed to gain the desired result.
-%
-Reasons can be the complexity of the research question or the computational
-demands involved in answering it.
+However, specialized methods are sometimes needed if the research question is
+very complex or the computational demands are high.
 %
 Here we discuss some visualization and analysis tools that were developed
 specifically for turbulent combustion applications.
@@ -199,7 +197,7 @@ tasks on the data.
 Another group of visualization tools focus on the identification and tracking of
 volumetric features.
 %
-Bremer \etal{} precompute a merge-tree representation and accompanying
+Bremer \etal{} precompute a merge-tree representation and an accompanying
 segmentation of volumetric \cite{Bremer2009,Bremer2011} and surface features
 \cite{Bremer2010} defined by thresholding.
 %
@@ -225,18 +223,18 @@ begun saving large amounts of Lagrangian particles (pathlines) and the
 accompanying time series of simulation variables in addition to snapshots of the
 (Eulerian) state of the simulation.
 %
-These pathlines allow tracking of volumetric features even in snapshots with
+These pathlines allow the tracking of volumetric features even in snapshots with
 large temporal gaps, as shown by Sauer \etal{}~\cite{Sauer2014}.
 %
 They can also be visualized by themselves, to get an idea about the dynamic
 behavior of the system.
 %
-Wei \etal{}~\cite{Wei2011} developed a visualization that combines a visualization
+Wei \etal{}~\cite{Wei2011} developed a technique that combines a visualization
 of particles in physical space with a visualization in the temperature --
 mixture fraction phase space.
 %
 Trajectories are clustered in phase space to identify different chemical
-behavior, and the classes are then displayed in physical space for a visual
+behaviors, and the classes are then displayed in physical space for a visual
 analysis (see \cref{fig:wei_particle_clusters}).
 %
 \begin{figure}[t]
@@ -333,7 +331,7 @@ the same nodes as the simulations.
 They need to somehow get the relevant data from the simulation and they need to
 be efficient enough to not slow it down by an unreasonable amount.
 %
-Communication between computing nodes runs over relatively slow network
+Communication between computing nodes flows over relatively slow network
 connections, requiring different parallel algorithms than for shared-memory
 multi-core architectures.
 %
@@ -413,9 +411,9 @@ of unused resources during a simulation run for visualization and analysis tasks
 \cite{Zheng2013}.
 %
 A popular alternative to processing the data on the same computing nodes as the
-simulation is to offload the data onto a separately allocated number of staging
-or processing
-nodes \cite{Zheng2010,Abbasi2010,Abbasi2011,Docan2011,Docan2012,Bennett2012}.
+simulation is to offload it onto a separately allocated number of staging or
+processing nodes
+\cite{Zheng2010,Abbasi2010,Abbasi2011,Docan2011,Docan2012,Bennett2012}.
 %
 Using this approach, which is often called \emph{in-transit} processing, the
 simulation is only slowed down by the time it takes to copy the data to the
@@ -436,8 +434,8 @@ to a lesser extent.
 %
 Maybe that is because it is much harder to solve.
 %
-The challenge is to enable an exploratory analysis of the simulation data, \ie{},
-with little to no prior knowledge of what one is looking for.
+The challenge is to enable an exploratory analysis of the simulation data,
+\ie{}, with little to no prior knowledge of what one is looking for.
 %
 This stands in direct conflict with the goal of in-situ approaches to reduce the
 amount of data that has to be stored to disk.
@@ -451,12 +449,12 @@ A small number of works has tried to address this issue.
 One obvious possibility is to compress the data using some generic concept of
 ``importance'' that is not dependent on a particular application.
 %
-Lakshminarasimhan \etal{}~\cite{Lakshminarasimhan2011} developed such an algorithm
-whose core idea is to sort the data before compression to take advantage of the
-special characteristics of scientific data.
+Lakshminarasimhan \etal{}~\cite{Lakshminarasimhan2011} developed such an
+algorithm whose core idea is to sort the data before compression to take
+advantage of the special characteristics of scientific data.
 %
-With a compression ratio of about 1:7, this approach allows to store a much larger
-amount of data while still retaining complete freedom for an exploratory
+With a compression ratio of about 1:7, this approach allows to store a much
+larger amount of data while still retaining complete freedom for an exploratory
 analysis of the data.
 %
 
@@ -532,8 +530,8 @@ section \cite{Kageyama2014,Ahrens2014}.
 %
 
 %
-Moving to more analytic approaches, several works have addressed the extraction
-and tracking of volumetric features.
+Moving on to more analytic approaches, several works have addressed the
+extraction and tracking of volumetric features.
 %
 Chen \etal{}~\cite{Chen2003} presented an in-situ system for tracking volumetric
 features defined by thresholding.
@@ -554,8 +552,8 @@ features picked by the user based on their visual properties.
 This is intended to be more robust than detection based on thresholds which
 might not be applicable over long time periods.
 %
-Ye \etal{}~\cite{Ye2015} combined image-based visualization with feature tracking
-by storing rendered depth maps of multiple isosurfaces.
+Ye \etal{}~\cite{Ye2015} combined image-based visualization with feature
+tracking by storing rendered depth maps of multiple isosurfaces.
 %
 These are later used to create visualizations and to track features in image
 space based on their depth information.
@@ -570,8 +568,8 @@ The idea of precomputing an intermediate representation of the data in-situ and
 then exploring it post-hoc has also been applied in some more specialized
 visualization systems.
 %
-Landge \etal{}~\cite{Landge2014} adapted the computation of segmented merge trees
-\cite{Bremer2009,Bremer2011} for in-situ applications.
+Landge \etal{}~\cite{Landge2014} adapted the computation of segmented merge
+trees \cite{Bremer2009,Bremer2011} for in-situ applications.
 %
 This allows for an interactive exploration of the space of possible thresholds
 or iso-levels for scalar variables.
@@ -579,7 +577,7 @@ or iso-levels for scalar variables.
 Ye \etal{}~\cite{Ye2016} proposed a system for exploring joint field/particle
 datasets as are for example produced by some combustion \ac{DNS} codes.
 %
-They compute \acp{PDF} to represent the field data and reorganize the particle
+They compute \acp{PDF} to represent the field data, and reorganize the particle
 data into a more efficient scheme.
 %
 Researchers can then explore the \acp{PDF} in a post-hoc tool and define queries

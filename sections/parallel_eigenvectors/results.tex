@@ -1,8 +1,8 @@
 \section{Results} % (fold)
 \label{sec:pev_results}
 %
-We applied our method to different stress tensor fields from structural
-mechanics simulations.
+We applied our method to different stress tensor fields from solid mechanics
+simulations.
 %
 The Cauchy stress tensor (often referred to as $\mathbf{\sigma}$ in mechanics
 literature) is a symmetric tensor that describes the local stress state of an
@@ -27,9 +27,9 @@ applied to a flange.
 %
 We used the same parameters for all datasets:
 %
-$\varepsilon_\mathrm{s} = \num{1.e-3}$, $\varepsilon_\mathrm{c} = 5 \times
-\varepsilon_\mathrm{s}$, $\varepsilon_\mathrm{d} = \num{1.e-9}$,
-$\varepsilon_\mathrm{p} = \num{1.e-3}$.
+$\varepsilon_\mathrm{s} = \num{e-3}$, $\varepsilon_\mathrm{c} = 5 \times
+\varepsilon_\mathrm{s}$, $\varepsilon_\mathrm{d} = \num{e-9}$,
+$\varepsilon_\mathrm{p} = \num{e-3}$.
 %
 Our results were computed on a 4-core Intel Core i7 \ac{CPU} at
 \SI{3.4}{\giga\hertz}.
@@ -48,11 +48,11 @@ Our results were computed on a 4-core Intel Core i7 \ac{CPU} at
 \end{figure}
 %
 In this example, we compare two different point loads applied to a uniform
-material with infinite extent.
+material with infinite extents.
 %
 We show our results in \cref{fig:point_load}.
 %
-The first load (red arrow ) is a compressive force, the second load (blue arrow)
+The first load (red arrow) is a compressive force, the second load (blue arrow)
 is a tensile force of equal magnitude.
 %
 We compute the \ac{PEV} operator for the two resulting stress tensor fields.
@@ -190,8 +190,8 @@ tutorial.
 We subjected the flange to two different loads, applied on the back wall and the
 flange ring (see red and blue arrows in \cref{fig:flange_filtered}).
 %
-The original mesh uses polygonal cells, which is why we resampled the data,
-resulting in \num{1.2} million cells and \num{5} million faces.
+The original mesh uses polygonal cells, which is why we resampled the data on a
+regular grid, resulting in \num{1.2} million cells and \num{5} million faces.
 %
 The computing time was \SI{36}{\minute}, \ie{}, \SI{0.5}{\milli\second} per face.
 %

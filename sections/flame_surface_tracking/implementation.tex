@@ -5,7 +5,8 @@ Our algorithm is implemented as an extension to the {DINO} direct numerical
 simulation code \cite{Abdelsamie2016}.
 %
 The simulation domain is a rectangular box which is distributed to multiple
-processors by a block decomposition along two of its three axes.
+processors by a block decomposition along two of its three axes (pencil
+decomposition).
 %
 This unusual decomposition is required because of the pressure solver, which
 operates in Fourier space and needs the complete domain in memory in one
@@ -18,7 +19,7 @@ The communication between the processors uses MPI \cite{MPIForum2015}.
 Each tracked points gets a unique ID at its creation.
 %
 In each process, all points located in its domain block, as well as all points
-in a halo region around the block are kept in memory.
+in a halo region around the block, are kept in memory.
 %
 This halo region is large enough to contain all ghost particles of any patch
 whose central point is inside the processor's block.

@@ -59,12 +59,12 @@ visualization.
 %
 \subsection{Feature Point Construction}
 %
-The positions of the feature points on the profiles represent
-intersections with the corresponding feature surfaces in the original data.
+The positions of the feature points on the profiles represent intersections with
+corresponding feature surfaces in the original data.
 %
 By shifting the anchor points $\vp_i$ onto the intersections with a specific
-feature surface, we transform them to a feature point set sampling this surface
-(see \cref{fig:featurepoints}, left).
+feature surface, we transform them to a feature point set representing this
+surface (see \cref{fig:featurepoints}, left).
 %
 Considering a profile line $\vp_i(t)$ anchored on the flame surface $S$, the
 position of a feature point $\vp_i(t_f)$ with $f \in \{\text{min}, \text{max},
@@ -91,8 +91,8 @@ $x_l$, $x_m$ or $x_r$ of the corresponding profile.
 For example, the shift values $t_{\textnormal{max}}$ for the surface of maximum heat
 release are obtained by the $x_m$ values of the heat release profiles.
 %
-Having constructed these feature points is the first step in constructing a
-feature surface, which we detail in the following section.
+Constructing these feature points is the first step in constructing a feature
+surface, which we detail in the following section.
 %
 % \begin{figure}[t]
 %     \centering
@@ -167,12 +167,7 @@ $t_{fi}$ and the direction of the profile line $\vn_i$
 % discretely representing the feature surface $S_f$, cannot be revealed using,
 % e.g., Marching Cubes.
 %
-The idea is to transform the flame surface mesh $M$ into a feature surface mesh
-$M_{f}$ representing the feature surface.
-%
-%This can be done by exploiting the relations between the feature points set and
-%the flame surface mesh.
-\begin{figure}[t!]
+\begin{figure}[t]
 	\centering
 	% \def\svgwidth{0.8\textwidth}
 	% \import{figures/}{featurepoints.pdf_tex}
@@ -208,7 +203,11 @@ $M_{f}$ representing the feature surface.
 	\tikzset{external/export=true}
 \end{figure}
 %
-
+The idea is to transform the flame surface mesh $M$ into a feature surface mesh
+$M_{f}$ representing the feature surface.
+%
+%This can be done by exploiting the relations between the feature points set and
+%the flame surface mesh.
 %
 The simplest way to implement this transformation would be to move the vertices
 $\textbf{m}_j$ of $M$ along the corresponding normal vectors $\vn_j$ to a
@@ -408,7 +407,8 @@ This distance is computed for each vertex and linearly mapped onto a color map.
 %
 
 %
-We use a color map adapted to our application:
+We use a color map adapted to our application (see \cref{fig:contourmeshvis},
+bottom right):
 %
 black for values near zero (the meshes intersect), red to yellow for growing
 positive distances (one mesh is outside of the other locally), and blue to cyan
@@ -424,8 +424,8 @@ This enables a quick visual search for both extreme difference values (by
 choosing a low value for $u_1$), or an overview of areas with positive or
 negative difference values (by choosing a high value for $u_1$).
 %
-The color scale and the effect of varying parameter $u_1$ are shown in
-\cref{fig:contourmeshvis} (top).
+The effect of varying parameter $u_1$ is shown in \cref{fig:contourmeshvis}
+(top).
 %
 
 % Let $M^{v}_{f}$ and $M^{w}_{f}$ feature meshes for two variables $v$ and $w$ of
@@ -502,8 +502,8 @@ The color scale and the effect of varying parameter $u_1$ are shown in
 %
 We use standard computer graphics techniques to render the feature surfaces.
 %
-The distance values are mapped to the mesh as vertex colors, and Phong shading
-is used to enhance the perception of surface curvature.
+The distance values are mapped to the mesh as vertex colors, and Phong
+shading~\cite{Phong1975} is used to enhance the perception of surface curvature.
 %
 Larger specular highlights improve the curvature perception but obstruct the
 view on the mesh color. We therefore let the user control the specular
@@ -530,7 +530,7 @@ chosen feature meshes $M^{V}_{f}$ and $M^{W}_{f}$.
 %
 A parameter $u_2 \in [0, 2]$ steers the morphing, showing the original flame
 surface $M$ for $u_2 = \num{0}$, the first feature surface $M^{V}_{f}$ for $u_2
-= \num{1}$ and $M^{W}_{f}$ for $u_2 = \num{2}$ (\cref{fig:contourmeshvis},
+= \num{1}$ and $M^{W}_{f}$ for $u_2 = \num{2}$ (see \cref{fig:contourmeshvis},
 middle).
 %
 The morphing itself is trivial.
@@ -547,7 +547,7 @@ value of $u_2$ changes.
 %
 Finally, we enable the user to quickly slide through the different time steps
 and investigate the temporal behavior of the feature surfaces and their
-relations.
+relations (see \cref{fig:contourmeshvis}, bottom).
 %
 This allows for a quick interactive visual analysis that would have been
 impossible to achieve on the original raw simulation data, due to the large

@@ -32,7 +32,7 @@ We compared two local interpolation methods for scattered data.
 %
 The first method is a \ac{kANN}~\cite{Arya1998} interpolation scheme that weighs
 the values of the $k$ approximate nearest neighbors using Shepard's inverse
-distance weights.
+distance weights~\cite{Shepard1968}.
 %
 % For large $k$ the result converges to the
 % global Shepard interpolation but computation time increases. For small $k$ the
@@ -115,7 +115,7 @@ considered.
 %
 %(Figure~\ref{fig:models}), because values outside of this interval were not considered when fitting the models.
 %
-We used normalized \ac{RMS} errors $E^V_{\textnormal{fit}}$ in order to make the
+We used normalized \ac{RMS} errors $e^V_{\textnormal{fit}}$ in order to make the
 variables $V$ comparable:
 %
 %To make the values comparable, the resulting average
@@ -123,7 +123,7 @@ variables $V$ comparable:
 %The fitting error for a variable $V$ is then:
 %
 \begin{equation}
-    E^V_{\textnormal{fit}}
+    e^V_{\textnormal{fit}}
         =   \frac{1}{n \cdot (\max(V)-\min(V))}
             \Sum{
                 \sqrt{
@@ -198,7 +198,7 @@ needed by the sparse representation.
 We used a normalized error metric to compute the reconstruction quality:
 %
 \begin{equation}
-    E^V_\textnormal{reconst}
+    e^V_\textnormal{reconst}
         =   \frac{1}{|H|\cdot \left( \max(V)-\min(V) \right)}
             \Int{\left| R(\vx) - V(\vx) \right|}{\vx,{\vx \in H}}
              \text{ ,}
@@ -306,7 +306,7 @@ This is the currently still the most common way of reducing the size of \ac{DNS}
 data.
 %
 For comparison with a dedicated compression algorithm, we used the
-well-established \ac{3D}-\ac{SPIHT} algorithm~\cite{Kim2000} implemented in the
+well-established \ac{3D} \ac{SPIHT} algorithm~\cite{Kim2000} implemented in the
 QccPack library~\cite{Fowler2000} on our data.
 %
 
@@ -315,12 +315,12 @@ QccPack library~\cite{Fowler2000} on our data.
 % reduce the size of DNS data: na\"{i}ve downsampling. For comparison, we
 % downsampled the original data to the same storage size as our sparse
 % representation, then upsampled it back to the original resolution. We then
-% used the same metric $E^V_\text{reconst}$ to compute the error introduced by
+% used the same metric $e^V_\text{reconst}$ to compute the error introduced by
 % this process.
 
 %
 \Cref{fig:CRvMSE} shows the reduction ratio $c$ vs. the reconstruction error
-$E_\textnormal{reconst}^V$ for all tested methods for selected variables.
+$e_\textnormal{reconst}^V$ for all tested methods for selected variables.
 %
 Please note that for \textsc{Syngas II}, higher reduction ratios are achieved
 than for \textsc{Syngas I}, due to the flame in the former being relatively

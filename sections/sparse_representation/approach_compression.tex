@@ -21,8 +21,8 @@ of three steps:
 %
 \begin{enumerate}
 	\item Seed points on the flame surface.
-	\item Sample the simulation variables along lines orthogonal to the flame
-	surface, emanating from the seed points.
+	\item Sample the simulation variables along lines orthogonal to the surface,
+	emanating from the seed points.
 	\item Approximate the resulting profiles by models, reducing each profile to
 	a set of model parameters.
 \end{enumerate}
@@ -104,8 +104,8 @@ Commonly, the flame surface in premixed combustion is defined as the
 \num{0.5}-isosurface of a \emph{combustion progress
 variable}~\cite{Poinsot2012}.
 %
-This variable is defined as $({T-T_u})/({T_b-T_u})$, where $T_u$ and $T_b$ are
-the temperature of the burnt and unburnt gases, and varies between 0 and 1.
+This variable varies between 0 and 1 and is defined as $({T-T_u})/({T_b-T_u})$,
+where $T_u$ and $T_b$ are the temperature of the burnt and unburnt gases.
 %
 The choice of the iso-value is very robust for premixed combustion in the
 flamelet regime.
@@ -115,19 +115,22 @@ Hausdorff distances less than \SI{2}{\percent} of the domain size.
 %
 
 %
-Anchor points $\vp_i$ for profile extraction are distributed on this surface,
-which we extract using \ac{CGAL}~\cite{Boissonnat2005}.
+We extract the isosurface using \ac{CGAL}~\cite{Boissonnat2005}.
 %
 This yields a mesh with approximately uniformly-spaced vertices and edges of
 approximately the same length as the voxel size in the original data.
 %
+Anchor points $\vp_i$ for profile extraction are then distributed on this
+surface.
+%
 %We first place a point into every surface voxel. 
 %
-% Sub-voxel sampling would not yield more information due to the smoothness of \ac{DNS}
-% data. 
+% Sub-voxel sampling would not yield more information due to the smoothness of
+% \ac{DNS} data.
 %
-Since this results in a large number of vertices, we select only some of them as
-seed points, using a rejection sampling based on local surface curvature.
+Since the mesh typically has a large number of vertices, we select only some of
+them as seed points, using a rejection sampling based on local surface
+curvature.
 %
 %This results in a large number of seed points. We therefore reduce the number
 %of points by a random process based on the local surface curvature. 
@@ -142,7 +145,7 @@ function:
 %
 \begin{equation}
 	\rho(\kappa_1, \kappa_2) =
-		\frac{\ln(1 + \sqrt{\kappa_1^2+\kappa_2^2})}{q}\text{ .}
+		\frac{1}{q} \ln\left(1 + \sqrt{\kappa_1^2+\kappa_2^2}\right)\text{ .}
 \end{equation}
 %
 Here, $q > 1$ steers the seeding density.
@@ -162,11 +165,11 @@ shape more than on the resolution of the data.
 Adjusting $q$ changes the total number of seed points and balances size vs.
 quality.
 %
-% The logarithmic shape of
-% $\rho$ ensures that medium curvatures, which are most frequent, are not
-% discarded as often, and sampling density is more even across areas of higher
-% curvature. By allowing the density of the maximum curvature to drop below 1, it
-% becomes possible to avoid overly dense seeding in high-curvature areas.
+% The logarithmic shape of $\rho$ ensures that medium curvatures, which are most
+% frequent, are not discarded as often, and sampling density is more even across
+% areas of higher curvature. By allowing the density of the maximum curvature to
+% drop below 1, it becomes possible to avoid overly dense seeding in
+% high-curvature areas.
 %
 %\begin{figure}[t]
 %	\begin{center}
@@ -220,14 +223,15 @@ required storage space.
 %
 % address a review comment
 %----
-% Even though \ac{DNS} data are simulated without any model assumptions,
-% it is reasonable to describe the data outcome of them via models for
-% two reasons: i) the model-based description of the data does not negatively effect
-% the simulation benefits of \ac{DNS} data being that \ac{DNS} data have a low
-% simulation error because the simulation still runs with the raw data per time step;
-% and ii) the models facilitates the treatment and extraction of such
-% characteristic features which the domain experts want to investigate for
-% data analysis purposes. In the following, the compression scheme steps are described in detail.
+% Even though \ac{DNS} data are simulated without any model assumptions, it is
+% reasonable to describe the data outcome of them via models for two reasons: i)
+% the model-based description of the data does not negatively effect the
+% simulation benefits of \ac{DNS} data being that \ac{DNS} data have a low
+% simulation error because the simulation still runs with the raw data per time
+% step; and ii) the models facilitates the treatment and extraction of such
+% characteristic features which the domain experts want to investigate for data
+% analysis purposes. In the following, the compression scheme steps are
+% described in detail.
 %----
 Although the main advantage of \ac{DNS} is its high precision due to the lack of
 modeling assumptions, we use models to describe its outcome in a lower-
@@ -272,9 +276,10 @@ isolated from the others.
 \subsubsection{Model for Reactants and Products} % (fold)
 \label{ssub:model_for_reactants_products}
 %
-Sigmoid shapes are commonly expressed using the logistic function $1/(1+e^{-t})$,
-which we extend with parameters $\gamma$, adjusting the slope at the inflection
-and $a$, determining the limits of the function at positive/negative infinity:
+Sigmoid shapes are commonly expressed using the logistic function
+$1/(1+e^{-t})$, which we extend with parameters $\gamma$, adjusting the slope at
+the inflection and $a$, determining the limits of the function at
+positive/negative infinity:
 %
 \begin{equation}
 	\mathfrak{s}(t,a,\gamma)
@@ -295,7 +300,7 @@ inflection point (\cref{fig:models}, top).
 		\mathfrak{S}(t, a_l, a_r, \gamma, x_m, y_m) =
 		\begin{cases}
 			\mathfrak{s}(t, a_l, \gamma) + y_m, &\text{if }  t \leq x_m\\
-			\mathfrak{s}(t, a_r, \gamma) + y_m, & \text{if }  t > x_m\\
+			\mathfrak{s}(t, a_r, \gamma) + y_m, & \text{if }  t > x_m\,\text{,}\\
 		\end{cases}
 %		&\text{with } \sgn(\gamma) = \sgn(a_r) = \sgn(a_l) \text{ ,}
 %	\end{aligned}
@@ -312,13 +317,13 @@ function approaching negative and positive infinity.
 %
 The profiles of intermediates resemble Gaussian bell curves.
 %
-Since minimum and maximum of the profiles of intermediate species can vary, it
-is necessary to extend the standard bell curve with additional parameters $y_m$,
-the value at the maximum, and $y$, the limit at infinity.
+Since minimum and maximum of these profiles can vary, it is necessary to extend
+the standard bell curve with additional parameters $y_m$, the value at the
+maximum, and $y$, the limit at infinity.
 %
 \begin{equation}
 	\mathfrak{g}(t, x_m, y_m, \sigma, y)
-		= e^{-\frac{1}{2}(\frac{t-x_m}{\sigma})^2}\cdot(y_m-y)+y \text{ .}
+		= (y_m-y)\,e^{-\frac{1}{2}(\frac{t-x_m}{\sigma})^2} + y \text{ .}
 \end{equation}
 %
 
@@ -334,7 +339,7 @@ model with six parameters:
 	\mathfrak{G}(t, x_m, y_m, \sigma_l, y_l, \sigma_r, y_r) =
 	\begin{cases}
 		\mathfrak{g}(t, x_m, y_m, \sigma_l, y_l), & \text{if }  t \leq x_m\\
-		\mathfrak{g}(t, x_m, y_m, \sigma_r, y_r), & \text{if }  t > x_m\\
+		\mathfrak{g}(t, x_m, y_m, \sigma_r, y_r), & \text{if }  t > x_m\,\text{,}\\
 	\end{cases}
 \end{equation}
 %

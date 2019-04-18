@@ -63,9 +63,9 @@ become zero.
 %
 
 %
-We again construct a bisection algorithm that uses the Bernstein-B\'ezier form
-(\cref{sec:bb}) of the polynomials to exclude the presence of roots within
-sub-triangles.
+We again construct a recursive subdivision algorithm that uses the
+Bernstein-B\'ezier form (\cref{sec:bb}) of the polynomials to exclude the
+presence of roots within sub-triangles.
 %
 Within the search space (\cref{sec:searchspace}) a recursive subdivision
 (\cref{sec:subdiv}) approximates the locations of roots in $\vx$-$\vr$-space
@@ -74,7 +74,7 @@ with an arbitrary user-defined precision.
 The local feature extraction is followed by a stage that clusters solutions and
 then connects feature points to lines within cells (\cref{sec:cluster})
 %
-Finally, we use a filtering criterion for removing unstable solutions
+Finally, we use a filtering criterion for removing numerically unstable solutions
 (\cref{sec:filt}).
 %
 \subsection{Polynomial System in Bernstein-B\'ezier Form}

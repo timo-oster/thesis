@@ -473,8 +473,8 @@ We consider a micro-patch for merging when
 %
 \begin{itemize}
     \item both errors $e_\perp$ and $e_\shortparallel$ decrease below
-          lower thresholds $l_\perp$ and $l_\shortparallel$, respectively,
-    \item or the minor axis decreases below a threshold $l_\textnormal{size}$
+          lower thresholds $l_\perp$ and $l_\shortparallel$, respectively.
+    \item the minor axis decreases below a threshold $l_\textnormal{size}$.
 \end{itemize}
 %
 
@@ -518,7 +518,7 @@ the minor axis extended.
 %
 In this way, we ensure that the surface is not over-sampled where it is not
 necessary and that no infeasibly small patches are tracked, \eg, in areas of
-attracting tangential behavior.
+compressive tangential behavior.
 %
 Patches that were originally initialized at the start of the simulation are
 never deleted, in order to prevent holes from forming.
@@ -582,7 +582,7 @@ The system for reconstructing $\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}$ is then
 %
 \begin{equation}
     \label{eqn:deformation_reconstruction}
-    \Frob{\T\mC_n(t_\mathrm{s}) \, \T{\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}}
+    \Frob{\T\mC_\mathrm{n}(t_\mathrm{s}) \, \T{\mE_{\,t_\mathrm{s}}^{\,t_\mathrm{e}}}
           - \T\mC_\mathrm{n}(t_\mathrm{e})}^2
     \rightarrow \text{min} \, \text{,}
 \end{equation}

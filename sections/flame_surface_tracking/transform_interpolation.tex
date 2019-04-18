@@ -31,8 +31,8 @@ Let $\vx_i(t_k)$ be the ghost particle positions at the time of the split.
 Then $\mE_{t_{k-1}}^{t_k}$ obtained via \eqref{eqn:deformation_reconstruction}
 can be thought of as the solution of the system
 %
-{\small
-\begin{gather}
+\begin{equation}
+\begin{gathered}
     \begin{pmatrix}
         \T{\vb_1(t_{k-1})} \\
         \T{\vb_2(t_{k-1})} \\
@@ -47,8 +47,8 @@ can be thought of as the solution of the system
     \end{pmatrix}\\
     \vb_1(t) = (\vx_1(t) - \vx_2(t))/2 \\
     \vb_2(t) = (\vx_3(t) - \vx_4(t))/2\, \text{.}
-\end{gather}
-}
+\end{gathered}
+\end{equation}
 %
 In other words, $\mE_{\,t_{k-1}}^{\,t_k}$ is the average of the transformations
 that map the corresponding ghost particles to each other exactly.
@@ -83,7 +83,7 @@ get a more accurate result if we adjust the weights depending on where the
 new center is located.
 %
 For this purpose, we parameterize the tangent space of the micro-patch by
-expressing it as a linear combination of the two base vectors $\vb_1(t)$ and
+expressing it as a linear combination of the two basis vectors $\vb_1(t)$ and
 $\vb_2(t)$.
 %
 We can now express the location of the new center $\vx'$ in this new basis:
@@ -106,16 +106,16 @@ the result.
 %
 The same applies to the direction of $\vb_2$.
 %
-We therefore compute new interpolated base vectors $\vb'_{1,2}(t)$ by weighting
+We therefore compute new interpolated basis vectors $\vb'_{1,2}(t)$ by weighting
 the ghost particle positions with $\lambda_1$ and $\lambda_2$:
 %
-{\small
-\begin{align}
+\begin{equation}
+\begin{aligned}
     \vb'_1(t) =& (1+2\lambda_1) \, \vx_1(t) - (1-2\lambda_1) \, \vx_2(t) \\
     \vb'_2(t) =& (1+2\lambda_2) \, \vx_3(t) - (1-2\lambda_2) \, \vx_4(t)
         \, \text{.}
-\end{align}
-}
+\end{aligned}
+\end{equation}
 %
 The adjusted transformation ${\mE_{\,t_{k-1}}^{\,t_k}}'$ is then the solution to
 the system

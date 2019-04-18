@@ -68,7 +68,7 @@
     xminorticks=true,
     ymin=0,
     ymax=0.08,%0.35119633835835,
-    ylabel={$E^V_\textnormal{reconst}$},
+    ylabel={$e^V_\textnormal{reconst}$},
     every axis y label/.style={
         at={(ticklabel cs:0.5)},rotate=90,anchor=center},
     ytick={0,0.015,0.03},
@@ -171,7 +171,7 @@
         at={(ticklabel cs:0.5)},anchor=center},
     ymin=0,
     ymax=0.08,%0.35119633835835,
-    ylabel={$E^V_\textnormal{reconst}$},
+    ylabel={$e^V_\textnormal{reconst}$},
     every axis y label/.style={
         at={(ticklabel cs:0.5)},rotate=90,anchor=center},
     ytick={0,0.015,0.03},
@@ -255,7 +255,7 @@
         at={(ticklabel cs:0.5)},anchor=center},
     ymin=0,
     ymax=0.08,
-    ylabel={$E^V_\textnormal{reconst}$},
+    ylabel={$e^V_\textnormal{reconst}$},
     every axis y label/.style={
         at={(ticklabel cs:0.5)},rotate=90,anchor=center},
     ytick={0,0.015,0.03},

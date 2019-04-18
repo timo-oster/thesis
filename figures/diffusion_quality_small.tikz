@@ -54,7 +54,7 @@
     xlabel near ticks,
     xmode = log,
     enlargelimits={abs=3mm},
-    ylabel={$E^{V, f}_\textnormal{diff}$},
+    ylabel={$e^{V, f}_\textnormal{diff}$},
     yticklabel style = {/pgf/number format/fixed}
 ]
 

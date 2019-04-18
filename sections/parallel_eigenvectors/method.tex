@@ -18,7 +18,7 @@ We showed that \ac{PEV} structures are lines in the structurally stable case.
 It follows that their intersections with the triangular faces of a tetrahedral
 mesh are isolated points.
 %
-Finding an analytic solution to the parallel eigenvector problem is impossible,
+Finding an analytic solution to the parallel eigenvectors problem is impossible,
 as it involves the intersection of cubic polynomials.
 %
 Instead, we opt for a numerical approach that is based on recursive subdivision
@@ -117,7 +117,7 @@ In the following, we show all equations for $\mS$ only.
 The equivalent equations for $\mT$ can be obtained trivially by substituting
 $\mT$ for $\mS$.
 % 
-We denote the solutions for $\mS$ and $\mT$ by $\hat\vw_S$ and $\hat\vw_T$
+We denote the solutions for $\mS$ and $\mT$ by $\hat\vw_\mS$ and $\hat\vw_\mT$
 respectively, whenever it is necessary to discriminate them.
 %
 % subsection mathematical_basis (end)
@@ -126,15 +126,16 @@ respectively, whenever it is necessary to discriminate them.
 \label{sub:subdivision_in_direction_space}
 %
 The core of the algorithm is to find a direction $\vr$ for which all components
-of $\hat\vw_S(\vr)$ have a common sign, and all components of $\hat\vw_T(\vr)$
-also have a common sign (that possibly differs from $\hat\vw_S$).
+of $\hat\vw_\mS(\vr)$ have a common sign, and all components of
+$\hat\vw_\mT(\vr)$ also have a common sign (that possibly differs from
+$\hat\vw_\mS$).
 %
 If this is fulfilled, $\vr$ becomes an eigenvector somewhere inside the triangle
 for both $\mS$ and $\mT$.
 %
 
 %
-Note that $\hat{w}_i(\vr)$ is cubic in $\vr$.
+Note that the $\hat{w}_i(\vr)$ are cubic in $\vr$.
 %
 Finding an analytic solution for $\vr$ means analytically finding the
 intersections of the roots of $\hat{w}_i(\vr)$, which is impossible.
@@ -491,7 +492,7 @@ This happens in the structurally unstable cases where eigenvectors are parallel
 on a structure with a dimension larger than \num{1}, or where the \ac{PEV} line
 is completely in the plane of the triangle.
 %
-In these cases, a recursive subdivision will not converge on isolated points and
+In these cases, the recursive subdivision will not converge on isolated points and
 slow down the algorithm considerably.
 %
 To mitigate this, we terminate the recursion if the number of triangle

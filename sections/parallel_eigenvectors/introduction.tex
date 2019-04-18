@@ -1,9 +1,9 @@
 \vspace*{-2\baselineskip}\lettrine[lhang=0.05, loversize=0.047,
-findent=-0.9pt]{F}{eature extraction} is one of the most successful types of
+findent=-0.6pt]{F}{eature extraction} is one of the most successful types of
 techniques for scientific visualization.
 %
-In this context, a feature is a geometric structure where the data fulfills
-certain interesting criteria.
+When we talk about features, we mean geometric structures where the data
+fulfills certain interesting criteria.
 %
 \Cref{cha:sci_vis} introduced several generic features, such as ridges in scalar
 fields, critical points and vortex core lines in vector fields, and degenerate
@@ -20,7 +20,8 @@ terms of a common operation: the \ac{PV} operator~\cite{Peikert1999}.
 This operator yields all locations where two vector fields defined on the same
 domain are parallel.
 %
-It delivers structurally stable lines which we call \ac{PV} lines.
+It delivers structurally stable lines, \ie, stable under the influence of noise,
+which we call \ac{PV} lines.
 %
 Depending on the concrete vector fields it is applied to, the \ac{PV} operator
 can be used to extract ridge and valley lines, extremum lines, vortex core
@@ -51,8 +52,9 @@ parallel real eigenvectors.
 This can be concisely expressed as
 %
 \begin{equation}\label{eq:pev_operator}
-    \operatorname{PEV}(\mS,\mT) = \{ \vx \;|\; \exists \;\ve,\,
-        \ve \parallel \mS(\vx)\,\ve \parallel \mT(\vx)\,\ve \}\,\text{.}
+    \operatorname{PEV}(\mS,\mT) = \{ \vx \;|\; \exists \;\ve \in \RRSet^3,\,
+        \ve \parallel \mS(\vx)\,\ve \parallel \mT(\vx)\,\ve
+        \land \ve \neq \vNull\}\,\text{.}
 \end{equation}
 %
 
@@ -135,7 +137,7 @@ for tensor fields.
 %
 In the following, we first give an overview of related work.
 %
-We then give some theoretical properties of the \ac{PEV} operator in
+We then explore the theoretical properties of the \ac{PEV} operator in
 \cref{sec:pev_theory}, before detailing our algorithm for finding \ac{PEV} lines
 in piecewise linear tensor fields in \cref{sec:extracting_pev_lines}.
 %
