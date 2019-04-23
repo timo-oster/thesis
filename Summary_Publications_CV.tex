@@ -1,0 +1,201 @@
+\documentclass[oneside]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman, english]{babel}
+
+\usepackage{kpfonts}
+
+% font encoding most suitable for european languages
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{nth}
+
+\usepackage{enumitem}
+\setlist{
+    topsep=1ex,
+    parsep=0pt,
+    listparindent=\parindent}
+
+\addtokomafont{disposition}{\rmfamily}
+
+\pagestyle{empty}
+
+
+\author{Timo Oster}
+
+\date{26. April 2019}
+
+\makeatletter
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\begin{document}
+
+\addsec*{Zusammenfassung}
+%
+Diese Arbeit pr\"asentiert neue Visualisierungsmethoden f\"ur Simulationen aus
+zwei verschiedenen Ingenieurdisziplinen: Turbulente Verbrennung und
+Festk\"orpermechanik.
+%
+
+%
+Direkte numerische Simulationen turbulenter Verbrennung sind eine Basis f\"ur
+die Entwicklung und Validierung h\"oherer Verbrenungsmodelle.
+%
+Ein besonderes Augenmerk bei der Analyse solcher Simulationen liegt auf der
+Flammenoberfl\"ache, wo der Gro\ss{}teil aller chemischen Reaktionen
+stattfindet.
+%
+Die Rechenleistung von Supercomputern w\"achst inzwischen wesentlich schneller
+als die Leistung ihrer Speicherinfrastruktur.
+%
+Infolgedessen ist heute das Speichern der Ausgabedaten der Flaschenhals in
+gro\ss{}en Simulationen.
+%
+Wir pr\"asentieren zwei neue Techniken f\"ur die Visualisierung und Analyse der
+Flammenobefl\"ache in gro\ss{}en Simulationen turbulenter Verbrennungsvorg\"ange
+vor dem Hintergrund dieses Flaschenhalses.
+%
+Die erste ist eine platzsparende, ausged\"unnte Darstellung f\"ur einen
+bestimmten Typ von Flammen.
+%
+Diese erm\"oglicht die Analyse einer gr\"o\ss{}eren Anzahl von Zeitschritten der
+Simulation und ist die Basis f\"ur eine neue Art von Flammenvisualisierung.
+%
+Die zweite ist ein Algorithmus zur Verfolgung der Flammenoberfl\"ache
+\emph{in-situ} w\"ahrend der Simulation selbst.
+%
+Der Flaschenhals des Speichervorganges wird umgangen indem nur die wesentlich
+kleineren Ergebnisse geschrieben werden.
+%
+Beide Verfahren tragen dazu bei, dass Verbrennungswissenschaftler auch in
+Zukunft die Daten Analysieren k\"onnen, die ihre immer gr\"o\ss{}er werdenden
+Simulationen produzieren.
+%
+
+%
+Tensorfelder geh\"oren wegen ihrer vielen Freiheitsgrade zu den
+herausforderndsten Daten f\"ur die Visualisierung.
+%
+Eine M\"oglichkeit, diese Komplexit\"at zu reduzieren ist die Extraktion von
+Features.
+%
+Diese reduziert die Daten auf geometrische Primitive, die interessantes
+Verhalten markieren.
+%
+Der \emph{parallel vectors operator}, der alle Orte bestimmt an denen zwei
+Vektorfelder parallel sind, ist die Basis f\"ur eine Menge von Linien-Features
+f\"ur Skalar- und Vektorfelder.
+%
+Wir übertragen diesen Operator auf Tensorfelder und definieren dort den
+\emph{parallel eigenvectors operator}, der alle Orte bestimmt, an denen zwei
+Tensorfelder parallele reelle Eigenvektoren haben.
+%
+Diese Idee nutzen wir anschlie\ss{}end zur Definition von \emph{tensor core
+lines}, die die Zentren von ``wirbelndem'' Verhalten der Eigenvektoren markieren
+und auf Wirbelkernlinien in Vektorfeldern basieren.
+%
+Mit diesem neuen Feature k\"onnen wir Verwindungen in Stresstensorfeldern aus
+Strukturmechaniksimulationen erkennen.
+%
+\clearpage
+%
+\addsec*{Liste der Publikationen}
+%
+\begin{itemize}[label={},leftmargin=0pt]
+    \item T.~Oster, D.~J.~Lehmann, G.~Fru, H.~Theisel, and D.~Th\'evenin\\
+        \textbf{Sparse Representation and Visualization for Direct Numerical
+        Simulation Of Premixed Combustion}\\
+        {\emph{Computer Graphics Forum} 33.3, pp. 321--330, 2014}
+
+    \item A.~Abdelsamie, G.~Fru, T.~Oster, F.~Dietzsch, G.~Janiga,
+        and D.~Thévenin\\
+        \textbf{Towards Direct Numerical Simulations of Low-Mach Number
+        Turbulent Reacting and Two-Phase Flows Using Immersed Boundaries}\\
+        {\emph{Computers \& Fluids} 131, pp. 123--141, 2016}
+
+    \item C.~Chi, A.~Abdelsamie, T.~Oster, and D.~Thévenin\\
+        \textbf{Probability of Hotspot Ignition and Ignition Spot Tracking in
+        Turbulent Hydrogen-Air Mixtures Using Direct Numerical Simulations}\\
+        {\emph{\nth{8} European Combustion Meeting}, pp. 925--930, 2017}
+
+    \item T.~Oster\\
+        \textbf{On-the-fly Visualization and Analysis for High-Resolution Combustion Simulations}\\
+        \emph{Doktorandentag der Fakultät für Informatik}, Otto-von-Guericke-Universität Magdeburg, 12. September 2017
+
+    \item T.~Oster, A.~Abdelsamie, M.~Motejat, T.~Gerrits, C.~R\"ossl,
+        D.~Thévenin, and H.~Theisel\\
+        \textbf{On-The-Fly Tracking of Flame Surfaces for the Visual Analysis
+        of Combustion Processes}\\
+        {\emph{Computer Graphics Forum} 37.6, pp. 358--369, 2018}
+
+    \item T.~Oster, C.~R\"ossl, and H.~Theisel\\
+        \textbf{Core Lines in 3D Second-Order Tensor Fields}\\
+        {\emph{Computer Graphics Forum} 37.3, pp. 327--337, 2018}
+
+    \item T.~Oster, C.~R\"ossl, and H.~Theisel\\
+        \textbf{The Parallel Eigenvectors Operator}\\
+        {\emph{Vision, Modeling and Visualization}, 2018}
+\end{itemize}
+%
+\clearpage
+%
+\addsec*{Lebenslauf/wissenschaftlicher Werdegang}
+%
+\setlist{
+    topsep=1ex,
+    parsep=0pt,
+    leftmargin=3.5cm}
+%
+\subsection*{Persönliche Daten}
+%
+\begin{enumerate}
+    \item[Name:] Timo Oster
+    \item[Geburtsdatum:] 13. Juni 1987
+    \item[Geburtsort:] Wittlich
+    \item[Anschrift:] Hegelstraße 19, 39104 Magdeburg
+    \item[Email:] mail@timo-oster.net
+\end{enumerate}
+%
+\subsection*{Ausbildung}
+%
+\begin{enumerate}
+    \item[4/2012 -- 12/2011] Masterstudium Computervisualistik\\
+                   Otto-von-Guericke-Universität Magdeburg\\
+                   Master's Thesis: \emph{Globale Formanalyse von Flammen}\\
+                   Abschluss: \textbf{Master of Science (Note: 1,0)}
+    \item[10/2006 -- 4/2010] Bachelorstudium Computervisualistik\\
+                             Otto-von-Guericke-Universität Magdeburg\\
+                             Bachelor's Thesis: \emph{Erkennung von Nanofaseragglomeraten in REM-Bildern auf Basis von Texturinformationen}\\
+                             Abschluss: \textbf{Bachelor of Science (Note: 1,3)}
+    \item[4/2005] \textbf{Abitur (Note 1,3)}\\
+                  Nikolaus-von-Kues Gymnasium, Bernkastel-Kues
+\end{enumerate}
+%
+\subsection*{Berufserfahrung}
+%
+\begin{enumerate}
+    \item[seit 3/2012] \textbf{Wissenschaftlicher Mitarbeiter} in der Visual Computing Group\\
+                       Otto-von-Guericke-Universität Magdeburg
+    \item[9/2010 -- 10/2012] \textbf{Softwareentwickler} (Nebentätigkeit)\\
+                             Bundesanstalt für Arbeitsschutz und Arbeitssicherheit, Berlin
+    \item[2/2008 -- 9/2009] \textbf{Java-Programmierer} (Studentische Hilfskraft)\\
+                            Helmhotz-Zentrum für Umweltforschung, Magdeburg
+\end{enumerate}
+%
+\subsection*{Besuchte Weiterbildungsveranstaltungen}
+%
+\begin{enumerate}
+    \item[29.10.2018] Mini-Course: \textbf{Modelling Fluid Flow Using Kinetic Approaches}\\
+                      IMPRS ProEng, MPI Magdeburg
+    \item[25.--29.6.2012] \textbf{Fortran for Scientific Computing}\\
+                          HLRS, Stuttgart
+    \item[4.--7.2.2013] \textbf{Parallel Programming Workshop with MPI and OpenMP}\\
+                  ZIH, TU Dresden
+\end{enumerate}
+%
+\end{document}
