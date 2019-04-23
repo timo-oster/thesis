@@ -27,11 +27,11 @@
         shift=(image2.south west), % origin is lower left corner
         x={($(image2.south east)-(image2.south west)$)}, % x axis is lower side
         y={($(image2.north west)-(image2.south west)$)}] % y axis is left side
-        \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
-        \foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {\scriptsize 0.\x}; }
-        \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\scriptsize 0.\y}; }
-        \draw[mycolor4, very thick, rotate around={-50:(0.28, 0.66)}]
-            (0.28, 0.66) ellipse (0.25 and 0.04);
+        % \draw[help lines,xstep=.1,ystep=.1] (0,0) grid (1,1);
+        % \foreach \x in {0,1,...,9} { \node [anchor=north] at (\x/10,0) {\scriptsize 0.\x}; }
+        % \foreach \y in {0,1,...,9} { \node [anchor=east] at (0,\y/10) {\scriptsize 0.\y}; }
+        \draw[mycolor4, very thick, rotate around={-57:(0.295, 0.66)}]
+            (0.295, 0.66) ellipse (0.21 and 0.04);
     \end{scope}
     \node[label] at (image2.north west) {\textsc{Crane}};
 \end{tikzpicture}

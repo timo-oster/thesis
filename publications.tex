@@ -1,0 +1,74 @@
+\documentclass[oneside]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman, english]{babel}
+
+\usepackage{kpfonts}
+
+% font encoding most suitable for european languages
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{nth}
+
+\usepackage{enumitem}
+\setlist{
+    topsep=1ex,
+    parsep=0pt,
+    listparindent=\parindent}
+
+\addtokomafont{disposition}{\rmfamily}
+
+\pagestyle{empty}
+
+
+\author{Timo Oster}
+
+\date{26. April 2019}
+
+\makeatletter
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\begin{document}
+\addsec*{Liste der Publikationen}
+%
+\begin{itemize}[label={},leftmargin=0pt]
+    \item T.~Oster, D.~J.~Lehmann, G.~Fru, H.~Theisel, and D.~Th\'evenin\\
+        \textbf{Sparse Representation and Visualization for Direct Numerical
+        Simulation Of Premixed Combustion}\\
+        {\emph{Computer Graphics Forum} 33.3, pp. 321--330, 2014}
+
+    \item A.~Abdelsamie, G.~Fru, T.~Oster, F.~Dietzsch, G.~Janiga,
+        and D.~Thévenin\\
+        \textbf{Towards Direct Numerical Simulations of Low-Mach Number
+        Turbulent Reacting and Two-Phase Flows Using Immersed Boundaries}\\
+        {\emph{Computers \& Fluids} 131, pp. 123--141, 2016}
+
+    \item C.~Chi, A.~Abdelsamie, T.~Oster, and D.~Thévenin\\
+        \textbf{Probability of Hotspot Ignition and Ignition Spot Tracking in
+        Turbulent Hydrogen-Air Mixtures Using Direct Numerical Simulations}\\
+        {\emph{\nth{8} European Combustion Meeting}, pp. 925--930, 2017}
+
+    \item T.~Oster\\
+        \textbf{On-the-fly Visualization and Analysis for High-Resolution Combustion Simulations}\\
+        \emph{Doktorandentag der Fakultät für Informatik}, Otto-von-Guericke-Universität Magdeburg, 12. September 2017
+
+    \item T.~Oster, A.~Abdelsamie, M.~Motejat, T.~Gerrits, C.~R\"ossl,
+        D.~Thévenin, and H.~Theisel\\
+        \textbf{On-The-Fly Tracking of Flame Surfaces for the Visual Analysis
+        of Combustion Processes}\\
+        {\emph{Computer Graphics Forum} 37.6, pp. 358--369, 2018}
+
+    \item T.~Oster, C.~R\"ossl, and H.~Theisel\\
+        \textbf{Core Lines in 3D Second-Order Tensor Fields}\\
+        {\emph{Computer Graphics Forum} 37.3, pp. 327--337, 2018}
+
+    \item T.~Oster, C.~R\"ossl, and H.~Theisel\\
+        \textbf{The Parallel Eigenvectors Operator}\\
+        {\emph{Vision, Modeling and Visualization}, 2018}
+\end{itemize}
+\end{document}

@@ -1,5 +1,40 @@
-\begin{otherlanguage}{ngerman}%
-\addchap*{Zusammenfassung}
+\documentclass[oneside]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman, english]{babel}
+
+\usepackage{kpfonts}
+
+% font encoding most suitable for european languages
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{nth}
+
+\usepackage{enumitem}
+\setlist{
+    topsep=1ex,
+    parsep=0pt,
+    listparindent=\parindent}
+
+\addtokomafont{disposition}{\rmfamily}
+
+\pagestyle{empty}
+
+
+\author{Timo Oster}
+
+\date{26. April 2019}
+
+\makeatletter
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\begin{document}
+\addsec*{Zusammenfassung}
 %
 Diese Arbeit pr\"asentiert neue Visualisierungsmethoden f\"ur Simulationen aus
 zwei verschiedenen Ingenieurdisziplinen: Turbulente Verbrennung und
@@ -65,5 +100,4 @@ und auf Wirbelkernlinien in Vektorfeldern basieren.
 %
 Mit diesem neuen Feature k\"onnen wir Verwindungen in Stresstensorfeldern aus
 Strukturmechaniksimulationen erkennen.
-%
-\end{otherlanguage}%
+\end{document}

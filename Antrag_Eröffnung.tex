@@ -1,0 +1,87 @@
+\documentclass{scrlttr2}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+\usepackage{kpfonts}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+
+\usepackage{enumitem}
+\setlist{
+    topsep=1ex,
+    parsep=0pt,
+    listparindent=\parindent}
+
+\KOMAoptions{
+    fromalign=right,
+    fromemail=on
+}
+
+\setkomavar{fromname}{Timo Oster}
+\setkomavar{fromaddress}{Hegelstr. 19\\39104 Magdeburg}
+\setkomavar{fromemail}[]{mail@timo-oster.net}
+\setkomavar{date}{26. April 2019}
+\setkomavar{place}{Magdeburg}
+
+\setkomavar{subject}{Antrag auf Eröffnung des Promotionsverfahrens}
+
+\begin{document}
+
+\begin{letter}{
+    Otto-von-Guericke-Universität Magdeburg\\
+    Fakultät für Informatik\\
+    Der Dekan\\
+    \vspace{0.5\baselineskip}
+    Universitätsplatz 2\\
+    39106 Magdeburg}
+
+    \opening{Sehr geehrter Herr Prof. Nürnberger,}
+
+    hiermit beantrage ich die Eröffnung des Promotionsverfahrens. In Absprache
+    mit meinem Betreuer Prof. Holger Theisel schlage ich folgende Gutachter vor:
+
+    \begin{itemize}
+        \item Prof. Dr.-Ing. habil. Dominique Thévenin\\
+              Institut für Strömungstechnik und Thermodynamik (ISUT), Fakultät
+              für Verfahrenstechnik, Otto-von-Guericke Universität Magdeburg\\
+              Adresse: Universitätsplatz 2, 39106 Magdeburg\\
+              Email: dominique.thevenin@ovgu.de
+        \item Prof. Dr. sc. Filip Sadlo\\
+              Visual Computing Group, Interdisziplinäres Zentrum für
+              Wissenschaftliches Rechnen (IWR), Ruprecht-Karls-Universität
+              Heidelberg\\
+              Adresse: Im Neuenheimer Feld 205, 69120 Heidelberg\\
+              Email: sadlo@uni-heidelberg.de
+    \end{itemize}
+
+    Ebenfalls in Rücksprache mit meinem Betreuer entstand der folgende Vorschlag
+    für die Zusammensetzung der Promotionskommission:
+
+    \begin{itemize}
+        \item ??? (Leiter)
+        \item ??? (Mitglied)
+        \item ??? (Ersatzmitglied)
+    \end{itemize}
+
+    Das Zeugnis, der Nachweis des Thesis Proposals und der Nachweis der
+    Teilnahme am Doktorandentag liegen dem Prüfungsamt vor.
+
+    \closing{Mit freundlichen Grüßen,}
+
+    \setkomavar*{enclseparator}{Anlagen}
+    \encl{
+    \begin{itemize}
+        \item Zusammenfassung der Dissertation
+        \item Liste der Publikationen
+        \item Lebenslauf/wissenschaftlicher Werdegang
+        \item Ehrenerklärung
+        \item Erklärung zur strafrechtlichen Verurteilung
+        \item Erklärung über vorherige Promotionsgesuche
+        \item Erklärung über die Kenntnisnahme der Promotionsordnung
+        \item Sieben gebundene Exemplare der Dissertationsschrift
+    \end{itemize}
+    }
+
+\end{letter}
+
+\end{document}
