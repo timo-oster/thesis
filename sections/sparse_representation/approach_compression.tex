@@ -199,8 +199,8 @@ being the unit surface normals determined from the gradient of the scalar field
 Due to the high resolution and accuracy of \ac{DNS} data, trilinear
 interpolation is sufficient.
 %
-The length of the line is chosen sufficiently large to cover the whole flame
-front.
+The length of the line is chosen empirically to cover the maximum flame
+thickness occurring in the dataset.
 %
 The resulting profiles are approximated by simple models to further reduce the
 required storage space.
@@ -393,9 +393,20 @@ voxels, which translates to $\sigma = 1$.
 Extrema are found at zero-crossings of the first derivative of the filtered
 profile.
 %
-Possible shifts of the extrema due to the filtering are corrected by mapping
-each maximum to the largest maximum, and each minimum to the smallest minimum in
-the radius of the filter size, taking care that extrema do not switch sides.
+Because of the Gaussian filtering, the extrema might shift from their original
+positions.
+%
+We correct this by mapping extrema back to their corresponding positions in the
+unfiltered profile.
+%
+Each maximum of the filtered profile is mapped back to the largest maximum
+of the unfiltered profile within a radius of at most one filter kernel width.
+%
+Minima of the filtered profiles are mapped to their corresponding positions in
+the unfiltered profiles using the same approach.
+%
+During this mapping, we must ensure that the order of extrema along the profile
+stays the same, and extrema to not switch positions.
 %
 For finding inflection points, we use the same approach but on the second
 derivative.

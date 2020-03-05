@@ -6,20 +6,20 @@ and temporal domains $D \subset \EESet^n$ and $T \subset \RRSet$ to the
 $n$-dimensional vector space $\RRSet^n$.
 %
 Just like a scalar field, it assigns a value to each position and time in the
-domains, but this time the value is a vector.
+domains, but here the value is a vector.
 %
 Examples for vector fields are the velocity of a fluid flow, the displacement
 field of a deformed object, and the magnetic field around an electromagnet.
 %
 If the vector field does not change with time, or we are only interested in the
 field at a single instant, we say that we have a \emph{steady} vector field
-$\vv(\vx)$.
+$\vv(\vx, t_c)$, where $t_c$ is constant.
 %
 If the vector field changes with time, we call it an \emph{unsteady} vector
 field.
 %
-If we are talking about a vector field representing the velocity of a fluid
-flow, we sometimes call it a (steady or unsteady) \emph{flow field}.
+If we are talking about the velocity of a fluid flow, we sometimes call it a
+(steady or unsteady) \emph{flow field}.
 %
 
 %
@@ -34,6 +34,16 @@ We will visit the most important methods in the following sections.
 %
 \subsection{Basic Methods} % (fold)
 \label{sub:vector_basic}
+%
+\begin{figure}[t]
+    % \centering
+    \begin{captionbeside}
+        {\ac{LIC} of a \ac{2D} vector field with overlaid vector field topology
+        consisting of critical points, boundary switch points, and separatrices.
+        Image source: Tino Weinkauf~\cite{Weinkauf2008}.\label{fig:lic_topo}}
+        \includegraphics[width=0.6\textwidth]{figures/lic_topology.png}
+    \end{captionbeside}
+\end{figure}
 %
 Basic methods display the vector data using simple techniques, much like
 image-based methods for scalar fields.
@@ -176,14 +186,6 @@ and the accompanying surfaces.
 Since integral structures play an important role in several parts of this
 thesis, we will cover them here in more detail.
 %
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figures/pathlines_aneurysm.png}
-    \caption{Streamlines in a simulated flow through a cranial aneurysm.
-             Image courtesy of Tim Gerrits~\cite{Gerrits2018}.}
-    \label{fig:streamlines}
-\end{figure}
-%
 
 \subsubsection{Streamlines} % (fold)
 \label{ssub:streamlines}
@@ -198,8 +200,8 @@ lines}.
 A streamline is a curve that is tangent to the vector field everywhere along its
 path.
 %
-Given a streamline $\vc(s)$ of the steady vector field $\vv(\vx)$, this means
-that $\dot{\vc}(s) \times \vv(\vc(s))$ is $\vNull$ for all $s$.
+Given a streamline $\vc(s)$ of the steady vector field $\vv(\vx, t_c)$, this
+means that $\dot{\vc}(s) \times \vv(\vc(s), t_c)$ is $\vNull$ for all $s$.
 %
 This criterion is valid for any parameterization of the curve, but we can only
 use it to check if a given curve is a streamline.
@@ -207,7 +209,7 @@ use it to check if a given curve is a streamline.
 To compute streamlines, we typically solve the ordinary differential equation
 %
 \begin{equation*}
-    \frac{\partial \vc(s)}{\partial s} = \vv(\vc(s))
+    \frac{\partial \vc(s)}{\partial s} = \vv(\vc(s), t_c)
     \text{,} \quad \text{with} \quad \vc(0) = \vx_0 \, \text{.}
 \end{equation*}
 %
@@ -237,6 +239,14 @@ can deviate significantly from the streamlines of a single time slice.
 In this case, the more appropriate visualization tools are pathlines,
 streaklines, and timelines, which incorporate the temporal information of the
 flow.
+%
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/pathlines_aneurysm.png}
+    \caption{Streamlines in a simulated flow through a cranial aneurysm.
+             Image courtesy of Tim Gerrits~\cite{Gerrits2018}.}
+    \label{fig:streamlines}
+\end{figure}
 %
 % subsubsection streamlines (end)
 
@@ -390,16 +400,6 @@ The topology of a vector field is defined by \emph{critical points},
 %
 Together, they form a sort of skeleton of the vector field, from which the
 behavior of the full field can be inferred.
-%
-\begin{figure}[t]
-    % \centering
-    \begin{captionbeside}
-        {\ac{LIC} of a \ac{2D} vector field with overlaid vector field topology
-        consisting of critical points, boundary switch points, and separatrices.
-        Image source: Tino Weinkauf~\cite{Weinkauf2008}.\label{fig:lic_topo}}
-        \includegraphics[width=0.6\textwidth]{figures/lic_topology.png}
-    \end{captionbeside}
-\end{figure}
 %
 
 \subsubsection{Critical Points} % (fold)
@@ -651,8 +651,8 @@ In most cases, $\lambda_2$-criterion and Q-criterion yield similar results.
 \subsubsection{\acs{IVD}/\acs{LAVD}} % (fold)
 \label{ssub:ivd_lavd}
 %
-Recently, Haller \etal{}~\cite{Haller2016} proposed the \acf{IVD} as an objective
-vortex measure for steady flow fields.
+Recently, the \acf{IVD} was proposed by Haller \etal{}~\cite{Haller2016} as an
+objective vortex measure for steady flow fields.
 %
 It is based on the observation that while the vorticity itself is not objective,
 the difference between two vorticity vectors is.
